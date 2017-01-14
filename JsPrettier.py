@@ -28,7 +28,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if self.view.file_name() is None:
             sublime.error_message(
                 '%s Error\n\n'
-                'The current view/buffer must be saved before '
+                'The current view/buffer must be Saved before '
                 'running JsPrettier.'
                 % (PLUGIN_NAME))
             return

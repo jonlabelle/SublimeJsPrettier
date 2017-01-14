@@ -1,4 +1,20 @@
-[{
-	"caption": "JsPrettier: Format JavaScript",
-	"command": "js_prettier"
-}]
+[
+	{
+		"caption": "JsPrettier: Format JavaScript",
+		"command": "js_prettier"
+	},
+	{
+		"caption": "Preferences: JsPrettier Settings - Default",
+		"command": "open_file",
+		"args": {
+			"file": "${packages}/SublimeJsPrettier/JsPrettier.sublime-settings"
+		}
+	},
+	{
+		"caption": "Preferences: JsPrettier Settings - User",
+		"command": "open_file",
+		"args": {
+			"file": "${packages}/User/JsPrettier.sublime-settings"
+		}
+	}
+]
