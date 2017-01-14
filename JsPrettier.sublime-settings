@@ -2,30 +2,27 @@
 	//
 	// If Sublime Text has trouble finding the path to the node.js executable,
 	// you can explicitly specify the `node` bin path here:
+
 	"node_path" : ":/usr/local/bin",
 
 	//
 	// For a complete list of supported options and acceptable values, please
 	// reference the `prettier` project documentation @ https://github.com/jlongster/prettier
+
 	"config": {
 
-		//
 		// Fit code within this line limit
 		"printWidth": 80,
 
-		//
 		// Use the flow parser instead of babylon
 		"useFlowParser": false,
 
-		//
 		// If true, will use single instead of double quotes
 		"singleQuote": false,
 
-		//
 		// Controls the printing of trailing commas wherever possible
 		"trailingComma": false,
 
-		//
 		// Controls the printing of spaces inside array and objects
 		"bracketSpacing": true
 

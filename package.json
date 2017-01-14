@@ -4,6 +4,6 @@
     "version": "1.0.0",
     "private": true,
     "dependencies": {
-        "prettier": "0.0.5"
+        "prettier": "latest"
     }
 }
