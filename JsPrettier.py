@@ -36,6 +36,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         config = self.get_config()
         config['tabWidth'] = self.get_tab_size()
 
+        #
+        # format entire file:
         if not self.has_selection():
             region = sublime.Region(0, self.view.size())
             source = self.view.substr(region)
@@ -43,8 +45,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if transformed:
                 self.view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: code formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: JavaScript formatted.'.format(PLUGIN_NAME)), 0)
             return
+
+        #
+        # format each selection:
         for region in self.view.sel():
             if region.empty():
                 continue
@@ -53,7 +58,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if transformed:
                 self.view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: code formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: JavaScript formatted.'.format(PLUGIN_NAME)), 0)
 
     def prettier(self, source, config):
         config = json.dumps(config)
@@ -79,6 +84,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "%s"
                 % (PLUGIN_NAME, stderr.decode('utf-8')))
 
+    def is_js(self):
+        return self.view.scope_name(0).startswith('source.js')
+
     def get_env(self):
         env = None
         if self.is_osx():
@@ -101,10 +109,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def get_tab_size(self):
         return int(self.view.settings().get('tab_size', 2))
 
-    @staticmethod
-    def get_syntax():
-        return 'js'
-
     def has_selection(self):
         for sel in self.view.sel():
             start, end = sel
@@ -113,12 +117,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
+    def get_syntax():
+        return 'js'
+
+    @staticmethod
     def is_osx():
         return platform.system() == 'Darwin'
 
     @staticmethod
     def is_windows():
         return platform.system() == 'Windows'
-
-    def is_js(self):
-        return self.view.scope_name(0).startswith('source.js')
