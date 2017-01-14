@@ -58,7 +58,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         except OSError:
             raise Exception(
                 "{0} - node.js program path not found! Please ensure "
-                "the node.js executable path is specified to in the "
+                "the node.js executable path is specified in your "
                 "$PATH env variable by running `node -v` from the "
                 "command-line.".format(PLUGIN_NAME))
 
