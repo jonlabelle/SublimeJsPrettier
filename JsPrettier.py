@@ -27,6 +27,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return
 
         config = self.get_config()
+        config['tabWidth'] = self.get_tab_size()
 
         if not self.has_selection():
             region = sublime.Region(0, self.view.size())
@@ -79,6 +80,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def get_config(self):
         return self.get_settings().get('config')
+
+    def get_tab_size(self):
+        return int(self.view.settings().get('tab_size', 2))
 
     @staticmethod
     def get_syntax():
