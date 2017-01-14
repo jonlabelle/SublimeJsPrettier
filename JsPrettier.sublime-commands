@@ -1,0 +1,4 @@
+[{
+	"caption": "JsPrettier: Format JavaScript",
+	"command": "js_prettier"
+}]

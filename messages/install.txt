@@ -1,0 +1,29 @@
+# Sublime Text JavaScript Prettier
+
+    A Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.
+
+## IMPORTANT: Installing the node.js Dependencies
+
+    cd to the "SublimeJsPrettier" package directory, and install
+    the node.js dependencies using npm.
+
+    For example, on macOS:
+
+        $ cd ~/Library/Application Support/Sublime Text 3/Packages/SublimeJsPrettier
+        $ npm install
+
+## Usage
+
+    To run the JsPrettier command... open the Sublime Text Command Palette (shift + super + p),
+    and type "JsPrettier: Format JavaScript".
+
+## Settings
+
+    All Prettier options are configurable from the "JsPrettier.sublime-settings"
+    file, accessible from the Preferences > Package Settings > JsPrettier
+    menu shortcut.
+
+## Help
+
+    For additional help, including issue reporting... please visit the
+    Sublime Text JavaScript Prettier at <https://github.com/jonlabelle/SublimeJsPrettier>.
