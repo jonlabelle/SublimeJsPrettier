@@ -14,13 +14,12 @@ sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_NAME = 'JsPrettier'
-SETTINGS_FILE = PLUGIN_NAME + '.sublime-settings'
-JS_FILE = PLUGIN_NAME.lower() + '.js'
+SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
+JS_FILE = '{0}.js'.format(PLUGIN_NAME.lower())
 PRETTIER_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)), JS_FILE)
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
-
     def run(self, edit):
         syntax = self.get_syntax()
         if not syntax:
@@ -35,7 +34,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             transformed = self.prettier(source, config)
             if transformed:
                 self.view.replace(edit, region, transformed)
-                sublime.set_timeout(lambda: sublime.status_message(PLUGIN_NAME + ': code formatted.'), 0)
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: code formatted.'.format(PLUGIN_NAME)), 0)
             return
         for region in self.view.sel():
             if region.empty():
@@ -44,23 +44,30 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             transformed = self.prettier(source, config)
             if transformed:
                 self.view.replace(edit, region, transformed)
-                sublime.set_timeout(lambda: sublime.status_message(PLUGIN_NAME + ': code formatted.'), 0)
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: code formatted.'.format(PLUGIN_NAME)), 0)
 
     def prettier(self, source, config):
         config = json.dumps(config)
         folder = os.path.dirname(self.view.file_name())
+
         try:
             p = Popen(['node', PRETTIER_PATH, config, folder],
                       stdout=PIPE, stdin=PIPE, stderr=PIPE,
                       env=self.get_env(), shell=self.is_windows())
         except OSError:
-            raise Exception(PLUGIN_NAME + ": couldn't find node.js. Make sure it's in your "
-                            '$PATH by running `node -v` in your command-line.')
+            raise Exception(
+                "{0} - node.js program path not found! Please ensure "
+                "the node.js executable path is specified to in the "
+                "$PATH env variable by running `node -v` from the "
+                "command-line.".format(PLUGIN_NAME))
+
         stdout, stderr = p.communicate(input=source.encode('utf-8'))
         if stdout:
             return stdout.decode('utf-8')
         else:
-            sublime.error_message(PLUGIN_NAME + ' error:\n%s' % stderr.decode('utf-8'))
+            sublime.error_message(
+                "%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
 
     def get_env(self):
         env = None
