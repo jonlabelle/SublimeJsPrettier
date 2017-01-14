@@ -28,7 +28,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if self.view.file_name() is None:
             sublime.error_message(
                 '%s Error\n\n'
-                'The current view/buffer must be saved before running JsPrettier.'
+                'The current view/buffer must be saved before '
+                'running JsPrettier.'
                 % (PLUGIN_NAME))
             return
 
@@ -65,16 +66,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         except OSError:
             raise Exception(
                 "{0} - node.js program path not found! Please ensure "
-                "the node.js executable path is specified in your "
-                "$PATH env variable by running `node -v` from the "
-                "command-line.".format(PLUGIN_NAME))
+                "the path to node.js is set in your $PATH env variable "
+                "by running `node -v` from the command-line."
+                    .format(PLUGIN_NAME))
 
         stdout, stderr = p.communicate(input=source.encode('utf-8'))
         if stdout:
             return stdout.decode('utf-8')
         else:
             sublime.error_message(
-                "%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
+                "%s Error\n\n"
+                "%s"
+                % (PLUGIN_NAME, stderr.decode('utf-8')))
 
     def get_env(self):
         env = None
@@ -101,11 +104,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def get_syntax():
         return 'js'
-        # if self.is_js():
-        #     return 'js'
-        # if self.is_unsaved_buffer_without_syntax():
-        #     return 'js'
-        # return False
 
     def has_selection(self):
         for sel in self.view.sel():
@@ -121,12 +119,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def is_windows():
         return platform.system() == 'Windows'
-
-    def is_unsaved_buffer_without_syntax(self):
-        return self.view.file_name() is None and self.is_plaintext() is True
-
-    def is_plaintext(self):
-        return self.view.scope_name(0).startswith('text.plain')
 
     def is_js(self):
         return self.view.scope_name(0).startswith('source.js')
