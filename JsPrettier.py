@@ -25,6 +25,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not syntax:
             return
 
+        if self.view.file_name() is None:
+            sublime.error_message(
+                '%s Error\n\n'
+                'The current view/buffer must be saved before running JsPrettier.'
+                % (PLUGIN_NAME))
+            return
+
         config = self.get_config()
         config['tabWidth'] = self.get_tab_size()
 
