@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import json
-import os
-import platform
+from json import dumps
+from os import path, environ
+from platform import system
+from subprocess import PIPE, Popen
+
 import sublime
 import sublime_plugin
-
-from subprocess import PIPE, Popen
 
 #
 # monkey patch `Region` to be iterable:
@@ -14,9 +14,10 @@ sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_NAME = 'JsPrettier'
+PLUGIN_PATH = path.join(sublime.packages_path(), path.dirname(path.realpath(__file__)))
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
-JS_FILE = '{0}.js'.format(PLUGIN_NAME.lower())
-PRETTIER_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)), JS_FILE)
+JS_PRETTIER_FILE = '{0}.js'.format(PLUGIN_NAME.lower())
+JS_PRETTIER_PATH = path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -30,7 +31,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 '%s Error\n\n'
                 'The current view/buffer must be Saved before '
                 'running JsPrettier.'
-                % (PLUGIN_NAME))
+                % PLUGIN_NAME)
             return
 
         config = self.get_config()
@@ -61,19 +62,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: JavaScript formatted.'.format(PLUGIN_NAME)), 0)
 
     def prettier(self, source, config):
-        config = json.dumps(config)
-        folder = os.path.dirname(self.view.file_name())
+        config = dumps(config)
+        cwd = path.dirname(self.view.file_name())
 
         try:
-            p = Popen(['node', PRETTIER_PATH, config, folder],
+            p = Popen(['node', JS_PRETTIER_PATH, config, cwd],
                       stdout=PIPE, stdin=PIPE, stderr=PIPE,
                       env=self.get_env(), shell=self.is_windows())
         except OSError:
             raise Exception(
                 "{0} - node.js program path not found! Please ensure "
                 "the path to node.js is set in your $PATH env variable "
-                "by running `node -v` from the command-line."
-                    .format(PLUGIN_NAME))
+                "by running `node -v` from the command-line.".format(PLUGIN_NAME))
 
         stdout, stderr = p.communicate(input=source.encode('utf-8'))
         if stdout:
@@ -90,7 +90,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def get_env(self):
         env = None
         if self.is_osx():
-            env = os.environ.copy()
+            env = environ.copy()
             env['PATH'] += self.get_node_path()
         return env
 
@@ -122,8 +122,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def is_osx():
-        return platform.system() == 'Darwin'
+        return system() == 'Darwin'
 
     @staticmethod
     def is_windows():
-        return platform.system() == 'Windows'
+        return system() == 'Windows'

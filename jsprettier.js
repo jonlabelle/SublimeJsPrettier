@@ -9,15 +9,17 @@ process.stdin.on('data', function(data) {
 });
 
 process.stdin.on('end', function() {
+    var config = process.argv[2],
+        cwd = process.argv[3];
+
     var formatOptions;
     try {
-        formatOptions = JSON.parse(process.argv[2]);
+        formatOptions = JSON.parse(config);
     } catch (e) {
         formatOptions = {};
     }
 
-    process.chdir(process.argv[3]);
-
+    process.chdir(cwd);
     var transformed = prettier.format(source, formatOptions);
     process.stdout.write(transformed);
 });
