@@ -66,23 +66,21 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         cwd = path.dirname(self.view.file_name())
 
         try:
-            p = Popen(['node', JS_PRETTIER_PATH, config, cwd],
-                      stdout=PIPE, stdin=PIPE, stderr=PIPE,
-                      env=self.get_env(), shell=self.is_windows())
+            node_pipe = Popen(['node', JS_PRETTIER_PATH, config, cwd],
+                              stdout=PIPE, stdin=PIPE, stderr=PIPE,
+                              env=self.get_env(), shell=self.is_windows())
         except OSError:
             raise Exception(
                 "{0} - node.js program path not found! Please ensure "
                 "the path to node.js is set in your $PATH env variable "
                 "by running `node -v` from the command-line.".format(PLUGIN_NAME))
 
-        stdout, stderr = p.communicate(input=source.encode('utf-8'))
+        stdout, stderr = node_pipe.communicate(input=source.encode('utf-8'))
         if stdout:
             return stdout.decode('utf-8')
         else:
-            sublime.error_message(
-                "%s Error\n\n"
-                "%s"
-                % (PLUGIN_NAME, stderr.decode('utf-8')))
+            return sublime.error_message(
+                "%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
 
     def is_js(self):
         return self.view.scope_name(0).startswith('source.js')
