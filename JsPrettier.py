@@ -22,10 +22,6 @@ JS_PRETTIER_PATH = path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        syntax = self.get_syntax()
-        if not syntax:
-            return
-
         if self.view.file_name() is None:
             sublime.error_message(
                 '%s Error\n\n'
@@ -115,10 +111,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if start != end:
                 return True
         return False
-
-    @staticmethod
-    def get_syntax():
-        return 'js'
 
     @staticmethod
     def is_osx():
