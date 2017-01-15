@@ -1,21 +1,33 @@
 # Sublime Text JavaScript Prettier
 
-    A Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.
+    A Sublime Text Plug-in for Prettier, the opinionated JavaScript formatter.
 
-## IMPORTANT: Installing the node.js Dependencies
+## Install Prettier
 
-    cd to the "SublimeJsPrettier" package directory, and install
-    the node.js dependencies using npm.
+    If you installed Prettier globally (using the npm command below), there is
+    nothing else you need to do.
+
+    $ npm install -g prettier
+    
+    Local Prettier Installation (optional)
+
+    You can optionally install Prettier directly in in Sublime Text JavaScript
+    Prettier Package directory.
+
+    cd to the "SublimeJsPrettier" package directory, and install Prettier using npm.
 
     For example, on macOS:
 
         $ cd ~/Library/Application Support/Sublime Text 3/Packages/SublimeJsPrettier
         $ npm install
+        
+    > NOTE If you have both local and global versions of Prettier installed,
+    > the local version will override the globally installed version.
 
 ## Usage
 
-    To run the JsPrettier command... open the Sublime Text Command Palette (shift + super + p),
-    and type "JsPrettier: Format JavaScript".
+    To run the JsPrettier command... open the Sublime Text Command Palette
+    (shift + super + p), and type "JsPrettier: Format JavaScript".
 
 ## Settings
 

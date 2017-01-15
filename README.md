@@ -13,6 +13,7 @@ The Sublime Text JavaScript Prettier plug-in requires the following programs:
 
 - [node.js]
 - [npm]
+- [prettier]
 
 ### Package Control
 
@@ -39,7 +40,17 @@ Sublime Text Packages directory.
 > **NOTE** Replace the `[2|3]` part with the appropriate Sublime Text
 > version for your installation.
 
-### Installing the node.js Dependencies
+### Install Prettier
+
+If you installed [Prettier] globally (using the npm command below), there is
+nothing else you need to do.
+
+	$ npm install -g prettier
+	
+**Local Prettier Installation** (*optional*)
+
+You can optionally install [Prettier] directly in in Sublime Text JavaScript
+Prettier Package directory.
 
 **cd** to the `SublimeJsPrettier` [package directory], and install
 the [node.js] dependencies using [npm].
@@ -48,6 +59,9 @@ For example, on **macOS:**
 
 	$ cd ~/Library/Application Support/Sublime Text 3/Packages/SublimeJsPrettier
 	$ npm install
+	
+> **NOTE** If you have both local and global versions of [Prettier] installed,
+> the local version will override the globally installed version.
 
 ## Usage
 
