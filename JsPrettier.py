@@ -39,7 +39,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             transformed = self.prettier(source, config)
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: File is already formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             else:
                 self.view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
@@ -55,7 +55,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             transformed = self.prettier(source, config)
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: Selections already formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)), 0)
             else:
                 self.view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
