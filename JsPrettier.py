@@ -23,12 +23,10 @@ JS_PRETTIER_PATH = path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 class JsPrettierCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         if self.view.file_name() is None:
-            sublime.error_message(
+            return sublime.error_message(
                 '%s Error\n\n'
-                'The current view/buffer must be Saved before '
-                'running JsPrettier.'
-                % PLUGIN_NAME)
-            return
+                'The current View must be Saved\n'
+                'before running JsPrettier.' % PLUGIN_NAME)
 
         config = self.get_config()
         config['tabWidth'] = self.get_tab_size()
@@ -39,10 +37,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, self.view.size())
             source = self.view.substr(region)
             transformed = self.prettier(source, config)
-            if transformed:
+            if transformed and transformed == source:
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: File is already formatted.'.format(PLUGIN_NAME)), 0)
+            else:
                 self.view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: JavaScript formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: File formatted.'.format(PLUGIN_NAME)), 0)
             return
 
         #
@@ -52,10 +53,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
             source = self.view.substr(region)
             transformed = self.prettier(source, config)
-            if transformed:
+            if transformed and transformed == source:
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: Selections already formatted.'.format(PLUGIN_NAME)), 0)
+            else:
                 self.view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: JavaScript formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
     def prettier(self, source, config):
         config = dumps(config)
