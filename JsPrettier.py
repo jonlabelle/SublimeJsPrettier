@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import os
 import json
 import platform
@@ -20,11 +19,12 @@ SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 JS_PRETTIER_FILE = '{0}.js'.format(PLUGIN_NAME.lower())
 JS_PRETTIER_PATH = os.path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 
-setting_keys = [
-    {'key': 'tabWidth',       'option': '--tab-width'},
-    {'key': 'useFlowParser',  'option': '--flow-parser'},
-    {'key': 'singleQuote',    'option': '--single-quote'},
-    {'key': 'trailingComma',  'option': '--trailing-comma'},
+PRETTIER_OPTION_CLI_MAP = [
+    {'key': 'printWidth', 'option': '--print-width'},
+    {'key': 'tabWidth', 'option': '--tab-width'},
+    {'key': 'useFlowParser', 'option': '--flow-parser'},
+    {'key': 'singleQuote', 'option': '--single-quote'},
+    {'key': 'trailingComma', 'option': '--trailing-comma'},
     {'key': 'bracketSpacing', 'option': '--bracket-spacing'},
 ]
 
@@ -103,20 +103,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
 
     def prettier_global_cli(self, source, config):
-        options = []
+        prettier_cli_opts = self.parse_settings_to_cli_args(config)
 
-        # convert the sublime-settings into cli args
-        for setting in setting_keys:
-            opt = config[setting['key']]
-            if opt:
-                options.append(setting['option'])
-                if not isinstance(opt, bool):
-                    options.append(str(opt))
-
-        command = [self.get_prettier_global_cli_path()] + options + ['--stdin']
-        proc = Popen(command, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
+        cmd = [self.get_prettier_global_cli_path()] + prettier_cli_opts + ['--stdin']
+        proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
         stdout, stderr = proc.communicate(input=source.encode('utf-8'))
-
         if stderr or proc.returncode != 0:
             return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
         else:
@@ -170,6 +161,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_windows():
         return platform.system() == 'Windows'
 
+    @staticmethod
+    def parse_settings_to_cli_args(config):
+        prettier_cli_opts = []
+        for mapping in PRETTIER_OPTION_CLI_MAP:
+            opt = config[mapping['key']]
+            if opt:
+                prettier_cli_opts.append(mapping['option'])
+                if not isinstance(opt, bool):
+                    prettier_cli_opts.append(str(opt))
+        return prettier_cli_opts
+
 
 def which(executable, path=None):
     """
@@ -184,10 +186,6 @@ def which(executable, path=None):
     if path is None:
         path = os.environ['PATH']
     paths = path.split(os.pathsep)
-
-    # base, ext = os.path.splitext(executable)
-    # if (sys.platform == 'win32' or os.name == 'os2') and (ext != '.exe'):
-    #     executable = executable + '.exe'
 
     if not os.path.isfile(executable):
         for p in paths:
