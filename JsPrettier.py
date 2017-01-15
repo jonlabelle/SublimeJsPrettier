@@ -195,3 +195,15 @@ def which(executable, path=None):
         return None
     else:
         return executable
+
+class CommandOnSave(sublime_plugin.EventListener):
+    def get_settings(self, view):
+        settings = view.settings().get(PLUGIN_NAME)
+        if settings is None:
+            settings = sublime.load_settings(SETTINGS_FILE)
+        return settings
+    def is_enabled(self, view):
+        return self.get_settings(view).get('autoformat')
+    def on_pre_save(self, view):
+        if self.is_enabled(view) and view.scope_name(0).startswith('source.js'):
+            view.run_command("js_prettier")
