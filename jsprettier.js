@@ -1,9 +1,11 @@
+'use strict';
+
 var prettier = require("prettier");
+
 var source = '';
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
-
 process.stdin.on('data', function(data) {
     source += data;
 });
@@ -19,7 +21,7 @@ process.stdin.on('end', function() {
         formatOptions = {};
     }
 
-    process.chdir(cwd);
     var transformed = prettier.format(source, formatOptions);
+    process.chdir(cwd);
     process.stdout.write(transformed);
 });
