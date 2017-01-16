@@ -197,14 +197,17 @@ def which(executable, path=None):
     else:
         return executable
 
+
 class CommandOnSave(sublime_plugin.EventListener):
     def get_settings(self, view):
         settings = view.settings().get(PLUGIN_NAME)
         if settings is None:
             settings = sublime.load_settings(SETTINGS_FILE)
         return settings
+
     def is_enabled(self, view):
-        return self.get_settings(view).get('autoformat')
+        return self.get_settings(view).get('auto_format_on_save')
+
     def on_pre_save(self, view):
         ext = splitext(view.file_name())[1][1:]
         if self.is_enabled(view) and ext == 'js':

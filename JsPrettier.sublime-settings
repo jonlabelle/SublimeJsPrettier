@@ -4,10 +4,11 @@
 	// you can explicitly specify the `node` bin path here:
 
 	"node_path" : ":/usr/local/bin",
-        
-	// Run Prettier on save if file is .js 
-	"autoformat" : false,
-		
+
+	//
+	// Run Prettier on file save
+	"auto_format_on_save" : false,
+
 	//
 	// For a complete list of supported options and acceptable values, please
 	// reference the `prettier` project documentation @ https://github.com/jlongster/prettier
