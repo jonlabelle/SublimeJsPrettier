@@ -18,12 +18,12 @@ The Sublime Text JavaScript Prettier plug-in requires the following programs:
 ### Package Control
 
 The easiest and recommended way to install Sublime Text JavaScript Prettier is
-using Package Control.
+using [Package Control].
 
 From the **main application menu**, navigate to:
 
 - **Tools** -> **Command Palette...** -> **Package Control: Install Package**,
-type the word ***JsPrettier*** and select it to complete installation.
+type the word ***JsPrettier***, then select it to complete installation.
 
 ### Manual Download
 
