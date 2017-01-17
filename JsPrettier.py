@@ -7,7 +7,6 @@ import sublime
 import sublime_plugin
 
 from subprocess import PIPE, Popen
-from os.path import splitext
 
 #
 # monkey patch `Region` to be iterable:
@@ -176,7 +175,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        ext = splitext(view.file_name())[1][1:]
+        ext = os.splitext(view.file_name())[1][1:]
         if self.is_enabled(view) and ext == 'js':
             view.run_command("js_prettier")
 
