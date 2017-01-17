@@ -11,12 +11,12 @@ process.stdin.on('data', function(data) {
 });
 
 process.stdin.on('end', function() {
-    var config = process.argv[2],
+    var prettierOptions = process.argv[2],
         cwd = process.argv[3];
 
     var formatOptions;
     try {
-        formatOptions = JSON.parse(config);
+        formatOptions = JSON.parse(prettierOptions);
     } catch (e) {
         formatOptions = {};
     }
