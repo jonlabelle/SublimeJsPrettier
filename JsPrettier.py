@@ -10,7 +10,7 @@ from os.path import splitext
 from subprocess import PIPE, Popen
 
 #
-# monkey patch `Region` to be iterable:
+# Monkey patch `sublime.Region` so it can be iterable:
 sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
@@ -42,15 +42,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options['tabWidth'] = self.get_tab_size()
 
         #
-        # format entire file:
+        # Format entire file:
         if not self.has_selection():
             region = sublime.Region(0, self.view.size())
             source = self.view.substr(region)
 
-            if not self.is_prettier_global_cli_installed():
-                transformed = self.prettier_local(source, prettier_options)
+            if not self.is_global_prettier_installed():
+                transformed = self.run_local_prettier(source, prettier_options)
             else:
-                transformed = self.prettier_global_cli(source, prettier_options)
+                transformed = self.run_global_prettier(source, prettier_options)
 
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
@@ -62,17 +62,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return
 
         #
-        # format each selection:
+        # Format each selection:
         for region in self.view.sel():
             if region.empty():
                 continue
 
             source = self.view.substr(region)
 
-            if not self.is_prettier_global_cli_installed():
-                transformed = self.prettier_local(source, prettier_options)
+            if not self.is_global_prettier_installed():
+                transformed = self.run_local_prettier(source, prettier_options)
             else:
-                transformed = self.prettier_global_cli(source, prettier_options)
+                transformed = self.run_global_prettier(source, prettier_options)
 
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
@@ -82,7 +82,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def prettier_local(self, source, prettier_options):
+    def run_local_prettier(self, source, prettier_options):
         prettier_options = json.dumps(prettier_options)
         cwd = os.path.dirname(self.view.file_name())
 
@@ -102,10 +102,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         else:
             return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
 
-    def prettier_global_cli(self, source, prettier_options):
+    def run_global_prettier(self, source, prettier_options):
         prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
 
-        cmd = [self.get_prettier_global_cli_path()] + prettier_cli_opts + ['--stdin']
+        cmd = [self.get_global_prettier_path()] + prettier_cli_opts + ['--stdin']
         proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
         stdout, stderr = proc.communicate(input=source.encode('utf-8'))
         if stderr or proc.returncode != 0:
@@ -118,7 +118,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def get_env(self):
         env = None
-        if self.is_osx():
+        if self.is_mac_os():
             env = os.environ.copy()
             env['PATH'] += self.get_node_path()
         return env
@@ -126,12 +126,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def get_node_path(self):
         return self.get_settings().get('node_path')
 
-    def is_prettier_global_cli_installed(self):
+    def is_global_prettier_installed(self):
         if which('prettier', self.get_node_path()) is None:
             return False
         return True
 
-    def get_prettier_global_cli_path(self):
+    def get_global_prettier_path(self):
         return which('prettier', self.get_node_path())
 
     def get_settings(self):
@@ -154,7 +154,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def is_osx():
+    def is_mac_os():
         return platform.system() == 'Darwin'
 
     @staticmethod
