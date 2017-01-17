@@ -13,7 +13,7 @@
 	// For a complete list of supported options and acceptable values, please
 	// reference the `prettier` project documentation @ https://github.com/jlongster/prettier
 
-	"config": {
+	"prettier_options": {
 
 		// Fit code within this line limit
 		"printWidth": 80,

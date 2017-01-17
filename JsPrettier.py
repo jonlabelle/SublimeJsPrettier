@@ -21,12 +21,12 @@ JS_PRETTIER_FILE = '{0}.js'.format(PLUGIN_NAME.lower())
 JS_PRETTIER_PATH = os.path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 
 PRETTIER_OPTION_CLI_MAP = [
-    {'key': 'printWidth', 'option': '--print-width'},
-    {'key': 'tabWidth', 'option': '--tab-width'},
-    {'key': 'useFlowParser', 'option': '--flow-parser'},
-    {'key': 'singleQuote', 'option': '--single-quote'},
-    {'key': 'trailingComma', 'option': '--trailing-comma'},
-    {'key': 'bracketSpacing', 'option': '--bracket-spacing'},
+    {'option': 'printWidth', 'cli': '--print-width'},
+    {'option': 'tabWidth', 'cli': '--tab-width'},
+    {'option': 'useFlowParser', 'cli': '--flow-parser'},
+    {'option': 'singleQuote', 'cli': '--single-quote'},
+    {'option': 'trailingComma', 'cli': '--trailing-comma'},
+    {'option': 'bracketSpacing', 'cli': '--bracket-spacing'},
 ]
 
 
@@ -38,7 +38,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'The current View must be Saved\n'
                 'before running JsPrettier.' % PLUGIN_NAME)
 
-        config = self.get_config()
+        config = self.get_prettier_options()
         config['tabWidth'] = self.get_tab_size()
 
         #
@@ -104,7 +104,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
 
     def prettier_global_cli(self, source, config):
-        prettier_cli_opts = self.parse_settings_to_cli_args(config)
+        prettier_cli_opts = self.parse_prettier_option_cli_map(config)
 
         cmd = [self.get_prettier_global_cli_path()] + prettier_cli_opts + ['--stdin']
         proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
@@ -141,8 +141,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             settings = sublime.load_settings(SETTINGS_FILE)
         return settings
 
-    def get_config(self):
-        return self.get_settings().get('config')
+    def get_prettier_options(self):
+        return self.get_settings().get('prettier_options')
 
     def get_tab_size(self):
         return int(self.view.settings().get('tab_size', 2))
@@ -163,27 +163,35 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return platform.system() == 'Windows'
 
     @staticmethod
-    def parse_settings_to_cli_args(config):
-        prettier_cli_opts = []
+    def parse_prettier_option_cli_map(config):
+        prettier_cli_args = []
         for mapping in PRETTIER_OPTION_CLI_MAP:
-            opt = config[mapping['key']]
-            if opt:
-                prettier_cli_opts.append(mapping['option'])
-                if not isinstance(opt, bool):
-                    prettier_cli_opts.append(str(opt))
-        return prettier_cli_opts
+            option = config[mapping['option']]
+            if option:
+                prettier_cli_args.append(mapping['cli'])
+                if not isinstance(option, bool):
+                    prettier_cli_args.append(str(option))
+        return prettier_cli_args
+
+
+class CommandOnSave(sublime_plugin.EventListener):
+    def on_pre_save(self, view):
+        ext = splitext(view.file_name())[1][1:]
+        if self.is_enabled(view) and ext == 'js':
+            view.run_command("js_prettier")
+
+    def is_enabled(self, view):
+        return self.get_settings(view).get('auto_format_on_save', False)
+
+    @staticmethod
+    def get_settings(view):
+        settings = view.settings().get(PLUGIN_NAME)
+        if settings is None:
+            settings = sublime.load_settings(SETTINGS_FILE)
+        return settings
 
 
 def which(executable, path=None):
-    """
-    Tries to find 'executable' in the directories
-    listed in 'path' parameter. Similar to the
-    'NIX `which` command.
-
-    :param executable: The program to search for.
-    :param path: A string listing directories separated by 'os.pathsep';defaults to os.environ['PATH'].
-    :return: The complete filename, or None if not found.
-    """
     if path is None:
         path = os.environ['PATH']
     paths = path.split(os.pathsep)
@@ -196,19 +204,3 @@ def which(executable, path=None):
         return None
     else:
         return executable
-
-
-class CommandOnSave(sublime_plugin.EventListener):
-    def get_settings(self, view):
-        settings = view.settings().get(PLUGIN_NAME)
-        if settings is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        return settings
-
-    def is_enabled(self, view):
-        return self.get_settings(view).get('auto_format_on_save')
-
-    def on_pre_save(self, view):
-        ext = splitext(view.file_name())[1][1:]
-        if self.is_enabled(view) and ext == 'js':
-            view.run_command("js_prettier")
