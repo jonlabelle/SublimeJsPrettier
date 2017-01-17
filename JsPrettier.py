@@ -6,6 +6,7 @@ import platform
 import sublime
 import sublime_plugin
 
+from os.path import splitext
 from subprocess import PIPE, Popen
 
 #
@@ -37,8 +38,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'The current View must be Saved\n'
                 'before running JsPrettier.' % PLUGIN_NAME)
 
-        config = self.get_prettier_options()
-        config['tabWidth'] = self.get_tab_size()
+        prettier_options = self.get_prettier_options()
+        prettier_options['tabWidth'] = self.get_tab_size()
 
         #
         # format entire file:
@@ -47,9 +48,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             source = self.view.substr(region)
 
             if not self.is_prettier_global_cli_installed():
-                transformed = self.prettier_local(source, config)
+                transformed = self.prettier_local(source, prettier_options)
             else:
-                transformed = self.prettier_global_cli(source, config)
+                transformed = self.prettier_global_cli(source, prettier_options)
 
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
@@ -69,9 +70,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             source = self.view.substr(region)
 
             if not self.is_prettier_global_cli_installed():
-                transformed = self.prettier_local(source, config)
+                transformed = self.prettier_local(source, prettier_options)
             else:
-                transformed = self.prettier_global_cli(source, config)
+                transformed = self.prettier_global_cli(source, prettier_options)
 
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
@@ -81,17 +82,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def prettier_local(self, source, config):
-        config = json.dumps(config)
+    def prettier_local(self, source, prettier_options):
+        prettier_options = json.dumps(prettier_options)
         cwd = os.path.dirname(self.view.file_name())
 
         try:
-            proc = Popen(['node', JS_PRETTIER_PATH, config, cwd],
+            proc = Popen(['node', JS_PRETTIER_PATH, prettier_options, cwd],
                          stdout=PIPE, stdin=PIPE, stderr=PIPE,
                          env=self.get_env(), shell=self.is_windows())
         except OSError:
             raise Exception(
-                "{0} - node.js program path not found! Please ensure "
+                "{0} - path to node.js not found! Please ensure "
                 "the path to node.js is set in your $PATH env variable "
                 "by running `node -v` from the command-line.".format(PLUGIN_NAME))
 
@@ -99,11 +100,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if stdout:
             return stdout.decode('utf-8')
         else:
-            return sublime.error_message(
-                "%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
+            return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
 
-    def prettier_global_cli(self, source, config):
-        prettier_cli_opts = self.parse_prettier_option_cli_map(config)
+    def prettier_global_cli(self, source, prettier_options):
+        prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
 
         cmd = [self.get_prettier_global_cli_path()] + prettier_cli_opts + ['--stdin']
         proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
@@ -162,10 +162,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return platform.system() == 'Windows'
 
     @staticmethod
-    def parse_prettier_option_cli_map(config):
+    def parse_prettier_option_cli_map(prettier_options):
         prettier_cli_args = []
         for mapping in PRETTIER_OPTION_CLI_MAP:
-            option = config[mapping['option']]
+            option = prettier_options[mapping['option']]
             if option:
                 prettier_cli_args.append(mapping['cli'])
                 if not isinstance(option, bool):
@@ -175,7 +175,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        ext = os.splitext(view.file_name())[1][1:]
+        ext = splitext(view.file_name())[1][1:]
         if self.is_enabled(view) and ext == 'js':
             view.run_command("js_prettier")
 
