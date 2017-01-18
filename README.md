@@ -2,6 +2,8 @@
 
 A Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.
 
+- [Watch Demo]
+
 ## Installation
 
 Sublime Text JavaScript Prettier (JsPrettier) is compatible with both Sublime
@@ -78,6 +80,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 Jon LaBelle
 
+[Watch Demo]: https://raw.githubusercontent.com/jonlabelle/SublimeJsPrettier/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
 [Package Control]: https://packagecontrol.io
 [node.js]: https://nodejs.org
