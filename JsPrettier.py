@@ -124,6 +124,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return env
 
     def get_node_path(self):
+        if not self.is_windows():
+            return self.get_settings().get('node_path', ':/usr/local/bin')
         return self.get_settings().get('node_path')
 
     def is_global_prettier_installed(self):
