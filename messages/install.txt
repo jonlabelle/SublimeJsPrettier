@@ -10,6 +10,10 @@
 
     $ npm install -g prettier
 
+    You may be required to specify the path to prettier executable, which is
+    configurable in the Package's settings File, 
+    "Preferences" > "Package Settings" > "JsPrettier" > "Settings - User".
+
 
 ### Local Prettier Installation (optional)
 
