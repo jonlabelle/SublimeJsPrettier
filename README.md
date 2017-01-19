@@ -48,21 +48,25 @@ If you installed [Prettier] globally (using the npm command below), there is
 nothing else you need to do.
 
 	$ npm install -g prettier
-	
+
 **Local Prettier Installation** (*optional*)
 
-You can optionally install [Prettier] directly in in Sublime Text JavaScript
+You can optionally install [Prettier] directly in Sublime Text JavaScript
 Prettier Package directory.
 
-**cd** to the `SublimeJsPrettier` [package directory], and install
-the [node.js] dependencies using [npm].
+> **NOTE:** If you choose to install [Prettier] locally in the Packages
+> directory, and you're using [Package Control], the `node_modules` directory
+> will be *deleted* after every package update pushed by [Package Control].
+
+**cd** to the `JsPrettier` [package directory], and install the [node.js]
+dependencies using [npm].
 
 For example, on **macOS:**
 
-	$ cd ~/Library/Application Support/Sublime Text 3/Packages/SublimeJsPrettier
+	$ cd ~/Library/Application Support/Sublime Text 3/Packages/JsPrettier
 	$ npm install
-	
-> **NOTE** If you have both local and global versions of [Prettier] installed,
+
+> **NOTE:** If you have both local and global versions of [Prettier] installed,
 > the local version will override the globally installed version.
 
 ## Usage
