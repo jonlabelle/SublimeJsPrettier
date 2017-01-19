@@ -4,7 +4,9 @@
 
 A Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.
 
-- [Watch Demo]
+![][Before and After]
+
+- [Watch a Quick Demo]
 
 ## Installation
 
@@ -90,7 +92,8 @@ Please visit the [Changelog] page for a complete list of changes.
 
 Jon LaBelle
 
-[Watch Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
+[Before and After]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif "Before and After"
+[Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
 [Package Control]: https://packagecontrol.io
 [node.js]: https://nodejs.org
