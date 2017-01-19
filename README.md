@@ -1,5 +1,7 @@
 # Sublime Text JavaScript Prettier
 
+[![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
+
 A Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.
 
 - [Watch Demo]
