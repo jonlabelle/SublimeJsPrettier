@@ -82,6 +82,10 @@ All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
 file, accessible from the **Preferences** > **Package Settings** >
 ***JsPrettier*** menu shortcut.
 
+## Changes
+
+Please visit the [Changelog] page for a complete list of changes.
+
 ## Author
 
 Jon LaBelle
@@ -94,3 +98,4 @@ Jon LaBelle
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [package directory]: #default-st-paths "Default Sublime Text Packages Paths"
 [manual download instructions]: #manual-download
+[Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
