@@ -15,7 +15,7 @@
 							{
 								"command": "open_file",
 								"args": {
-									"file": "${packages}/SublimeJsPrettier/JsPrettier.sublime-settings"
+									"file": "${packages}/JsPrettier/JsPrettier.sublime-settings"
 								},
 								"caption": "Settings – Default"
 							},
