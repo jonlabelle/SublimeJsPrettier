@@ -1,10 +1,10 @@
 {
 	//
-	// If Sublime Text has trouble finding the path to the node.js executable,
-	// you can explicitly specify the `node` bin path here, including the
-	// leading environment path separator ":" for Linux/macOS and ";" for
-	// Windows.
-	//
+	// If Sublime Text has trouble finding the path to the node.js or prettier
+	// executables, you can explicitly specify the path here. Please include the
+	// appropriate leading path separator at the beginning of the value; which
+	// is a colon ":" for Linux/macOS, and a semi-colon ";" for Windows.
+	// 
 	// NOTE: Windows users might need to specify the npm installed path
 	// to prettier. For example: "node_path": ";C:/Users/USERNAME/AppData/Roaming/npm"
 
