@@ -124,9 +124,25 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return env
 
     def get_node_path(self):
-        if not self.is_windows():
-            return self.get_settings().get('node_path', ':/usr/local/bin')
-        return self.get_settings().get('node_path')
+        node_path = None
+
+        if self.is_windows():
+            # set default path for windows when not specified:
+            if not self.get_settings().get('node_path'):
+                node_path = os.path.join(
+                    os.environ["USERPROFILE"],
+                    'AppData',
+                    'Roaming',
+                    'npm')
+        else:
+            # set default for posix platforms:
+            if not self.get_settings().get('node_path'):
+                node_path = '/usr/local/bin'
+
+        if os.path.isdir(node_path):
+            node_path = os.pathsep + node_path
+
+        return node_path
 
     def is_global_prettier_installed(self):
         if which('prettier', self.get_node_path()) is None:

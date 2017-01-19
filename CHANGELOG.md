@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2
+
+Release Date: 2017-01-19
+
+- Remove the default value for "node_path", and internally try to sniff out the
+  appropriate path.
+
 ## 1.0.1
 
 Release Date: 2017-01-18
@@ -10,7 +17,7 @@ Release Date: 2017-01-18
 - Add notice regarding local installations of Prettier. The `node_modules`
   directory will be deleted after every package update pushed by Package
   Control.
-  
+
 ## 1.0.0
 
 Release Date: 2017-01-18

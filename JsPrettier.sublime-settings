@@ -4,11 +4,17 @@
 	// executables, you can explicitly specify the path here. Please include the
 	// appropriate leading path separator at the beginning of the value; which
 	// is a colon ":" for Linux/macOS, and a semi-colon ";" for Windows.
-	// 
+	//
+	// Default "node_path" values (when left empty):
+	//
+	//     - Windows..: ;C:/Users/USERNAME/AppData/Roaming/npm
+	//     - Linux....: ;/usr/local/bin
+	//     - macOS....: ;/usr/local/bin
+	//
 	// NOTE: Windows users might need to specify the npm installed path
 	// to prettier. For example: "node_path": ";C:/Users/USERNAME/AppData/Roaming/npm"
 
-	"node_path": ":/usr/local/bin",
+	"node_path": "",
 
 	//
 	// Run Prettier on file save

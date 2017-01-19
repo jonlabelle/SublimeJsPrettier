@@ -1,0 +1,8 @@
+# Changelog
+
+## 1.0.2
+
+Release Date: 2017-01-19
+
+- Remove the default value for "node_path", and internally try to sniff out the
+  appropriate path.
