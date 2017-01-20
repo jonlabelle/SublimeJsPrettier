@@ -23,10 +23,10 @@ JS_PRETTIER_PATH = os.path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 PRETTIER_OPTION_CLI_MAP = [
     {'option': 'printWidth', 'cli': '--print-width'},
     {'option': 'tabWidth', 'cli': '--tab-width'},
-    {'option': 'useFlowParser', 'cli': '--flow-parser'},
     {'option': 'singleQuote', 'cli': '--single-quote'},
     {'option': 'trailingComma', 'cli': '--trailing-comma'},
     {'option': 'bracketSpacing', 'cli': '--bracket-spacing'},
+    {'option': 'parser', 'cli': '--parser'}
 ]
 
 

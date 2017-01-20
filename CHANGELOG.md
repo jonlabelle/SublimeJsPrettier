@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3
+
+Release Date: 2017-01-19
+
+- Incorporate new prettier option to specify which parser to use. Valid options
+  for `parser` are `flow` and `babylon`. The `useFlowParser` option has been
+  deprecated, in favor of the new `parser` option.
+
 ## 1.0.2
 
 Release Date: 2017-01-19
