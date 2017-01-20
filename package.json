@@ -3,6 +3,7 @@
     "description": "A Sublime Text Plug-in for Prettier, the opinionated JavaScript formatter.",
     "version": "1.0.3",
     "private": true,
+    "license": "MIT",
     "dependencies": {
         "prettier": "latest"
     }
