@@ -8,8 +8,8 @@
 	// Default "node_path" values (when left empty):
 	//
 	//     - Windows..: ;C:/Users/USERNAME/AppData/Roaming/npm
-	//     - Linux....: ;/usr/local/bin
-	//     - macOS....: ;/usr/local/bin
+	//     - Linux....: :/usr/local/bin
+	//     - macOS....: :/usr/local/bin
 	//
 	// NOTE: Windows users might need to specify the npm installed path
 	// to prettier. For example: "node_path": ";C:/Users/USERNAME/AppData/Roaming/npm"
