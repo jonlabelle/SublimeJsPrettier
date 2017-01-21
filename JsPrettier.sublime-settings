@@ -1,7 +1,7 @@
 {
-    //
-    // @prettier_cli_path { string | default = "" }
-    //
+	//
+	// @prettier_cli_path { string | default = "" }
+	//
 	// It's recommended to leave the "prettier_cli_path" value
 	// empty "", however if Sublime Text has problems resolving
 	// the path to the `prettier` cli executable, you can explicitly
@@ -22,7 +22,7 @@
 
 	"auto_format_on_save" : false,
 
-    //
+	//
 	// For a complete list of supported options and acceptable values,
 	// please reference the `prettier` documentation at https://github.com/jlongster/prettier
 
