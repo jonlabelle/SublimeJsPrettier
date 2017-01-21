@@ -11,25 +11,8 @@
     $ npm install -g prettier
 
     You may be required to specify the path to prettier executable, which is
-    configurable in the Package's settings File, 
+    configurable in the Package's settings File,
     "Preferences" > "Package Settings" > "JsPrettier" > "Settings - User".
-
-
-### Local Prettier Installation (optional)
-
-    You can optionally install Prettier directly in Sublime Text JavaScript
-    Prettier Package directory.
-
-    cd to the JsPrettier package directory, and install the node.js dependencies
-    using npm.
-
-    For example, on macOS:
-
-    $ cd ~/Library/Application Support/Sublime Text 3/Packages/JsPrettier
-    $ npm install
-
-    > NOTE: If you have both local and global versions of Prettier installed,
-    > the local version will override the globally installed version.
 
 
 ## Usage

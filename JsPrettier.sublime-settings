@@ -1,28 +1,30 @@
 {
+    //
+    // @prettier_cli_path { string | default = "" }
+    //
+	// It's recommended to leave the "prettier_cli_path" value
+	// empty "", however if Sublime Text has problems resolving
+	// the path to the `prettier` cli executable, you can explicitly
+	// specify the path here.
 	//
-	// If Sublime Text has trouble finding the path to the node.js or prettier
-	// executables, you can explicitly specify the path here. Please include the
-	// appropriate leading path separator at the beginning of the value; which
-	// is a colon ":" for Linux/macOS, and a semi-colon ";" for Windows.
+	// Examples:
 	//
-	// Default "node_path" values (when left empty):
-	//
-	//     - Windows..: ";C:/Users/USERNAME/AppData/Roaming/npm"
-	//     - Linux....: ":/usr/local/bin"
-	//     - macOS....: ":/usr/local/bin"
-	//
-	// NOTE: Windows users might need to specify the npm installed path
-	// to prettier. For example: "node_path": ";C:/Users/USERNAME/AppData/Roaming/npm"
+	//     - macOS/Linux...: "/path/to/node_modules/.bin/prettier"
+	//     - Windows.......: "C:/path/to/npm/prettier"
 
-	"node_path": "",
+	"prettier_cli_path": "",
 
 	//
-	// Run Prettier on file save
+	// @auto_format_on_save { bool | default = false }
+	//
+	// Run js_prettier command automatically
+	// when JavaScript files are saved.
+
 	"auto_format_on_save" : false,
 
-	//
-	// For a complete list of supported options and acceptable values, please
-	// reference the `prettier` project documentation @ https://github.com/jlongster/prettier
+    //
+	// For a complete list of supported options and acceptable values,
+	// please reference the `prettier` documentation at https://github.com/jlongster/prettier
 
 	"prettier_options": {
 

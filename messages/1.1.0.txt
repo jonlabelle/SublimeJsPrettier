@@ -1,0 +1,12 @@
+# Changelog
+
+## 1.1.0
+
+Release Date: 2017-01-21
+
+- Removed the `node_path` option from settings.
+- Added new `prettier_cli_path` setting for those wanting to explicitly set the
+  path to the prettier executable/command.
+- Removed support for local prettier installations stored in the Sublime Text
+  Package directory.
+- Improved detection of environment prettier path.

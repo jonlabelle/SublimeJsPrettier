@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 import platform
 import sublime
 import sublime_plugin
@@ -17,8 +16,6 @@ sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 PLUGIN_NAME = 'JsPrettier'
 PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
-JS_PRETTIER_FILE = '{0}.js'.format(PLUGIN_NAME.lower())
-JS_PRETTIER_PATH = os.path.join(PLUGIN_PATH, JS_PRETTIER_FILE)
 
 PRETTIER_OPTION_CLI_MAP = [
     {'option': 'printWidth', 'cli': '--print-width'},
@@ -38,6 +35,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'The current View must be Saved\n'
                 'before running JsPrettier.' % PLUGIN_NAME)
 
+        prettier_cli_path = self.get_prettier_cli_path()
+        if prettier_cli_path is None:
+            return sublime.error_message(
+                "{0} - The path to prettier cli could not be "
+                "found! Please ensure the path to prettier is "
+                "set in your PATH environment variable ".format(PLUGIN_NAME))
+
         prettier_options = self.get_prettier_options()
         prettier_options['tabWidth'] = self.get_tab_size()
 
@@ -46,12 +50,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not self.has_selection():
             region = sublime.Region(0, self.view.size())
             source = self.view.substr(region)
-
-            if not self.is_global_prettier_installed():
-                transformed = self.run_local_prettier(source, prettier_options)
-            else:
-                transformed = self.run_global_prettier(source, prettier_options)
-
+            transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
@@ -68,12 +67,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = self.view.substr(region)
-
-            if not self.is_global_prettier_installed():
-                transformed = self.run_local_prettier(source, prettier_options)
-            else:
-                transformed = self.run_global_prettier(source, prettier_options)
-
+            transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)), 0)
@@ -82,75 +76,37 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def run_local_prettier(self, source, prettier_options):
-        prettier_options = json.dumps(prettier_options)
-        cwd = os.path.dirname(self.view.file_name())
-
+    def run_prettier(self, source, prettier_cli_path, prettier_options):
+        prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
+        cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin']
         try:
-            proc = Popen(['node', JS_PRETTIER_PATH, prettier_options, cwd],
-                         stdout=PIPE, stdin=PIPE, stderr=PIPE,
-                         env=self.get_env(), shell=self.is_windows())
+            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
+            stdout, stderr = proc.communicate(input=source.encode('utf-8'))
+            if stderr or proc.returncode != 0:
+                return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
+            else:
+                return stdout.decode('utf-8')
         except OSError:
             raise Exception(
-                "{0} - path to node.js not found! Please ensure "
-                "the path to node.js is set in your $PATH env variable "
-                "by running `node -v` from the command-line.".format(PLUGIN_NAME))
-
-        stdout, stderr = proc.communicate(input=source.encode('utf-8'))
-        if stdout:
-            return stdout.decode('utf-8')
-        else:
-            return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
-
-    def run_global_prettier(self, source, prettier_options):
-        prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
-
-        cmd = [self.get_global_prettier_path()] + prettier_cli_opts + ['--stdin']
-        proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
-        stdout, stderr = proc.communicate(input=source.encode('utf-8'))
-        if stderr or proc.returncode != 0:
-            return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
-        else:
-            return stdout.decode('utf-8')
+                "{0} - path to prettier not found! Please ensure "
+                "the path to prettier is set in your $PATH env "
+                "variable.".format(PLUGIN_NAME))
 
     def is_js(self):
         return self.view.scope_name(0).startswith('source.js')
 
     def get_env(self):
         env = None
-        if self.is_mac_os():
+        if not self.is_windows():
             env = os.environ.copy()
-            env['PATH'] += self.get_node_path()
+            env['PATH'] += ':/usr/local/bin'
         return env
 
-    def get_node_path(self):
-        node_path = None
-
-        if self.is_windows():
-            # set default path for windows when not specified:
-            if not self.get_settings().get('node_path'):
-                node_path = os.path.join(
-                    os.environ["USERPROFILE"],
-                    'AppData',
-                    'Roaming',
-                    'npm')
-        else:
-            # set default for posix platforms:
-            if not self.get_settings().get('node_path'):
-                node_path = '/usr/local/bin'
-
-        if os.path.isdir(node_path):
-            node_path = os.pathsep + node_path
-
-        return node_path
-
-    def is_global_prettier_installed(self):
-        if which('prettier', self.get_node_path()) is None:
-            return False
-        return True
-
-    def get_global_prettier_path(self):
-        return which('prettier', self.get_node_path())
+    def get_prettier_cli_path(self):
+        prettier_path = self.get_settings().get('prettier_cli_path', '')
+        if self.is_none_or_empty(prettier_path):
+            return self.which('prettier')
+        return self.which(prettier_path)
 
     def get_settings(self):
         settings = self.view.settings().get(PLUGIN_NAME)
@@ -171,13 +127,43 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return True
         return False
 
+    def which(self, executable, path=None):
+        if not self.is_none_or_empty(executable):
+            if os.path.isfile(executable):
+                return executable
+
+        if self.is_none_or_empty(path):
+            path = os.environ['PATH']
+            if not self.is_windows():
+                path += ':/usr/local/bin'
+
+        paths = path.split(os.pathsep)
+        if not os.path.isfile(executable):
+            for p in paths:
+                f = os.path.join(p, executable)
+                if os.path.isfile(f):
+                    return f
+            return None
+        else:
+            return executable
+
+    @staticmethod
+    def is_none_or_empty(val):
+        if val is None:
+            return True
+        if type(val) == str:
+            val = val.strip()
+        if not val:
+            return True
+        return False
+
     @staticmethod
     def is_mac_os():
         return platform.system() == 'Darwin'
 
     @staticmethod
     def is_windows():
-        return platform.system() == 'Windows'
+        return platform.system() == 'Windows' or os.name == 'nt'
 
     @staticmethod
     def parse_prettier_option_cli_map(prettier_options):
@@ -206,18 +192,3 @@ class CommandOnSave(sublime_plugin.EventListener):
         if settings is None:
             settings = sublime.load_settings(SETTINGS_FILE)
         return settings
-
-
-def which(executable, path=None):
-    if path is None:
-        path = os.environ['PATH']
-    paths = path.split(os.pathsep)
-
-    if not os.path.isfile(executable):
-        for p in paths:
-            f = os.path.join(p, executable)
-            if os.path.isfile(f):
-                return f
-        return None
-    else:
-        return executable
