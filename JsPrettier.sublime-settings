@@ -2,10 +2,10 @@
 	//
 	// @prettier_cli_path { string | default = "" }
 	//
-	// It's recommended to leave the "prettier_cli_path" value
-	// empty "", however if Sublime Text has problems resolving
-	// the path to the `prettier` cli executable, you can explicitly
-	// specify the path here.
+	// It's strongly recommended to leave the "prettier_cli_path" value
+	// empty "", however if Sublime Text has problems resolving the path
+	// to the `prettier` cli executable, you can explicitly specify the
+	// value here.
 	//
 	// Examples:
 	//
