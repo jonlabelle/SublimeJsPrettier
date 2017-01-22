@@ -28,6 +28,10 @@ PRETTIER_OPTION_CLI_MAP = [
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
+    def __init__(self, view, error_message=None):
+        self.view = view
+        self._error_message = error_message
+
     def run(self, edit):
         if self.view.file_name() is None:
             return sublime.error_message(
@@ -50,7 +54,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not self.has_selection:
             region = sublime.Region(0, self.view.size())
             source = self.view.substr(region)
+
             transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
+            if self.has_errors:
+                self.print_error_console()
+                return self.show_status_bar_error()
+
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
@@ -67,7 +76,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = self.view.substr(region)
+
             transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
+            if self.has_errors:
+                self.print_error_console()
+                return self.show_status_bar_error()
+
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)), 0)
@@ -83,7 +97,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.os_env, shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
-                return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
+                self.error_message = stderr.decode('utf-8')
+                return ''
             else:
                 return stdout.decode('utf-8')
         except OSError:
@@ -91,6 +106,30 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "{0} - path to prettier not found! Please ensure "
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
+
+    @staticmethod
+    def show_status_bar_error():
+        sublime.set_timeout(lambda: sublime.status_message(
+            '{0}: Format failed! Open the console window to '
+            'view error details.'.format(PLUGIN_NAME)), 0)
+
+    def print_error_console(self):
+        print("{0} Error \n------------------\n"
+              "{1}".format(PLUGIN_NAME, self.error_message))
+
+    @property
+    def has_errors(self):
+        if not self.error_message:
+            return False
+        return True
+
+    @property
+    def error_message(self):
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, message):
+        self._error_message = message
 
     @property
     def is_js(self):
