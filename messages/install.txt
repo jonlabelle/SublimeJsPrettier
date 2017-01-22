@@ -10,8 +10,8 @@
 
         npm install -g prettier
 
-    You may be required to specify the path to prettier executable, which is
-    configurable in the Package's settings file...
+    You may be required to specify the path to the `prettier` executable, which
+    is configurable in the Package's settings file...
 
         -> "Preferences"
         -> "Package Settings"

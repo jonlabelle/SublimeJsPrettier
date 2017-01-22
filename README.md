@@ -20,7 +20,7 @@ be installed:
 
 - [node.js] - JavaScript runtime
 - [npm] - Package manager for JavaScript
-- [prettier] - Opinionated JavaScript formatter
+- [Prettier] - Opinionated JavaScript formatter
 
 ### Install Prettier
 
