@@ -35,19 +35,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'The current View must be Saved\n'
                 'before running JsPrettier.' % PLUGIN_NAME)
 
-        prettier_cli_path = self.get_prettier_cli_path()
+        prettier_cli_path = self.prettier_cli_path
         if prettier_cli_path is None:
             return sublime.error_message(
                 "{0} - The path to prettier cli could not be "
                 "found! Please ensure the path to prettier is "
                 "set in your PATH environment variable ".format(PLUGIN_NAME))
 
-        prettier_options = self.get_prettier_options()
-        prettier_options['tabWidth'] = self.get_tab_size()
+        prettier_options = self.get_prettier_options
+        prettier_options['tabWidth'] = self.tab_size
 
         #
         # Format entire file:
-        if not self.has_selection():
+        if not self.has_selection:
             region = sublime.Region(0, self.view.size())
             source = self.view.substr(region)
             transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
@@ -80,7 +80,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
         cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin']
         try:
-            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.get_env(), shell=self.is_windows())
+            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.os_env, shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
                 return sublime.error_message("%s Error\n\n%s" % (PLUGIN_NAME, stderr.decode('utf-8')))
@@ -92,34 +92,41 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
 
+    @property
     def is_js(self):
         return self.view.scope_name(0).startswith('source.js')
 
-    def get_env(self):
+    @property
+    def os_env(self):
         env = None
         if not self.is_windows():
             env = os.environ.copy()
             env['PATH'] += ':/usr/local/bin'
         return env
 
-    def get_prettier_cli_path(self):
-        prettier_path = self.get_settings().get('prettier_cli_path', '')
+    @property
+    def prettier_cli_path(self):
+        prettier_path = self.sublime_settings.get('prettier_cli_path', '')
         if self.is_none_or_empty(prettier_path):
             return self.which('prettier')
         return self.which(prettier_path)
 
-    def get_settings(self):
+    @property
+    def sublime_settings(self):
         settings = self.view.settings().get(PLUGIN_NAME)
         if settings is None:
             settings = sublime.load_settings(SETTINGS_FILE)
         return settings
 
+    @property
     def get_prettier_options(self):
-        return self.get_settings().get('prettier_options')
+        return self.sublime_settings.get('prettier_options')
 
-    def get_tab_size(self):
+    @property
+    def tab_size(self):
         return int(self.view.settings().get('tab_size', 2))
 
+    @property
     def has_selection(self):
         for sel in self.view.sel():
             start, end = sel
