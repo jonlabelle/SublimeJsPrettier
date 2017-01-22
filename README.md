@@ -4,24 +4,30 @@
 
 A Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.`
 
-<a href="https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif" title="Click Here to Watch a Quick Demo">
-	<img src="https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true" alt="" style="max-width: 600px; max-height: 498px">
-</a>
+[![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
 - [Watch a Quick Demo]
 
 ## Installation
 
-Sublime Text JavaScript Prettier (JsPrettier) is compatible with both Sublime
+Sublime Text JavaScript Prettier ([JsPrettier]) is compatible with both Sublime
 Text 2 and 3, and all supported Operating Systems.
 
-### Requirements
+**Requirements**
 
-The Sublime Text JavaScript Prettier plug-in requires the following programs:
+The Sublime Text JavaScript Prettier plug-in requires the following programs to
+be installed:
 
-- [node.js]
-- [npm]
-- [prettier]
+- [node.js] --- JavaScript runtime
+- [npm] --- Package manager for JavaScript
+- [prettier] --- Opinionated JavaScript formatter
+
+### Install Prettier
+
+If you installed [Prettier] globally (using the [npm] command below), there is
+nothing else you need to do.
+
+    npm install -g prettier
 
 ### Package Control
 
@@ -30,13 +36,15 @@ using [Package Control].
 
 From the **main application menu**, navigate to:
 
-- **Tools** -> **Command Palette...** -> **Package Control: Install Package**,
-type the word ***JsPrettier***, then select it to complete installation.
+- `Tools` -> `Command Palette...` -> `Package Control: Install Package`, type
+  the word **JsPrettier**, then select it to complete the installation.
 
 ### Manual Download
 
-Download and extract Sublime Text JavaScript Prettier [zip file] to your
-Sublime Text Packages directory.
+1. Download and extract Sublime Text JavaScript Prettier [zip file] to your
+   [Sublime Text Packages directory].
+2. Rename the extracted directory from `SublimeJsPrettier-master` to
+   `JsPrettier`.
 
 **Default Sublime Text Packages Paths:**
 <a name="default-st-paths"></a>
@@ -48,17 +56,20 @@ Sublime Text Packages directory.
 > **NOTE** Replace the `[2|3]` part with the appropriate Sublime Text
 > version for your installation.
 
-### Install Prettier
+### Using Git
 
-If you installed [Prettier] globally (using the npm command below), there is
-nothing else you need to do.
+Alternatively, if you're a git user, you can install [JsPrettier] and keep it up
+to date by cloning the repository directly into your [Sublime Text Packages directory].
 
-	$ npm install -g prettier
+You can locate your Sublime Text Packages directory by using the menu item
+`Preferences` -> `Browse Packages...`
+
+    git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
 
 ## Usage
 
-To run the **JsPrettier** command... open the Sublime Text **Command Palette**
-(<kbd>shift + super + p</kbd>) and type **`JsPrettier: Format JavaScript`**.
+To run the `JsPrettier` command... open the Sublime Text **Command Palette**
+(<kbd>shift + super + p</kbd>) and type `JsPrettier`.
 
 ## Settings
 
@@ -76,10 +87,11 @@ Jon LaBelle
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
-[Package Control]: https://packagecontrol.io
+[Package Control]: https://packagecontrol.io/packages/JsPrettier
+[JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
 [npm]: https://www.npmjs.com
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
-[package directory]: #default-st-paths "Default Sublime Text Packages Paths"
+[Sublime Text Packages directory]: #default-st-paths "Navigate to Default Sublime Text Packages Paths"
 [manual download instructions]: #manual-download
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md

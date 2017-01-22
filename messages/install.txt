@@ -8,27 +8,43 @@
     If you installed Prettier globally (using the npm command below), there is
     nothing else you need to do.
 
-    $ npm install -g prettier
+        npm install -g prettier
 
     You may be required to specify the path to prettier executable, which is
-    configurable in the Package's settings File,
-    "Preferences" > "Package Settings" > "JsPrettier" > "Settings - User".
+    configurable in the Package's settings file...
+
+        -> "Preferences"
+        -> "Package Settings"
+        -> "JsPrettier"
+            -> "Settings - User"
 
 
 ## Usage
 
     To run the JsPrettier command... open the Sublime Text Command Palette
-    (shift + super + p), and type "JsPrettier: Format JavaScript".
+    (shift + super + p), and type "JsPrettier".
 
 
 ## Settings
 
     All Prettier options are configurable from the "JsPrettier.sublime-settings"
-    file, accessible from the "Preferences" > "Package Settings" > "JsPrettier"
-    menu shortcut.
+    file, accessible from the "JsPrettier" menu item...
+
+        -> "Preferences"
+        -> "Package Settings"
+        -> "JsPrettier"
+            -> "Settings - Default" (To view the default settings)
+            -> "Settings - User"    (To override the default settings)
 
 
 ## Help
 
     For additional help, including issue reporting... please visit the
     Sublime Text JavaScript Prettier at <https://github.com/jonlabelle/SublimeJsPrettier>.
+
+
+## License
+
+    The MIT License (MIT)
+
+    Copyright (c) 2017 Jon LaBelle
