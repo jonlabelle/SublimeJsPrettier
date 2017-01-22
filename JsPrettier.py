@@ -42,7 +42,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "found! Please ensure the path to prettier is "
                 "set in your PATH environment variable ".format(PLUGIN_NAME))
 
-        prettier_options = self.get_prettier_options
+        prettier_options = self.prettier_options
         prettier_options['tabWidth'] = self.tab_size
 
         #
@@ -119,7 +119,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return settings
 
     @property
-    def get_prettier_options(self):
+    def prettier_options(self):
         return self.sublime_settings.get('prettier_options')
 
     @property
