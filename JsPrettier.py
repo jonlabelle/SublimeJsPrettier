@@ -14,7 +14,8 @@ sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_NAME = 'JsPrettier'
-PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
+PLUGIN_PATH = os.path.join(sublime.packages_path(),
+                           os.path.dirname(os.path.realpath(__file__)))
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 
 PRETTIER_OPTION_CLI_MAP = [
@@ -28,12 +29,12 @@ PRETTIER_OPTION_CLI_MAP = [
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
-    def __init__(self, view, error_message=None):
-        self.view = view
-        self._error_message = error_message
+    _error_message = None
 
     def run(self, edit):
-        if self.view.file_name() is None:
+        view = self.view
+
+        if view.file_name() is None:
             return sublime.error_message(
                 '%s Error\n\n'
                 'The current View must be Saved\n'
@@ -52,10 +53,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         #
         # Format entire file:
         if not self.has_selection:
-            region = sublime.Region(0, self.view.size())
-            source = self.view.substr(region)
+            region = sublime.Region(0, view.size())
+            source = view.substr(region)
 
-            transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
+            transformed = self.run_prettier(source, prettier_cli_path,
+                                            prettier_options)
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
@@ -71,34 +73,38 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # Format each selection:
-        for region in self.view.sel():
+        for region in view.sel():
             if region.empty():
                 continue
 
-            source = self.view.substr(region)
+            source = view.substr(region)
 
-            transformed = self.run_prettier(source, prettier_cli_path, prettier_options)
+            transformed = self.run_prettier(source, prettier_cli_path,
+                                            prettier_options)
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
 
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)), 0)
+                    '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)),
+                                    0)
             else:
-                self.view.replace(edit, region, transformed)
+                view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
     def run_prettier(self, source, prettier_cli_path, prettier_options):
+        self._error_message = None
         prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
         cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin']
         try:
-            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE, env=self.os_env, shell=self.is_windows())
+            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
+                         env=self.os_env, shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
                 self.error_message = stderr.decode('utf-8')
-                return ''
+                return source
             else:
                 return stdout.decode('utf-8')
         except OSError:
@@ -107,8 +113,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
 
-    @staticmethod
-    def show_status_bar_error():
+    def show_status_bar_error(self):
         sublime.set_timeout(lambda: sublime.status_message(
             '{0}: Format failed! Open the console window to '
             'view error details.'.format(PLUGIN_NAME)), 0)
@@ -119,7 +124,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def has_errors(self):
-        if not self.error_message:
+        if not self._error_message:
             return False
         return True
 
@@ -128,7 +133,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self._error_message
 
     @error_message.setter
-    def error_message(self, message):
+    def error_message(self, message=None):
         self._error_message = message
 
     @property
