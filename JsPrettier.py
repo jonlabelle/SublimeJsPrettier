@@ -78,7 +78,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = view.substr(region)
-
             transformed = self.run_prettier(source, prettier_cli_path,
                                             prettier_options)
             if self.has_errors:
@@ -87,8 +86,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             if transformed and transformed == source:
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)),
-                                    0)
+                    '{0}: Selection(s) already formatted.'.format(
+                        PLUGIN_NAME)), 0)
             else:
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
