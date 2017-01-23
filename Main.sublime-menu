@@ -28,6 +28,16 @@
 							},
 							{
 								"caption": "-"
+							},
+							{
+								"command": "open_file",
+								"args": {
+									"file": "${packages}/JsPrettier/CHANGELOG.md"
+								},
+								"caption": "Changelog"
+							},
+							{
+								"caption": "-"
 							}
 						]
 					}
