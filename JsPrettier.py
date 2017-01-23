@@ -114,7 +114,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             'view error details.'.format(PLUGIN_NAME)), 0)
 
     def print_error_console(self):
-        print("{0} Error \n------------------\n"
+        print("\n------------------\n {0} Error \n------------------\n\n"
               "{1}".format(PLUGIN_NAME, self.error_message))
 
     @property
