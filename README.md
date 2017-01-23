@@ -85,6 +85,10 @@ Please visit the [Changelog] page for a complete list of changes.
 
 Jon LaBelle
 
+## License
+
+[MIT License]
+
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
@@ -95,3 +99,4 @@ Jon LaBelle
 [Sublime Text Packages directory]: #default-st-paths "Navigate to Default Sublime Text Packages Paths"
 [manual download instructions]: #manual-download
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
+[MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.md
