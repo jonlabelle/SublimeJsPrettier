@@ -112,6 +112,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "{0} - path to prettier not found! Please ensure "
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
+        except Exception as ex:
+            self.error_message = str(ex)
+            return source
 
     def show_status_bar_error(self):
         sublime.set_timeout(lambda: sublime.status_message(
