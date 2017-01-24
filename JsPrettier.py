@@ -95,11 +95,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def run_prettier(self, source, prettier_cli_path, prettier_options):
         self._error_message = None
+
         prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
         cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin']
         try:
             proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
-                         env=self.os_env, shell=self.is_windows())
+                         env=self.proc_env, shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
                 self.error_message = stderr.decode('utf-8')
@@ -140,11 +141,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.view.scope_name(0).startswith('source.js')
 
     @property
-    def os_env(self):
+    def proc_env(self):
         env = None
         if not self.is_windows():
             env = os.environ.copy()
-            env['PATH'] += ':/usr/local/bin'
+            usr_path = ':/usr/local/bin'
+            if not self.path_exists_in_env_path(usr_path) \
+                    and self.path_exists(usr_path):
+                env['PATH'] += usr_path
         return env
 
     @property
@@ -177,6 +181,27 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return True
         return False
 
+    @staticmethod
+    def path_exists_in_env_path(find_path, env_path=None):
+        if not find_path:
+            return False
+        if not env_path:
+            env_path = os.environ['PATH']
+        find_path = str.replace(find_path, os.pathsep, '')
+        paths = env_path.split(os.pathsep)
+        for p in paths:
+            if p == find_path:
+                return True
+        return False
+
+    @staticmethod
+    def path_exists(path):
+        if not path:
+            return False
+        if os.path.exists(str.replace(path, os.pathsep, '')):
+            return True
+        return False
+
     def which(self, executable, path=None):
         if not self.is_none_or_empty(executable):
             if os.path.isfile(executable):
@@ -185,7 +210,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if self.is_none_or_empty(path):
             path = os.environ['PATH']
             if not self.is_windows():
-                path += ':/usr/local/bin'
+                usr_path = ':/usr/local/bin'
+                if not self.path_exists_in_env_path(usr_path, path) \
+                        and self.path_exists(usr_path):
+                    path += usr_path
 
         paths = path.split(os.pathsep)
         if not os.path.isfile(executable):
