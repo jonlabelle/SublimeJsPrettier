@@ -2,11 +2,11 @@
 
 import os
 import platform
-import sublime
-import sublime_plugin
-
 from os.path import splitext
 from subprocess import PIPE, Popen
+
+import sublime
+import sublime_plugin
 
 #
 # Monkey patch `sublime.Region` so it can be iterable:
