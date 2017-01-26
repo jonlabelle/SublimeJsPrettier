@@ -22,7 +22,7 @@
 ## Usage
 
     To run the JsPrettier command... open the Sublime Text Command Palette
-    (shift + super + p), and type "JsPrettier".
+    (super + shift + p), and type "JsPrettier".
 
 
 ## Settings
