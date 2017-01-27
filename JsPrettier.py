@@ -97,7 +97,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         self._error_message = None
 
         prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
-        cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin']
+        cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin'] + \
+              ['--color'] + ['false']
         try:
             proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
                          env=self.proc_env, shell=self.is_windows())
