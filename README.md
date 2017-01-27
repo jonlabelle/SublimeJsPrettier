@@ -29,7 +29,7 @@ nothing else you need to do.
 
     npm install -g prettier
 
-### Package Control
+### Installing JsPrettier via Package Control
 
 The easiest and recommended way to install Sublime Text JavaScript Prettier is
 using [Package Control].
@@ -39,7 +39,7 @@ From the **main application menu**, navigate to:
 - `Tools` -> `Command Palette...` -> `Package Control: Install Package`, type
   the word **JsPrettier**, then select it to complete the installation.
 
-### Manual Download
+### Manually Installing JsPrettier
 
 1. Download and extract Sublime Text JavaScript Prettier [zip file] to your
    [Sublime Text Packages directory].
@@ -56,7 +56,7 @@ From the **main application menu**, navigate to:
 > **NOTE** Replace the `[2|3]` part with the appropriate Sublime Text
 > version for your installation.
 
-### Using Git
+### Using Git to Install JsPrettier
 
 Alternatively, if you're a git user, you can install [JsPrettier] and keep it up
 to date by cloning the repository directly into your [Sublime Text Packages directory].
