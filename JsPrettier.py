@@ -91,26 +91,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def run_prettier(self, source, prettier_cli_path, prettier_args):
-        self._error_message = None
-        cmd = [prettier_cli_path] + prettier_args + ['--stdin'] + \
-              ['--color'] + ['false']
-        try:
-            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
-                         env=self.proc_env, shell=self.is_windows())
-            stdout, stderr = proc.communicate(input=source.encode('utf-8'))
-            if stderr or proc.returncode != 0:
-                self.error_message = "Prettier Error Code: {0}\n\n{1}".format(
-                    str(proc.returncode), stderr.decode('utf-8'))
-                return None
-            else:
-                return stdout.decode('utf-8')
-        except OSError:
-            raise Exception(
-                "{0} - path to prettier not found! Please ensure "
-                "the path to prettier is set in your $PATH env "
-                "variable.".format(PLUGIN_NAME))
-
     @property
     def has_errors(self):
         if not self._error_message:
@@ -158,6 +138,43 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if start != end:
                 return True
         return False
+
+    def run_prettier(self, source, prettier_cli_path, prettier_args):
+        self._error_message = None
+        cmd = [prettier_cli_path] + prettier_args + ['--stdin'] + \
+              ['--color'] + ['false']
+        try:
+            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
+                         env=self.proc_env, shell=self.is_windows())
+            stdout, stderr = proc.communicate(input=source.encode('utf-8'))
+            if stderr or proc.returncode != 0:
+                self.error_message = "Prettier Error Code: {0}\n\n{1}".format(
+                    str(proc.returncode), stderr.decode('utf-8'))
+                return None
+            else:
+                return stdout.decode('utf-8')
+        except OSError:
+            raise Exception(
+                "{0} - path to prettier not found! Please ensure "
+                "the path to prettier is set in your $PATH env "
+                "variable.".format(PLUGIN_NAME))
+
+    def parse_prettier_option_cli_map(self):
+        prettier_cli_args = []
+        for mapping in PRETTIER_OPTION_CLI_MAP:
+            option_name = mapping['option']
+            cli_name = mapping['cli']
+            val = self.get_sub_setting('prettier_options', option_name)
+            if val is None or str(val) == '':
+                val = mapping['default']
+            prettier_cli_args.append(cli_name)
+            prettier_cli_args.append(str(val).lower())
+
+        # get/set the `tabWidth` based on the current view:
+        prettier_cli_args.append('--tab-width')
+        prettier_cli_args.append(str(self.tab_size))
+
+        return prettier_cli_args
 
     def show_status_bar_error(self):
         sublime.set_timeout(lambda: sublime.status_message(
@@ -241,23 +258,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def is_windows():
         return platform.system() == 'Windows' or os.name == 'nt'
-
-    def parse_prettier_option_cli_map(self):
-        prettier_cli_args = []
-        for mapping in PRETTIER_OPTION_CLI_MAP:
-            option_name = mapping['option']
-            cli_name = mapping['cli']
-            val = self.get_sub_setting('prettier_options', option_name)
-            if val is None or str(val) == '':
-                val = mapping['default']
-            prettier_cli_args.append(cli_name)
-            prettier_cli_args.append(str(val).lower())
-
-        # get/set the `tabWidth` based on the current view:
-        prettier_cli_args.append('--tab-width')
-        prettier_cli_args.append(str(self.tab_size))
-
-        return prettier_cli_args
 
 
 class CommandOnSave(sublime_plugin.EventListener):
