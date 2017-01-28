@@ -35,16 +35,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if view.file_name() is None:
             return sublime.error_message(
-                '%s Error\n\n'
+                '{0} Error\n\n'
                 'The current View must be Saved\n'
-                'before running JsPrettier.' % PLUGIN_NAME)
+                'before running JsPrettier.'.format(PLUGIN_NAME))
 
         prettier_cli_path = self.prettier_cli_path
         if prettier_cli_path is None:
             return sublime.error_message(
-                "{0} - The path to prettier cli could not be "
-                "found! Please ensure the path to prettier is "
-                "set in your PATH environment variable ".format(PLUGIN_NAME))
+                '{0} Error\n\n'
+                'The path to the Prettier cli executable could '
+                'not be found! Please ensure the path to prettier is '
+                'set in your PATH environment variable.'.format(PLUGIN_NAME))
 
         prettier_args = self.parse_prettier_option_cli_map()
 
