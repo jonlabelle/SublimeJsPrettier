@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2
+
+Release Date: 2017-01-28
+
+- Added support for merging selective `prettier_options` in the *User*
+  `JsPrettier.sublime-settings` file.
+
 ## 1.1.1
 
 Release Date: 2017-01-22

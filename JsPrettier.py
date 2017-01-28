@@ -19,12 +19,11 @@ PLUGIN_PATH = os.path.join(sublime.packages_path(),
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 
 PRETTIER_OPTION_CLI_MAP = [
-    {'option': 'printWidth', 'cli': '--print-width'},
-    {'option': 'tabWidth', 'cli': '--tab-width'},
-    {'option': 'singleQuote', 'cli': '--single-quote'},
-    {'option': 'trailingComma', 'cli': '--trailing-comma'},
-    {'option': 'bracketSpacing', 'cli': '--bracket-spacing'},
-    {'option': 'parser', 'cli': '--parser'}
+    {'option': 'printWidth', 'cli': '--print-width', 'default': '80'},
+    {'option': 'singleQuote', 'cli': '--single-quote', 'default': 'false'},
+    {'option': 'trailingComma', 'cli': '--trailing-comma', 'default': 'false'},
+    {'option': 'bracketSpacing', 'cli': '--bracket-spacing', 'default': 'true'},
+    {'option': 'parser', 'cli': '--parser', 'default': 'babylon'}
 ]
 
 
@@ -47,8 +46,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "found! Please ensure the path to prettier is "
                 "set in your PATH environment variable ".format(PLUGIN_NAME))
 
-        prettier_options = self.prettier_options
-        prettier_options['tabWidth'] = self.tab_size
+        prettier_args = self.parse_prettier_option_cli_map()
 
         #
         # Format entire file:
@@ -57,7 +55,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             source = view.substr(region)
 
             transformed = self.run_prettier(source, prettier_cli_path,
-                                            prettier_options)
+                                            prettier_args)
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
@@ -79,7 +77,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             source = view.substr(region)
             transformed = self.run_prettier(source, prettier_cli_path,
-                                            prettier_options)
+                                            prettier_args)
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
@@ -93,19 +91,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def run_prettier(self, source, prettier_cli_path, prettier_options):
+    def run_prettier(self, source, prettier_cli_path, prettier_args):
         self._error_message = None
-
-        prettier_cli_opts = self.parse_prettier_option_cli_map(prettier_options)
-        cmd = [prettier_cli_path] + prettier_cli_opts + ['--stdin'] + \
+        cmd = [prettier_cli_path] + prettier_args + ['--stdin'] + \
               ['--color'] + ['false']
         try:
             proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
                          env=self.proc_env, shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
-                self.error_message = stderr.decode('utf-8')
-                return source
+                self.error_message = "Prettier Error Code: {0}\n\n{1}".format(
+                    str(proc.returncode), stderr.decode('utf-8'))
+                return None
             else:
                 return stdout.decode('utf-8')
         except OSError:
@@ -113,15 +110,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "{0} - path to prettier not found! Please ensure "
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
-
-    def show_status_bar_error(self):
-        sublime.set_timeout(lambda: sublime.status_message(
-            '{0}: Format failed! Open the console window to '
-            'view error details.'.format(PLUGIN_NAME)), 0)
-
-    def print_error_console(self):
-        print("\n------------------\n {0} Error \n------------------\n\n"
-              "{1}".format(PLUGIN_NAME, self.error_message))
 
     @property
     def has_errors(self):
@@ -154,21 +142,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def prettier_cli_path(self):
-        prettier_path = self.sublime_settings.get('prettier_cli_path', '')
+        prettier_path = self.get_setting('prettier_cli_path', '')
         if self.is_none_or_empty(prettier_path):
             return self.which('prettier')
         return self.which(prettier_path)
-
-    @property
-    def sublime_settings(self):
-        settings = self.view.settings().get(PLUGIN_NAME)
-        if settings is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        return settings
-
-    @property
-    def prettier_options(self):
-        return self.sublime_settings.get('prettier_options')
 
     @property
     def tab_size(self):
@@ -182,26 +159,26 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return True
         return False
 
-    @staticmethod
-    def path_exists_in_env_path(find_path, env_path=None):
-        if not find_path:
-            return False
-        if not env_path:
-            env_path = os.environ['PATH']
-        find_path = str.replace(find_path, os.pathsep, '')
-        paths = env_path.split(os.pathsep)
-        for p in paths:
-            if p == find_path:
-                return True
-        return False
+    def show_status_bar_error(self):
+        sublime.set_timeout(lambda: sublime.status_message(
+            '{0}: Format failed! Open the console window to '
+            'view error details.'.format(PLUGIN_NAME)), 0)
 
-    @staticmethod
-    def path_exists(path):
-        if not path:
-            return False
-        if os.path.exists(str.replace(path, os.pathsep, '')):
-            return True
-        return False
+    def print_error_console(self):
+        print("\n------------------\n {0} Error \n------------------\n\n"
+              "{1}".format(PLUGIN_NAME, self.error_message))
+
+    def get_setting(self, key, default_value=None):
+        settings = self.view.settings().get(PLUGIN_NAME)
+        if settings is None or settings.get(key) is None:
+            settings = sublime.load_settings(SETTINGS_FILE)
+        return settings.get(key, default_value)
+
+    def get_sub_setting(self, key, sub_key=None):
+        settings = self.view.settings().get(PLUGIN_NAME)
+        if settings is None or settings.get(key).get(sub_key) is None:
+            settings = sublime.load_settings(SETTINGS_FILE)
+        return settings.get(key).get(sub_key)
 
     def which(self, executable, path=None):
         if not self.is_none_or_empty(executable):
@@ -227,6 +204,27 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return executable
 
     @staticmethod
+    def path_exists_in_env_path(find_path, env_path=None):
+        if not find_path:
+            return False
+        if not env_path:
+            env_path = os.environ['PATH']
+        find_path = str.replace(find_path, os.pathsep, '')
+        paths = env_path.split(os.pathsep)
+        for p in paths:
+            if p == find_path:
+                return True
+        return False
+
+    @staticmethod
+    def path_exists(path):
+        if not path:
+            return False
+        if os.path.exists(str.replace(path, os.pathsep, '')):
+            return True
+        return False
+
+    @staticmethod
     def is_none_or_empty(val):
         if val is None:
             return True
@@ -244,15 +242,21 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_windows():
         return platform.system() == 'Windows' or os.name == 'nt'
 
-    @staticmethod
-    def parse_prettier_option_cli_map(prettier_options):
+    def parse_prettier_option_cli_map(self):
         prettier_cli_args = []
         for mapping in PRETTIER_OPTION_CLI_MAP:
-            option = prettier_options[mapping['option']]
-            if option:
-                prettier_cli_args.append(mapping['cli'])
-                if not isinstance(option, bool):
-                    prettier_cli_args.append(str(option))
+            option_name = mapping['option']
+            cli_name = mapping['cli']
+            val = self.get_sub_setting('prettier_options', option_name)
+            if val is None or str(val) == '':
+                val = mapping['default']
+            prettier_cli_args.append(cli_name)
+            prettier_cli_args.append(str(val).lower())
+
+        # get/set the `tabWidth` based on the current view:
+        prettier_cli_args.append('--tab-width')
+        prettier_cli_args.append(str(self.tab_size))
+
         return prettier_cli_args
 
 
