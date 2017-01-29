@@ -1,0 +1,10 @@
+language: python
+python:
+  - "2.7"
+  - "3.3"
+# install dependencies
+install:
+  - pip install flake8
+# run tests
+script:
+  - flake8 . --max-line-length=81
