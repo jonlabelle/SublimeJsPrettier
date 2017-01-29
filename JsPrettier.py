@@ -268,11 +268,11 @@ class CommandOnSave(sublime_plugin.EventListener):
             view.run_command("js_prettier")
 
     def is_enabled(self, view):
-        return self.get_settings(view).get('auto_format_on_save', False)
+        return self.get_setting(view, 'auto_format_on_save', False)
 
     @staticmethod
-    def get_settings(view):
+    def get_setting(view, key, default_value=None):
         settings = view.settings().get(PLUGIN_NAME)
-        if settings is None:
+        if settings is None or settings.get(key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
-        return settings
+        return settings.get(key, default_value)
