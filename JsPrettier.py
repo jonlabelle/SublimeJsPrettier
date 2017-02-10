@@ -165,16 +165,33 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
 
+    def is_bool_str(self, val):
+        if val is None:
+            return False
+        if type(val) == str:
+            val = val.lower().strip()
+            if val == 'true' or val == 'false':
+                return True
+        return False
+
     def parse_prettier_option_cli_map(self):
         prettier_cli_args = []
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_name = mapping['cli']
+
             val = self.get_sub_setting('prettier_options', option_name)
             if val is None or str(val) == '':
                 val = mapping['default']
-            prettier_cli_args.append(cli_name)
-            prettier_cli_args.append(str(val).lower())
+            val = str(val).lower()
+
+            if self.is_bool_str(val):
+                # bool options can be turned off like this,
+                # --bracket-spacing=false
+                prettier_cli_args.append('{0}={1}'.format(cli_name, val))
+            else:
+                prettier_cli_args.append(cli_name)
+                prettier_cli_args.append(val)
 
         # get/set the `tabWidth` based on the current view:
         prettier_cli_args.append('--tab-width')
