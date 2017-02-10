@@ -176,6 +176,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def parse_prettier_option_cli_map(self):
         prettier_cli_args = []
+
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_name = mapping['cli']
