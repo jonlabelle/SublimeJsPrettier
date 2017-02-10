@@ -66,6 +66,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             else:
+                # strip trailing whitespace including line-breaks from the
+                # end of the string, inserted by prettier:
+                transformed = self.strip_trailing_whitespace_eol(transformed)
+
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File formatted.'.format(PLUGIN_NAME)), 0)
