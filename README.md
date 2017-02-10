@@ -76,6 +76,9 @@ To run the `JsPrettier` command... open the Sublime Text **Command Palette**
 The `JsPrettier` command will attempt to format any selected JavaScript sections
 of code first; if no selections are made, the entire file will be formatted.
 
+> **NOTE:** When the `auto_format_on_save` is setting is set to `true`, the
+> **entire file** will always be formatted.
+
 ## Settings
 
 All [Prettier] options are configurable from the `JsPrettier.sublime-settings`

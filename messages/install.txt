@@ -29,7 +29,7 @@ Command Scope
 The `JsPrettier` command will attempt to format any selected JavaScript sections
 of code first; if no selections are made, the entire file will be formatted.
 
-> NOTE: When the `auto_format_on_save` is setting is to `true`, the entire file
+> NOTE: When the `auto_format_on_save` setting is set to `true`, the entire file
 > will always be formatted.
 
 
