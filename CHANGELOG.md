@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.7
+
+Release Date: 2017-02-10
+
+- Now when the `auto_format_on_save` setting is to `true`, the entire file
+  will always be formatted.
+
 ## 1.1.5
 
 Release Date: 2017-02-10

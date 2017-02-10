@@ -31,7 +31,7 @@ PRETTIER_OPTION_CLI_MAP = [
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
-    def run(self, edit):
+    def run(self, edit, force_entire_file=False):
         view = self.view
 
         if view.file_name() is None:
@@ -52,7 +52,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # Format entire file:
-        if not self.has_selection:
+        if not self.has_selection or force_entire_file is True:
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
@@ -294,7 +294,7 @@ class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         ext = splitext(view.file_name())[1][1:]
         if self.is_enabled(view) and ext == 'js':
-            view.run_command("js_prettier")
+            view.run_command("js_prettier", {"force_entire_file": True})
 
     def is_enabled(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
