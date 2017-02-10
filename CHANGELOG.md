@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.5
+
+Release Date: 2017-02-10
+
+- Remove extra line-breaks injected by the `prettier` cli command at the end of
+  selected regions.
+
 ## 1.1.2
 
 Release Date: 2017-01-28

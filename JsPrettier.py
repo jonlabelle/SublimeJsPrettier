@@ -2,6 +2,7 @@
 
 import os
 import platform
+from re import sub
 from os.path import splitext
 from subprocess import PIPE, Popen
 
@@ -88,6 +89,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Selection(s) already formatted.'.format(
                         PLUGIN_NAME)), 0)
             else:
+                # strip trailing whitespace including line-breaks from the
+                # end of the string, inserted by prettier:
+                transformed = sub(r'\s+\Z', '', transformed)
+
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
