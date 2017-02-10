@@ -91,11 +91,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             else:
                 # strip trailing whitespace including line-breaks from the
                 # end of the string, inserted by prettier:
-                transformed = sub(r'\s+\Z', '', transformed)
+                transformed = self.strip_trailing_whitespace_eol(transformed)
 
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
+
+    def strip_trailing_whitespace_eol(self, val):
+        if val is None:
+            return val
+        val = sub(r'\s+\Z', '', val)
+        return val
 
     @property
     def has_errors(self):
