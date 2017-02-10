@@ -148,7 +148,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def run_prettier(self, source, prettier_cli_path, prettier_args):
         self._error_message = None
         cmd = [prettier_cli_path] + prettier_args + ['--stdin'] + \
-              ['--color'] + ['false']
+              ['--color=false']
         try:
             proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
                          env=self.proc_env, shell=self.is_windows())
