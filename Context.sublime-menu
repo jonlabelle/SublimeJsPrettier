@@ -1,0 +1,12 @@
+[
+	{
+		"caption": "-"
+	},
+	{
+		"caption": "JsPrettier",
+		"command": "js_prettier"
+	},
+	{
+		"caption": "-"
+	}
+]

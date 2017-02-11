@@ -31,6 +31,18 @@ PRETTIER_OPTION_CLI_MAP = [
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
+    def is_visible(self):
+        return self.is_js
+
+    def is_enabled(self):
+        if self.is_js is False:
+            disabled_msg = '{0}: Only JavaScript syntax is supported.' \
+                .format(PLUGIN_NAME)
+            print(disabled_msg)
+            sublime.set_timeout(
+                lambda: sublime.status_message(disabled_msg), 0)
+        return self.is_js
+
     def run(self, edit, force_entire_file=False):
         view = self.view
 
