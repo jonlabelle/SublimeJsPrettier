@@ -1,6 +1,7 @@
 # Sublime Text JavaScript Prettier
 
-    A Sublime Text Plug-in for Prettier, the opinionated JavaScript formatter.
+    JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated
+    JavaScript formatter.
 
 
 ## Install Prettier
@@ -16,7 +17,8 @@
         -> "Preferences"
         -> "Package Settings"
         -> "JsPrettier"
-            -> "Settings - User"
+            -> "Settings - Default" (To view the default settings)
+            -> "Settings - User"    (To override the default settings)
 
 
 ## Usage
@@ -29,18 +31,20 @@
 
     ### Command Scope
 
-    The `JsPrettier` command will attempt to format any selected JavaScript sections
-    of code first; if no selections are made, the entire file will be formatted.
+        The `JsPrettier` command will attempt to format any selected JavaScript
+        sections of code first; if no selections are made, the entire file will
+        be formatted.
 
-    > NOTE: When the `auto_format_on_save` setting is set to `true`, the entire file
-    > will always be formatted.
+        > NOTE: When the `auto_format_on_save` setting is set to `true`, the
+        > entire file will always be formatted.
 
     ### Custom Key Binding
 
-    To add a custom key binding to execute the JsPrettier command at will, please
-    reference the following example, which binds to "ctrl/cmd + b".
+        To add a custom key binding to execute the JsPrettier command at will,
+        please reference the following example, which binds to "ctrl/cmd + b".
 
-        { "keys": ["super+b"], "command": "js_prettier" }
+            { "keys": ["super+b"], "command": "js_prettier" }
+
 
 ## Settings
 
@@ -57,7 +61,7 @@
 ## Help
 
     For additional help, including issue reporting... please visit the
-    Sublime Text JavaScript Prettier at <https://github.com/jonlabelle/SublimeJsPrettier>.
+    Sublime Text JavaScript Prettier @ https://github.com/jonlabelle/SublimeJsPrettier.
 
 
 ## License
