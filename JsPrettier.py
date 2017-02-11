@@ -166,8 +166,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                          env=self.proc_env, shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
-                self.error_message = "Prettier Error Code: {0}\n\n{1}".format(
-                    str(proc.returncode), stderr.decode('utf-8'))
+                self.error_message = '## Prettier CLI Error Output:\n\n' \
+                                     '{0}\n' \
+                                     '## Prettier CLI Return Code:\n\n{1}' \
+                    .format(stderr.decode('utf-8')
+                            .replace('\n', '\n    '),
+                            '    {0}'.format(str(proc.returncode)))
                 return None
             else:
                 return stdout.decode('utf-8')
@@ -218,8 +222,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             'view error details.'.format(PLUGIN_NAME)), 0)
 
     def print_error_console(self):
-        print("\n------------------\n {0} Error \n------------------\n\n"
-              "{1}".format(PLUGIN_NAME, self.error_message))
+        print('\n------------\n {0} \n------------\n\n'
+              '{1}'.format(PLUGIN_NAME, self.error_message))
 
     def get_setting(self, key, default_value=None):
         settings = self.view.settings().get(PLUGIN_NAME)
