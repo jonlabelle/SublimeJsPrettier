@@ -97,6 +97,17 @@ All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
 file, accessible from the **Preferences** > **Package Settings** >
 ***JsPrettier*** menu shortcut.
 
+### Sublime Text Settings
+
+- `prettier_cli_path` (default: *empty*)  
+   It's strongly recommended leaving the `prettier_cli_path` value empty (the
+   default), however if Sublime Text has problems resolving the path to the
+   `prettier` cli executable, you can explicitly specify the full path here.
+   
+- `auto_format_on_save` (default: *false*)  
+   Whether or not to run the `js_prettier` command automatically on every file
+   save.
+
 ### Prettier Options
 
 - `printWidth` (default: *80*)  
@@ -116,6 +127,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - `parser` (default: *babylon*)  
    Which parser to use. Valid options are `'flow'` and `'babylon'`.
+   
+> *For further details and examples of Prettier's options, please reference the
+> [Prettier repository].*
 
 ## Changes
 
@@ -131,6 +145,7 @@ Jon LaBelle
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
+[Prettier repository]: https://github.com/jlongster/prettier
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
