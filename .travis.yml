@@ -1,9 +1,5 @@
 language: python
 
-os:
-  - linux
-  - osx
-
 python:
   - "2.7"
   - "3.3"
@@ -18,3 +14,6 @@ install:
 # Run tests:
 script:
   - flake8 . --max-line-length=81
+
+notifications:
+  email: false
