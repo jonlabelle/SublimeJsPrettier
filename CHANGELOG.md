@@ -1,18 +1,14 @@
 # Changelog
 
-## 1.1.7
+## 1.2.0
 
 Release Date: 2017-02-10
 
 - Now when the `auto_format_on_save` setting is set to `true`, the entire file
   will always be formatted.
-
-## 1.1.5
-
-Release Date: 2017-02-10
-
 - Remove extra line-breaks injected by the `prettier` cli command at the end of
-  selected regions.
+  selected regions and entire file.
+- Added Context Menu shortcut.
 
 ## 1.1.2
 

@@ -1,7 +1,7 @@
 {
     "name": "sublime-js-prettier",
     "description": "A Sublime Text Plug-in for Prettier, the opinionated JavaScript formatter.",
-    "version": "1.1.9",
+    "version": "1.2.0",
     "license": "MIT",
     "private": true,
     "dependencies": {

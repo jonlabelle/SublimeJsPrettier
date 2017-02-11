@@ -24,6 +24,9 @@
     To run the JsPrettier command... open the Sublime Text Command Palette
     (super + shift + p), and type "JsPrettier".
 
+    You can also right-click anywhere in the file (JavaScript Syntax only) to
+    bring up the Context Menu, then select "JsPrettier" to execute the command.
+
     ### Command Scope
 
     The `JsPrettier` command will attempt to format any selected JavaScript sections
