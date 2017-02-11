@@ -97,6 +97,26 @@ All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
 file, accessible from the **Preferences** > **Package Settings** >
 ***JsPrettier*** menu shortcut.
 
+### Prettier Options
+
+- `printWidth` (default: *80*)  
+   Specifies that the formatted code should fit within this line limit.
+
+- `tabWidth` (inherits Sublime Text's *tab_size*)  
+   The number of spaces to use per tab.
+
+- `singleQuote` (default: *false*)  
+   If true, code will be formatted using single-quotes, instead of double-quotes.
+
+- `trailingComma` (default: *false*)  
+   Controls the printing of trailing commas wherever possible.
+
+- `bracketSpacing` (default: *true*)  
+   Controls the printing of spaces inside object literals.
+
+- `parser` (default: *babylon*)  
+   Which parser to use. Valid options are `'flow'` and `'babylon'`.
+
 ## Changes
 
 Please visit the [Changelog] page for a complete list of changes.
