@@ -79,6 +79,15 @@ of code first; if no selections are made, the entire file will be formatted.
 > **NOTE:** When the `auto_format_on_save` is setting is set to `true`, the
 > **entire file** will always be formatted.
 
+### Custom Key Binding
+
+To add a [custom key binding] to execute the `JsPrettier` command at will,
+please reference the following example, which binds to <kbd>ctrl/cmd + b</kbd>.
+
+```json
+{ "keys": ["super+b"], "command": "js_prettier" }
+```
+
 ## Settings
 
 All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
@@ -106,5 +115,6 @@ Jon LaBelle
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths "Navigate to Default Sublime Text Packages Paths"
 [manual download instructions]: #manual-download
+[custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.md

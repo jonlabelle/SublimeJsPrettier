@@ -24,14 +24,20 @@
     To run the JsPrettier command... open the Sublime Text Command Palette
     (super + shift + p), and type "JsPrettier".
 
-Command Scope
+    ### Command Scope
 
-The `JsPrettier` command will attempt to format any selected JavaScript sections
-of code first; if no selections are made, the entire file will be formatted.
+    The `JsPrettier` command will attempt to format any selected JavaScript sections
+    of code first; if no selections are made, the entire file will be formatted.
 
-> NOTE: When the `auto_format_on_save` setting is set to `true`, the entire file
-> will always be formatted.
+    > NOTE: When the `auto_format_on_save` setting is set to `true`, the entire file
+    > will always be formatted.
 
+    ### Custom Key Binding
+
+    To add a custom key binding to execute the JsPrettier command at will, please
+    reference the following example, which binds to "ctrl/cmd + b".
+
+        { "keys": ["super+b"], "command": "js_prettier" }
 
 ## Settings
 
