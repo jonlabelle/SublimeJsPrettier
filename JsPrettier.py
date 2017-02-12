@@ -68,12 +68,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.print_error_console()
                 return self.show_status_bar_error()
 
-            # strip trailing whitespace including line-breaks from the
-            # end of the string, inserted by prettier:
-            transformed = self.strip_trailing_whitespace_eol(transformed)
-
+            transformed = self.trim_trailing_line_breaks(transformed)
             if transformed and transformed \
-                    == self.strip_trailing_whitespace_eol(source):
+                    == self.trim_trailing_line_breaks(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             else:
@@ -95,12 +92,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.print_error_console()
                 return self.show_status_bar_error()
 
-            # strip trailing whitespace including line-breaks from the
-            # end of the string, inserted by prettier:
-            transformed = self.strip_trailing_whitespace_eol(transformed)
-
+            transformed = self.trim_trailing_line_breaks(transformed)
             if transformed and transformed \
-                    == self.strip_trailing_whitespace_eol(source):
+                    == self.trim_trailing_line_breaks(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) already formatted.'.format(
                         PLUGIN_NAME)), 0)
@@ -109,7 +103,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def strip_trailing_whitespace_eol(self, val):
+    def trim_trailing_line_breaks(self, val):
+        """
+        Trims trailing whitespace and line-breaks at the end of a string.
+        :param val: The value to trim.
+        :return: The val with trailing line-breaks removed.
+        """
         if val is None:
             return val
         val = sub(r'\s+\Z', '', val)
