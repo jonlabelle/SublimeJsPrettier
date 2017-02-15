@@ -66,7 +66,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
-            if transformed and transformed == self.trim_trailing_ws_and_lines(source):
+            if transformed and transformed == self.trim_trailing_ws_and_lines(
+                    source):
                 if self.ensure_newline_at_eof(view, edit):
                     file_changed = True
             else:
@@ -108,13 +109,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
-
-    def ensure_newline_at_eof(self, view, edit):
-        new_line_inserted = False
-        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
-            new_line_inserted = True
-            view.insert(edit, view.size(), "\n")
-        return new_line_inserted
 
     @property
     def has_errors(self):
@@ -187,6 +181,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "{0} - path to prettier not found! Please ensure "
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
+
+    def ensure_newline_at_eof(self, view, edit):
+        new_line_inserted = False
+        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
+            new_line_inserted = True
+            view.insert(edit, view.size(), "\n")
+        return new_line_inserted
 
     def trim_trailing_ws_and_lines(self, val):
         """
