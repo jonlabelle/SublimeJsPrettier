@@ -1,11 +1,11 @@
 language: python
 
+# Recommended by Travis support:
+sudo: required
+
 python:
   - "2.7"
   - "3.3"
-
-# Recommended by Travis support:
-sudo: required
 
 # Install dependencies:
 install:

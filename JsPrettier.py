@@ -31,12 +31,6 @@ PRETTIER_OPTION_CLI_MAP = [
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
-    def is_visible(self):
-        return self.is_js
-
-    def is_enabled(self):
-        return self.is_js
-
     def run(self, edit, force_entire_file=False):
         view = self.view
 
@@ -62,15 +56,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
-            transformed = self.run_prettier(source, prettier_cli_path,
-                                            prettier_args)
+            transformed = self.run_prettier(
+                source,
+                prettier_cli_path,
+                prettier_args)
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
 
-            transformed = self.trim_trailing_line_breaks(transformed)
-            if transformed and transformed \
-                    == self.trim_trailing_line_breaks(source):
+            transformed = self.trim_trailing_ws_and_lines(transformed)
+            if transformed \
+                    and transformed == self.trim_trailing_ws_and_lines(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             else:
@@ -86,15 +82,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = view.substr(region)
-            transformed = self.run_prettier(source, prettier_cli_path,
-                                            prettier_args)
+
+            transformed = self.run_prettier(
+                source,
+                prettier_cli_path,
+                prettier_args)
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
 
-            transformed = self.trim_trailing_line_breaks(transformed)
-            if transformed and transformed \
-                    == self.trim_trailing_line_breaks(source):
+            transformed = self.trim_trailing_ws_and_lines(transformed)
+            if transformed \
+                    and transformed == self.trim_trailing_ws_and_lines(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) already formatted.'.format(
                         PLUGIN_NAME)), 0)
@@ -102,17 +101,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
-
-    def trim_trailing_line_breaks(self, val):
-        """
-        Trims trailing whitespace and line-breaks at the end of a string.
-        :param val: The value to trim.
-        :return: The val with trailing line-breaks removed.
-        """
-        if val is None:
-            return val
-        val = sub(r'\s+\Z', '', val)
-        return val
 
     @property
     def has_errors(self):
@@ -185,6 +173,23 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "{0} - path to prettier not found! Please ensure "
                 "the path to prettier is set in your $PATH env "
                 "variable.".format(PLUGIN_NAME))
+
+    def trim_trailing_ws_and_lines(self, val):
+        """
+        Trims trailing whitespace and line-breaks at the end of a string.
+        :param val: The value to trim.
+        :return: The val with trailing line-breaks removed.
+        """
+        if val is None:
+            return val
+        val = sub(r'\s+\Z', '', val)
+        return val
+
+    def is_visible(self):
+        return self.is_js
+
+    def is_enabled(self):
+        return self.is_js
 
     def is_bool_str(self, val):
         if val is None:
