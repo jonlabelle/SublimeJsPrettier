@@ -71,6 +71,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             else:
                 view.replace(edit, region, transformed)
+                view.run_command("ensure_newline_at_eof")
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File formatted.'.format(PLUGIN_NAME)), 0)
             return
