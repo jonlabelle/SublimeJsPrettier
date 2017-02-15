@@ -69,6 +69,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if transformed and transformed == self.trim_trailing_ws_and_lines(
                     source):
                 if self.ensure_newline_at_eof(view, edit) is True:
+                    # no formatting changes applied, however a line break was
+                    # needed/inserted at eof:
                     file_changed = True
             else:
                 view.replace(edit, region, transformed)
