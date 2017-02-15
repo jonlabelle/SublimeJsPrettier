@@ -53,6 +53,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         #
         # Format entire file:
         if not self.has_selection or force_entire_file is True:
+            file_changed = False
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
@@ -65,15 +66,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
-            if transformed \
-                    and transformed == self.trim_trailing_ws_and_lines(source):
-                sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
+            if transformed and transformed == self.trim_trailing_ws_and_lines(source):
+                if self.ensure_newline_at_eof(view, edit):
+                    file_changed = True
             else:
                 view.replace(edit, region, transformed)
-                view.run_command("ensure_newline_at_eof")
+                self.ensure_newline_at_eof(view, edit)
+                file_changed = True
+
+            if file_changed is True:
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File formatted.'.format(PLUGIN_NAME)), 0)
+            else:
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             return
 
         #
@@ -102,6 +108,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
+
+    def ensure_newline_at_eof(self, view, edit):
+        new_line_inserted = False
+        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
+            new_line_inserted = True
+            view.insert(edit, view.size(), "\n")
+        return new_line_inserted
 
     @property
     def has_errors(self):
