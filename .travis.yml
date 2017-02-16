@@ -13,7 +13,7 @@ install:
 
 # Run tests:
 script:
-  - flake8 . --max-line-length=81
+  - flake8 .
 
 notifications:
   email: false

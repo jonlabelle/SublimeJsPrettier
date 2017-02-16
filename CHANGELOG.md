@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.4
+
+**Release Date:** 2017-02-16
+
+- Added support for the new `jsxBracketSameLine` option. When
+  `jsxBracketSameLine` is *true* (the default is *false*), right-angle brackets
+  `>` of multi-line jsx elements will be placed at the end of the last line,
+  instead of being alone on the next line. You may be required to update to the
+  latest version of the [Prettier] to leverage the `jsxBracketSameLine` option
+  (available since v0.17.0).
+
 ## 1.2.0
 
 **Release Date:** 2017-02-10
@@ -71,3 +82,4 @@
 
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [#4]: https://github.com/jonlabelle/SublimeJsPrettier/issues/4
+[Prettier]: https://github.com/jlongster/prettier

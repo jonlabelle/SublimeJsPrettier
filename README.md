@@ -126,9 +126,14 @@ file, accessible from the **Preferences** > **Package Settings** >
 - `bracketSpacing` (default: *true*)  
    Controls the printing of spaces inside object literals.
 
+- `jsxBracketSameLine` (default: *false*)  
+   When `jsxBracketSameLine` is *true* (the default is *false*), right-angle
+   brackets `>` of multi-line jsx elements will be placed at the end of the last
+   line, instead of being alone on the next line.
+
 - `parser` (default: *babylon*)  
    Which parser to use. Valid options are `'flow'` and `'babylon'`.
-   
+
 > *For further details and examples of Prettier's options, please reference the
 > [Prettier repository].*
 

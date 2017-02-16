@@ -18,11 +18,36 @@ PLUGIN_PATH = os.path.join(sublime.packages_path(),
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 
 PRETTIER_OPTION_CLI_MAP = [
-    {'option': 'printWidth', 'cli': '--print-width', 'default': '80'},
-    {'option': 'singleQuote', 'cli': '--single-quote', 'default': 'false'},
-    {'option': 'trailingComma', 'cli': '--trailing-comma', 'default': 'false'},
-    {'option': 'bracketSpacing', 'cli': '--bracket-spacing', 'default': 'true'},
-    {'option': 'parser', 'cli': '--parser', 'default': 'babylon'}
+    {
+        'option': 'printWidth',
+        'cli': '--print-width',
+        'default': '80'
+    },
+    {
+        'option': 'singleQuote',
+        'cli': '--single-quote',
+        'default': 'false'
+    },
+    {
+        'option': 'trailingComma',
+        'cli': '--trailing-comma',
+        'default': 'false'
+    },
+    {
+        'option': 'bracketSpacing',
+        'cli': '--bracket-spacing',
+        'default': 'true'
+    },
+    {
+        'option': 'jsxBracketSameLine',
+        'cli': '--jsx-bracket-same-line',
+        'default': 'false'
+    },
+    {
+        'option': 'parser',
+        'cli': '--parser',
+        'default': 'babylon'
+    }
 ]
 
 
