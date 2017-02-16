@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.5
+
+**Release Date:** 2017-02-16
+
+- Added format on save support for .jsx files.
+
 ## 1.2.4
 
 **Release Date:** 2017-02-16
