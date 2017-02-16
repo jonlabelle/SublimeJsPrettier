@@ -1,13 +1,13 @@
 language: python
 
-# Recommended by Travis support:
+# recommended by travis support:
 sudo: required
 
 python:
   - "2.7"
   - "3.3"
 
-# Install dependencies:
+# install dependencies:
 install:
   - pip install flake8
 
@@ -15,5 +15,6 @@ install:
 script:
   - flake8 .
 
+# disable all email build notifications:
 notifications:
   email: false
