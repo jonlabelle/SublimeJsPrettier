@@ -353,7 +353,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         ext = splitext(view.file_name())[1][1:]
-        if self.is_enabled(view) and ext == 'js':
+        if self.is_enabled(view) and (ext == 'js' or ext == 'jsx'):
             view.run_command("js_prettier", {"force_entire_file": True})
 
     def is_enabled(self, view):
