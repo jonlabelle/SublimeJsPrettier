@@ -23,6 +23,16 @@
 	"auto_format_on_save" : false,
 
 	//
+	// @allow_inline_formatting { bool | default = false }
+	//
+	// Enables the ability to format "selections" of in-lined JavaScript code,
+	// outside of the normal JavaScript syntax. For example, to format a
+	// selection of JavaScript code within a PHP or HTML file. When `true`, the
+	// JsPrettier command is available for use across all Sublime Text syntaxes.
+
+	"allow_inline_formatting": true,
+
+	//
 	// For a complete list of supported options and acceptable values,
 	// please reference the `prettier` documentation at https://github.com/jlongster/prettier
 

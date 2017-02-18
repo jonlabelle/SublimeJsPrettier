@@ -176,6 +176,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return int(self.view.settings().get('tab_size', 2))
 
     @property
+    def allow_inline_formatting(self):
+        return self.get_setting('allow_inline_formatting', False)
+
+    @property
     def has_selection(self):
         for sel in self.view.sel():
             start, end = sel
@@ -226,9 +230,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return val
 
     def is_visible(self):
+        if self.allow_inline_formatting:
+            return True
         return self.is_js
 
     def is_enabled(self):
+        if self.allow_inline_formatting:
+            return True
         return self.is_js
 
     def is_bool_str(self, val):

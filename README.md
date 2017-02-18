@@ -108,6 +108,12 @@ file, accessible from the **Preferences** > **Package Settings** >
 - `auto_format_on_save` (default: *false*)  
    Whether or not to run the `js_prettier` command automatically on every file
    save.
+   
+- `allow_inline_formatting` (default: *false*)  
+   Provides the ability to format *selections* of in-lined JavaScript code,
+   outside of the normal JavaScript syntax. For example, to format a selection
+   of JavaScript code within a PHP or HTML file. When `true`, the JsPrettier
+   command is available for use across all Sublime Text syntaxes.
 
 ### Prettier Options
 
