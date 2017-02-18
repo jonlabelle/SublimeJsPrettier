@@ -1,11 +1,11 @@
-language: python
-
 # recommended by travis support:
 sudo: required
 
+language: python
+
 python:
   - "2.6" # sublime text 2 compilation
-  - "3.3" # sublime text 3 complication
+  - "3.3" # sublime text 3 compilation
 
 # install dependencies:
 install:
@@ -15,6 +15,6 @@ install:
 script:
   - flake8 .
 
-# disable all email build notifications:
+# disable email build notifications:
 notifications:
   email: false
