@@ -4,8 +4,8 @@ language: python
 sudo: required
 
 python:
-  - "2.7"
-  - "3.3"
+  - "2.6" # sublime text 2 compilation
+  - "3.3" # sublime text 3 complication
 
 # install dependencies:
 install:
