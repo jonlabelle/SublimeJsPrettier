@@ -127,7 +127,7 @@ file, accessible from the **Preferences** > **Package Settings** >
    If true, code will be formatted using single-quotes, instead of double-quotes.
 
 - `trailingComma` (default: *none*)  
-   Controls the printing of trailing commas wherever possible. Valid options:  
+   Controls the printing of trailing commas wherever possible. Valid options:
     * `"none"` - No trailing commas
     * `"es5"`  - Trailing commas where valid in ES5 (objects, arrays, etc)
     * `"all"`  - Trailing commas wherever possible (function arguments)
