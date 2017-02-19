@@ -56,6 +56,16 @@ PRETTIER_OPTION_CLI_MAP = [
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
+    def is_visible(self):
+        if self.allow_inline_formatting:
+            return True
+        return self.is_js
+
+    def is_enabled(self):
+        if self.allow_inline_formatting:
+            return True
+        return self.is_js
+
     def run(self, edit, force_entire_file=False):
         view = self.view
 
@@ -79,6 +89,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # Format entire file:
         if not self.has_selection or force_entire_file is True:
             file_changed = False
+
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
@@ -86,6 +97,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 source,
                 prettier_cli_path,
                 prettier_args)
+
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
@@ -122,6 +134,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 source,
                 prettier_cli_path,
                 prettier_args)
+
             if self.has_errors:
                 self.print_error_console()
                 return self.show_status_bar_error()
@@ -230,16 +243,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return val
         val = sub(r'\s+\Z', '', val)
         return val
-
-    def is_visible(self):
-        if self.allow_inline_formatting:
-            return True
-        return self.is_js
-
-    def is_enabled(self):
-        if self.allow_inline_formatting:
-            return True
-        return self.is_js
 
     def is_bool_str(self, val):
         if val is None:
@@ -362,7 +365,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        if self.is_enabled(view) and self.is_allowed(view) is True:
+        if self.is_allowed(view) is True and self.is_enabled(view):
             view.run_command("js_prettier", {"force_entire_file": True})
 
     def is_enabled(self, view):
