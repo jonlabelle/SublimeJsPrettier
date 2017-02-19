@@ -33,7 +33,7 @@ PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'trailingComma',
         'cli': '--trailing-comma',
-        'default': 'false'
+        'default': 'none'
     },
     {
         'option': 'bracketSpacing',

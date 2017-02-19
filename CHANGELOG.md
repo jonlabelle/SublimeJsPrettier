@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.1
+
+**Release Date:** 2017-02-19
+
+- Added support for the modified `trailingComma` option. The `trailingComma`
+  option controls the printing of trailing commas wherever possible.
+  
+	Valid options are:
+   
+	* `"none"` - No trailing commas
+	* `"es5"`  - Trailing commas where valid in ES5 (objects, arrays, etc)
+	* `"all"`  - Trailing commas wherever possible (function arguments)
+
 ## 1.3.0
 
 **Release Date:** 2017-02-18
