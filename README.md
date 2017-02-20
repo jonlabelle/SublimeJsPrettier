@@ -198,7 +198,7 @@ Jon LaBelle
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
-[Project-level Settings]: http://docs.sublimetext.info/en/latest/file_management/projects.html
+[Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
 [npm]: https://www.npmjs.com
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths "Navigate to Default Sublime Text Packages Paths"
