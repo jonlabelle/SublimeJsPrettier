@@ -50,7 +50,7 @@
 
 - Now when the `auto_format_on_save` setting is set to `true`, the entire file
   will always be formatted.
-- Remove extra line-breaks injected by the `prettier` cli command at the end of
+- Removed extra line-breaks injected by the `prettier` cli command at the end of
   selected regions and entire file.
 - Added Context Menu shortcut.
 
@@ -84,7 +84,7 @@
 
 **Release Date:** 2017-01-19
 
-- Incorporate new prettier option to specify which parser to use. Valid options
+- Incorporated new prettier option to specify which parser to use. Valid options
   for `parser` are `flow` and `babylon`. The `useFlowParser` option has been
   deprecated, in favor of the new `parser` option.
 
@@ -92,7 +92,7 @@
 
 **Release Date:** 2017-01-19
 
-- Remove the default value for "node_path", and internally try to sniff out the
+- Removed the default value for "node_path", and internally try to sniff out the
   appropriate path.
 
 ## 1.0.1
@@ -102,7 +102,7 @@
 - Fixed package path to use "JsPrettier" instead of "SublimeJsPrettier".
   Previously caused the "Default" settings file not to open from the Main Menu.
 
-- Add notice regarding local installations of Prettier. The `node_modules`
+- Added notice regarding local installations of Prettier. The `node_modules`
   directory will be deleted after every package update pushed by Package
   Control.
 
@@ -110,8 +110,7 @@
 
 **Release Date:** 2017-01-18
 
-- Initial release.
-- Now available for installation using [Package Control].
+- JsPrettier now available on [Package Control].
 
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [#4]: https://github.com/jonlabelle/SublimeJsPrettier/issues/4
