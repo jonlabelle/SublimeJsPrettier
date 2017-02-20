@@ -1,5 +1,9 @@
 # Changelog
 
+**Release Date:** 2017-02-20
+
+- Added support for Project-level settings.
+
 ## 1.3.1
 
 **Release Date:** 2017-02-19

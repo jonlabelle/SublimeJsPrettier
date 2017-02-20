@@ -288,17 +288,68 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         print('\n------------\n {0} \n------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
+    def _get_project_setting(self, key):
+        """
+        Gets a project setting.
+
+        JsPrettier project settings are stored in the sublime project file
+        as a dictionary:
+
+        "settings":
+        {
+            "js_prettier": { "key": "value", ... }
+        }
+
+        :param key: The project setting key.
+        :return: The project setting value.
+        """
+        settings = sublime.active_window().active_view().settings()
+        if not settings:
+            return None
+        jsprettier = settings.get('js_prettier')
+        if jsprettier:
+            if key in jsprettier:
+                return jsprettier[key]
+        return None
+
+    def _get_project_sub_setting(self, key):
+        settings = sublime.active_window().active_view().settings()
+        js_prettier_settings = settings.get('js_prettier', None)
+        if not js_prettier_settings:
+            return None
+        prettier_options = js_prettier_settings.get('prettier_options', None)
+        if prettier_options:
+            if key in prettier_options:
+                return prettier_options.get(key, None)
+        return None
+
     def get_setting(self, key, default_value=None):
         settings = self.view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
-        return settings.get(key, default_value)
+
+        value = settings.get(key, default_value)
+
+        # check for project-level overrides:
+        project_value = self._get_project_setting(key)
+        if project_value is None:
+            return value
+
+        return project_value
 
     def get_sub_setting(self, key, sub_key=None):
         settings = self.view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(key).get(sub_key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
-        return settings.get(key).get(sub_key)
+
+        value = settings.get(key).get(sub_key)
+
+        # check for project-level overrides:
+        project_value = self._get_project_sub_setting(sub_key)
+        if project_value is None:
+            return value
+
+        return project_value
 
     def which(self, executable, path=None):
         if not self.is_none_or_empty(executable):
@@ -377,9 +428,26 @@ class CommandOnSave(sublime_plugin.EventListener):
             return True
         return False
 
-    @staticmethod
-    def get_setting(view, key, default_value=None):
+    def _get_project_setting(self, key):
+        settings = sublime.active_window().active_view().settings()
+        if not settings:
+            return None
+        jsprettier = settings.get('js_prettier')
+        if jsprettier:
+            if key in jsprettier:
+                return jsprettier[key]
+        return None
+
+    def get_setting(self, view, key, default_value=None):
         settings = view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
-        return settings.get(key, default_value)
+
+        value = settings.get(key, default_value)
+
+        # check for project-level overrides:
+        project_value = self._get_project_setting(key)
+        if project_value is None:
+            return value
+
+        return project_value

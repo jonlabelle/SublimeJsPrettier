@@ -98,6 +98,40 @@ All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
 file, accessible from the **Preferences** > **Package Settings** >
 ***JsPrettier*** menu shortcut.
 
+### Project-level Settings
+
+JsPrettier supports [Project-level Settings], configured in `<project_name>.sublime-project`
+files. In order for Project-level Settings to override Default and User
+Settings, a new `js_prettier` section must be created under the project file's
+`settings` key.
+
+**Example Project File:**
+
+```json
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "js_prettier": {
+            "prettier_cli_path": "",
+            "auto_format_on_save": false,
+            "allow_inline_formatting": false,
+            "prettier_options": {
+                "printWidth": 80,
+                "singleQuote": false,
+                "trailingComma": "none",
+                "bracketSpacing": true,
+                "jsxBracketSameLine": false,
+                "parser": "babylon"
+            }
+        }
+    }
+}
+```
+
 ### Sublime Text Settings
 
 - `prettier_cli_path` (default: *empty*)  
@@ -164,6 +198,7 @@ Jon LaBelle
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
+[Project-level Settings]: http://docs.sublimetext.info/en/latest/file_management/projects.html
 [npm]: https://www.npmjs.com
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths "Navigate to Default Sublime Text Packages Paths"
