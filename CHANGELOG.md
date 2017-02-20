@@ -116,3 +116,4 @@
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [#4]: https://github.com/jonlabelle/SublimeJsPrettier/issues/4
 [Prettier]: https://github.com/jlongster/prettier
+[Project-level settings]: https://github.com/jonlabelle/SublimeJsPrettier#project-level-settings
