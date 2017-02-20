@@ -2,7 +2,7 @@
 
 **Release Date:** 2017-02-20
 
-- Added support for Project-level settings.
+- Added support for [Project-level settings].
 
 ## 1.3.1
 
