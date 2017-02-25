@@ -1,3 +1,5 @@
 .DS_Store
-*.pyc
+*.py[co]
+.cache
+__pycache__
 node_modules
