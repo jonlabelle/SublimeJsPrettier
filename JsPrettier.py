@@ -353,7 +353,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
         value = settings.get(PRETTIER_OPTIONS_KEY).get(key)
-
         # check for project-level overrides:
         project_value = self._get_project_sub_setting(key)
         if project_value is None:
