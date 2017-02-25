@@ -339,7 +339,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if settings is None or settings.get(key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
         value = settings.get(key, default_value)
-
         # check for project-level overrides:
         project_value = self._get_project_setting(key)
         if project_value is None:
@@ -428,13 +427,19 @@ class CommandOnSave(sublime_plugin.EventListener):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def is_enabled(self, view):
-        return self.get_setting(view, 'auto_format_on_save', False)
+        return self.allow_inline_formatting(view)
 
     def is_allowed(self, view):
+        return self.is_js_file(view)
+
+    def is_js_file(self, view):
         ext = splitext(view.file_name())[1][1:]
         if ext == 'js' or ext == 'jsx':
             return True
         return False
+
+    def allow_inline_formatting(self, view):
+        return self.get_setting(view, 'auto_format_on_save', False)
 
     def _get_project_setting(self, key):
         settings = sublime.active_window().active_view().settings()
@@ -451,7 +456,6 @@ class CommandOnSave(sublime_plugin.EventListener):
         if settings is None or settings.get(key) is None:
             settings = sublime.load_settings(SETTINGS_FILE)
         value = settings.get(key, default_value)
-
         # check for project-level overrides:
         project_value = self._get_project_setting(key)
         if project_value is None:
