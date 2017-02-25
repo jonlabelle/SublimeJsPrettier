@@ -19,8 +19,7 @@
 	//
 	// It's strongly recommended to leave the "node_path" value
 	// empty "". However, if Sublime Text has problems resolving the path
-	// to the `node`, you can explicitly specify the
-	// full path here.
+	// to `node`, you can explicitly specify the full path here.
 	//
 	// Examples:
 	//
