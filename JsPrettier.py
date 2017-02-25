@@ -325,15 +325,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return js_prettier_settings[key]
         return None
 
-    def _get_project_sub_setting(self, key):
+    def _get_project_sub_setting(self, option):
         project_settings = sublime.active_window().active_view().settings()
         js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY, None)
         if not js_prettier_settings:
             return None
         prettier_options = js_prettier_settings.get(PRETTIER_OPTIONS_KEY, None)
         if prettier_options:
-            if key in prettier_options:
-                return prettier_options.get(key, None)
+            if option in prettier_options:
+                return prettier_options.get(option, None)
         return None
 
     def get_setting(self, key, default_value=None):

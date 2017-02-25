@@ -109,7 +109,6 @@ class CheckJsonFormat(object):
             return ''.join([x[0] for x in RE_LINE_PRESERVE.findall(group)])
 
         def evaluate(m):
-            # text = ''
             g = m.groupdict()
             if g["code"] is None:
                 if not self.allow_comments:
