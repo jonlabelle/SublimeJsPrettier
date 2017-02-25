@@ -34,7 +34,7 @@
 	// Run js_prettier command automatically
 	// when JavaScript files are saved.
 
-	"auto_format_on_save" : false,
+	"auto_format_on_save": false,
 
 	//
 	// @allow_inline_formatting { bool | default = false }
