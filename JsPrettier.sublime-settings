@@ -31,8 +31,8 @@
 	//
 	// @auto_format_on_save { bool | default = false }
 	//
-	// Run js_prettier command automatically
-	// when JavaScript files are saved.
+	// Whether or not to run the `js_prettier` command automatically
+	// on every file save (`.js` and `.jsx` file types only).
 
 	"auto_format_on_save": false,
 

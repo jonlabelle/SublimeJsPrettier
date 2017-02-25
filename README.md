@@ -147,7 +147,7 @@ Settings, a new `js_prettier` section must be created under the project file's
    
 - `auto_format_on_save` (default: *false*)  
    Whether or not to run the `js_prettier` command automatically on every file
-   save.
+   save (`.js` and `.jsx` file types only).
    
 - `allow_inline_formatting` (default: *false*)  
    Provides the ability to format *selections* of in-lined JavaScript code,
