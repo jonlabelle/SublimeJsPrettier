@@ -237,6 +237,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             else:
                 return stdout.decode('utf-8')
         except OSError:
+            self.show_status_bar_error()
             raise Exception(
                 "{0} - path to prettier not found! Please ensure "
                 "the path to prettier is set in your $PATH env "
