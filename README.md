@@ -160,7 +160,7 @@ Settings, a new `js_prettier` section must be created under the project file's
 - `printWidth` (default: *80*)  
    Specifies that the formatted code should fit within this line limit.
 
-- `tabWidth` (inherits Sublime Text's *tab_size*)  
+- `tabWidth` (inherits the Sublime Text *[tab_size]*)  
    The number of spaces to use per tab.
 
 - `singleQuote` (default: *false*)  
@@ -205,6 +205,7 @@ Jon LaBelle
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
 [Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
+[tab_size]: http://docs.sublimetext.info/en/latest/reference/settings.html
 [npm]: https://www.npmjs.com
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths "Navigate to Default Sublime Text Packages Paths"
