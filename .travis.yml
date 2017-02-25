@@ -10,10 +10,11 @@ python:
 # install dependencies:
 install:
   - pip install flake8
+  - pip install flake8_docstrings
 
 # run tests:
 script:
-  - flake8 .
+  - flake8 . --ignore=D100,D101,D102
 
 # disable email build notifications:
 notifications:

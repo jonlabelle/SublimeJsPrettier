@@ -209,15 +209,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if self.is_none_or_empty(self.node_path):
             cmd = [prettier_cli_path] \
-                  + prettier_args \
-                  + ['--stdin'] \
-                  + ['--color=false']
+                + prettier_args \
+                + ['--stdin'] \
+                + ['--color=false']
         else:
             cmd = [self.node_path] \
-                  + [prettier_cli_path] \
-                  + prettier_args \
-                  + ['--stdin'] \
-                  + ['--color=false']
+                + [prettier_cli_path] \
+                + prettier_args \
+                + ['--stdin'] \
+                + ['--color=false']
         try:
             proc = Popen(
                 cmd, stdin=PIPE,
@@ -252,7 +252,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def trim_trailing_ws_and_lines(self, val):
         """
-        Trims trailing whitespace and line-breaks at the end of a string.
+        Trim trailing whitespace and line-breaks at the end of a string.
+
         :param val: The value to trim.
         :return: The val with trailing line-breaks removed.
         """
@@ -304,7 +305,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def _get_project_setting(self, key):
         """
-        Gets the project setting
+        Get a project setting.
+
         JsPrettier project settings are stored in the sublime project file
         as a dictionary:
             "settings":
