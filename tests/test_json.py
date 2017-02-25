@@ -24,6 +24,7 @@ class TestSettings(unittest.TestCase):
             '*.sublime-settings',
             '*.sublime-commands',
             '*.sublime-menu',
+            '*.json'
         )
         for file_pattern in file_patterns:
             for f in self._get_json_files(file_pattern):
