@@ -117,6 +117,7 @@ Settings, a new `js_prettier` section must be created under the project file's
     "settings": {
         "js_prettier": {
             "prettier_cli_path": "",
+            "node_path": "",
             "auto_format_on_save": false,
             "allow_inline_formatting": false,
             "prettier_options": {
