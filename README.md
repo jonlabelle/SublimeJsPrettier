@@ -136,8 +136,13 @@ Settings, a new `js_prettier` section must be created under the project file's
 
 - `prettier_cli_path` (default: *empty*)  
    It's strongly recommended leaving the `prettier_cli_path` value empty (the
-   default), however if Sublime Text has problems resolving the path to the
+   default). However, if Sublime Text has problems resolving the path to the
    `prettier` cli executable, you can explicitly specify the full path here.
+   
+- `node_path` (default: *empty*)  
+   It's strongly recommended leaving the `node_path` value empty (the default).
+   However, if Sublime Text has problems resolving the path to the node
+   executable, you can explicitly specify the full path here.
    
 - `auto_format_on_save` (default: *false*)  
    Whether or not to run the `js_prettier` command automatically on every file

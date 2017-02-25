@@ -3,7 +3,7 @@
 	// @prettier_cli_path { string | default = "" }
 	//
 	// It's strongly recommended to leave the "prettier_cli_path" value
-	// empty "", however if Sublime Text has problems resolving the path
+	// empty "". However, if Sublime Text has problems resolving the path
 	// to the `prettier` cli executable, you can explicitly specify the
 	// full path here.
 	//
@@ -13,6 +13,21 @@
 	//     - Windows.......: "C:/path/to/npm/prettier"
 
 	"prettier_cli_path": "",
+
+	//
+	// @node_path { string | default = "" }
+	//
+	// It's strongly recommended to leave the "node_path" value
+	// empty "". However, if Sublime Text has problems resolving the path
+	// to the `node`, you can explicitly specify the
+	// full path here.
+	//
+	// Examples:
+	//
+	//     - macOS/Linux...: "/path/to/node"
+	//     - Windows.......: "C:/path/to/node.exe"
+
+	"node_path": "",
 
 	//
 	// @auto_format_on_save { bool | default = false }

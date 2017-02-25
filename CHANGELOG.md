@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+
+**Release Date:** 2017-02-24
+
+- Added the ability to specify a custom node path, via the `node_path` setting.
+
+## 1.4.0
+
 **Release Date:** 2017-02-20
 
 - Added support for [Project-level settings].

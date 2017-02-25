@@ -190,6 +190,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.which(prettier_path)
 
     @property
+    def node_path(self):
+        return self.get_setting('node_path', None)
+
+    @property
     def tab_size(self):
         return int(self.view.settings().get('tab_size', 2))
 
@@ -207,11 +211,25 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def run_prettier(self, source, prettier_cli_path, prettier_args):
         self._error_message = None
-        cmd = [prettier_cli_path] + prettier_args + ['--stdin'] + \
-              ['--color=false']
+
+        if self.is_none_or_empty(self.node_path):
+            cmd = [prettier_cli_path] \
+                  + prettier_args \
+                  + ['--stdin'] \
+                  + ['--color=false']
+        else:
+            cmd = [self.node_path] \
+                  + [prettier_cli_path] \
+                  + prettier_args \
+                  + ['--stdin'] \
+                  + ['--color=false']
         try:
-            proc = Popen(cmd, stdin=PIPE, stderr=PIPE, stdout=PIPE,
-                         env=self.proc_env, shell=self.is_windows())
+            proc = Popen(
+                cmd, stdin=PIPE,
+                stderr=PIPE,
+                stdout=PIPE,
+                env=self.proc_env,
+                shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
                 self.error_message = '## Prettier CLI Error Output:\n\n' \
