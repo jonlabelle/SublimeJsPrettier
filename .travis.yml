@@ -14,7 +14,7 @@ install:
 
 # run tests:
 script:
-  - flake8 . --ignore=D100,D101,D102
+  - flake8 .
 
 # disable email build notifications:
 notifications:
