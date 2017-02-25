@@ -21,7 +21,6 @@ PLUGIN_CMD_NAME = 'js_prettier'
 PROJECT_SETTINGS_KEY = PLUGIN_CMD_NAME
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 PRETTIER_OPTIONS_KEY = 'prettier_options'
-
 PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'printWidth',
@@ -62,12 +61,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_visible(self):
         if self.allow_inline_formatting:
             return True
-        return self.is_js
+        return self.is_source_js
 
     def is_enabled(self):
         if self.allow_inline_formatting:
             return True
-        return self.is_js
+        return self.is_source_js
 
     def run(self, edit, force_entire_file=False):
         view = self.view
@@ -75,7 +74,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if view.file_name() is None:
             return sublime.error_message(
                 '{0} Error\n\n'
-                'The current View must be Saved\n'
+                'The current View must be Saved '
                 'before running JsPrettier.'.format(PLUGIN_NAME))
 
         prettier_cli_path = self.prettier_cli_path
@@ -86,7 +85,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'not be found! Please ensure the path to prettier is '
                 'set in your PATH environment variable.'.format(PLUGIN_NAME))
 
-        prettier_args = self.parse_prettier_option_cli_map()
+        prettier_args = self.parse_prettier_options()
 
         #
         # Format entire file:
@@ -95,21 +94,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             region = sublime.Region(0, view.size())
             source = view.substr(region)
-
             transformed = self.run_prettier(
                 source,
                 prettier_cli_path,
                 prettier_args)
-
-            if self.has_errors:
-                self.print_error_console()
+            if self.has_error:
+                self.show_console_error()
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
             if transformed and transformed == self.trim_trailing_ws_and_lines(
                     source):
                 if self.ensure_newline_at_eof(view, edit) is True:
-                    # no formatting changes applied, however a line break was
+                    # no formatting changes applied, however, a line break was
                     # needed/inserted at eof:
                     file_changed = True
             else:
@@ -132,14 +129,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = view.substr(region)
-
             transformed = self.run_prettier(
                 source,
                 prettier_cli_path,
                 prettier_args)
-
-            if self.has_errors:
-                self.print_error_console()
+            if self.has_error:
+                self.show_console_error()
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
@@ -154,7 +149,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
     @property
-    def has_errors(self):
+    def has_error(self):
         if not self._error_message:
             return False
         return True
@@ -168,7 +163,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         self._error_message = message
 
     @property
-    def is_js(self):
+    def is_source_js(self):
         return self.view.scope_name(0).startswith('source.js')
 
     @property
@@ -274,7 +269,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return True
         return False
 
-    def parse_prettier_option_cli_map(self):
+    def parse_prettier_options(self):
         prettier_cli_args = []
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
@@ -285,10 +280,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if val is None or str(val) == '':
                 val = mapping['default']
             val = str(val).lower()
-
             if self.is_bool_str(val):
-                # bool options can be turned off like this,
-                # --bracket-spacing=false
                 prettier_cli_args.append('{0}={1}'.format(cli_name, val))
             else:
                 prettier_cli_args.append(cli_name)
@@ -305,22 +297,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             '{0}: Format failed! Open the console window to '
             'view error details.'.format(PLUGIN_NAME)), 0)
 
-    def print_error_console(self):
+    def show_console_error(self):
         print('\n------------\n {0} \n------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     def _get_project_setting(self, key):
         """
-        Gets a project setting.
-
+        Gets the project setting
         JsPrettier project settings are stored in the sublime project file
         as a dictionary:
-
             "settings":
             {
                 "js_prettier": { "key": "value", ... }
             }
-
         :param key: The project setting key.
         :return: The project setting value.
         """
