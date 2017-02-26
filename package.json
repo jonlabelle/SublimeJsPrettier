@@ -11,6 +11,14 @@
     "type": "git",
     "url": "git+https://github.com/jonlabelle/SublimeJsPrettier.git"
   },
+  "keywords": [
+    "sublime",
+    "text",
+    "plugin",
+    "prettier",
+    "jsprettier",
+    "formatter"
+  ],
   "bugs": {
     "url": "https://github.com/jonlabelle/SublimeJsPrettier/issues"
   }
