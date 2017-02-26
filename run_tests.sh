@@ -3,5 +3,5 @@
 set -e
 set -x
 
-pytest .
-flake8 .
+pytest
+flake8
