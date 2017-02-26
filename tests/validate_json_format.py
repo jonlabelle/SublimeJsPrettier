@@ -100,8 +100,7 @@ class CheckJsonFormat(object):
         return line
 
     def check_comments(self, text):
-        """
-        Check for JavaScript comments.
+        """Check for JavaScript comments.
 
         Log them and strip them out so we can continue.
         """
@@ -123,8 +122,7 @@ class CheckJsonFormat(object):
         return content
 
     def check_dangling_commas(self, text):
-        """
-        Check for dangling commas.
+        """Check for dangling commas.
 
         Log them and strip them out so we can continue.
         """
@@ -145,8 +143,7 @@ class CheckJsonFormat(object):
             map(lambda m: evaluate(m), RE_TRAILING_COMMA.finditer(text)))
 
     def log_failure(self, code, line=None):
-        """
-        Log failure.
+        """Log failure.
 
         Log failure code, line number (if available) and message.
         """

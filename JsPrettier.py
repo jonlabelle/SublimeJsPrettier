@@ -172,7 +172,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not self.is_windows():
             env = os.environ.copy()
             usr_path = ':/usr/local/bin'
-            if not self.path_exists_in_env_path(usr_path) \
+            if not self.env_path_exists(usr_path) \
                     and self.path_exists(usr_path):
                 env['PATH'] += usr_path
         return env
@@ -180,7 +180,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @property
     def prettier_cli_path(self):
         prettier_path = self.get_setting('prettier_cli_path', '')
-        if self.is_none_or_empty(prettier_path):
+        if self.is_none_or_empty_str(prettier_path):
             return self.which('prettier')
         return self.which(prettier_path)
 
@@ -207,7 +207,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def run_prettier(self, source, prettier_cli_path, prettier_args):
         self._error_message = None
 
-        if self.is_none_or_empty(self.node_path):
+        if self.is_none_or_empty_str(self.node_path):
             cmd = [prettier_cli_path] \
                 + prettier_args \
                 + ['--stdin'] \
@@ -251,11 +251,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return new_line_inserted
 
     def trim_trailing_ws_and_lines(self, val):
-        """
-        Trim trailing whitespace and line-breaks at the end of a string.
+        """Trim trailing whitespace and line-breaks at the end of a string.
 
         :param val: The value to trim.
-        :return: The val with trailing line-breaks removed.
+        :return: The val with trailing whitespace and line-breaks removed.
+        :rtype: bool
         """
         if val is None:
             return val
@@ -304,17 +304,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     def _get_project_setting(self, key):
-        """
-        Get a project setting.
+        """Get a project setting.
 
         JsPrettier project settings are stored in the sublime project file
-        as a dictionary:
+        as a dictionary, e.g.:
+
             "settings":
             {
                 "js_prettier": { "key": "value", ... }
             }
+
         :param key: The project setting key.
         :return: The project setting value.
+        :rtype: str
         """
         project_settings = sublime.active_window().active_view().settings()
         if not project_settings:
@@ -360,15 +362,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return project_value
 
     def which(self, executable, path=None):
-        if not self.is_none_or_empty(executable):
+        if not self.is_none_or_empty_str(executable):
             if os.path.isfile(executable):
                 return executable
 
-        if self.is_none_or_empty(path):
+        if self.is_none_or_empty_str(path):
             path = os.environ['PATH']
             if not self.is_windows():
                 usr_path = ':/usr/local/bin'
-                if not self.path_exists_in_env_path(usr_path, path) \
+                if not self.env_path_exists(usr_path, path) \
                         and self.path_exists(usr_path):
                     path += usr_path
 
@@ -383,7 +385,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return executable
 
     @staticmethod
-    def path_exists_in_env_path(find_path, env_path=None):
+    def env_path_exists(find_path, env_path=None):
+        """Check if the specified path is listed in OS enviornment path.
+
+        :param find_path: The path the search for.
+        :param env_path: The environment path str.
+        :return: True if the find_path exists in the env_path.
+        :rtype: bool
+        """
         if not find_path:
             return False
         if not env_path:
@@ -404,7 +413,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def is_none_or_empty(val):
+    def is_none_or_empty_str(val):
+        """Determine if the specified str val is None or an empty.
+
+        :param val: The str to check.
+        :return: True if if val: is None or an empty, otherwise False.
+        :rtype: bool
+        """
         if val is None:
             return True
         if type(val) == str:
