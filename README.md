@@ -1,6 +1,6 @@
 # Sublime Text JavaScript Prettier
 
-[![Build Status](https://travis-ci.org/jonlabelle/SublimeJsPrettier.svg?branch=master)](https://travis-ci.org/jonlabelle/SublimeJsPrettier) [![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
+[![Build Status](https://travis-ci.org/jonlabelle/SublimeJsPrettier.svg?branch=master)](https://travis-ci.org/jonlabelle/SublimeJsPrettier) [![Build status](https://ci.appveyor.com/api/projects/status/ta7379jk57cdwu76?svg=true)](https://ci.appveyor.com/project/jonlabelle/sublimejsprettier) [![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
 
 [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated
 JavaScript formatter.
