@@ -1,0 +1,15 @@
+environment:
+
+  matrix:
+    - PYTHON: "C:\\Python27"
+    - PYTHON: "C:\\Python33"
+
+install:
+  - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
+  - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+
+build: off
+
+test_script:
+  - "%PYTHON%\\python.exe -m py.test"
+  - "%PYTHON%\\python.exe -m flake8"
