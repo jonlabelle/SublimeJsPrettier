@@ -11,5 +11,5 @@ install:
 build: off
 
 test_script:
-  - "%PYTHON%\\python.exe -m py.test"
+  - "%PYTHON%\\python.exe -m pytest"
   - "%PYTHON%\\python.exe -m flake8"
