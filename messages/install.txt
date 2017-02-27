@@ -26,22 +26,23 @@
     To run the JsPrettier command... open the Sublime Text Command Palette
     (super + shift + p), and type "JsPrettier".
 
-    You can also right-click anywhere in the file (JavaScript Syntax only) to
-    bring up the Context Menu, then select "JsPrettier" to execute the command.
+    You can also right-click anywhere in the view to bring up the "Context
+    Menu", and select "JsPrettier".
+
 
     ### Command Scope
 
-        The `JsPrettier` command will attempt to format any selected JavaScript
-        sections of code first; if no selections are made, the entire file will
-        be formatted.
+        JsPrettier will attempt to format any selected JavaScript sections of
+        code first; if no selections are made, the entire file will be
+        formatted.
 
         > NOTE: When the `auto_format_on_save` setting is set to `true`, the
         > entire file will always be formatted.
 
     ### Custom Key Binding
 
-        To add a custom key binding to execute the JsPrettier command at will,
-        please reference the following example, which binds to "ctrl/cmd + b".
+        To add a custom key binding to JsPrettier, please reference the
+        following example which binds `js_prettier` to "ctrl/cmd + b".
 
             { "keys": ["super+b"], "command": "js_prettier" }
 
@@ -49,19 +50,52 @@
 ## Settings
 
     All Prettier options are configurable from the "JsPrettier.sublime-settings"
-    file, accessible from the "JsPrettier" menu item...
+    file, accessible from the Preferences > Package Settings > JsPrettier menu
+    shortcut.
 
-        -> "Preferences"
-        -> "Package Settings"
-        -> "JsPrettier"
-            -> "Settings - Default" (To view the default settings)
-            -> "Settings - User"    (To override the default settings)
+    ### Project-level Settings
+
+    JsPrettier supports Project-level settings, specified in "<project_name>.sublime-project"
+    files. In order for Project-level settings to override the Defaults and User
+    configured settings, a new "js_prettier" section must be created under the
+    project file's "settings" section.
+
+    Example Sublime Project File:
+
+        {
+            "folders": [
+                {
+                    "path": "."
+                }
+            ],
+            "settings": {
+                "js_prettier": {
+                    "prettier_cli_path": "",
+                    "node_path": "",
+                    "auto_format_on_save": false,
+                    "allow_inline_formatting": false,
+                    "prettier_options": {
+                        "printWidth": 80,
+                        "singleQuote": false,
+                        "trailingComma": "none",
+                        "bracketSpacing": true,
+                        "jsxBracketSameLine": false,
+                        "parser": "babylon"
+                    }
+                }
+            }
+        }
 
 
 ## Help
 
-    For additional help, including issue reporting... please visit the
-    Sublime Text JavaScript Prettier @ https://github.com/jonlabelle/SublimeJsPrettier.
+    For additional help, including reporting issues, please visit the
+    Sublime Text JavaScript Prettier homepage @ https://github.com/jonlabelle/SublimeJsPrettier.
+
+
+## Author
+
+Jon LaBelle
 
 
 ## License

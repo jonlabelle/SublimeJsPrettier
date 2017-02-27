@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jonlabelle/SublimeJsPrettier.svg?branch=master)](https://travis-ci.org/jonlabelle/SublimeJsPrettier) [![Build status](https://ci.appveyor.com/api/projects/status/ta7379jk57cdwu76?svg=true)](https://ci.appveyor.com/project/jonlabelle/sublimejsprettier) [![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
 
-[JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated
-JavaScript formatter.
+[JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated JavaScript formatter.
 
 [![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
@@ -59,8 +58,8 @@ From the **main application menu**, navigate to:
 
 ### Install JsPrettier Using Git
 
-Alternatively, if you're a git user, you can install [JsPrettier] and keep it up
-to date by cloning the repository directly into your [Sublime Text Packages directory].
+Alternatively, if you're a Git user, you can install [JsPrettier] and keep it
+up-to-date by cloning the repository directly into your [Sublime Text Packages directory].
 
 You can locate your Sublime Text Packages directory by using the menu item
 `Preferences` -> `Browse Packages...`
@@ -72,21 +71,21 @@ You can locate your Sublime Text Packages directory by using the menu item
 To run the `JsPrettier` command... open the Sublime Text **Command Palette**
 (<kbd>super + shift + p</kbd>) and type ***JsPrettier***.
 
-You can also right-click anywhere in the file (JavaScript Syntax only) to bring
-up the **Context Menu**, then select ***JsPrettier*** to execute the command.
+You can also right-click anywhere in the view to bring up the **Context Menu**,
+and select ***JsPrettier***.
 
 ### Command Scope
 
-The `JsPrettier` command will attempt to format any selected JavaScript sections
-of code first; if no selections are made, the entire file will be formatted.
+`JsPrettier` will attempt to format any selected JavaScript sections of code
+first; if no selections are made, the entire file will be formatted.
 
-> **NOTE:** When the `auto_format_on_save` is setting is set to `true`, the
+> **NOTE:** When the `auto_format_on_save` setting is set to `true`, the
 > **entire file** will always be formatted.
 
 ### Custom Key Binding
 
-To add a [custom key binding] to execute the `JsPrettier` command at will,
-please reference the following example, which binds to <kbd>ctrl/cmd + b</kbd>.
+To add a [custom key binding] to `JsPrettier`, please reference the following
+example which binds `js_prettier` to <kbd>ctrl/cmd + b</kbd>.
 
 ```json
 { "keys": ["super+b"], "command": "js_prettier" }
@@ -100,12 +99,12 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 ### Project-level Settings
 
-JsPrettier supports [Project-level Settings], configured in `<project_name>.sublime-project`
-files. In order for Project-level Settings to override Default and User
-Settings, a new `js_prettier` section must be created under the project file's
-`settings` key.
+JsPrettier supports [Project-level settings], specified in `<project_name>.sublime-project`
+files. In order for Project-level settings to override the Defaults and User
+configured settings, a new `js_prettier` section must be created under the
+project file's `settings` section.
 
-**Example Project File:**
+**Example Sublime Project File:**
 
 ```json
 {
@@ -183,8 +182,8 @@ Settings, a new `js_prettier` section must be created under the project file's
 - `parser` (default: *babylon*)  
    Which parser to use. Valid options are `'flow'` and `'babylon'`.
 
-> *For further details and examples of Prettier's options, please reference the
-> [Prettier repository].*
+> *For further details and examples of Prettier's options, please see the
+> options section on the [Prettier homepage].*
 
 ## Changes
 
@@ -200,7 +199,7 @@ Jon LaBelle
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
-[Prettier repository]: https://github.com/jlongster/prettier
+[Prettier homepage]: https://github.com/jlongster/prettier
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
