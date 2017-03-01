@@ -86,6 +86,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'set in your PATH environment variable.'.format(PLUGIN_NAME))
 
         prettier_args = self.parse_prettier_options()
+        node_path = self.node_path
 
         #
         # Format entire file:
@@ -95,9 +96,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, view.size())
             source = view.substr(region)
             transformed = self.run_prettier(
-                source,
-                prettier_cli_path,
-                prettier_args)
+                source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -130,9 +129,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             source = view.substr(region)
             transformed = self.run_prettier(
-                source,
-                prettier_cli_path,
-                prettier_args)
+                source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -204,16 +201,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return True
         return False
 
-    def run_prettier(self, source, prettier_cli_path, prettier_args):
+    def run_prettier(self, source, node_path, prettier_cli_path,
+                     prettier_args):
         self._error_message = None
 
-        if self.is_none_or_empty_str(self.node_path):
+        if self.is_none_or_empty_str(node_path):
             cmd = [prettier_cli_path] \
                 + prettier_args \
                 + ['--stdin'] \
                 + ['--color=false']
         else:
-            cmd = [self.node_path] \
+            cmd = [node_path] \
                 + [prettier_cli_path] \
                 + prettier_args \
                 + ['--stdin'] \
@@ -227,21 +225,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
-                self.error_message = '## Prettier CLI Error Output:\n\n' \
-                                     '{0}\n' \
-                                     '## Prettier CLI Return Code:\n\n{1}' \
-                    .format(stderr.decode('utf-8')
-                            .replace('\n', '\n    '),
-                            '    {0}'.format(str(proc.returncode)))
+                self.format_console_error(
+                    stderr.decode('utf-8'), str(proc.returncode))
                 return None
             else:
                 return stdout.decode('utf-8')
-        except OSError:
-            self.show_status_bar_error()
-            raise Exception(
-                "{0} - path to prettier not found! Please ensure "
-                "the path to prettier is set in your $PATH env "
-                "variable.".format(PLUGIN_NAME))
+        except OSError as ex:
+            sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
+            raise
+
+    def format_console_error(self, error_message, error_code):
+        self.error_message = '## Prettier CLI Error Output:\n\n{0}\n' \
+                             '## Prettier CLI Return Code:\n\n{1}'\
+            .format(error_message.replace('\n', '\n    '), '    {0}'
+                    .format(error_code))
 
     def ensure_newline_at_eof(self, view, edit):
         new_line_inserted = False
