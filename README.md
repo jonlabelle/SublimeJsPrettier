@@ -115,6 +115,7 @@ project file's `settings` section.
     ],
     "settings": {
         "js_prettier": {
+            "debug": false,
             "prettier_cli_path": "",
             "node_path": "",
             "auto_format_on_save": false,
