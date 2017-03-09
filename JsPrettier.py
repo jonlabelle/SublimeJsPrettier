@@ -223,7 +223,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         try:
             if self.is_debug_enabled:
                 self.show_debug_message(
-                    'Prettier CLI Command', ' '.join(str(c) for c in cmd))
+                    'Prettier CLI Command', self.list_to_str(cmd))
 
             proc = Popen(
                 cmd, stdin=PIPE,
@@ -459,6 +459,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         """
         a, b = divmod(repeat_length, len(str_to_repeat))
         return str_to_repeat * a + str_to_repeat[:b]
+
+    @staticmethod
+    def list_to_str(list_to_convert):
+        """Convert a list of values into string.
+
+        Each list value will be seperated by a single space.
+
+        :param list_to_convert: The list to convert to a string.
+        :return: The list converted into a string.
+        """
+        return ' '.join(str(l) for l in list_to_convert)
 
 
 class CommandOnSave(sublime_plugin.EventListener):
