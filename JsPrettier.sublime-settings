@@ -1,12 +1,12 @@
 {
-    //
-    // @debug { bool | default = false }
-    //
-    // When enabled (true), additional debugging information about the command
-    // and configured settings will be printed to the Sublime Text Console;
-    // useful for troubleshooting purposes.
+	//
+	// @debug { bool | default = false }
+	//
+	// When enabled (true), additional debugging information about the command
+	// and configured settings will be printed to the Sublime Text Console;
+	// useful for troubleshooting purposes.
 
-    "debug": false,
+	"debug": false,
 
 	//
 	// @debug { bool | default = false }
