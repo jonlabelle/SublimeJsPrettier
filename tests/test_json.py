@@ -21,10 +21,10 @@ class TestSettings(unittest.TestCase):
     def test_json_settings(self):
         """Test each JSON file."""
         file_patterns = (
-            '*.sublime-settings',
+            '*.json',
             '*.sublime-commands',
             '*.sublime-menu',
-            '*.json'
+            '*.sublime-settings'
         )
         for file_pattern in file_patterns:
             for f in self._get_json_files(file_pattern):
