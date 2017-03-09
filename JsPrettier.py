@@ -181,7 +181,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @property
     def prettier_cli_path(self):
         prettier_path = self.get_setting('prettier_cli_path', '')
-        if self.is_none_or_empty_str(prettier_path):
+        if self.is_str_none_or_empty(prettier_path):
             return self.which('prettier')
         return self.which(prettier_path)
 
@@ -209,7 +209,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                      prettier_args):
         self._error_message = None
 
-        if self.is_none_or_empty_str(node_path):
+        if self.is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
                 + ['--stdin'] \
                 + ['--color=false'] \
@@ -283,7 +283,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             cli_option_name = mapping['cli']
 
             option_value = self.get_sub_setting(option_name)
-            if self.is_none_or_empty_str(option_value):
+            if self.is_str_none_or_empty(option_value):
                 option_value = mapping['default']
 
             option_value = str(option_value).lower().strip()
@@ -375,11 +375,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return project_value
 
     def which(self, executable, path=None):
-        if not self.is_none_or_empty_str(executable):
+        if not self.is_str_none_or_empty(executable):
             if os.path.isfile(executable):
                 return executable
 
-        if self.is_none_or_empty_str(path):
+        if self.is_str_none_or_empty(path):
             path = os.environ['PATH']
             if not self.is_windows():
                 usr_path = ':/usr/local/bin'
@@ -426,7 +426,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def is_none_or_empty_str(val):
+    def is_str_none_or_empty(val):
         """Determine if the specified str val is None or an empty.
 
         :param val: The str to check.
