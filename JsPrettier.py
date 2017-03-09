@@ -211,15 +211,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if self.is_none_or_empty_str(node_path):
             cmd = [prettier_cli_path] \
-                + prettier_args \
                 + ['--stdin'] \
-                + ['--color=false']
+                + ['--color=false'] \
+                + prettier_args
         else:
             cmd = [node_path] \
                 + [prettier_cli_path] \
-                + prettier_args \
                 + ['--stdin'] \
-                + ['--color=false']
+                + ['--color=false'] \
+                + prettier_args
         try:
             if self.is_debug_enabled:
                 self.show_debug_message(
@@ -307,7 +307,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             'view error details.'.format(PLUGIN_NAME)), 0)
 
     def show_console_error(self):
-        print('\n------------\n {0} \n------------\n\n'
+        print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     def show_debug_message(self, label, message):
