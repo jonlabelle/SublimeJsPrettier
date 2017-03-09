@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.0
+
+**Release Date:** 2017-03-08
+
+- Introduced the `debug` (bool) setting. When enabled (true), additional
+  debugging information about the command and configured settings will be
+  printed to the Sublime Text Console; useful for troubleshooting purposes.
+
 ## 1.5.0
 
 **Release Date:** 2017-02-24

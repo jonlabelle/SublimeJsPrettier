@@ -134,6 +134,11 @@ project file's `settings` section.
 
 ### Sublime Text Settings
 
+- `debug` (default: *false*)  
+   When enabled (*true*), additional debugging information about the command and
+   configured settings will be printed to the Sublime Text Console; useful for
+   troubleshooting purposes.
+
 - `prettier_cli_path` (default: *empty*)  
    It's strongly recommended leaving the `prettier_cli_path` value empty (the
    default). However, if Sublime Text has problems resolving the path to the

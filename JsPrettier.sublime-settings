@@ -1,5 +1,14 @@
 {
 	//
+	// @debug { bool | default = false }
+	//
+	// When enabled (true), additional debugging information about the command
+	// and configured settings will be printed to the Sublime Text Console;
+	// useful for troubleshooting purposes.
+
+	"debug": false,
+
+	//
 	// @prettier_cli_path { string | default = "" }
 	//
 	// It's strongly recommended to leave the "prettier_cli_path" value
