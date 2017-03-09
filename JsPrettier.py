@@ -146,6 +146,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
     @property
+    def is_debug_enabled(self):
+        return self.get_setting('debug', False)
+
+    @property
     def has_error(self):
         if not self._error_message:
             return False
@@ -217,6 +221,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + ['--stdin'] \
                 + ['--color=false']
         try:
+            if self.is_debug_enabled:
+                self.show_debug_message(
+                    'Prettier CLI Command', ' '.join(str(c) for c in cmd))
+
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
@@ -301,6 +309,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def show_console_error(self):
         print('\n------------\n {0} \n------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
+
+    def show_debug_message(self, label, message):
+        header = ' {0} DEBUG - {1} '.format(PLUGIN_NAME, label)
+        horizontal_rule = self.repeat_str('-', len(header))
+        print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
+            horizontal_rule, header, horizontal_rule, message))
 
     def _get_project_setting(self, key):
         """Get a project setting.
@@ -434,6 +448,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def is_windows():
         return platform.system() == 'Windows' or os.name == 'nt'
+
+    @staticmethod
+    def repeat_str(str_to_repeat, repeat_length):
+        """Repeat a string to a certain length.
+
+        :param str_to_repeat: The string to repeat. Normally a single char.
+        :param repeat_length: The amount of times to repeat the string.
+        :return: The repeated string.
+        """
+        a, b = divmod(repeat_length, len(str_to_repeat))
+        return str_to_repeat * a + str_to_repeat[:b]
 
 
 class CommandOnSave(sublime_plugin.EventListener):
