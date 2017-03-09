@@ -225,7 +225,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
-                self.format_console_error(
+                self.format_error_message(
                     stderr.decode('utf-8'), str(proc.returncode))
                 return None
             else:
@@ -234,7 +234,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    def format_console_error(self, error_message, error_code):
+    def format_error_message(self, error_message, error_code):
         self.error_message = '## Prettier CLI Error Output:\n\n{0}\n' \
                              '## Prettier CLI Return Code:\n\n{1}'\
             .format(error_message.replace('\n', '\n    '), '    {0}'
@@ -252,7 +252,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         :param val: The value to trim.
         :return: The val with trailing whitespace and line-breaks removed.
-        :rtype: bool
         """
         if val is None:
             return val
@@ -273,17 +272,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
-            cli_name = mapping['cli']
+            cli_option_name = mapping['cli']
 
-            val = self.get_sub_setting(option_name)
-            if val is None or str(val) == '':
-                val = mapping['default']
-            val = str(val).lower()
-            if self.is_bool_str(val):
-                prettier_cli_args.append('{0}={1}'.format(cli_name, val))
+            option_value = self.get_sub_setting(option_name)
+            if self.is_none_or_empty_str(option_value):
+                option_value = mapping['default']
+
+            option_value = str(option_value).lower().strip()
+
+            if self.is_bool_str(option_value):
+                prettier_cli_args.append('{0}={1}'.format(
+                    cli_option_name, option_value))
             else:
-                prettier_cli_args.append(cli_name)
-                prettier_cli_args.append(val)
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append(option_value)
 
         # get/set the `tabWidth` based on the current view:
         prettier_cli_args.append('--tab-width')
