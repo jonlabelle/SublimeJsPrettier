@@ -95,6 +95,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             region = sublime.Region(0, view.size())
             source = view.substr(region)
+
+            if self.is_empty_or_whitespace_only(source):
+                return sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
+
             transformed = self.run_prettier(
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
@@ -128,6 +133,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = view.substr(region)
+
+            if self.is_empty_or_whitespace_only(source):
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: Nothing to format in selection.'.format(
+                        PLUGIN_NAME)), 0)
+                continue
+
             transformed = self.run_prettier(
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
@@ -470,6 +482,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         :return: The list converted into a string.
         """
         return ' '.join(str(l) for l in list_to_convert)
+
+    @staticmethod
+    def is_empty_or_whitespace_only(txt):
+        if not txt or len(txt) == 0:
+            return True
+        # strip all whitespace/invisible chars. to determine textual content:
+        txt = sub(r'\s+', '', txt)
+        if not txt or len(txt) == 0:
+            return True
+        return False
 
 
 class CommandOnSave(sublime_plugin.EventListener):
