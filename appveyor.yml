@@ -5,11 +5,9 @@ environment:
     - PYTHON: "C:\\Python33"
 
 install:
-  - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
-  - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+  - "install.cmd %PYTHON%"
 
 build: off
 
 test_script:
-  - "%PYTHON%\\python.exe -m pytest"
-  - "%PYTHON%\\python.exe -m flake8"
+  - "run_tests.cmd %PYTHON%"
