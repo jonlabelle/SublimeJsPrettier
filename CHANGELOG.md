@@ -4,7 +4,7 @@
 
 **Release Date:** 2017-03-08
 
-- Introduced the `debug` (bool) setting. When enabled (true), additional
+- Introduced new `debug` (bool) setting. When enabled (true), additional
   debugging information about the command and configured settings will be
   printed to the Sublime Text Console; useful for troubleshooting purposes.
 
