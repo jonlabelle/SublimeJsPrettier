@@ -90,7 +90,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # Format entire file:
-        if not self.has_selection or force_entire_file is True:
+        if not self.has_selection(view) or force_entire_file is True:
             file_changed = False
 
             region = sublime.Region(0, view.size())
@@ -175,7 +175,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def error_message(self, message=None):
         self._error_message = message
 
-    @property
     def is_source_js(self):
         return self.view.scope_name(0).startswith('source.js')
 
@@ -209,9 +208,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def allow_inline_formatting(self):
         return self.get_setting('allow_inline_formatting', False)
 
-    @property
-    def has_selection(self):
-        for sel in self.view.sel():
+    def has_selection(self, view):
+        for sel in view.sel():
             start, end = sel
             if start != end:
                 return True
