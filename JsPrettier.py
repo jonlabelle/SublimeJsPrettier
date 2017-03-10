@@ -158,7 +158,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
     @property
-    def is_debug_enabled(self):
+    def debug(self):
         return self.get_setting('debug', False)
 
     @property
@@ -231,9 +231,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + ['--color=false'] \
                 + prettier_args
         try:
-            if self.is_debug_enabled:
-                self.show_debug_message(
-                    'Prettier CLI Command', self.list_to_str(cmd))
+            self.show_debug_message(
+                'Prettier CLI Command', self.list_to_str(cmd))
 
             proc = Popen(
                 cmd, stdin=PIPE,
@@ -321,6 +320,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     def show_debug_message(self, label, message):
+        if not self.debug:
+            return
         header = ' {0} DEBUG - {1} '.format(PLUGIN_NAME, label)
         horizontal_rule = self.repeat_str('-', len(header))
         print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
