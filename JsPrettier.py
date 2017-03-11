@@ -58,15 +58,18 @@ PRETTIER_OPTION_CLI_MAP = [
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
+    def is_source_js(self):
+        return self.view.scope_name(0).startswith('source.js')
+
     def is_visible(self):
-        if self.allow_inline_formatting:
+        if self.allow_inline_formatting is True or self.is_source_js() is True:
             return True
-        return self.is_source_js
+        return False
 
     def is_enabled(self):
-        if self.allow_inline_formatting:
+        if self.allow_inline_formatting is True or self.is_source_js() is True:
             return True
-        return self.is_source_js
+        return False
 
     def run(self, edit, force_entire_file=False):
         view = self.view
@@ -174,9 +177,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @error_message.setter
     def error_message(self, message=None):
         self._error_message = message
-
-    def is_source_js(self):
-        return self.view.scope_name(0).startswith('source.js')
 
     @property
     def proc_env(self):
@@ -495,11 +495,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        if self.is_allowed(view) is True and self.is_enabled(view):
+        if self.is_allowed(view) is True and self.auto_format_on_save(view):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def is_enabled(self, view):
-        return self.allow_inline_formatting(view)
+        return self.auto_format_on_save(view)
 
     def is_allowed(self, view):
         return self.is_js_file(view)
@@ -510,7 +510,7 @@ class CommandOnSave(sublime_plugin.EventListener):
             return True
         return False
 
-    def allow_inline_formatting(self, view):
+    def auto_format_on_save(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
 
     def _get_project_setting(self, key):
