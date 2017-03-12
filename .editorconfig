@@ -1,0 +1,60 @@
+root = true
+
+[*]
+charset = utf-8
+
+[*.py]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[{Context.sublime-menu,JsPrettier.sublime-commands,JsPrettier.sublime-settings}]
+end_of_line = lf
+indent_style = tab
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.sh]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.cmd]
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[{package.json,.travis.yml,messages.json}]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[appveyor.yml]
+end_of_line = crlf
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespaces = false
+insert_final_newline = true
+
+[{*.txt,messages/**.txt}]
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
