@@ -495,7 +495,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        if self.is_allowed(view) is True and self.is_enabled(view):
+        if self.is_allowed(view) and self.is_enabled(view):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def is_allowed(self, view):
