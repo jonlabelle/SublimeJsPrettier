@@ -58,18 +58,53 @@ PRETTIER_OPTION_CLI_MAP = [
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
-    def is_source_js(self):
-        return self.view.scope_name(0).startswith('source.js')
+    @property
+    def debug(self):
+        return self.get_setting('debug', False)
 
-    def is_visible(self):
-        if self.allow_inline_formatting is True or self.is_source_js() is True:
-            return True
-        return False
+    @property
+    def has_error(self):
+        if not self._error_message:
+            return False
+        return True
 
-    def is_enabled(self):
-        if self.allow_inline_formatting is True or self.is_source_js() is True:
-            return True
-        return False
+    @property
+    def error_message(self):
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, message=None):
+        self._error_message = message
+
+    @property
+    def proc_env(self):
+        env = None
+        if not self.is_windows():
+            env = os.environ.copy()
+            usr_path = ':/usr/local/bin'
+            if not self.env_path_exists(usr_path) \
+                    and self.path_exists(usr_path):
+                env['PATH'] += usr_path
+        return env
+
+    @property
+    def prettier_cli_path(self):
+        prettier_path = self.get_setting('prettier_cli_path', '')
+        if self.is_str_none_or_empty(prettier_path):
+            return self.which('prettier')
+        return self.which(prettier_path)
+
+    @property
+    def node_path(self):
+        return self.get_setting('node_path', None)
+
+    @property
+    def tab_size(self):
+        return int(self.view.settings().get('tab_size', 2))
+
+    @property
+    def allow_inline_formatting(self):
+        return self.get_setting('allow_inline_formatting', False)
 
     def run(self, edit, force_entire_file=False):
         view = self.view
@@ -160,61 +195,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    @property
-    def debug(self):
-        return self.get_setting('debug', False)
-
-    @property
-    def has_error(self):
-        if not self._error_message:
-            return False
-        return True
-
-    @property
-    def error_message(self):
-        return self._error_message
-
-    @error_message.setter
-    def error_message(self, message=None):
-        self._error_message = message
-
-    @property
-    def proc_env(self):
-        env = None
-        if not self.is_windows():
-            env = os.environ.copy()
-            usr_path = ':/usr/local/bin'
-            if not self.env_path_exists(usr_path) \
-                    and self.path_exists(usr_path):
-                env['PATH'] += usr_path
-        return env
-
-    @property
-    def prettier_cli_path(self):
-        prettier_path = self.get_setting('prettier_cli_path', '')
-        if self.is_str_none_or_empty(prettier_path):
-            return self.which('prettier')
-        return self.which(prettier_path)
-
-    @property
-    def node_path(self):
-        return self.get_setting('node_path', None)
-
-    @property
-    def tab_size(self):
-        return int(self.view.settings().get('tab_size', 2))
-
-    @property
-    def allow_inline_formatting(self):
-        return self.get_setting('allow_inline_formatting', False)
-
-    def has_selection(self, view):
-        for sel in view.sel():
-            start, end = sel
-            if start != end:
-                return True
-        return False
-
     def run_prettier(self, source, node_path, prettier_cli_path,
                      prettier_args):
         self._error_message = None
@@ -251,29 +231,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    def format_error_message(self, error_message, error_code):
-        self.error_message = '## Prettier CLI Error Output:\n\n{0}\n' \
-                             '## Prettier CLI Return Code:\n\n{1}'\
-            .format(error_message.replace('\n', '\n    '), '    {0}'
-                    .format(error_code))
+    def is_visible(self):
+        if self.allow_inline_formatting is True or self.is_source_js() is True:
+            return True
+        return False
 
-    def ensure_newline_at_eof(self, view, edit):
-        new_line_inserted = False
-        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
-            new_line_inserted = True
-            view.insert(edit, view.size(), "\n")
-        return new_line_inserted
+    def is_enabled(self):
+        if self.allow_inline_formatting is True or self.is_source_js() is True:
+            return True
+        return False
 
-    def trim_trailing_ws_and_lines(self, val):
-        """Trim trailing whitespace and line-breaks at the end of a string.
-
-        :param val: The value to trim.
-        :return: The val with trailing whitespace and line-breaks removed.
-        """
-        if val is None:
-            return val
-        val = sub(r'\s+\Z', '', val)
-        return val
+    def is_source_js(self):
+        return self.view.scope_name(0).startswith('source.js')
 
     def is_bool_str(self, val):
         if val is None:
@@ -284,48 +253,35 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return True
         return False
 
-    def parse_prettier_options(self):
-        prettier_cli_args = []
+    def has_selection(self, view):
+        for sel in view.sel():
+            start, end = sel
+            if start != end:
+                return True
+        return False
 
-        for mapping in PRETTIER_OPTION_CLI_MAP:
-            option_name = mapping['option']
-            cli_option_name = mapping['cli']
+    def get_setting(self, key, default_value=None):
+        settings = self.view.settings().get(PLUGIN_NAME)
+        if settings is None or settings.get(key) is None:
+            settings = sublime.load_settings(SETTINGS_FILE)
+        value = settings.get(key, default_value)
+        # check for project-level overrides:
+        project_value = self._get_project_setting(key)
+        if project_value is None:
+            return value
+        return project_value
 
-            option_value = self.get_sub_setting(option_name)
-            if self.is_str_none_or_empty(option_value):
-                option_value = mapping['default']
-
-            option_value = str(option_value).lower().strip()
-
-            if self.is_bool_str(option_value):
-                prettier_cli_args.append('{0}={1}'.format(
-                    cli_option_name, option_value))
-            else:
-                prettier_cli_args.append(cli_option_name)
-                prettier_cli_args.append(option_value)
-
-        # get/set the `tabWidth` based on the current view:
-        prettier_cli_args.append('--tab-width')
-        prettier_cli_args.append(str(self.tab_size))
-
-        return prettier_cli_args
-
-    def show_status_bar_error(self):
-        sublime.set_timeout(lambda: sublime.status_message(
-            '{0}: Format failed! Open the console window to '
-            'view error details.'.format(PLUGIN_NAME)), 0)
-
-    def show_console_error(self):
-        print('\n------------------\n {0} ERROR \n------------------\n\n'
-              '{1}'.format(PLUGIN_NAME, self.error_message))
-
-    def show_debug_message(self, label, message):
-        if not self.debug:
-            return
-        header = ' {0} DEBUG - {1} '.format(PLUGIN_NAME, label)
-        horizontal_rule = self.repeat_str('-', len(header))
-        print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
-            horizontal_rule, header, horizontal_rule, message))
+    def get_sub_setting(self, key=None):
+        settings = self.view.settings().get(PLUGIN_NAME)
+        if settings is None or settings.get(PRETTIER_OPTIONS_KEY).get(
+                key) is None:
+            settings = sublime.load_settings(SETTINGS_FILE)
+        value = settings.get(PRETTIER_OPTIONS_KEY).get(key)
+        # check for project-level overrides:
+        project_value = self._get_project_sub_setting(key)
+        if project_value is None:
+            return value
+        return project_value
 
     def _get_project_setting(self, key):
         """Get a project setting.
@@ -362,29 +318,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return prettier_options.get(option, None)
         return None
 
-    def get_setting(self, key, default_value=None):
-        settings = self.view.settings().get(PLUGIN_NAME)
-        if settings is None or settings.get(key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        value = settings.get(key, default_value)
-        # check for project-level overrides:
-        project_value = self._get_project_setting(key)
-        if project_value is None:
-            return value
-        return project_value
-
-    def get_sub_setting(self, key=None):
-        settings = self.view.settings().get(PLUGIN_NAME)
-        if settings is None or settings.get(PRETTIER_OPTIONS_KEY).get(
-                key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        value = settings.get(PRETTIER_OPTIONS_KEY).get(key)
-        # check for project-level overrides:
-        project_value = self._get_project_sub_setting(key)
-        if project_value is None:
-            return value
-        return project_value
-
     def which(self, executable, path=None):
         if not self.is_str_none_or_empty(executable):
             if os.path.isfile(executable):
@@ -407,6 +340,73 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return None
         else:
             return executable
+
+    def parse_prettier_options(self):
+        prettier_cli_args = []
+
+        for mapping in PRETTIER_OPTION_CLI_MAP:
+            option_name = mapping['option']
+            cli_option_name = mapping['cli']
+
+            option_value = self.get_sub_setting(option_name)
+            if self.is_str_none_or_empty(option_value):
+                option_value = mapping['default']
+
+            option_value = str(option_value).lower().strip()
+
+            if self.is_bool_str(option_value):
+                prettier_cli_args.append('{0}={1}'.format(
+                    cli_option_name, option_value))
+            else:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append(option_value)
+
+        # get/set the `tabWidth` based on the current view:
+        prettier_cli_args.append('--tab-width')
+        prettier_cli_args.append(str(self.tab_size))
+
+        return prettier_cli_args
+
+    def show_debug_message(self, label, message):
+        if not self.debug:
+            return
+        header = ' {0} DEBUG - {1} '.format(PLUGIN_NAME, label)
+        horizontal_rule = self.repeat_str('-', len(header))
+        print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
+            horizontal_rule, header, horizontal_rule, message))
+
+    def show_status_bar_error(self):
+        sublime.set_timeout(lambda: sublime.status_message(
+            '{0}: Format failed! Open the console window to '
+            'view error details.'.format(PLUGIN_NAME)), 0)
+
+    def show_console_error(self):
+        print('\n------------------\n {0} ERROR \n------------------\n\n'
+              '{1}'.format(PLUGIN_NAME, self.error_message))
+
+    def format_error_message(self, error_message, error_code):
+        self.error_message = '## Prettier CLI Error Output:\n\n{0}\n' \
+                             '## Prettier CLI Return Code:\n\n{1}'\
+            .format(error_message.replace('\n', '\n    '), '    {0}'
+                    .format(error_code))
+
+    def ensure_newline_at_eof(self, view, edit):
+        new_line_inserted = False
+        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
+            new_line_inserted = True
+            view.insert(edit, view.size(), "\n")
+        return new_line_inserted
+
+    def trim_trailing_ws_and_lines(self, val):
+        """Trim trailing whitespace and line-breaks at the end of a string.
+
+        :param val: The value to trim.
+        :return: The val with trailing whitespace and line-breaks removed.
+        """
+        if val is None:
+            return val
+        val = sub(r'\s+\Z', '', val)
+        return val
 
     @staticmethod
     def env_path_exists(find_path, env_path=None):
@@ -495,14 +495,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        if self.is_allowed(view) is True and self.auto_format_on_save(view):
+        if self.is_allowed(view) is True and self.is_enabled(view):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
-
-    def is_enabled(self, view):
-        return self.auto_format_on_save(view)
 
     def is_allowed(self, view):
         return self.is_js_file(view)
+
+    def is_enabled(self, view):
+        return self.auto_format_on_save(view)
 
     def is_js_file(self, view):
         ext = splitext(view.file_name())[1][1:]
