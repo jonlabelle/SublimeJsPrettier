@@ -244,22 +244,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_source_js(self):
         return self.view.scope_name(0).startswith('source.js')
 
-    def is_bool_str(self, val):
-        if val is None:
-            return False
-        if type(val) == str:
-            val = val.lower().strip()
-            if val == 'true' or val == 'false':
-                return True
-        return False
-
-    def has_selection(self, view):
-        for sel in view.sel():
-            start, end = sel
-            if start != end:
-                return True
-        return False
-
     def get_setting(self, key, default_value=None):
         settings = self.view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(key) is None:
@@ -282,41 +266,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if project_value is None:
             return value
         return project_value
-
-    def _get_project_setting(self, key):
-        """Get a project setting.
-
-        JsPrettier project settings are stored in the sublime project file
-        as a dictionary, e.g.:
-
-            "settings":
-            {
-                "js_prettier": { "key": "value", ... }
-            }
-
-        :param key: The project setting key.
-        :return: The project setting value.
-        :rtype: str
-        """
-        project_settings = sublime.active_window().active_view().settings()
-        if not project_settings:
-            return None
-        js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY)
-        if js_prettier_settings:
-            if key in js_prettier_settings:
-                return js_prettier_settings[key]
-        return None
-
-    def _get_project_sub_setting(self, option):
-        project_settings = sublime.active_window().active_view().settings()
-        js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY, None)
-        if not js_prettier_settings:
-            return None
-        prettier_options = js_prettier_settings.get(PRETTIER_OPTIONS_KEY, None)
-        if prettier_options:
-            if option in prettier_options:
-                return prettier_options.get(option, None)
-        return None
 
     def which(self, executable, path=None):
         if not self.is_str_none_or_empty(executable):
@@ -375,11 +324,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
             horizontal_rule, header, horizontal_rule, message))
 
-    def show_status_bar_error(self):
-        sublime.set_timeout(lambda: sublime.status_message(
-            '{0}: Format failed! Open the console window to '
-            'view error details.'.format(PLUGIN_NAME)), 0)
-
     def show_console_error(self):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
@@ -390,14 +334,77 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             .format(error_message.replace('\n', '\n    '), '    {0}'
                     .format(error_code))
 
-    def ensure_newline_at_eof(self, view, edit):
+    @staticmethod
+    def show_status_bar_error():
+        sublime.set_timeout(lambda: sublime.status_message(
+            '{0}: Format failed! Open the console window to '
+            'view error details.'.format(PLUGIN_NAME)), 0)
+
+    @staticmethod
+    def _get_project_setting(key):
+        """Get a project setting.
+
+        JsPrettier project settings are stored in the sublime project file
+        as a dictionary, e.g.:
+
+            "settings":
+            {
+                "js_prettier": { "key": "value", ... }
+            }
+
+        :param key: The project setting key.
+        :return: The project setting value.
+        :rtype: str
+        """
+        project_settings = sublime.active_window().active_view().settings()
+        if not project_settings:
+            return None
+        js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY)
+        if js_prettier_settings:
+            if key in js_prettier_settings:
+                return js_prettier_settings[key]
+        return None
+
+    @staticmethod
+    def _get_project_sub_setting(option):
+        project_settings = sublime.active_window().active_view().settings()
+        js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY, None)
+        if not js_prettier_settings:
+            return None
+        prettier_options = js_prettier_settings.get(PRETTIER_OPTIONS_KEY, None)
+        if prettier_options:
+            if option in prettier_options:
+                return prettier_options.get(option, None)
+        return None
+
+    @staticmethod
+    def is_bool_str(val):
+        if val is None:
+            return False
+        if type(val) == str:
+            val = val.lower().strip()
+            if val == 'true' or val == 'false':
+                return True
+        return False
+
+    @staticmethod
+    def has_selection(view):
+        for sel in view.sel():
+            start, end = sel
+            if start != end:
+                return True
+        return False
+
+    @staticmethod
+    def ensure_newline_at_eof(view, edit):
         new_line_inserted = False
         if view.size() > 0 and view.substr(view.size() - 1) != '\n':
             new_line_inserted = True
             view.insert(edit, view.size(), "\n")
         return new_line_inserted
 
-    def trim_trailing_ws_and_lines(self, val):
+    @staticmethod
+    def trim_trailing_ws_and_lines(val):
         """Trim trailing whitespace and line-breaks at the end of a string.
 
         :param val: The value to trim.
@@ -504,24 +511,8 @@ class CommandOnSave(sublime_plugin.EventListener):
     def is_enabled(self, view):
         return self.auto_format_on_save(view)
 
-    def is_js_file(self, view):
-        ext = splitext(view.file_name())[1][1:]
-        if ext == 'js' or ext == 'jsx':
-            return True
-        return False
-
     def auto_format_on_save(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
-
-    def _get_project_setting(self, key):
-        settings = sublime.active_window().active_view().settings()
-        if not settings:
-            return None
-        jsprettier = settings.get(PROJECT_SETTINGS_KEY)
-        if jsprettier:
-            if key in jsprettier:
-                return jsprettier[key]
-        return None
 
     def get_setting(self, view, key, default_value=None):
         settings = view.settings().get(PLUGIN_NAME)
@@ -533,3 +524,21 @@ class CommandOnSave(sublime_plugin.EventListener):
         if project_value is None:
             return value
         return project_value
+
+    @staticmethod
+    def _get_project_setting(key):
+        settings = sublime.active_window().active_view().settings()
+        if not settings:
+            return None
+        jsprettier = settings.get(PROJECT_SETTINGS_KEY)
+        if jsprettier:
+            if key in jsprettier:
+                return jsprettier[key]
+        return None
+
+    @staticmethod
+    def is_js_file(view):
+        ext = splitext(view.file_name())[1][1:]
+        if ext == 'js' or ext == 'jsx':
+            return True
+        return False
