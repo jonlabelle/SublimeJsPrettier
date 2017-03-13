@@ -18,5 +18,4 @@ indent_size = 2
 end_of_line = crlf
 
 [*.{md,txt}]
-indent_style = space
 trim_trailing_whitespaces = false
