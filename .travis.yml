@@ -1,19 +1,26 @@
 # recommended by travis support:
 sudo: required
 
-language: python
+language:
+  - python
+  - node_js
 
 python:
   - "2.7"
   - "3.3"
 
+node_js:
+  - "node"
+
 # install dependencies:
 install:
   - bash install.sh
+  - npm install -g markdownlint-cli
 
 # run tests:
 script:
   - bash run_tests.sh
+  - markdownlint .
 
 # disable email build notifications:
 notifications:
