@@ -126,7 +126,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_args = self.parse_prettier_options()
         node_path = self.node_path
 
-        #
         # Format entire file:
         if not self.has_selection(view) or force_entire_file is True:
             file_changed = False
@@ -134,7 +133,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
-            if self.is_empty_or_whitespace_only(source):
+            if self.is_str_empty_or_whitespace(source):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
@@ -164,7 +163,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             return
 
-        #
         # Format each selection:
         for region in view.sel():
             if region.empty():
@@ -172,7 +170,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             source = view.substr(region)
 
-            if self.is_empty_or_whitespace_only(source):
+            if self.is_str_empty_or_whitespace(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in selection.'.format(
                         PLUGIN_NAME)), 0)
@@ -267,29 +265,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return value
         return project_value
 
-    def which(self, executable, path=None):
-        if not self.is_str_none_or_empty(executable):
-            if os.path.isfile(executable):
-                return executable
-
-        if self.is_str_none_or_empty(path):
-            path = os.environ['PATH']
-            if not self.is_windows():
-                usr_path = ':/usr/local/bin'
-                if not self.env_path_exists(usr_path, path) \
-                        and self.path_exists(usr_path):
-                    path += usr_path
-
-        paths = path.split(os.pathsep)
-        if not os.path.isfile(executable):
-            for p in paths:
-                f = os.path.join(p, executable)
-                if os.path.isfile(f):
-                    return f
-            return None
-        else:
-            return executable
-
     def parse_prettier_options(self):
         prettier_cli_args = []
 
@@ -315,6 +290,29 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_cli_args.append(str(self.tab_size))
 
         return prettier_cli_args
+
+    def which(self, executable, path=None):
+        if not self.is_str_none_or_empty(executable):
+            if os.path.isfile(executable):
+                return executable
+
+        if self.is_str_none_or_empty(path):
+            path = os.environ['PATH']
+            if not self.is_windows():
+                usr_path = ':/usr/local/bin'
+                if not self.env_path_exists(usr_path, path) \
+                        and self.path_exists(usr_path):
+                    path += usr_path
+
+        paths = path.split(os.pathsep)
+        if not os.path.isfile(executable):
+            for p in paths:
+                f = os.path.join(p, executable)
+                if os.path.isfile(f):
+                    return f
+            return None
+        else:
+            return executable
 
     def show_debug_message(self, label, message):
         if not self.debug:
@@ -388,20 +386,52 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def has_selection(view):
-        for sel in view.sel():
-            start, end = sel
-            if start != end:
-                return True
+    def is_str_none_or_empty(val):
+        """Determine if the specified str val is None or an empty.
+
+        :param val: The str to check.
+        :return: True if if val: is None or an empty, otherwise False.
+        :rtype: bool
+        """
+        if val is None:
+            return True
+        if type(val) == str:
+            val = val.strip()
+        if not val:
+            return True
         return False
 
     @staticmethod
-    def ensure_newline_at_eof(view, edit):
-        new_line_inserted = False
-        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
-            new_line_inserted = True
-            view.insert(edit, view.size(), "\n")
-        return new_line_inserted
+    def is_str_empty_or_whitespace(txt):
+        if not txt or len(txt) == 0:
+            return True
+        # strip all whitespace/invisible chars. to determine textual content:
+        txt = sub(r'\s+', '', txt)
+        if not txt or len(txt) == 0:
+            return True
+        return False
+
+    @staticmethod
+    def list_to_str(list_to_convert):
+        """Convert a list of values into string.
+
+        Each list value will be seperated by a single space.
+
+        :param list_to_convert: The list to convert to a string.
+        :return: The list converted into a string.
+        """
+        return ' '.join(str(l) for l in list_to_convert)
+
+    @staticmethod
+    def repeat_str(str_to_repeat, repeat_length):
+        """Repeat a string to a certain length.
+
+        :param str_to_repeat: The string to repeat. Normally a single char.
+        :param repeat_length: The amount of times to repeat the string.
+        :return: The repeated string.
+        """
+        a, b = divmod(repeat_length, len(str_to_repeat))
+        return str_to_repeat * a + str_to_repeat[:b]
 
     @staticmethod
     def trim_trailing_ws_and_lines(val):
@@ -414,6 +444,22 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return val
         val = sub(r'\s+\Z', '', val)
         return val
+
+    @staticmethod
+    def ensure_newline_at_eof(view, edit):
+        new_line_inserted = False
+        if view.size() > 0 and view.substr(view.size() - 1) != '\n':
+            new_line_inserted = True
+            view.insert(edit, view.size(), "\n")
+        return new_line_inserted
+
+    @staticmethod
+    def has_selection(view):
+        for sel in view.sel():
+            start, end = sel
+            if start != end:
+                return True
+        return False
 
     @staticmethod
     def env_path_exists(find_path, env_path=None):
@@ -444,60 +490,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def is_str_none_or_empty(val):
-        """Determine if the specified str val is None or an empty.
-
-        :param val: The str to check.
-        :return: True if if val: is None or an empty, otherwise False.
-        :rtype: bool
-        """
-        if val is None:
-            return True
-        if type(val) == str:
-            val = val.strip()
-        if not val:
-            return True
-        return False
-
-    @staticmethod
     def is_mac_os():
         return platform.system() == 'Darwin'
 
     @staticmethod
     def is_windows():
         return platform.system() == 'Windows' or os.name == 'nt'
-
-    @staticmethod
-    def repeat_str(str_to_repeat, repeat_length):
-        """Repeat a string to a certain length.
-
-        :param str_to_repeat: The string to repeat. Normally a single char.
-        :param repeat_length: The amount of times to repeat the string.
-        :return: The repeated string.
-        """
-        a, b = divmod(repeat_length, len(str_to_repeat))
-        return str_to_repeat * a + str_to_repeat[:b]
-
-    @staticmethod
-    def list_to_str(list_to_convert):
-        """Convert a list of values into string.
-
-        Each list value will be seperated by a single space.
-
-        :param list_to_convert: The list to convert to a string.
-        :return: The list converted into a string.
-        """
-        return ' '.join(str(l) for l in list_to_convert)
-
-    @staticmethod
-    def is_empty_or_whitespace_only(txt):
-        if not txt or len(txt) == 0:
-            return True
-        # strip all whitespace/invisible chars. to determine textual content:
-        txt = sub(r'\s+', '', txt)
-        if not txt or len(txt) == 0:
-            return True
-        return False
 
 
 class CommandOnSave(sublime_plugin.EventListener):
