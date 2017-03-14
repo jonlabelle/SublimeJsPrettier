@@ -9,11 +9,11 @@ python:
 
 # install dependencies:
 install:
-  - sh install.sh
+  - bash install.sh
 
 # run tests:
 script:
-  - sh run_tests.sh
+  - bash run_tests.sh
 
 # disable email build notifications:
 notifications:
