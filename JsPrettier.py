@@ -273,7 +273,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             cli_option_name = mapping['cli']
 
             option_value = self.get_sub_setting(option_name)
-            if self.is_str_none_or_empty(option_value):
+            if option_value is None or str(option_value) == '':
                 option_value = mapping['default']
 
             option_value = str(option_value).lower().strip()
