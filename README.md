@@ -220,4 +220,4 @@ Jon LaBelle
 [manual download instructions]: #manual-download
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
-[MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.md
+[MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
