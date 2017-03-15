@@ -103,7 +103,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 ### Project-level Settings
 
 JsPrettier supports [Project-level settings], specified in
-`\<project_name\>.sublime-project` files. In order for Project-level settings to
+`<project_name>.sublime-project` files. In order for Project-level settings to
 override the Defaults and User configured settings, a new `js_prettier` section
 must be created under the project file's `settings` section.
 
