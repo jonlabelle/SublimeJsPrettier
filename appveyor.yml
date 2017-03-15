@@ -5,9 +5,9 @@ environment:
     - PYTHON: "C:\\Python33"
 
 install:
-  - "install.cmd %PYTHON%"
+  - "scripts\\install.cmd %PYTHON%"
 
 build: off
 
 test_script:
-  - "run_tests.cmd %PYTHON%"
+  - "scripts\\run_tests.cmd %PYTHON%"
