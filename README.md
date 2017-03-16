@@ -148,7 +148,7 @@ must be created under the project file's `settings` section.
     It's strongly recommended leaving the `prettier_cli_path` value empty (the
     default). However, if Sublime Text has problems resolving the path to the
     `prettier` cli executable, you can explicitly specify the full path here.
-    
+  
     > [nvm] users are required to set an appropriate `prettier_cli_path`
     > (and `node_path`) according to the runtime environment.
   
@@ -156,7 +156,7 @@ must be created under the project file's `settings` section.
     It's strongly recommended leaving the `node_path` value empty (the default).
     However, if Sublime Text has problems resolving the path to the node
     executable, you can explicitly specify the full path here.
-    
+  
     > [nvm] users are required to set an appropriate `node_path` (and
     > `prettier_cli_path`) according to the runtime environment.
   
