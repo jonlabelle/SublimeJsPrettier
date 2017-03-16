@@ -150,7 +150,7 @@ must be created under the project file's `settings` section.
     `prettier` cli executable, you can explicitly specify the full path here.
   
     > [nvm] users are required to set an appropriate `prettier_cli_path`
-    > (and `node_path`) according to the runtime environment.
+    > (and `node_path`) according to the target runtime environment.
   
 - `node_path` (default: ***empty***)  
     It's strongly recommended leaving the `node_path` value empty (the default).
@@ -158,7 +158,7 @@ must be created under the project file's `settings` section.
     executable, you can explicitly specify the full path here.
   
     > [nvm] users are required to set an appropriate `node_path` (and
-    > `prettier_cli_path`) according to the runtime environment.
+    > `prettier_cli_path`) according to the target runtime environment.
   
 - `auto_format_on_save` (default: ***false***)  
     Whether or not to run the `js_prettier` command automatically on every file

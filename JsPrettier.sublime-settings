@@ -17,7 +17,7 @@
 	// full path here.
 	//
 	// nvm users are required to set an appropriate `prettier_cli_path` (and
-	// `node_path`) according to the runtime environment.
+	// `node_path`) according to the target runtime environment.
 	//
 	// Examples:
 	//
@@ -34,7 +34,7 @@
 	// to `node`, you can explicitly specify the full path here.
 	//
 	// nvm users are required to set an appropriate `node_path` (and
-	// `prettier_cli_path`) according to the runtime environment.
+	// `prettier_cli_path`) according to the target runtime environment.
 	//
 	// Examples:
 	//
