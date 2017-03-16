@@ -70,22 +70,6 @@ You can locate your Sublime Text Packages directory by using the menu item
 
     git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
 
-### NVM Users
-
-When using `nvm` make sure to set the Sublime Text node environment to be the same as where [JsPrettier] is installed. You can do this for `.sublime-project`-files like so:
-```
-{
-  ...
-  "settings": {
-    "js_prettier": {
-      "prettier_cli_path": "/path/to/prettier",
-      "node_path": "/path/to/node"
-    }
-  }
-}
-```
-You can find the paths by running `which prettier` and `which node` in you Terminal.
-
 ## Usage
 
 To run the `JsPrettier` command... open the Sublime Text **Command Palette**
@@ -164,11 +148,17 @@ must be created under the project file's `settings` section.
     It's strongly recommended leaving the `prettier_cli_path` value empty (the
     default). However, if Sublime Text has problems resolving the path to the
     `prettier` cli executable, you can explicitly specify the full path here.
+    
+    > [nvm] users are required to set an appropriate `prettier_cli_path`
+    > (and `node_path`) according to the runtime environment.
   
 - `node_path` (default: ***empty***)  
     It's strongly recommended leaving the `node_path` value empty (the default).
     However, if Sublime Text has problems resolving the path to the node
     executable, you can explicitly specify the full path here.
+    
+    > [nvm] users are required to set an appropriate `node_path` (and
+    > `prettier_cli_path`) according to the runtime environment.
   
 - `auto_format_on_save` (default: ***false***)  
     Whether or not to run the `js_prettier` command automatically on every file
@@ -233,6 +223,7 @@ Jon LaBelle
 [Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
 [***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html
 [npm]: https://www.npmjs.com
+[nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
 [manual download instructions]: #manual-download
