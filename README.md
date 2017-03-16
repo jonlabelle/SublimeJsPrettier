@@ -21,6 +21,7 @@ Text 2 and 3, and all supported Operating Systems.
 The Sublime Text JavaScript Prettier plug-in requires the following programs to
 be installed:
 
+- [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
 - [npm] – Package manager for JavaScript
 - [Prettier] – Opinionated JavaScript formatter
@@ -210,6 +211,7 @@ Jon LaBelle
 [Prettier]: https://github.com/jlongster/prettier
 [Prettier homepage]: https://github.com/jlongster/prettier
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
+[Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
 [Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
