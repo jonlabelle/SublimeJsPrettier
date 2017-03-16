@@ -15,12 +15,10 @@ node_js:
 # install dependencies:
 install:
   - bash scripts/install.sh
-  - npm install -g markdownlint-cli
 
 # run tests:
 script:
   - bash scripts/run_tests.sh
-  - markdownlint .
 
 # disable email build notifications:
 notifications:

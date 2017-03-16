@@ -9,10 +9,10 @@ set -x
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
-pushd "${SCRIPTSDIR}"
-pushd ..
+pushd "${SCRIPTSDIR}" &&  pushd ..
 
 pip install -r requirements.txt
+npm install -g markdownlint-cli
 
 popd
 popd

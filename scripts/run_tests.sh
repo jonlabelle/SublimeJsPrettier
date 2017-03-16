@@ -14,6 +14,7 @@ pushd ..
 
 pytest .
 flake8 .
+markdownlint .
 
 popd
 popd
