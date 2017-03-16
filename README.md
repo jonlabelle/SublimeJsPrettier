@@ -70,6 +70,22 @@ You can locate your Sublime Text Packages directory by using the menu item
 
     git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
 
+### NVM Users
+
+When using `nvm` make sure to set the Sublime Text node environment to be the same as where [JsPrettier] is installed. You can do this for `.sublime-project`-files like so:
+```
+{
+  ...
+  "settings": {
+    "js_prettier": {
+      "prettier_cli_path": "/path/to/prettier",
+      "node_path": "/path/to/node"
+    }
+  }
+}
+```
+You can find the paths by running `which prettier` and `which node` in you Terminal.
+
 ## Usage
 
 To run the `JsPrettier` command... open the Sublime Text **Command Palette**
