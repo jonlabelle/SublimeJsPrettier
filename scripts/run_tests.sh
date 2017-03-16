@@ -7,7 +7,7 @@ set -x
 # cd to project root and run tests
 #
 
-readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo $(pwd))"
+readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
 pushd "${SCRIPTSDIR}"
 pushd ..
