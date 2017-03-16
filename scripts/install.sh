@@ -8,6 +8,7 @@ set -x
 #
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo $(pwd))"
+
 pushd "${SCRIPTSDIR}"
 pushd ..
 
