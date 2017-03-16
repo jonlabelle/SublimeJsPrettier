@@ -138,26 +138,26 @@ must be created under the project file's `settings` section.
 
 ### Sublime Text Settings
 
-- `debug` (default: *false*)  
+- `debug` (default: ***false***)  
     When enabled (*true*), additional debugging information about the command
     and configured settings will be printed to the Sublime Text Console; useful
     for troubleshooting purposes.
   
-- `prettier_cli_path` (default: *empty*)  
+- `prettier_cli_path` (default: ***empty***)  
     It's strongly recommended leaving the `prettier_cli_path` value empty (the
     default). However, if Sublime Text has problems resolving the path to the
     `prettier` cli executable, you can explicitly specify the full path here.
   
-- `node_path` (default: *empty*)  
+- `node_path` (default: ***empty***)  
     It's strongly recommended leaving the `node_path` value empty (the default).
     However, if Sublime Text has problems resolving the path to the node
     executable, you can explicitly specify the full path here.
   
-- `auto_format_on_save` (default: *false*)  
+- `auto_format_on_save` (default: ***false***)  
     Whether or not to run the `js_prettier` command automatically on every file
-    save (`.js` and `.jsx` file types only).
+    save (`.js` and `.jsx` files only).
   
-- `allow_inline_formatting` (default: *false*)  
+- `allow_inline_formatting` (default: ***false***)  
     Provides the ability to format *selections* of in-lined JavaScript code,
     outside of the normal JavaScript syntax. For example, to format a selection
     of JavaScript code within a PHP or HTML file. When `true`, the JsPrettier
@@ -165,31 +165,31 @@ must be created under the project file's `settings` section.
 
 ### Prettier Options
 
-- `printWidth` (default: *80*)  
+- `printWidth` (default: ***80***)  
     Specifies that the formatted code should fit within this line limit.
   
-- `tabWidth` (inherits the Sublime Text *[tab_size]*)  
+- `tabWidth` (internally set from Sublime Text ***[tab_size]***)  
     The number of spaces to use per tab.
   
-- `singleQuote` (default: *false*)  
+- `singleQuote` (default: ***false***)  
     If true, code will be formatted using single-quotes, instead of double-quotes.
   
-- `trailingComma` (default: *none*)  
+- `trailingComma` (default: ***"none"***)  
    Controls the printing of trailing commas wherever possible. Valid options:
     - `"none"` -- No trailing commas
     - `"es5"`  -- Trailing commas where valid in ES5 (objects, arrays, etc)
     - `"all"`  -- Trailing commas wherever possible (function arguments)
   
-- `bracketSpacing` (default: *true*)  
+- `bracketSpacing` (default: ***true***)  
     Controls the printing of spaces inside object literals.
   
-- `jsxBracketSameLine` (default: *false*)  
+- `jsxBracketSameLine` (default: ***false***)  
     When `jsxBracketSameLine` is *true* (the default is *false*), right-angle
     brackets `>` of multi-line jsx elements will be placed at the end of the
     last line, instead of being alone on the next line.
   
-- `parser` (default: *babylon*)  
-    Which parser to use. Valid options are `'flow'` and `'babylon'`.
+- `parser` (default: ***"babylon"***)  
+    Which parser to use. Valid options are `"flow"` and `"babylon"`.
 
 > *For further details and examples of Prettier's options, please see the
 > options section on the [Prettier homepage].*
