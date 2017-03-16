@@ -21,9 +21,9 @@ Text 2 and 3, and all supported Operating Systems.
 The Sublime Text JavaScript Prettier plug-in requires the following programs to
 be installed:
 
-- [node.js] -- JavaScript runtime
-- [npm] -- Package manager for JavaScript
-- [Prettier] -- Opinionated JavaScript formatter
+- [node.js] – JavaScript runtime
+- [npm] – Package manager for JavaScript
+- [Prettier] – Opinionated JavaScript formatter
 
 ### Install Prettier
 
@@ -174,11 +174,11 @@ must be created under the project file's `settings` section.
 - `singleQuote` (default: ***false***)  
     If true, code will be formatted using single-quotes, instead of double-quotes.
   
-- `trailingComma` (default: ***"none"***)  
+- `trailingComma` (default: "***none***")  
    Controls the printing of trailing commas wherever possible. Valid options:
-    - `"none"` -- No trailing commas
-    - `"es5"`  -- Trailing commas where valid in ES5 (objects, arrays, etc)
-    - `"all"`  -- Trailing commas wherever possible (function arguments)
+    - `"none"` – No trailing commas
+    - `"es5"`  – Trailing commas where valid in ES5 (objects, arrays, etc)
+    - `"all"`  – Trailing commas wherever possible (function arguments)
   
 - `bracketSpacing` (default: ***true***)  
     Controls the printing of spaces inside object literals.
@@ -188,7 +188,7 @@ must be created under the project file's `settings` section.
     brackets `>` of multi-line jsx elements will be placed at the end of the
     last line, instead of being alone on the next line.
   
-- `parser` (default: ***"babylon"***)  
+- `parser` (default: "***babylon***")  
     Which parser to use. Valid options are `"flow"` and `"babylon"`.
 
 > *For further details and examples of Prettier's options, please see the
