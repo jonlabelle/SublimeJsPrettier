@@ -168,7 +168,7 @@ must be created under the project file's `settings` section.
 - `printWidth` (default: ***80***)  
     Specifies that the formatted code should fit within this line limit.
   
-- `tabWidth` (internally set from Sublime Text ***[tab_size]***)  
+- `tabWidth` (internally set from Sublime Text [tab_size])  
     The number of spaces to use per tab.
   
 - `singleQuote` (default: ***false***)  
