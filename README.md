@@ -154,7 +154,7 @@ must be created under the project file's `settings` section.
     path:
   
     - Locally installed prettier, relative to a Sublime Text Project file's root
-      directory, e.g.: `node_modules/.bin/prettier'.
+      directory, e.g.: `node_modules/.bin/prettier`.
     - The user's home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
     - Look in the JsPrettier Sublime Text plug-in directory for
       `node_modules/.bin/prettier`.
