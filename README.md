@@ -158,7 +158,7 @@ must be created under the project file's `settings` section.
     - The user's home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
     - Look in the JsPrettier Sublime Text plug-in directory for
       `node_modules/.bin/prettier`.
-    - Finally, check if prettier is installed globally, e.g.: 
+    - Finally, check if prettier is installed globally, e.g.:
       `npm install -g prettier`.
   <p></p>
     > [nvm] users are required to set an appropriate `prettier_cli_path`
