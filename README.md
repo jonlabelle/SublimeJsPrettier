@@ -145,15 +145,24 @@ must be created under the project file's `settings` section.
     for troubleshooting purposes.
   
 - `prettier_cli_path` (default: ***empty***)  
-    It's strongly recommended leaving the `prettier_cli_path` value empty (the
+    It's recommended to leave the `prettier_cli_path` value empty (the
     default). However, if Sublime Text has problems resolving the path to the
-    `prettier` cli executable, you can explicitly specify the full path here.
+    `prettier` cli executable, you can explicitly specify the path here.
   
+    If the `prettier_cli_path` value is left empty (""), the path is resolved
+    by searching locations in the following order, returning the first matched
+    path:
+  
+    - Locally installed prettier, relative to the Sublime Text Project file's
+      root directory, e.g.: `node_modules/.bin/prettier'.
+    - The user's home directory, e.g.: `$HOME/node_modules`.
+    - Globally installed prettier, e.g.: `npm install -g prettier`.
+  <p></p>
     > [nvm] users are required to set an appropriate `prettier_cli_path`
     > (and `node_path`) according to the target runtime environment.
   
 - `node_path` (default: ***empty***)  
-    It's strongly recommended leaving the `node_path` value empty (the default).
+    It's recommended to leave the `node_path` value empty (the default).
     However, if Sublime Text has problems resolving the path to the node
     executable, you can explicitly specify the full path here.
   

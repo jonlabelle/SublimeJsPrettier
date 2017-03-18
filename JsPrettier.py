@@ -89,10 +89,37 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def prettier_cli_path(self):
-        prettier_path = self.get_setting('prettier_cli_path', '')
-        if self.is_str_none_or_empty(prettier_path):
-            return self.which('prettier')
-        return self.which(prettier_path)
+        """The prettier cli path.
+
+        When the `prettier_cli_path` setting is empty (""),
+        the path is resolved by searching locations in the following order,
+        returning the first match of the prettier cli path...
+
+        - Locally installed prettier, relative to a Sublime Text Project
+          file's root directory, e.g.: `node_modules/.bin/prettier'.
+        - User's $HOME/node_modules directory.
+        - Globally installed prettier, e.g.: `npm install -g prettier`.
+
+        :return: The prettier cli path.
+        """
+        user_prettier_path = self.get_setting('prettier_cli_path', '')
+        project_path = self.get_active_project_path()
+
+        if self.is_str_none_or_empty(user_prettier_path):
+            global_prettier_path = self.which('prettier')
+            project_prettier_path = os.path.join(
+                project_path, 'node_modules', '.bin', 'prettier')
+            if os.path.exists(project_prettier_path):
+                return project_prettier_path
+            else:
+                return global_prettier_path
+
+        # user specified prettier cli path is a relative path, try to
+        # resolve the path from the Sublime Text project file directory
+        if not os.path.isabs(user_prettier_path):
+            user_prettier_path = os.path.join(project_path, user_prettier_path)
+
+        return user_prettier_path
 
     @property
     def node_path(self):
@@ -331,6 +358,28 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                              '## Prettier CLI Return Code:\n\n{1}'\
             .format(error_message.replace('\n', '\n    '), '    {0}'
                     .format(error_code))
+
+    @staticmethod
+    def get_active_project_path():
+        """Get the active Sublime Text project path.
+
+        Original: https://gist.github.com/astronaughts/9678368
+
+        :return: The active Sublime Text project path.
+        """
+        window = sublime.active_window()
+        folders = window.folders()
+        if len(folders) == 1:
+            return folders[0]
+        else:
+            active_view = window.active_view()
+            active_file_name = active_view.file_name() if active_view else None
+            if not active_file_name:
+                return folders[0] if len(folders) else os.path.expanduser("~")
+            for folder in folders:
+                if active_file_name.startswith(folder):
+                    return folder
+            return os.path.dirname(active_file_name)
 
     @staticmethod
     def show_status_bar_error():

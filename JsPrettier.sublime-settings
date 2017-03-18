@@ -11,18 +11,28 @@
 	//
 	// @prettier_cli_path { string | default = "" }
 	//
-	// It's strongly recommended to leave the "prettier_cli_path" value
+	// It's recommended to leave the "prettier_cli_path" value
 	// empty "". However, if Sublime Text has problems resolving the path
 	// to the `prettier` cli executable, you can explicitly specify the
-	// full path here.
+	// path here.
+	//
+	// If the `prettier_cli_path` setting is left empty (""), the path is
+	// resolved by searching locations in the following order, returning the
+	// first matched path:
+	//
+	// - Locally installed prettier, relative to the Sublime Text Project file's
+	//   root directory, e.g.: `node_modules/.bin/prettier'.
+	// - The user's home directory, e.g.: `$HOME/node_modules`.
+	// - Globally installed prettier, e.g.: `npm install -g prettier`.
 	//
 	// nvm users are required to set an appropriate `prettier_cli_path` (and
 	// `node_path`) according to the target runtime environment.
 	//
 	// Examples:
 	//
-	//     - macOS/Linux...: "/path/to/node_modules/.bin/prettier"
-	//     - Windows.......: "C:/path/to/npm/prettier"
+	//     - macOS/Linux...: "/path/to/node_modules/.bin/prettier" (absolute)
+	//                   or: "./node_modules/.bin/prettier" (relative)
+	//     - Windows.......: "C:/path/to/npm/prettier" (absolute)
 
 	"prettier_cli_path": "",
 
