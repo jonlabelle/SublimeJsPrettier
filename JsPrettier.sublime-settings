@@ -22,16 +22,19 @@
 	//
 	// - Locally installed prettier, relative to the Sublime Text Project file's
 	//   root directory, e.g.: `node_modules/.bin/prettier'.
-	// - The user's home directory, e.g.: `$HOME/node_modules`.
-	// - Globally installed prettier, e.g.: `npm install -g prettier`.
+	// - The user's home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
+	// - Look in the JsPrettier Sublime Text plug-in directory for
+	//   `node_modules/.bin/prettier`.
+	// - Finally, check if prettier is installed globbaly,
+	//   e.g.: `npm install -g prettier`.
 	//
 	// nvm users are required to set an appropriate `prettier_cli_path` (and
-	// `node_path`) according to the target runtime environment.
+	// `node_path`), according to the target runtime environment.
 	//
 	// Examples:
 	//
 	//     - macOS/Linux...: "/path/to/node_modules/.bin/prettier" (absolute)
-	//                   or: "./node_modules/.bin/prettier" (relative)
+	//                   or  "./node_modules/.bin/prettier" (relative)
 	//     - Windows.......: "C:/path/to/npm/prettier" (absolute)
 
 	"prettier_cli_path": "",
@@ -39,12 +42,12 @@
 	//
 	// @node_path { string | default = "" }
 	//
-	// It's strongly recommended to leave the "node_path" value
-	// empty "". However, if Sublime Text has problems resolving the path
-	// to `node`, you can explicitly specify the full path here.
+	// It's strongly recommended to leave the "node_path" value empty "".
+	// However, if Sublime Text has problems resolving the "absolute" path to
+	// `node`, you can explicitly specify the path here.
 	//
-	// nvm users are required to set an appropriate `node_path` (and
-	// `prettier_cli_path`) according to the target runtime environment.
+	// nvm users will be required to set an appropriate "absolute" `node_path`
+	// (and `prettier_cli_path`), according to the target runtime environment.
 	//
 	// Examples:
 	//

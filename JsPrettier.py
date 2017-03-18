@@ -98,7 +98,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         - Locally installed prettier, relative to a Sublime Text Project
           file's root directory, e.g.: `node_modules/.bin/prettier'.
         - User's $HOME/node_modules directory.
-        - Globally installed prettier, e.g.: `npm install -g prettier`.
+        - Look in the JsPrettier Sublime Text plug-in directory for
+          `node_modules/.bin/prettier`.
+        - Finally, check if prettier is installed globally,
+          e.g.: `npm install -g prettier`.
 
         :return: The prettier cli path.
         """
@@ -109,13 +112,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             global_prettier_path = self.which('prettier')
             project_prettier_path = os.path.join(
                 project_path, 'node_modules', '.bin', 'prettier')
+            plugin_prettier_path = os.path.join(
+                PLUGIN_PATH, 'node_modules', '.bin', 'prettier')
+
             if os.path.exists(project_prettier_path):
                 return project_prettier_path
+            elif os.path.exists(plugin_prettier_path):
+                return plugin_prettier_path
             else:
                 return global_prettier_path
 
-        # user specified prettier cli path is a relative path, try to
-        # resolve the path from the Sublime Text project file directory
+        # handle cases when the user specifies a prettier cli path that is to
+        # the working file or project:
         if not os.path.isabs(user_prettier_path):
             user_prettier_path = os.path.join(project_path, user_prettier_path)
 

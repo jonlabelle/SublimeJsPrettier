@@ -153,21 +153,24 @@ must be created under the project file's `settings` section.
     by searching locations in the following order, returning the first matched
     path:
   
-    - Locally installed prettier, relative to the Sublime Text Project file's
-      root directory, e.g.: `node_modules/.bin/prettier'.
-    - The user's home directory, e.g.: `$HOME/node_modules`.
-    - Globally installed prettier, e.g.: `npm install -g prettier`.
+    - Locally installed prettier, relative to a Sublime Text Project file's root
+      directory, e.g.: `node_modules/.bin/prettier'.
+    - The user's home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
+    - Look in the JsPrettier Sublime Text plug-in directory for
+      `node_modules/.bin/prettier`.
+    - Finally, check if prettier is installed globally, e.g.: 
+      `npm install -g prettier`.
   <p></p>
     > [nvm] users are required to set an appropriate `prettier_cli_path`
-    > (and `node_path`) according to the target runtime environment.
+    > (and `node_path`), according to the target runtime environment.
   
 - `node_path` (default: ***empty***)  
     It's recommended to leave the `node_path` value empty (the default).
-    However, if Sublime Text has problems resolving the path to the node
-    executable, you can explicitly specify the full path here.
+    However, if Sublime Text has problems resolving the *absolute* path to the
+    node executable, you can explicitly specify the path here.
   
-    > [nvm] users are required to set an appropriate `node_path` (and
-    > `prettier_cli_path`) according to the target runtime environment.
+    > [nvm] users are required to set an appropriate *absolute* `node_path` (and
+    > `prettier_cli_path`), according to the target runtime environment.
   
 - `auto_format_on_save` (default: ***false***)  
     Whether or not to run the `js_prettier` command automatically on every file
