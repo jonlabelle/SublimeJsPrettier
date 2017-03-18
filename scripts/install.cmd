@@ -9,13 +9,9 @@ set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
 ::
 
 set SCRIPTSDIR=%~dp0
-
-pushd "%SCRIPTSDIR%"
-pushd ..
+pushd "%SCRIPTSDIR%" && pushd ..
 
 pip install -r requirements.txt
 
-popd
-popd
-
+popd && popd
 endlocal

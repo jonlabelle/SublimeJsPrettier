@@ -9,14 +9,10 @@ set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
 ::
 
 set SCRIPTSDIR=%~dp0
-
-pushd "%SCRIPTSDIR%"
-pushd ..
+pushd "%SCRIPTSDIR%" && pushd ..
 
 pytest .
 flake8 .
 
-popd
-popd
-
+popd && popd
 endlocal

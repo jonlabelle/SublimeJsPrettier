@@ -8,13 +8,10 @@ set -x
 #
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
-
-pushd "${SCRIPTSDIR}"
-pushd ..
+pushd "${SCRIPTSDIR}" && pushd ..
 
 pytest .
 flake8 .
 markdownlint .
 
-popd
-popd
+popd && popd
