@@ -122,8 +122,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             else:
                 return global_prettier_path
 
-        # handle cases when the user specifies a prettier cli path that is to
-        # the working file or project:
+        # handle cases when the user specifies a prettier cli path that is
+        # relative to the working file or project:
         if not os.path.isabs(user_prettier_path):
             user_prettier_path = os.path.join(project_path, user_prettier_path)
 
