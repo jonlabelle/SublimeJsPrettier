@@ -12,6 +12,7 @@ set SCRIPTSDIR=%~dp0
 pushd "%SCRIPTSDIR%" && pushd ..
 
 pip install -r requirements.txt
+npm install -g markdownlint-cli
 
 popd && popd
 endlocal
