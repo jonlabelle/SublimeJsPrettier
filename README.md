@@ -160,7 +160,7 @@ must be created under the project file's `settings` section.
       `node_modules/.bin/prettier`.
     - Finally, check if prettier is installed globally, e.g.:
       `npm install -g prettier`.
-        
+  
     > [nvm] users are required to set an appropriate `prettier_cli_path`
     > (and `node_path`), according to the target runtime environment.
   
