@@ -5,9 +5,14 @@ environment:
     - PYTHON: "C:\\Python33"
 
 install:
+  # install the latest stable version of node.js:
+  - ps: Install-Product node ''
   - "scripts\\install.cmd %PYTHON%"
-
-build: off
 
 test_script:
   - "scripts\\run_tests.cmd %PYTHON%"
+
+build: off
+
+# build version format:
+version: "{build}"
