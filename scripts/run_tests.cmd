@@ -2,7 +2,7 @@
 setlocal
 
 set PYTHON=%~1
-set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+if defined PYTHON set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
 
 ::
 :: cd to project root and run tests
