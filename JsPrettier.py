@@ -341,10 +341,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         paths = path.split(os.pathsep)
         if not os.path.isfile(executable):
-            for p in paths:
-                f = os.path.join(p, executable)
-                if os.path.isfile(f):
-                    return f
+            for directory in paths:
+                exec_path = os.path.join(directory, executable)
+                if os.path.isfile(exec_path):
+                    return exec_path
             return None
         else:
             return executable
@@ -487,8 +487,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         :param repeat_length: The amount of times to repeat the string.
         :return: The repeated string.
         """
-        a, b = divmod(repeat_length, len(str_to_repeat))
-        return str_to_repeat * a + str_to_repeat[:b]
+        quotient, remainder = divmod(repeat_length, len(str_to_repeat))
+        return str_to_repeat * quotient + str_to_repeat[:remainder]
 
     @staticmethod
     def trim_trailing_ws_and_lines(val):
@@ -533,8 +533,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             env_path = os.environ['PATH']
         find_path = str.replace(find_path, os.pathsep, '')
         paths = env_path.split(os.pathsep)
-        for p in paths:
-            if p == find_path:
+        for path in paths:
+            if path == find_path:
                 return True
         return False
 
