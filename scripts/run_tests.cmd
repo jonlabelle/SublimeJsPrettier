@@ -13,6 +13,7 @@ pushd "%SCRIPTSDIR%" && pushd ..
 
 pytest .
 flake8 .
+pylint JsPrettier.py
 markdownlint .
 
 popd && popd

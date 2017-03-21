@@ -12,6 +12,11 @@ python:
 node_js:
   - "node"
 
+cache:
+  directories:
+  # cache pylint stats
+  - $HOME/.pylint.d
+
 # install dependencies:
 install:
   - bash scripts/install.sh

@@ -2,9 +2,10 @@
 
 import os
 import platform
+
 from re import sub
-from os.path import splitext
-from subprocess import PIPE, Popen
+from subprocess import PIPE
+from subprocess import Popen
 
 import sublime
 import sublime_plugin
@@ -593,7 +594,7 @@ class CommandOnSave(sublime_plugin.EventListener):
 
     @staticmethod
     def is_js_file(view):
-        ext = splitext(view.file_name())[1][1:]
+        ext = os.path.splitext(view.file_name())[1][1:]
         if ext == 'js' or ext == 'jsx':
             return True
         return False
