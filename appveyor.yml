@@ -1,8 +1,8 @@
 environment:
 
   matrix:
-    - PYTHON: "C:\\Python27"
-    - PYTHON: "C:\\Python33"
+    - PYTHON: C:\Python27
+    - PYTHON: C:\Python33
 
 cache:
   # cache pylint stat files and invalidate caches if '.pylintrc' file changes:
@@ -11,10 +11,10 @@ cache:
 install:
   # install the latest stable version of node.js:
   - ps: Install-Product node ''
-  - "scripts\\install.cmd %PYTHON%"
+  - scripts\install.cmd %PYTHON%
 
 test_script:
-  - "scripts\\run_tests.cmd %PYTHON%"
+  - scripts\run_tests.cmd %PYTHON%
 
 build: off
 
