@@ -1,5 +1,5 @@
 [MASTER]
-ignore=.cache,.git,.idea,CVS,__pycache__,messages,screenshots
+ignore=.cache,.git,.idea,__pycache__,messages,screenshots
 
 [MESSAGES CONTROL]
 disable=missing-docstring,too-many-branches,too-many-public-methods,unidiomatic-typecheck
