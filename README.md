@@ -101,42 +101,6 @@ All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
 file, accessible from the **Preferences** > **Package Settings** >
 ***JsPrettier*** menu shortcut.
 
-### Project-level Settings
-
-JsPrettier supports [Project-level settings], specified in
-`<project_name>.sublime-project` files. In order for Project-level settings to
-override the Defaults and User configured settings, a new `js_prettier` section
-must be created under the project file's `settings` section.
-
-#### Example Sublime Text Project File
-
-```json
-{
-    "folders": [
-        {
-            "path": "."
-        }
-    ],
-    "settings": {
-        "js_prettier": {
-            "debug": false,
-            "prettier_cli_path": "",
-            "node_path": "",
-            "auto_format_on_save": false,
-            "allow_inline_formatting": false,
-            "prettier_options": {
-                "printWidth": 80,
-                "singleQuote": false,
-                "trailingComma": "none",
-                "bracketSpacing": true,
-                "jsxBracketSameLine": false,
-                "parser": "babylon"
-            }
-        }
-    }
-}
-```
-
 ### Sublime Text Settings
 
 - `debug` (default: ***false***)  
@@ -212,6 +176,42 @@ must be created under the project file's `settings` section.
 
 > *For further details and examples of Prettier's options, please see the
 > options section on the [Prettier homepage].*
+
+### Project-level Settings
+
+JsPrettier supports [Project-level settings], specified in
+`<project_name>.sublime-project` files. In order for Project-level settings to
+override the Defaults and User configured settings, a new `js_prettier` section
+must be created under the project file's `settings` section.
+
+#### Example Sublime Text Project File
+
+```json
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "js_prettier": {
+            "debug": false,
+            "prettier_cli_path": "",
+            "node_path": "",
+            "auto_format_on_save": false,
+            "allow_inline_formatting": false,
+            "prettier_options": {
+                "printWidth": 80,
+                "singleQuote": false,
+                "trailingComma": "none",
+                "bracketSpacing": true,
+                "jsxBracketSameLine": false,
+                "parser": "babylon"
+            }
+        }
+    }
+}
+```
 
 ## Changes
 
