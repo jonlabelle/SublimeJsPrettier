@@ -103,79 +103,77 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 ### Sublime Text Settings
 
-- **`debug`** (default: ***false***)  
+- **debug** (default: ***false***)  
     When enabled (*true*), additional debugging information about the command
     and configured settings will be printed to the Sublime Text Console; useful
     for troubleshooting purposes.
   
-- **`prettier_cli_path`** (default: ***empty***)  
-    It's recommended to leave the `prettier_cli_path` value empty (the
-    default). However, if Sublime Text has problems resolving the path to the
-    `prettier` cli executable, you can explicitly specify the path here.
+- **prettier_cli_path** (default: ***empty***)  
+    It's recommended to leave this setting empty (the default). However, if
+    Sublime Text has problems resolving the CLI path to the [Prettier]
+    executable, you can explicitly set the appropriate path here.
   
-    If the `prettier_cli_path` value is left empty (""), the path is resolved
-    by searching locations in the following order, returning the first matched
-    path:
+    When the setting is left empty, the path is resolved by searching locations
+    in the following order, returning the first matched path:
   
-    - Locally installed prettier, relative to a Sublime Text Project file's root
+    - Locally installed Prettier, relative to the Sublime Text Project file root
       directory, e.g.: `node_modules/.bin/prettier`.
     - The user's home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
-    - Look in the JsPrettier Sublime Text plug-in directory for
+    - Look in the *JsPrettier* Sublime Text plug-in directory for
       `node_modules/.bin/prettier`.
-    - Finally, check if prettier is installed globally, e.g.:
-      `npm install -g prettier`.
+    - Finally, check if Prettier is [installed globally].
   
-    > [nvm] users are required to set an appropriate `prettier_cli_path`
-    > (and `node_path`), according to the target runtime environment.
+    > [nvm] users are required to set an appropriate *prettier_cli_path*
+    > (and *node_path*); according to the target runtime environment.
   
-- **`node_path`** (default: ***empty***)  
-    It's recommended to leave the `node_path` value empty (the default).
-    However, if Sublime Text has problems resolving the *absolute* path to the
-    node executable, you can explicitly specify the path here.
+- **node_path** (default: ***empty***)  
+    It's recommended to leave this setting empty (the default). However, if
+    Sublime Text has problems resolving the absolute path to the node
+    executable, you can explicitly set the appropriate path here.
   
-    > [nvm] users are required to set an appropriate *absolute* `node_path` (and
-    > `prettier_cli_path`), according to the target runtime environment.
+    > [nvm] users are required to set an appropriate absolute *node_path* (and
+    > *prettier_cli_path*); according to the target runtime environment.
   
-- **`auto_format_on_save`** (default: ***false***)  
-    Whether or not to run the `js_prettier` command automatically on every file
-    save (`.js` and `.jsx` files only).
+- **auto_format_on_save** (default: ***false***)  
+    Whether or not to automatically format on every file save (`.js` and `.jsx`
+    files only).
   
-- **`allow_inline_formatting`** (default: ***false***)  
+- **allow_inline_formatting** (default: ***false***)  
     Provides the ability to format *selections* of in-lined JavaScript code,
     outside of the normal JavaScript syntax. For example, to format a selection
-    of JavaScript code within a PHP or HTML file. When `true`, the JsPrettier
+    of JavaScript code within a PHP or HTML file. When ***true***, the JsPrettier
     command is available for use across all Sublime Text syntaxes.
 
 ### Prettier Options
 
-- **`printWidth`** (default: ***80***)  
+- **printWidth** (default: ***80***)  
     Specifies that the formatted code should fit within this line limit.
   
-- **`tabWidth`** (internally set from Sublime Text [***tab_size***])  
+- **tabWidth** (internally set from Sublime Text [***tab_size***])  
     The number of spaces to use per tab.
   
-- **`singleQuote`** (default: ***false***)  
+- **singleQuote** (default: ***false***)  
     If true, code will be formatted using single-quotes, instead of double-quotes.
   
-- **`trailingComma`** (default: "***none***")  
+- **trailingComma** (default: "***none***")  
    Controls the printing of trailing commas wherever possible. Valid options:
-    - `"none"` – No trailing commas
-    - `"es5"`  – Trailing commas where valid in ES5 (objects, arrays, etc)
-    - `"all"`  – Trailing commas wherever possible (function arguments)
+    - "***none***" – No trailing commas
+    - "***es5***"  – Trailing commas where valid in ES5 (objects, arrays, etc)
+    - "***all***"  – Trailing commas wherever possible (function arguments)
   
-- **`bracketSpacing`** (default: ***true***)  
+- **bracketSpacing** (default: ***true***)  
     Controls the printing of spaces inside object literals.
   
-- **`jsxBracketSameLine`** (default: ***false***)  
-    When `jsxBracketSameLine` is *true* (the default is *false*), right-angle
-    brackets `>` of multi-line jsx elements will be placed at the end of the
-    last line, instead of being alone on the next line.
+- **jsxBracketSameLine** (default: ***false***)  
+    When *true*, right-angle brackets ("***>***") of multi-line jsx elements
+    will be placed at the end of the last line, instead of being alone on the
+    next line.
   
-- **`parser`** (default: "***babylon***")  
-    Which parser to use. Valid options are `"flow"` and `"babylon"`.
+- **parser** (default: "***babylon***")  
+    Which parser to use. Valid options are "***flow***" and "***babylon***".
 
-> *For further details and examples of Prettier's options, please see the
-> options section on the [Prettier homepage].*
+> *For further details and examples of setting Prettier's options, please see
+> the [Prettier API section] on the Prettier homepage.*
 
 ### Project-level Settings
 
@@ -227,13 +225,14 @@ Jon LaBelle
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
-[Prettier homepage]: https://github.com/jlongster/prettier
+[Prettier API section]: https://github.com/prettier/prettier#api
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
 [Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
 [***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html
+[installed globally]: #install-prettier
 [npm]: https://www.npmjs.com
 [nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
