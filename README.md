@@ -165,7 +165,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     Controls the printing of spaces inside object literals.
   
 - **jsxBracketSameLine** (default: ***false***)  
-    When *true*, right-angle brackets ("***>***") of multi-line jsx elements
+    When *true*, right-angle brackets ("&gt;") of multi-line jsx elements
     will be placed at the end of the last line, instead of being alone on the
     next line.
   
