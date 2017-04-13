@@ -52,6 +52,16 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'parser',
         'cli': '--parser',
         'default': 'babylon'
+    },
+    {
+        'option': 'noSemi',
+        'cli': '--no-semi',
+        'default': 'false'
+    },
+    {
+        'option': 'useTabs',
+        'cli': '--use-tabs',
+        'default': 'false'
     }
 ]
 
