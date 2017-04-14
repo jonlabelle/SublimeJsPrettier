@@ -24,6 +24,11 @@ SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 PRETTIER_OPTIONS_KEY = 'prettier_options'
 PRETTIER_OPTION_CLI_MAP = [
     {
+        'option': 'useTabs',
+        'cli': '--use-tabs',
+        'default': 'false'
+    },
+    {
         'option': 'printWidth',
         'cli': '--print-width',
         'default': '80'
@@ -54,14 +59,9 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': 'babylon'
     },
     {
-        'option': 'noSemi',
-        'cli': '--no-semi',
-        'default': 'false'
-    },
-    {
-        'option': 'useTabs',
-        'cli': '--use-tabs',
-        'default': 'false'
+        'option': 'semi',
+        'cli': '--semi',
+        'default': 'true'
     }
 ]
 

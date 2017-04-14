@@ -79,6 +79,8 @@
 	// please reference the `prettier` documentation at https://github.com/jlongster/prettier
 
 	"prettier_options": {
+		// Indent lines with tabs instead of spaces
+		"useTabs": false,
 
 		// Fit code within this line limit
 		"printWidth": 80,
@@ -105,13 +107,8 @@
 		// Which parser to use. Valid options are "flow" and "babylon"
 		"parser": "babylon",
 
-		// Which parser to use. Valid options are "flow" and "babylon"
-		"parser": "babylon",
-
-		// Indent lines with tabs instead of spaces
-		"useTabs": false,
-
-		// Do not print semicolons, except at the beginning of lines which may need them
-  		"noSemi": false
+		// Whether to add a semicolon at the end of every line (semi: true),
+		// or only at the beginning of lines that may introduce ASI failures (semi: false)
+		"semi": true
 	}
 }

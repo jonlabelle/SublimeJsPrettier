@@ -146,6 +146,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 ### Prettier Options
 
+- **useTabs** (default: ***false***)  
+    Indent lines with tabs.
+
 - **printWidth** (default: ***80***)  
     Specifies that the formatted code should fit within this line limit.
   
@@ -171,6 +174,11 @@ file, accessible from the **Preferences** > **Package Settings** >
   
 - **parser** (default: "***babylon***")  
     Which parser to use. Valid options are "***flow***" and "***babylon***".
+  
+- **semi** (default: ***true***)  
+    ***true*** to add a semicolon at the end of every line, or ***false*** to
+    add a semicolononly at the beginning of lines that may introduce ASI
+    failures.
 
 > *For further details and examples of setting Prettier's options, please see
 > the [Prettier API section] on the Prettier homepage.*
@@ -199,12 +207,14 @@ must be created under the project file's `settings` section.
             "auto_format_on_save": false,
             "allow_inline_formatting": false,
             "prettier_options": {
+                "useTabs": false,
                 "printWidth": 80,
                 "singleQuote": false,
                 "trailingComma": "none",
                 "bracketSpacing": true,
                 "jsxBracketSameLine": false,
-                "parser": "babylon"
+                "parser": "babylon",
+                "semi": true
             }
         }
     }

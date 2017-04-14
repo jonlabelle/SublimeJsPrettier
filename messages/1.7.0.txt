@@ -1,0 +1,5 @@
+## 1.7.0
+
+Release Date: 2017-04-13
+
+- Added support for new `--semi` and `--use-tabs` options.

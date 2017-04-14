@@ -1,6 +1,8 @@
 # Changelog
 
-- Added support for --no-semi and --use-tabs
+## 1.7.0
+
+- Added support for new `--semi` and `--use-tabs` options.
 
 ## 1.6.0
 
