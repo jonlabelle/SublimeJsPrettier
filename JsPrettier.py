@@ -128,10 +128,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             if os.path.exists(project_prettier_path):
                 return project_prettier_path
-            elif os.path.exists(plugin_prettier_path):
+
+            if os.path.exists(plugin_prettier_path):
                 return plugin_prettier_path
-            else:
-                return global_prettier_path
+
+            return global_prettier_path
 
         # handle cases when the user specifies a prettier cli path that is
         # relative to the working file or project:
@@ -269,8 +270,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.format_error_message(
                     stderr.decode('utf-8'), str(proc.returncode))
                 return None
-            else:
-                return stdout.decode('utf-8')
+            return stdout.decode('utf-8')
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
@@ -357,8 +357,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if os.path.isfile(exec_path):
                     return exec_path
             return None
-        else:
-            return executable
+        return executable
 
     def show_debug_message(self, label, message):
         if not self.debug:
