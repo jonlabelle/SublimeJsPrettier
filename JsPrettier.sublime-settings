@@ -103,7 +103,15 @@
 		"jsxBracketSameLine": false,
 
 		// Which parser to use. Valid options are "flow" and "babylon"
-		"parser": "babylon"
+		"parser": "babylon",
 
+		// Which parser to use. Valid options are "flow" and "babylon"
+		"parser": "babylon",
+
+		// Indent lines with tabs instead of spaces
+		"useTabs": false,
+
+		// Do not print semicolons, except at the beginning of lines which may need them
+  		"noSemi": false
 	}
 }
