@@ -146,13 +146,13 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 ### Prettier Options
 
-- **useTabs** (default: ***false***)  
+- **useTabs** (internally set by the [***translate_tabs_to_spaces***] setting)  
     Indent lines with tabs.
 
 - **printWidth** (default: ***80***)  
     Specifies that the formatted code should fit within this line limit.
   
-- **tabWidth** (internally set from Sublime Text [***tab_size***])  
+- **tabWidth** (internally set by the [***tab_size***] setting)  
     The number of spaces to use per tab.
   
 - **singleQuote** (default: ***false***)  

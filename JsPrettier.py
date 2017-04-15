@@ -24,11 +24,6 @@ SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
 PRETTIER_OPTIONS_KEY = 'prettier_options'
 PRETTIER_OPTION_CLI_MAP = [
     {
-        'option': 'useTabs',
-        'cli': '--use-tabs',
-        'default': 'false'
-    },
-    {
         'option': 'printWidth',
         'cli': '--print-width',
         'default': '80'
@@ -148,6 +143,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @property
     def tab_size(self):
         return int(self.view.settings().get('tab_size', 2))
+
+    @property
+    def use_tabs(self):
+        translate_tabs_to_spaces = self.view.settings().get(
+            'translate_tabs_to_spaces', True)
+        if not translate_tabs_to_spaces:
+            return True
+        return False
 
     @property
     def allow_inline_formatting(self):
@@ -331,9 +334,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_cli_args.append(cli_option_name)
                 prettier_cli_args.append(option_value)
 
-        # get/set the `tabWidth` based on the current view:
+        # set the `tabWidth` option based on the current view:
         prettier_cli_args.append('--tab-width')
         prettier_cli_args.append(str(self.tab_size))
+
+        # set the `useTabs` option based on the current view:
+        prettier_cli_args.append('{0}={1}'.format(
+            '--use-tabs', str(self.use_tabs).lower()))
 
         return prettier_cli_args
 

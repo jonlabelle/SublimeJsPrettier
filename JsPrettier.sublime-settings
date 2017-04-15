@@ -79,9 +79,6 @@
 	// please reference the `prettier` documentation at https://github.com/jlongster/prettier
 
 	"prettier_options": {
-		// Indent lines with tabs instead of spaces
-		"useTabs": false,
-
 		// Fit code within this line limit
 		"printWidth": 80,
 
