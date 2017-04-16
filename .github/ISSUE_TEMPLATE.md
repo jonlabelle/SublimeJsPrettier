@@ -13,7 +13,7 @@ $ prettier --version
 1.1.0
 ```
 
-**JsPrettier** (package.json)
+**JsPrettier Version** (package.json)
 
 ```json
   "name": "sublime-js-prettier",
