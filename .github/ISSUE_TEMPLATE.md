@@ -6,7 +6,7 @@ When reporting an issue, please include the information with your post:
 - [ ] The installed JsPrettier version (located in the `package.json` file)
 - [ ] The generated command line arguments passed to the Prettier CLI
 
-## Example
+### Example
 
 **Prettier Version**
 
