@@ -2,20 +2,21 @@
 
 When reporting an issue, please include the information with your post:
 
-- [ ] Your installed Prettier version (`$ prettier --version`)
-- [ ] The installed JsPrettier version (located in the `package.json` file)
-- [ ] The generated command line arguments passed to the Prettier CLI
+- [ ] Your installed **Prettier version** (`$ prettier --version`)
+- [ ] The installed **JsPrettier version** (located in the `package.json` file)
+- [ ] The generated **command line arguments** passed to the Prettier CLI
+- [ ] **Steps to reproduce** the behavior
 
 ### Example
 
-**Prettier Version**
+**Prettier version**
 
 ```
 $ prettier --version
 1.1.0
 ```
 
-**JsPrettier Version** (package.json)
+**JsPrettier version** (package.json)
 
 ```json
   "name": "sublime-js-prettier",
@@ -38,3 +39,9 @@ $ prettier --version
     --tab-width 4                 \
     --use-tabs=true
 ```
+
+***Steps to reproduce the behavior***
+
+1. ...
+2. ...
+3. ...
