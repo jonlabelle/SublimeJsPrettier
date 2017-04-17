@@ -398,7 +398,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return folders[0]
         else:
             active_view = window.active_view()
-            active_file_name = active_view.file_name() if active_view else None
+            if active_view:
+                active_file_name = active_view.file_name()
+            else:
+                active_file_name = None
             if not active_file_name:
                 return folders[0] if len(folders) else os.path.expanduser('~')
             for folder in folders:
