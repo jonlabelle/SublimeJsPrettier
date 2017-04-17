@@ -76,7 +76,6 @@
                     "auto_format_on_save": false,
                     "allow_inline_formatting": false,
                     "prettier_options": {
-                        "useTabs": false,
                         "printWidth": 80,
                         "singleQuote": false,
                         "trailingComma": "none",

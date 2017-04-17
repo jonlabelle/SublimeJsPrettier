@@ -207,7 +207,6 @@ must be created under the project file's `settings` section.
             "auto_format_on_save": false,
             "allow_inline_formatting": false,
             "prettier_options": {
-                "useTabs": false,
                 "printWidth": 80,
                 "singleQuote": false,
                 "trailingComma": "none",
@@ -220,6 +219,10 @@ must be created under the project file's `settings` section.
     }
 }
 ```
+
+## Issues
+
+To [report an issue], please follow the steps outlined in the [Issue Template].
 
 ## Changes
 
@@ -250,5 +253,7 @@ Jon LaBelle
 [Sublime Text Packages directory]: #default-st-paths
 [manual download instructions]: #manual-download
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
+[issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE.md
+[report an issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt

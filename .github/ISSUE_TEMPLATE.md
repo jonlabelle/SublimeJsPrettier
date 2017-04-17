@@ -1,6 +1,7 @@
 ## Reporting an Issue
 
-When reporting an issue, please include the following information in your post:
+When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues),
+please include the following information in your post:
 
 - [ ] Your installed **Prettier** version
 - [ ] Your installed **JsPrettier** version
