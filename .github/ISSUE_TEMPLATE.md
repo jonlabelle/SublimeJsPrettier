@@ -54,7 +54,7 @@ Prettier from the command line.
         --use-tabs=true               \
         < path_to_js_file.js
 
-***Steps to reproduce the behavior***
+**Steps to reproduce** the behavior
 
     1. ...
     2. ...
