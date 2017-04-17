@@ -400,7 +400,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             active_view = window.active_view()
             active_file_name = active_view.file_name() if active_view else None
             if not active_file_name:
-                return folders[0] if len(folders) else os.path.expanduser("~")
+                return folders[0] if len(folders) else os.path.expanduser('~')
             for folder in folders:
                 if active_file_name.startswith(folder):
                     return folder
@@ -524,7 +524,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         new_line_inserted = False
         if view.size() > 0 and view.substr(view.size() - 1) != '\n':
             new_line_inserted = True
-            view.insert(edit, view.size(), "\n")
+            view.insert(edit, view.size(), '\n')
         return new_line_inserted
 
     @staticmethod
