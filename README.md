@@ -123,8 +123,9 @@ file, accessible from the **Preferences** > **Package Settings** >
       `node_modules/.bin/prettier`.
     - Finally, check if Prettier is [installed globally].
   
-    > [nvm] users are required to set an appropriate *prettier_cli_path*
-    > (and *node_path*); according to the target runtime environment.
+    > [nvm] users are required to set an appropriate absolute
+    > *prettier_cli_path* (and absolute *node_path*); according to the target
+    > runtime environment.
   
 - **node_path** (default: ***empty***)  
     It's recommended to leave this setting empty (the default). However, if
@@ -132,7 +133,8 @@ file, accessible from the **Preferences** > **Package Settings** >
     executable, you can explicitly set the appropriate path here.
   
     > [nvm] users are required to set an appropriate absolute *node_path* (and
-    > *prettier_cli_path*); according to the target runtime environment.
+    > absolute *prettier_cli_path*); according to the target runtime
+    > environment.
   
 - **auto_format_on_save** (default: ***false***)  
     Whether or not to automatically format on every file save (`.js` and `.jsx`
