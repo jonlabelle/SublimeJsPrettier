@@ -1,6 +1,5 @@
 # pip dev/test dependencies
 flake8
-flake8_docstrings
 pep8-naming
 pytest
 pylint
