@@ -3,21 +3,21 @@
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues),
 please include the following information in your post:
 
-- [ ] Explain the **Issue**
-- [ ] Your installed **Prettier** version
-- [ ] Your installed **JsPrettier** version
-- [ ] **Platform** information
-- [ ] The generated **command line arguments** passed to Prettier
-- [ ] **Steps to reproduce** the behavior
-- [ ] Is the same behavior observed when **run against Prettier directly** from the command line?
+- [ ] **Explain the issue**
+- [ ] **Prettier version**
+- [ ] **JsPrettier version**
+- [ ] **Platform information**
+- [ ] **The generated Prettier command line arguments**
+- [ ] **Steps to reproduce the behavior**
+- [ ] **Is the same behavior observed when run against Prettier directly?**
 
 ### Example
 
-Explain the **Issue**
+**Explain the issue**
 
 *Explain the issue with as much detail as possible...*
 
-**Prettier version**
+**Prettier version** (command line)
 
     $ prettier --version
     <PRETTIER_VERSION>
@@ -54,9 +54,9 @@ Text console to view the cli args passed to Prettier)
         --tab-width 4                 \
         --use-tabs=true
 
-Is the same behavior observed when **run against Prettier directly** from the
-command line? For example, to pass the contents of file `path_to_js_file.js` to
-Prettier from the command line.
+**Is the same behavior observed when run against Prettier directly?** For
+example, to pass the contents of file `path_to_js_file.js` to Prettier from the
+command line.
 
     /usr/local/bin/prettier           \
         --stdin                       \
@@ -72,7 +72,7 @@ Prettier from the command line.
         --use-tabs=true               \
         < path_to_js_file.js
 
-**Steps to reproduce** the behavior
+**Steps to reproduce the behavior**
 
     1. ...
     2. ...
