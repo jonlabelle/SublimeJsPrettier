@@ -3,25 +3,43 @@
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues),
 please include the following information in your post:
 
+- [ ] **Issue**
 - [ ] Your installed **Prettier** version
 - [ ] Your installed **JsPrettier** version
+- [ ] **Platform** information
 - [ ] The generated **command line arguments** passed to Prettier
 - [ ] **Steps to reproduce** the behavior
 - [ ] Is the same behavior observed when **run against Prettier directly** from the command line?
 
 ### Example
 
+**Issue**
+
+*Explain the issue with as much detail as possible...*
+
 **Prettier version**
 
     $ prettier --version
-    1.1.0
+    <PRETTIER_VERSION>
 
 **JsPrettier version** (package.json)
 
+    ...
     "name": "sublime-js-prettier",
-    "version": "1.7.2",
+    "version": "<JS_PRETTIER_PLUGIN_VERSION>",
+    ...
 
-**Prettier command line arguments** (enable the `debug` setting and open the ST console)
+**Platform** information
+
+    - Sublime Text Version: <SUBLIME_TEXT_VERSION>
+    - Sublime Text Build: <SUBLIME_TEXT_BUILD>
+    - Sublime Text Architecture: <SUBLIME_TEXT_ARCHITECTURE>
+    - Operating System Name: <OS_NAME>
+    - Operating System Version: <OS_VERSION>
+    - Operating System Architecture: <OS_ARCHITECTURE>
+
+**Prettier command line arguments** (enable `debug` setting and open the Sublime
+Text console to view the cli args passed to Prettier)
 
     /usr/local/bin/prettier           \
         --stdin                       \
