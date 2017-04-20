@@ -246,8 +246,8 @@ Jon LaBelle
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
 [Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
-[***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html
-[***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html
+[***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
+[***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [installed globally]: #install-prettier
 [npm]: https://www.npmjs.com
 [nvm]: https://github.com/creationix/nvm
