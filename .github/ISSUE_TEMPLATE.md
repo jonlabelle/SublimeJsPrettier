@@ -38,7 +38,7 @@ please include the following information in your post:
     - Operating System Version: <OS_VERSION>
     - Operating System Architecture: <OS_ARCHITECTURE>
 
-**Prettier command line arguments** (enable `debug` setting and open the Sublime
+**Prettier command line arguments** (enable the [debug setting] and open the Sublime
 Text console to view the cli args passed to Prettier)
 
     /usr/local/bin/prettier           \
@@ -77,3 +77,5 @@ Prettier from the command line.
     1. ...
     2. ...
     3. ...
+
+[debug setting]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L9
