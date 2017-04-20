@@ -3,7 +3,7 @@
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues),
 please include the following information in your post:
 
-- [ ] **Issue**
+- [ ] Explain the **Issue**
 - [ ] Your installed **Prettier** version
 - [ ] Your installed **JsPrettier** version
 - [ ] **Platform** information
@@ -13,7 +13,7 @@ please include the following information in your post:
 
 ### Example
 
-**Issue**
+Explain the **Issue**
 
 *Explain the issue with as much detail as possible...*
 
