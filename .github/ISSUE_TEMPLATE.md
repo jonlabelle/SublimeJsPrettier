@@ -6,7 +6,7 @@ please include the following information in your post:
 - [ ] **Explain the issue**
 - [ ] **Prettier version**
 - [ ] **JsPrettier version**
-- [ ] **Platform information**
+- [ ] **Platform details**
 - [ ] **The generated Prettier command line arguments**
 - [ ] **Steps to reproduce the behavior**
 - [ ] **Is the same behavior observed when run against Prettier directly?**
@@ -29,7 +29,7 @@ please include the following information in your post:
     "version": "<JS_PRETTIER_PLUGIN_VERSION>",
     ...
 
-**Platform** information
+**Platform details**
 
     - Sublime Text Version: <SUBLIME_TEXT_VERSION>
     - Sublime Text Build: <SUBLIME_TEXT_BUILD>
