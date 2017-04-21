@@ -23,15 +23,17 @@ be installed:
 
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
-- [npm] – Package manager for JavaScript
+- [yarn] – Package manager for JavaScript
 - [Prettier] – Opinionated JavaScript formatter
 
 ### Install Prettier
 
-If you installed [Prettier] globally (using the [npm] command below), there is
+If you installed [Prettier] globally (using the [yarn] command below), there is
 nothing else you need to do.
 
-    npm install -g prettier
+    yarn global add prettier
+
+*We're defaulting to [yarn] but you can use [npm] if you like.*
 
 ### Install JsPrettier via Package Control
 
@@ -249,7 +251,8 @@ Jon LaBelle
 [***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [installed globally]: #install-prettier
-[npm]: https://www.npmjs.com
+[yarn]: https://yarnpkg.com/lang/en/
+[npm]: https://www.npmjs.com/
 [nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
