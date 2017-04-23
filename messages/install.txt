@@ -6,12 +6,14 @@
 
 ## Install Prettier
 
-    If you installed Prettier globally (using the yarn command below), there is
-    nothing else you need to do.
+    If you installed Prettier globally (using the yarn or npm command below),
+    there is nothing else you need to do.
 
+        # using yarn:
         yarn global add prettier
 
-    *We're defaulting to yarn but you can use npm if you like.*
+        # using npm:
+        npm install -g prettier
 
     You may be required to specify the path to the `prettier` executable, which
     is configurable in the Package's settings file...

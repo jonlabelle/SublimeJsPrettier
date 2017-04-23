@@ -107,7 +107,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         - Look in the JsPrettier Sublime Text plug-in directory for
           `node_modules/.bin/prettier`.
         - Finally, check if prettier is installed globally,
-          e.g.: `yarn global add prettier`.
+          e.g.: `yarn global add prettier`
+            or: `npm install -g prettier`
 
         :return: The prettier cli path.
         """
