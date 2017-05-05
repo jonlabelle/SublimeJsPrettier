@@ -455,6 +455,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def is_bool_str(val):
+        """Determine if the specified string :val is 'true' or 'false'.
+
+        :param val: The value to check.
+        :return: True if if val: is a boolean string, otherwise False.
+        :rtype: bool
+        """
         if val is None:
             return False
         if type(val) == str:
