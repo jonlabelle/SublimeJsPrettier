@@ -369,11 +369,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             cli_option_name = mapping['cli']
             option_value = self.get_sub_setting(option_name)
 
-            # internally override the '--parser' option for css
+            # internally override the 'parser' option for css
             # and set the value to 'postcss':
-            if option_name == '--parser' and is_css:
-                prettier_cli_args.append(
-                    '{0} {1}'.format('--parser', 'postcss'))
+            if option_name == 'parser' and is_css:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append('postcss')
                 continue
 
             if option_value is None or str(option_value) == '':
