@@ -167,6 +167,26 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def allow_inline_formatting(self):
         return self.get_setting('allow_inline_formatting', False)
 
+    def is_allowed_file_ext(self, view):
+        filename = view.file_name()
+        if not filename:
+            return False
+
+        ext = os.path.splitext(filename)[1][1:]
+        if ext in ALLOWED_FILE_EXTENSIONS:
+            return True
+
+        custom_file_extensions_settings = \
+            self.get_setting('custom_file_extensions')
+        if not custom_file_extensions_settings:
+            return False
+
+        custom_file_extensions = set(custom_file_extensions_settings)
+        if ext in custom_file_extensions:
+            return True
+
+        return False
+
     def run(self, edit, force_entire_file=False):
         view = self.view
 
@@ -298,6 +318,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_css(view) is True:
             return True
+        if self.is_allowed_file_ext(view) is True:
+            return True
 
         return False
 
@@ -309,6 +331,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if self.is_source_js(view) is True:
             return True
         if self.is_css(view) is True:
+            return True
+        if self.is_allowed_file_ext(view) is True:
             return True
 
         return False
