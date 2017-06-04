@@ -1,4 +1,4 @@
-# Js​Prettier
+# JsPrettier
 
 [![Build Status](https://travis-ci.org/jonlabelle/SublimeJsPrettier.svg?branch=master)](https://travis-ci.org/jonlabelle/SublimeJsPrettier)
 [![Build status](https://ci.appveyor.com/api/projects/status/ta7379jk57cdwu76/branch/master?svg=true)](https://ci.appveyor.com/project/jonlabelle/sublimejsprettier/branch/master)
@@ -147,7 +147,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **auto_format_on_save** (default: ***false***)  
     Whether or not to automatically format on every file save.
   
-- **custom_file_extensions** (default: ***[]***)  
+- **custom_file_extensions** (default: [])  
     Additional custom file extensions to format. By default, the following file
     extensions are supported: `js`, `jsx`, `ts`, `tsx`, `css`, `scss`, `sass`,
     `less`.
