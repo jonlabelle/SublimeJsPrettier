@@ -91,9 +91,6 @@ and select ***JsPrettier***.
 `JsPrettier` will attempt to format selections of code first, otherwise the
 entire file will be formatted.
 
-`JsPrettier` will attempt to format selections of code first; if no selections
-are found, the entire file will be formatted.
-
 > **NOTE:** When the `auto_format_on_save` setting is set to `true`, the
 > **entire file** will always be formatted.
 
