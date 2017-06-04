@@ -5,7 +5,7 @@
 **Release Date:** 2017-06-04
 
 - Added new setting to allow formatting custom file extensions.
-- Support for CSS formatting (requires prettier v1.4+).
+- Support for CSS formatting (requires [prettier v1.4+]).
 - Built-in support for TypeScript.
 
 ## 1.7.0
@@ -146,3 +146,4 @@
 [#4]: https://github.com/jonlabelle/SublimeJsPrettier/issues/4
 [Prettier]: https://github.com/jlongster/prettier
 [Project-level settings]: https://github.com/jonlabelle/SublimeJsPrettier#project-level-settings
+[prettier v1.4+]: https://github.com/prettier/prettier/releases/tag/1.4.0
