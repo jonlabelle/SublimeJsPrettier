@@ -59,6 +59,16 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': 'true'
     }
 ]
+ALLOWED_FILE_EXTENSIONS = [
+    'js',
+    'jsx',
+    'ts',
+    'tsx',
+    'css',
+    'scss',
+    'sass',
+    'less'
+]
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -174,7 +184,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'not be found! Please ensure the path to prettier is '
                 'set in your PATH environment variable.'.format(PLUGIN_NAME))
 
-        prettier_args = self.parse_prettier_options()
+        prettier_args = self.parse_prettier_options(view)
         node_path = self.node_path
 
         # Format entire file:
@@ -280,17 +290,28 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             raise
 
     def is_visible(self):
-        if self.allow_inline_formatting is True or self.is_source_js() is True:
+        view = self.view
+
+        if self.allow_inline_formatting is True:
             return True
+        if self.is_source_js(view) is True:
+            return True
+        if self.is_css(view) is True:
+            return True
+
         return False
 
     def is_enabled(self):
-        if self.allow_inline_formatting is True or self.is_source_js() is True:
-            return True
-        return False
+        view = self.view
 
-    def is_source_js(self):
-        return self.view.scope_name(0).startswith('source.js')
+        if self.allow_inline_formatting is True:
+            return True
+        if self.is_source_js(view) is True:
+            return True
+        if self.is_css(view) is True:
+            return True
+
+        return False
 
     def get_setting(self, key, default_value=None):
         settings = self.view.settings().get(PLUGIN_NAME)
@@ -315,22 +336,29 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return value
         return project_value
 
-    def parse_prettier_options(self):
+    def parse_prettier_options(self, view):
         prettier_cli_args = []
+        is_css = self.is_css(view)
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_option_name = mapping['cli']
-
             option_value = self.get_sub_setting(option_name)
+
+            # internally override the '--parser' option for css
+            # and set the value to 'postcss':
+            if option_name == '--parser' and is_css:
+                prettier_cli_args.append(
+                    '{0} {1}'.format('--parser', 'postcss'))
+                continue
+
             if option_value is None or str(option_value) == '':
                 option_value = mapping['default']
-
-            option_value = str(option_value).lower().strip()
+            option_value = str(option_value).strip()
 
             if self.is_bool_str(option_value):
                 prettier_cli_args.append('{0}={1}'.format(
-                    cli_option_name, option_value))
+                    cli_option_name, option_value.lower()))
             else:
                 prettier_cli_args.append(cli_option_name)
                 prettier_cli_args.append(option_value)
@@ -384,6 +412,44 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                              '## Prettier CLI Return Code:\n\n{1}'\
             .format(error_message.replace('\n', '\n    '), '    {0}'
                     .format(error_code))
+
+    @staticmethod
+    def is_source_js(view):
+        """
+        Detect whether or not the current syntax or file type is JavaScript.
+
+        :param view: The Sublime Text view object.
+        :return: True if the current if is JavaScript, otherwise False.
+        """
+        return view.scope_name(0).startswith('source.js')
+
+    @staticmethod
+    def is_css(view):
+        """
+        Detect whether or not the current syntax or file type is CSS.
+
+        :param view: The Sublime Text view object.
+        :return: True if the current if is CSS, otherwise False.
+        """
+        filename = view.file_name()
+        if not filename:
+            return False
+        # if not filename:
+        #     raise Exception('{0} Error\n\n'
+        #                     'The current View must be Saved before '
+        #                     'running JsPrettier.'.format(PLUGIN_NAME))
+
+        scopename = view.scope_name(0)
+        if scopename.startswith('source.css') or filename.endswith('.css'):
+            return True
+        if scopename.startswith('source.scss') or filename.endswith('.scss'):
+            return True
+        if scopename.startswith('source.sass') or filename.endswith('.sass'):
+            return True
+        if scopename.startswith('source.less') or filename.endswith('.less'):
+            return True
+
+        return False
 
     @staticmethod
     def get_active_project_path():
@@ -587,14 +653,32 @@ class CommandOnSave(sublime_plugin.EventListener):
         if self.is_allowed(view) and self.is_enabled(view):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
+    def auto_format_on_save(self, view):
+        return self.get_setting(view, 'auto_format_on_save', False)
+
+    def custom_file_extensions(self, view):
+        return self.get_setting(view, 'custom_file_extensions')
+
     def is_allowed(self, view):
-        return self.is_js_file(view)
+        return self.is_allowed_file_ext(view)
 
     def is_enabled(self, view):
         return self.auto_format_on_save(view)
 
-    def auto_format_on_save(self, view):
-        return self.get_setting(view, 'auto_format_on_save', False)
+    def is_allowed_file_ext(self, view):
+        filename = view.file_name()
+        if not filename:
+            return False
+
+        ext = os.path.splitext(filename)[1][1:]
+        if ext in ALLOWED_FILE_EXTENSIONS:
+            return True
+
+        custom_file_extensions = set(self.custom_file_extensions(view))
+        if ext in custom_file_extensions:
+            return True
+
+        return False
 
     def get_setting(self, view, key, default_value=None):
         settings = view.settings().get(PLUGIN_NAME)
@@ -617,10 +701,3 @@ class CommandOnSave(sublime_plugin.EventListener):
             if key in jsprettier:
                 return jsprettier[key]
         return None
-
-    @staticmethod
-    def is_js_file(view):
-        ext = os.path.splitext(view.file_name())[1][1:]
-        if ext == 'js' or ext == 'jsx':
-            return True
-        return False

@@ -1,6 +1,16 @@
 # Changelog
 
+## 1.8.0
+
+Release Date: 2017-06-04
+
+- Added new setting to allow formatting custom file extensions.
+- Support for CSS formatting (requires prettier v1.4+).
+- Built-in support for TypeScript.
+
 ## 1.7.0
+
+**Release Date:** 2017-04-13
 
 - Added support for new `--semi` and `--use-tabs` options.
 

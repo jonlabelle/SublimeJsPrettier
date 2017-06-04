@@ -145,14 +145,18 @@ file, accessible from the **Preferences** > **Package Settings** >
     > environment.
   
 - **auto_format_on_save** (default: ***false***)  
-    Whether or not to automatically format on every file save (`.js` and `.jsx`
-    files only).
+    Whether or not to automatically format on every file save.
+  
+- **custom_file_extensions** (default: ***[]***)  
+    Additional custom file extensions to format. By default, the following file
+    extensions are supported: `js`, `jsx`, `ts`, `tsx`, `css`, `scss`, `sass`,
+    `less`.
   
 - **allow_inline_formatting** (default: ***false***)  
-    Provides the ability to format *selections* of in-lined JavaScript code,
-    outside of the normal JavaScript syntax. For example, to format a selection
-    of JavaScript code within a PHP or HTML file. When ***true***, the JsPrettier
-    command is available for use across all Sublime Text syntaxes.
+    Enables the ability to format *selections* of in-lined code. For example, to
+    format a selection of JavaScript code within a PHP or HTML file. When
+    ***true***, the JsPrettier command is available for use across all Sublime
+    Text syntaxes.
 
 ### Prettier Options
 
@@ -183,7 +187,10 @@ file, accessible from the **Preferences** > **Package Settings** >
     next line.
   
 - **parser** (default: "***babylon***")  
-    Which parser to use. Valid options are "***flow***" and "***babylon***".
+    Which parser to use. Valid options are "***flow***", "***babylon***",
+    "***typescript***" and "***postcss***".  
+    **NOTE:** Currently, if CSS is detected, the `--parser` option will be
+    internally set to "***postcss***".
   
 - **semi** (default: ***true***)  
     ***true*** to add a semicolon at the end of every line, or ***false*** to

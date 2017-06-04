@@ -11,10 +11,9 @@
 	//
 	// @prettier_cli_path { string | default = "" }
 	//
-	// It's recommended to leave the "prettier_cli_path" value
-	// empty "". However, if Sublime Text has problems resolving the path
-	// to the `prettier` cli executable, you can explicitly specify the
-	// path here.
+	// It's recommended to leave the "prettier_cli_path" value empty "".
+	// However, if Sublime Text has problems resolving the path to the
+	// `prettier` cli executable, you can explicitly specify the path here.
 	//
 	// If the `prettier_cli_path` setting is left empty (""), the path is
 	// resolved by searching locations in the following order, returning the
@@ -62,23 +61,33 @@
 	// @auto_format_on_save { bool | default = false }
 	//
 	// Whether or not to run the `js_prettier` command automatically
-	// on every file save (`.js` and `.jsx` file types only).
+	// on every file save.
 
 	"auto_format_on_save": false,
 
 	//
+	// @custom_file_extensions { array | default = [] }
+	//
+	// Additional custom file extensions to format.
+	//
+	// By default, the following file extensions are supported:
+	// "js", "jsx", "ts", "tsx", "css", "scss", "sass", "less"
+
+	"custom_file_extensions": [],
+
+	//
 	// @allow_inline_formatting { bool | default = false }
 	//
-	// Enables the ability to format "selections" of in-lined JavaScript code,
-	// outside of the normal JavaScript syntax. For example, to format a
+	// Provides the ability to format selections of in-lined code, outside of
+	// the normally supported syntaxes and file types. For example, to format a
 	// selection of JavaScript code within a PHP or HTML file. When `true`, the
 	// JsPrettier command is available for use across all Sublime Text syntaxes.
 
 	"allow_inline_formatting": false,
 
 	//
-	// For a complete list of supported options and acceptable values,
-	// please reference the `prettier` documentation at https://github.com/jlongster/prettier
+	// For a complete list of supported options and acceptable values see
+	// https://github.com/jlongster/prettier
 
 	"prettier_options": {
 		// Fit code within this line limit
@@ -103,11 +112,13 @@
 		// the last line instead of being alone on the next line
 		"jsxBracketSameLine": false,
 
-		// Which parser to use. Valid options are "flow" and "babylon"
+		// Which parser to use. Valid options are "flow", "babylon",
+		// "typescript" and "postcss".
 		"parser": "babylon",
 
-		// Whether to add a semicolon at the end of every line (semi: true),
-		// or only at the beginning of lines that may introduce ASI failures (semi: false)
+		// Whether to add a semicolon at the end of every line (semi: true), or
+		// only at the beginning of lines that may introduce
+		// ASI failures (semi: false)
 		"semi": true
 	}
 }
