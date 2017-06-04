@@ -5,7 +5,7 @@
 [![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
 
 [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated
-JavaScript formatter.
+JavaScript and CSS formatter.
 
 [![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
