@@ -1,7 +1,7 @@
-# Sublime Text JavaScript Prettier
+# Js​Prettier
 
     JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated
-    JavaScript formatter.
+    JavaScript (and CSS) formatter.
 
 
 ## Install Prettier
@@ -36,9 +36,8 @@
 
     ### Command Scope
 
-        JsPrettier will attempt to format any selected JavaScript sections of
-        code first; if no selections are made, the entire file will be
-        formatted.
+        `JsPrettier` will attempt to format selections of code first, otherwise
+        the entire file will be formatted.
 
         > NOTE: When the `auto_format_on_save` setting is set to `true`, the
         > entire file will always be formatted.
@@ -78,6 +77,7 @@
                     "prettier_cli_path": "",
                     "node_path": "",
                     "auto_format_on_save": false,
+                    "custom_file_extensions": [],
                     "allow_inline_formatting": false,
                     "prettier_options": {
                         "printWidth": 80,
@@ -96,7 +96,7 @@
 ## Help
 
     For additional help, including reporting issues, please visit the
-    Sublime Text JavaScript Prettier homepage @ https://github.com/jonlabelle/SublimeJsPrettier.
+    JsPrettier homepage @ https://github.com/jonlabelle/SublimeJsPrettier.
 
 
 ## Author

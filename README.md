@@ -1,11 +1,11 @@
-# Sublime Text JavaScript Prettier
+# Js​Prettier
 
 [![Build Status](https://travis-ci.org/jonlabelle/SublimeJsPrettier.svg?branch=master)](https://travis-ci.org/jonlabelle/SublimeJsPrettier)
 [![Build status](https://ci.appveyor.com/api/projects/status/ta7379jk57cdwu76/branch/master?svg=true)](https://ci.appveyor.com/project/jonlabelle/sublimejsprettier/branch/master)
 [![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
 
 [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated
-JavaScript and CSS formatter.
+JavaScript (and CSS) formatter.
 
 [![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
@@ -13,12 +13,12 @@ JavaScript and CSS formatter.
 
 ## Installation
 
-Sublime Text JavaScript Prettier ([JsPrettier]) is compatible with both Sublime
+Js​Prettier ([JsPrettier]) is compatible with both Sublime
 Text 2 and 3, and all supported Operating Systems.
 
 ### Requirements
 
-The Sublime Text JavaScript Prettier plug-in requires the following programs to
+The Js​Prettier plug-in requires the following programs to
 be installed:
 
 - [Sublime Text] – Text editor for code
@@ -43,7 +43,7 @@ npm install -g prettier
 
 ### Install JsPrettier via Package Control
 
-The easiest and recommended way to install Sublime Text JavaScript Prettier is
+The easiest and recommended way to install Js​Prettier is
 using [Package Control].
 
 From the **main application menu**, navigate to:
@@ -53,7 +53,7 @@ From the **main application menu**, navigate to:
 
 ### Install JsPrettier Manually
 
-1. Download and extract Sublime Text JavaScript Prettier [zip file] to your
+1. Download and extract Js​Prettier [zip file] to your
    [Sublime Text Packages directory].
 2. Rename the extracted directory from `SublimeJsPrettier-master` to
    `JsPrettier`.
@@ -88,8 +88,11 @@ and select ***JsPrettier***.
 
 ### Command Scope
 
-`JsPrettier` will attempt to format any selected JavaScript sections of code
-first; if no selections are made, the entire file will be formatted.
+`JsPrettier` will attempt to format selections of code first, otherwise the
+entire file will be formatted.
+
+`JsPrettier` will attempt to format selections of code first; if no selections
+are found, the entire file will be formatted.
 
 > **NOTE:** When the `auto_format_on_save` setting is set to `true`, the
 > **entire file** will always be formatted.
@@ -222,6 +225,7 @@ must be created under the project file's `settings` section.
             "prettier_cli_path": "",
             "node_path": "",
             "auto_format_on_save": false,
+            "custom_file_extensions": [],
             "allow_inline_formatting": false,
             "prettier_options": {
                 "printWidth": 80,
