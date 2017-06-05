@@ -157,6 +157,25 @@ file, accessible from the **Preferences** > **Package Settings** >
     Additional custom file extensions to format. By default, the following file
     extensions are supported: `js`, `jsx`, `ts`, `tsx`, `css`, `scss`, `sass`,
     `less`.
+  
+- **additional_cli_args** (default: {})  
+    A key-value pair of additional arguments to append to the prettier command.
+  
+    **Example:**
+  
+        {
+            "--cursor-offset": -1,
+            "--fix": "",
+            "--foo=bar": "",
+            "--something-else": "foo"
+        }
+  
+    > **NOTE:** If choosing to specify additional cli args, it is assumed that
+    > each argument is supported by the prettier-cli. Otherwise, the command
+    > will fail to run, and errors will be dumped out to
+    > the [Sublime Text Console]. You can also enable the `debug` setting to
+    > inspect the generated command-line output passed to prettier; which is
+    > also useful for quickly troubleshooting issues.
 
 ### Prettier Options
 
@@ -225,6 +244,7 @@ must be created under the project file's `settings` section.
             "auto_format_on_save": false,
             "allow_inline_formatting": false,
             "custom_file_extensions": [],
+            "additional_cli_args": {},
             "prettier_options": {
                 "printWidth": 80,
                 "singleQuote": false,
@@ -272,6 +292,7 @@ Jon LaBelle
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
 [manual download instructions]: #manual-download
+[Sublime Text Console]: http://docs.sublimetext.info/en/latest/basic_concepts.html#sublime-text-is-programmable
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
 [issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE.md
 [report an issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues

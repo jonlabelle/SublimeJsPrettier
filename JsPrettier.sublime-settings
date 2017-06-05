@@ -86,6 +86,29 @@
 	"custom_file_extensions": [],
 
 	//
+	// @additional_cli_args { dict | default = {} }
+	//
+	// A key-value pair of additional arguments to append to the prettier
+	// command.
+	//
+	// Example:
+	// {
+	//     "--cursor-offset": -1,
+	//     "--fix": "",
+	//     "--foo=bar": "",
+	//     "--something-else": "foo"
+	// }
+	//
+	// NOTE: If choosing to specify additional cli args, it is assumed that each
+	// argument is supported by the prettier-cli. Otherwise, the command will
+	// fail to run, and errors will be dumped out to the Sublime Text Console.
+	// You can also enable the debug setting to inspect the generated
+	// command-line output passed to prettier; which is also useful for quickly
+	// troubleshooting issues.
+
+	"additional_cli_args": {},
+
+	//
 	// For a complete list of supported options and acceptable values see
 	// https://github.com/jlongster/prettier
 
@@ -116,7 +139,7 @@
 		// "typescript" and "postcss"*.
 		//
 		// * Currently, if CSS is detected in Sublime Text, the parser option
-		// will always be internally overridden and set to “postcss”.
+		// will always be internally overridden and set to "postcss".
 		"parser": "babylon",
 
 		// Whether to add a semicolon at the end of every line (semi: true), or

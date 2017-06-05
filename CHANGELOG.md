@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.0
+
+**Release Date:** 2017-06-05
+
+- Added new setting `additional_cli_args` for appending additional arguments to
+  the prettier cli command.
+
 ## 1.8.0
 
 **Release Date:** 2017-06-04

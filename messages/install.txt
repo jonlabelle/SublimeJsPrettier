@@ -79,6 +79,7 @@
                     "auto_format_on_save": false,
                     "allow_inline_formatting": false,
                     "custom_file_extensions": [],
+                    "additional_cli_args": {},
                     "prettier_options": {
                         "printWidth": 80,
                         "singleQuote": false,

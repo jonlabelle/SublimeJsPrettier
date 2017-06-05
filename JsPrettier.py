@@ -167,6 +167,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def allow_inline_formatting(self):
         return self.get_setting('allow_inline_formatting', False)
 
+    @property
+    def additional_cli_args(self):
+        return self.get_setting('additional_cli_args', {})
+
     def is_allowed_file_ext(self, view):
         filename = view.file_name()
         if not filename:
@@ -386,6 +390,22 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # set the `useTabs` option based on the current view:
         prettier_cli_args.append('{0}={1}'.format(
             '--use-tabs', str(self.use_tabs).lower()))
+
+        # add the additional arguments from the settings file to the command:
+        if self.additional_cli_args and len(self.additional_cli_args) > 0:
+            for arg_key, arg_value in self.additional_cli_args.items():
+                arg_key = str(arg_key).strip()
+                arg_value = str(arg_value).strip()
+
+                # handle bool options
+                if arg_value != '' and self.is_bool_str(arg_value):
+                    prettier_cli_args.append(
+                        '{0}={1}'.format(arg_key, arg_value.lower()))
+                    continue
+
+                prettier_cli_args.append(arg_key)
+                if arg_value != '':
+                    prettier_cli_args.append(arg_value)
 
         return prettier_cli_args
 
