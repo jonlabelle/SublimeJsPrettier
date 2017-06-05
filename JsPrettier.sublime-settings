@@ -66,16 +66,6 @@
 	"auto_format_on_save": false,
 
 	//
-	// @custom_file_extensions { array | default = [] }
-	//
-	// Additional custom file extensions to format.
-	//
-	// By default, the following file extensions are supported:
-	// "js", "jsx", "ts", "tsx", "css", "scss", "sass", "less"
-
-	"custom_file_extensions": [],
-
-	//
 	// @allow_inline_formatting { bool | default = false }
 	//
 	// Provides the ability to format selections of in-lined code, outside of
@@ -84,6 +74,16 @@
 	// JsPrettier command is available for use across all Sublime Text syntaxes.
 
 	"allow_inline_formatting": false,
+
+	//
+	// @custom_file_extensions { array | default = [] }
+	//
+	// Additional custom file extensions to format.
+	//
+	// By default, the following file extensions are supported:
+	// "js", "jsx", "ts", "tsx", "css", "scss", "sass", "less"
+
+	"custom_file_extensions": [],
 
 	//
 	// For a complete list of supported options and acceptable values see
@@ -113,7 +113,10 @@
 		"jsxBracketSameLine": false,
 
 		// Which parser to use. Valid options are "flow", "babylon",
-		// "typescript" and "postcss".
+		// "typescript" and "postcss"*.
+		//
+		// * Currently, if CSS is detected in Sublime Text, the parser option
+		// will always be internally overridden and set to “postcss”.
 		"parser": "babylon",
 
 		// Whether to add a semicolon at the end of every line (semi: true), or

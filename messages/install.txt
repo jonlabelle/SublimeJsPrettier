@@ -77,8 +77,8 @@
                     "prettier_cli_path": "",
                     "node_path": "",
                     "auto_format_on_save": false,
-                    "custom_file_extensions": [],
                     "allow_inline_formatting": false,
+                    "custom_file_extensions": [],
                     "prettier_options": {
                         "printWidth": 80,
                         "singleQuote": false,

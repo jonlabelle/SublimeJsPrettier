@@ -147,16 +147,16 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **auto_format_on_save** (default: ***false***)  
     Whether or not to automatically format on every file save.
   
-- **custom_file_extensions** (default: [])  
-    Additional custom file extensions to format. By default, the following file
-    extensions are supported: `js`, `jsx`, `ts`, `tsx`, `css`, `scss`, `sass`,
-    `less`.
-  
 - **allow_inline_formatting** (default: ***false***)  
     Enables the ability to format *selections* of in-lined code. For example, to
     format a selection of JavaScript code within a PHP or HTML file. When
     ***true***, the JsPrettier command is available for use across all Sublime
     Text syntaxes.
+  
+- **custom_file_extensions** (default: [])  
+    Additional custom file extensions to format. By default, the following file
+    extensions are supported: `js`, `jsx`, `ts`, `tsx`, `css`, `scss`, `sass`,
+    `less`.
 
 ### Prettier Options
 
@@ -188,13 +188,14 @@ file, accessible from the **Preferences** > **Package Settings** >
   
 - **parser** (default: "***babylon***")  
     Which parser to use. Valid options are "***flow***", "***babylon***",
-    "***typescript***" and "***postcss***".  
-    **NOTE:** Currently, if CSS is detected, the `--parser` option will be
-    internally set to "***postcss***".
+    "***typescript***" and "***postcss***"\*.  
+  
+    > \* Currently, if CSS is detected in Sublime Text, the parser option will
+    > *always* be internally overridden and set to "***postcss***".
   
 - **semi** (default: ***true***)  
     ***true*** to add a semicolon at the end of every line, or ***false*** to
-    add a semicolononly at the beginning of lines that may introduce ASI
+    add a semicolon only at the beginning of lines that may introduce ASI
     failures.
 
 > *For further details and examples of setting Prettier's options, please see
@@ -222,8 +223,8 @@ must be created under the project file's `settings` section.
             "prettier_cli_path": "",
             "node_path": "",
             "auto_format_on_save": false,
-            "custom_file_extensions": [],
             "allow_inline_formatting": false,
+            "custom_file_extensions": [],
             "prettier_options": {
                 "printWidth": 80,
                 "singleQuote": false,
