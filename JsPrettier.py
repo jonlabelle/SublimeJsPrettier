@@ -172,17 +172,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
 
-        ext = os.path.splitext(filename)[1][1:]
-        if ext in ALLOWED_FILE_EXTENSIONS:
+        file_ext = os.path.splitext(filename)[1][1:]
+        if file_ext in ALLOWED_FILE_EXTENSIONS:
             return True
 
-        custom_file_extensions_settings = \
-            self.get_setting('custom_file_extensions')
-        if not custom_file_extensions_settings:
-            return False
-
-        custom_file_extensions = set(custom_file_extensions_settings)
-        if ext in custom_file_extensions:
+        if file_ext in set(self.get_setting('custom_file_extensions', [])):
             return True
 
         return False
@@ -209,8 +203,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         # Format entire file:
         if not self.has_selection(view) or force_entire_file is True:
-            file_changed = False
-
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
@@ -224,6 +216,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.show_console_error()
                 return self.show_status_bar_error()
 
+            file_changed = False
             transformed = self.trim_trailing_ws_and_lines(transformed)
             if transformed and transformed == self.trim_trailing_ws_and_lines(
                     source):
@@ -250,7 +243,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = view.substr(region)
-
             if self.is_str_empty_or_whitespace(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in selection.'.format(
@@ -681,7 +673,7 @@ class CommandOnSave(sublime_plugin.EventListener):
         return self.get_setting(view, 'auto_format_on_save', False)
 
     def custom_file_extensions(self, view):
-        return self.get_setting(view, 'custom_file_extensions')
+        return self.get_setting(view, 'custom_file_extensions', [])
 
     def is_allowed(self, view):
         return self.is_allowed_file_ext(view)
@@ -694,12 +686,11 @@ class CommandOnSave(sublime_plugin.EventListener):
         if not filename:
             return False
 
-        ext = os.path.splitext(filename)[1][1:]
-        if ext in ALLOWED_FILE_EXTENSIONS:
+        file_ext = os.path.splitext(filename)[1][1:]
+        if file_ext in ALLOWED_FILE_EXTENSIONS:
             return True
 
-        custom_file_extensions = set(self.custom_file_extensions(view))
-        if ext in custom_file_extensions:
+        if file_ext in set(self.custom_file_extensions(view)):
             return True
 
         return False
