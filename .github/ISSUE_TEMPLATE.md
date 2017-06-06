@@ -16,7 +16,7 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 
 ### Explain the issue
 
-*A story of the issue with as much detail as possible...*
+Provide a story of the issue with as much detail as possible...
 
 ### Prettier version
 
