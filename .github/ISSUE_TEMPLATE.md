@@ -12,9 +12,11 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 - [ ] **The contents of your** `<project_name>.sublime-project` **file (if applicable)**
 - [ ] **Steps to reproduce the behavior**
 
+---
+
 **Explain the issue**
 
-*The Explain the issue with as much detail as possible...*
+*Story of the issue with as much detail as possible...*
 
 **Prettier version** (command line)
 
