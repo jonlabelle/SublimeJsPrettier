@@ -49,6 +49,10 @@ To view the generated prettier command line arguments you need to enable JsPrett
 
 *Example*
 
+    -----------------------------------------
+     JsPrettier DEBUG - Prettier CLI Command 
+    -----------------------------------------
+
     /usr/local/bin/prettier           \
         --stdin                       \
         --color=false                 \
@@ -61,6 +65,8 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --semi=true                   \
         --tab-width 4                 \
         --use-tabs=true
+        
+> **NOTE** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
 **Is the same behavior observed when run against Prettier directly?**  
 
