@@ -4,31 +4,35 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 
 - [ ] **Explain the issue**
 - [ ] **Prettier version**
-- [ ] **JsPrettier version**
-- [ ] **Platform details**
-- [ ] **The generated Prettier command line arguments**
-- [ ] **Steps to reproduce the behavior**
+- [ ] **JsPrettier Plug-in Version**
+- [ ] **Platform Details**
+- [ ] **Generated Prettier command line arguments**
 - [ ] **Is the same behavior observed when run against Prettier directly?**
-
-### Example
+- [ ] **The contents of your** `User/JsPrettier.sublime-settings` **file**
+- [ ] **The contents of your** `<project_name>.sublime-project` **file (if applicable)**
+- [ ] **Steps to reproduce the behavior**
 
 **Explain the issue**
 
-*Explain the issue with as much detail as possible...*
+*The Explain the issue with as much detail as possible...*
 
 **Prettier version** (command line)
 
     $ prettier --version
     <PRETTIER_VERSION>
 
-**JsPrettier version** (package.json)
+**JsPrettier Plug-in Version** (package.json)
+
+*Example*
 
     ...
     "name": "sublime-js-prettier",
     "version": "<JS_PRETTIER_PLUGIN_VERSION>",
     ...
 
-**Platform details**
+**Platform Details**
+
+*Example*
 
     - Sublime Text Version: <SUBLIME_TEXT_VERSION>
     - Sublime Text Build: <SUBLIME_TEXT_BUILD>
@@ -37,7 +41,11 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
     - Operating System Version: <OS_VERSION>
     - Operating System Architecture: <OS_ARCHITECTURE>
 
-**Prettier command line arguments** (enable the [debug setting] and open the Sublime Text console to view the cli args passed to Prettier)
+**Generated Prettier command line arguments**
+
+To view the generated prettier command line arguments you need to enable JsPrettier's [debug setting] and open the Sublime Text Console after a file/section formatting attempt.
+
+*Example*
 
     /usr/local/bin/prettier           \
         --stdin                       \
@@ -52,7 +60,9 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
         --tab-width 4                 \
         --use-tabs=true
 
-**Is the same behavior observed when run against Prettier directly?** For example, to pass the contents of file `path_to_js_file.js` to Prettier from the command line.
+**Is the same behavior observed when run against Prettier directly?**  
+
+For example, to pass the contents of file `path_to_js_file.js` to Prettier from the command line.
 
     /usr/local/bin/prettier           \
         --stdin                       \
@@ -67,6 +77,57 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
         --tab-width 4                 \
         --use-tabs=true               \
         < path_to_js_file.js
+
+**The contents of your** `User/JsPrettier.sublime-settings` **file (without the comments)**
+
+    {
+        "debug": false,
+        "prettier_cli_path": "",
+        "node_path": "",
+        "auto_format_on_save": false,
+        "allow_inline_formatting": false,
+        "custom_file_extensions": [],
+        "additional_cli_args": {},
+        "prettier_options": {
+            "printWidth": 80,
+            "singleQuote": false,
+            "trailingComma": "none",
+            "bracketSpacing": true,
+            "jsxBracketSameLine": false,
+            "parser": "babylon",
+            "semi": true
+        }
+    }
+    
+**The contents of your** `<project_name>.sublime-project` **file (if applicable)**
+
+    {
+        "folders": [
+            {
+                "path": "."
+            }
+        ],
+        "settings": {
+            "js_prettier": {
+                "debug": false,
+                "prettier_cli_path": "",
+                "node_path": "",
+                "auto_format_on_save": false,
+                "allow_inline_formatting": false,
+                "custom_file_extensions": [],
+                "additional_cli_args": {},
+                "prettier_options": {
+                    "printWidth": 80,
+                    "singleQuote": false,
+                    "trailingComma": "none",
+                    "bracketSpacing": true,
+                    "jsxBracketSameLine": false,
+                    "parser": "babylon",
+                    "semi": true
+                }
+            }
+        }
+    }
 
 **Steps to reproduce the behavior**
 
