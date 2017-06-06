@@ -29,8 +29,6 @@ To show the currently installed prettier version, run the following command:
 
 The JsPrettier Sublime Text Plug-in version is located in the `package.json` file.
 
-*Example*
-
     ...
     "name": "sublime-js-prettier",
     "version": "<JS_PRETTIER_PLUGIN_VERSION>",
@@ -40,7 +38,7 @@ The JsPrettier Sublime Text Plug-in version is located in the `package.json` fil
 
 Provide your Sublime Text version and Platform details.
 
-*Example*
+**Example**
 
     - Sublime Text Version: <SUBLIME_TEXT_VERSION>
     - Sublime Text Build: <SUBLIME_TEXT_BUILD>
@@ -53,7 +51,7 @@ Provide your Sublime Text version and Platform details.
 
 To view the generated prettier command line arguments you need to enable JsPrettier's [debug setting] and open the Sublime Text Console after a file/section formatting attempt.
 
-*Example*
+**Example**
 
     -----------------------------------------
      JsPrettier DEBUG - Prettier CLI Command 
@@ -78,8 +76,6 @@ To view the generated prettier command line arguments you need to enable JsPrett
 
 For example, to pass the contents of file `path_to_js_file.js` to Prettier from the command line.
 
-*Example*
-
     /usr/local/bin/prettier           \
         --stdin                       \
         --color=false                 \
@@ -98,7 +94,7 @@ For example, to pass the contents of file `path_to_js_file.js` to Prettier from 
 
 The entire contents of your ***User*** overridden JsPrettier Settings, and exclude the comments.
 
-*Example*
+**Example**
 
     {
         "debug": false,
@@ -123,7 +119,7 @@ The entire contents of your ***User*** overridden JsPrettier Settings, and exclu
 
 The entire contents of your ***User*** overridden JsPretter Project-level Settings, and exclude the comments.
 
-*Example*
+**Example**
 
     {
         "folders": [
@@ -156,8 +152,6 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
 ### Steps to reproduce the behavior
 
 The steps one would take to reproduce the problem.
-
-*Example*
 
     1. ...
     2. ...
