@@ -18,12 +18,16 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 
 *A story of the issue with as much detail as possible...*
 
-**Prettier version** (command line)
+**Prettier version**
+
+To show the currently installed prettier version, run the following command:
 
     $ prettier --version
     <PRETTIER_VERSION>
 
-**JsPrettier Plug-in Version** (package.json)
+**JsPrettier Plug-in Version**
+
+The JsPrettier Sublime Text Plug-in version is located in the `package.json` file.
 
 *Example*
 
@@ -33,6 +37,8 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
     ...
 
 **Platform Details**
+
+Provide your Sublime Text version and Platform details.
 
 *Example*
 
@@ -66,11 +72,13 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --tab-width 4                 \
         --use-tabs=true
         
-> **NOTE** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
+> **NOTE:** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
 **Is the same behavior observed when run against Prettier directly?**  
 
 For example, to pass the contents of file `path_to_js_file.js` to Prettier from the command line.
+
+*Example*
 
     /usr/local/bin/prettier           \
         --stdin                       \
@@ -86,7 +94,11 @@ For example, to pass the contents of file `path_to_js_file.js` to Prettier from 
         --use-tabs=true               \
         < path_to_js_file.js
 
-**The contents of your** `User/JsPrettier.sublime-settings` **file (without the comments)**
+**The contents of your** `User/JsPrettier.sublime-settings` **file**
+
+The entire contents of your ***User*** overridden JsPrettier Settings, and exclude the comments.
+
+*Example*
 
     {
         "debug": false,
@@ -108,6 +120,10 @@ For example, to pass the contents of file `path_to_js_file.js` to Prettier from 
     }
     
 **The contents of your** `<project_name>.sublime-project` **file (if applicable)**
+
+The entire contents of your ***User*** overridden JsPretter Project-level Settings, and exclude the comments.
+
+*Example*
 
     {
         "folders": [
@@ -138,6 +154,10 @@ For example, to pass the contents of file `path_to_js_file.js` to Prettier from 
     }
 
 **Steps to reproduce the behavior**
+
+The steps one would take to reproduce the problem.
+
+*Example*
 
     1. ...
     2. ...
