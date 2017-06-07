@@ -104,6 +104,7 @@ The entire contents of your ***User*** overridden JsPrettier Settings, and exclu
         "allow_inline_formatting": false,
         "custom_file_extensions": [],
         "additional_cli_args": {},
+        "max_file_size_limit": -1,
         "prettier_options": {
             "printWidth": 80,
             "singleQuote": false,
@@ -136,6 +137,7 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                 "allow_inline_formatting": false,
                 "custom_file_extensions": [],
                 "additional_cli_args": {},
+                "max_file_size_limit": -1,
                 "prettier_options": {
                     "printWidth": 80,
                     "singleQuote": false,

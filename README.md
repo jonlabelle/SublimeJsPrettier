@@ -271,6 +271,7 @@ must be created under the project file's `settings` section.
             "allow_inline_formatting": false,
             "custom_file_extensions": [],
             "additional_cli_args": {},
+            "max_file_size_limit": -1,
             "prettier_options": {
                 "printWidth": 80,
                 "singleQuote": false,
