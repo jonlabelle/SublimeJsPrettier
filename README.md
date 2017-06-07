@@ -196,7 +196,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     > the [Sublime Text Console]. You can also enable the `debug` setting to
     > inspect the generated command-line output passed to prettier; which is
     > also useful for quickly troubleshooting issues.
-    
+
 - **max_file_size_limit** (default: ***-1***)  
     The maximum allowed file size to format in bytes. For performance reasons,
     files with a greater file size than the specified `max_file_size_limit` will
