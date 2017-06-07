@@ -153,7 +153,7 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
 
 ### Steps to reproduce the behavior
 
-The steps one would take to reproduce the problem.
+The steps one would take to reproduce and observe the problem.
 
     1. ...
     2. ...
