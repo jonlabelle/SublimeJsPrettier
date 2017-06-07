@@ -210,7 +210,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, view.size())
             source = view.substr(region)
 
-            if self.is_str_empty_or_whitespace(source):
+            if self.is_str_empty_or_whitespace_only(source):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
@@ -220,13 +220,24 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.show_console_error()
                 return self.show_status_bar_error()
 
+            # sanity check to ensure textual content was returned from cmd
+            # stdout, not necessarily caught in OSError try/catch
+            # exception handler
+            if self.is_str_empty_or_whitespace_only(transformed):
+                self.error_message = 'Empty content returned to stdout'
+                return self.show_status_bar_error()
+
             file_changed = False
             transformed = self.trim_trailing_ws_and_lines(transformed)
-            if transformed and transformed == self.trim_trailing_ws_and_lines(
-                    source):
-                if self.ensure_newline_at_eof(view, edit) is True:
-                    # no formatting changes applied, however, a line break was
-                    # needed/inserted at eof:
+            if transformed:
+                if transformed == self.trim_trailing_ws_and_lines(source):
+                    if self.ensure_newline_at_eof(view, edit) is True:
+                        # no formatting changes applied, however, a line
+                        # break was needed/inserted at the end of the file:
+                        file_changed = True
+                else:
+                    view.replace(edit, region, transformed)
+                    self.ensure_newline_at_eof(view, edit)
                     file_changed = True
             else:
                 view.replace(edit, region, transformed)
@@ -247,7 +258,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             source = view.substr(region)
-            if self.is_str_empty_or_whitespace(source):
+            if self.is_str_empty_or_whitespace_only(source):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in selection.'.format(
                         PLUGIN_NAME)), 0)
@@ -257,6 +268,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
+                return self.show_status_bar_error()
+
+            # sanity check to ensure textual content was returned from cmd
+            # stdout, not necessarily caught in OSError try/catch
+            # exception handler
+            if self.is_str_empty_or_whitespace_only(transformed):
+                self.error_message = 'Empty content returned to stdout'
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
@@ -588,7 +606,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def is_str_empty_or_whitespace(txt):
+    def is_str_empty_or_whitespace_only(txt):
         if not txt or len(txt) == 0:
             return True
         # strip all whitespace/invisible chars. to determine textual content:
