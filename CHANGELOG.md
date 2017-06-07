@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.10.0
+
+**Release Date:** 2017-06-07
+
+- Added the new setting `max_file_size_limit` to restrict Prettier formatting
+  based on file size.
+
 ## 1.9.0
 
 **Release Date:** 2017-06-05

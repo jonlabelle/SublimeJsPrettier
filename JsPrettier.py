@@ -171,6 +171,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def additional_cli_args(self):
         return self.get_setting('additional_cli_args', {})
 
+    @property
+    def max_file_size_limit(self):
+        return int(self.get_setting('max_file_size_limit', -1))
+
+    def exceeds_max_file_size_limit(self, view):
+        if self.max_file_size_limit == -1:
+            return False
+        if os.path.getsize(view.file_name()) > self.max_file_size_limit:
+            return True
+        return False
+
     def is_allowed_file_ext(self, view):
         filename = view.file_name()
         if not filename:
@@ -201,6 +212,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'The path to the Prettier cli executable could '
                 'not be found! Please ensure the path to prettier is '
                 'set in your PATH environment variable.'.format(PLUGIN_NAME))
+
+        if self.exceeds_max_file_size_limit(view):
+            return sublime.set_timeout(lambda: sublime.status_message(
+                '{0}: File ignored, max allowed file size '
+                'limit reached.'.format(PLUGIN_NAME)), 0)
 
         prettier_args = self.parse_prettier_options(view)
         node_path = self.node_path

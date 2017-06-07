@@ -109,6 +109,18 @@
 	"additional_cli_args": {},
 
 	//
+	// @max_file_size_limit { int | default = -1 }
+	//
+	// The maximum allowed file size to format in bytes. For performance
+	// reasons, files with a greater file size than the specified
+	// `max_file_size_limit` will not be formatted.
+	//
+	// Setting the `max_file_size_limit` value to `-1` will disable file size
+	// checking (default).
+
+	"max_file_size_limit": -1,
+
+	//
 	// For a complete list of supported options and acceptable values see
 	// https://github.com/jlongster/prettier
 
