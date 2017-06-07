@@ -9,7 +9,27 @@ JavaScript (and CSS) formatter.
 
 [![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
-- [Watch a Quick Demo]
+> [Watch a Quick Demo]
+
+---
+
+- [Installation](#installation)
+    - [Requirements](#requirements)
+    - [Install Prettier](#install-prettier)
+    - [Install JsPrettier via Package Control](#install-jsprettier-via-package-control)
+    - [Install JsPrettier Manually](#install-jsprettier-manually)
+    - [Install JsPrettier Using Git](#install-jsprettier-using-git)
+- [Usage](#usage)
+    - [Command Scope](#command-scope)
+    - [Custom Key Binding](#custom-key-binding)
+- [Settings](#settings)
+    - [Sublime Text Settings](#sublime-text-settings)
+    - [Prettier Options](#prettier-options)
+    - [Project-level Settings](#project-level-settings)
+- [Issues](#issues)
+- [Changes](#changes)
+- [Author](#author)
+- [License](#license)
 
 ## Installation
 
