@@ -233,10 +233,11 @@ file, accessible from the **Preferences** > **Package Settings** >
   
 - **parser** (default: "***babylon***")  
     Which parser to use. Valid options are "***flow***", "***babylon***",
-    "***typescript***" and "***postcss***"\*.  
+    "***typescript***" and "***postcss***".  
   
-    > \* Currently, if CSS is detected in Sublime Text, the parser option will
-    > *always* be internally overridden and set to "***postcss***".
+    > If CSS or TypeScript is detected in Sublime Text, the parser option will
+    > *always* be internally overridden and set to "***postcss***" or
+    > "***typescript***" respectively.
   
 - **semi** (default: ***true***)  
     ***true*** to add a semicolon at the end of every line, or ***false*** to

@@ -148,10 +148,11 @@
 		"jsxBracketSameLine": false,
 
 		// Which parser to use. Valid options are "flow", "babylon",
-		// "typescript" and "postcss"*.
+		// "typescript" and "postcss".
 		//
-		// * Currently, if CSS is detected in Sublime Text, the parser option
-		// will always be internally overridden and set to "postcss".
+		// If CSS or TypeScript is detected in Sublime Text, the parser option
+		// will always be internally overridden and set to "postcss" or
+		// "typescript" respectively.
 		"parser": "babylon",
 
 		// Whether to add a semicolon at the end of every line (semi: true), or

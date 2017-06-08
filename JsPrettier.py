@@ -393,6 +393,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def parse_prettier_options(self, view):
         prettier_cli_args = []
         is_css = self.is_css(view)
+        is_typescript = self.is_typescript(view)
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
@@ -404,6 +405,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if option_name == 'parser' and is_css:
                 prettier_cli_args.append(cli_option_name)
                 prettier_cli_args.append('postcss')
+                continue
+
+            # internally override the 'parser' for typescript
+            # and set the value to 'typescript':
+            if option_name == 'parser' and is_typescript:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append('typescript')
                 continue
 
             if option_value is None or str(option_value) == '':
@@ -504,10 +512,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         filename = view.file_name()
         if not filename:
             return False
-        # if not filename:
-        #     raise Exception('{0} Error\n\n'
-        #                     'The current View must be Saved before '
-        #                     'running JsPrettier.'.format(PLUGIN_NAME))
 
         scopename = view.scope_name(0)
         if scopename.startswith('source.css') or filename.endswith('.css'):
@@ -517,6 +521,23 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if scopename.startswith('source.sass') or filename.endswith('.sass'):
             return True
         if scopename.startswith('source.less') or filename.endswith('.less'):
+            return True
+
+        return False
+
+    @staticmethod
+    def is_typescript(view):
+        """
+        Detect whether or not the current file type is TypeScript.
+
+        :param view: The Sublime Text view object.
+        :return: True if TypeScript, otherwise False.
+        """
+        filename = view.file_name()
+        if not filename:
+            return False
+
+        if filename.endswith('.ts') or filename.endswith('.tsx'):
             return True
 
         return False
