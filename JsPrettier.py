@@ -311,13 +311,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if self.is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
                 + ['--stdin'] \
-                + ['--color=false'] \
                 + prettier_args
         else:
             cmd = [node_path] \
                 + [prettier_cli_path] \
                 + ['--stdin'] \
-                + ['--color=false'] \
                 + prettier_args
         try:
             self.show_debug_message(
