@@ -1,15 +1,24 @@
 {
+	// ----------------------------------------------------------------------
+	// Debug Mode
+	// ----------------------------------------------------------------------
 	//
-	// @debug { bool | default = false }
+	// @param {bool} "debug"
+	// @default false
 	//
 	// When enabled (true), additional debugging information about the command
 	// and configured settings will be printed to the Sublime Text Console;
 	// useful for troubleshooting purposes.
+	// ----------------------------------------------------------------------
 
 	"debug": false,
 
+	// ----------------------------------------------------------------------
+	// Prettier CLI Path
+	// ----------------------------------------------------------------------
 	//
-	// @prettier_cli_path { string | default = "" }
+	// @param {string} "prettier_cli_path"
+	// @default ""
 	//
 	// It's recommended to leave the "prettier_cli_path" value empty "".
 	// However, if Sublime Text has problems resolving the path to the
@@ -36,11 +45,16 @@
 	//     - macOS/Linux...: "/path/to/node_modules/.bin/prettier" (absolute)
 	//                   or  "./node_modules/.bin/prettier" (relative)
 	//     - Windows.......: "C:/path/to/npm/prettier" (absolute)
+	// ----------------------------------------------------------------------
 
 	"prettier_cli_path": "",
 
+	// ----------------------------------------------------------------------
+	// Node Path
+	// ----------------------------------------------------------------------
 	//
-	// @node_path { string | default = "" }
+	// @param {bool} "node_path"
+	// @default ""
 	//
 	// It's strongly recommended to leave the "node_path" value empty "".
 	// However, if Sublime Text has problems resolving the "absolute" path to
@@ -54,39 +68,59 @@
 	//
 	//     - macOS/Linux...: "/path/to/node"
 	//     - Windows.......: "C:/path/to/node.exe"
+	// ----------------------------------------------------------------------
 
 	"node_path": "",
 
+	// ----------------------------------------------------------------------
+	// Auto Format on Save
+	// ----------------------------------------------------------------------
 	//
-	// @auto_format_on_save { bool | default = false }
+	// @param {bool} "auto_format_on_save"
+	// @default false
 	//
 	// Whether or not to run the `js_prettier` command automatically
 	// on every file save.
+	// ----------------------------------------------------------------------
 
 	"auto_format_on_save": false,
 
+	// ----------------------------------------------------------------------
+	// Allow Inline Formatting
+	// ----------------------------------------------------------------------
 	//
-	// @allow_inline_formatting { bool | default = false }
+	// @param {bool} "allow_inline_formatting"
+	// @default false
 	//
 	// Provides the ability to format selections of in-lined code, outside of
 	// the normally supported syntaxes and file types. For example, to format a
 	// selection of JavaScript code within a PHP or HTML file. When `true`, the
 	// JsPrettier command is available for use across all Sublime Text syntaxes.
+	// ----------------------------------------------------------------------
 
 	"allow_inline_formatting": false,
 
+	// ----------------------------------------------------------------------
+	// Custom File Extensions { array | default = [] }
+	// ----------------------------------------------------------------------
 	//
-	// @custom_file_extensions { array | default = [] }
+	// @param {array} "custom_file_extensions"
+	// @default []
 	//
 	// Additional custom file extensions to format.
 	//
 	// By default, the following file extensions are supported:
 	// "js", "jsx", "ts", "tsx", "css", "scss", "sass", "less"
+	// ----------------------------------------------------------------------
 
 	"custom_file_extensions": [],
 
+	// ----------------------------------------------------------------------
+	// Additional CLI Arguments
+	// ----------------------------------------------------------------------
 	//
-	// @additional_cli_args { dict | default = {} }
+	// @param {object} "additional_cli_args"
+	// @default {}
 	//
 	// A key-value pair of additional arguments to append to the prettier
 	// command.
@@ -105,11 +139,16 @@
 	// You can also enable the debug setting to inspect the generated
 	// command-line output passed to prettier; which is also useful for quickly
 	// troubleshooting issues.
+	// ----------------------------------------------------------------------
 
 	"additional_cli_args": {},
 
+	// ----------------------------------------------------------------------
+	// Maximum File Size Limit
+	// ----------------------------------------------------------------------
 	//
-	// @max_file_size_limit { int | default = -1 }
+	// @param {int} "max_file_size_limit"
+	// @default -1
 	//
 	// The maximum allowed file size to format in bytes. For performance
 	// reasons, files with a greater file size than the specified
@@ -117,12 +156,17 @@
 	//
 	// Setting the `max_file_size_limit` value to `-1` will disable file size
 	// checking (default).
+	// ----------------------------------------------------------------------
 
 	"max_file_size_limit": -1,
 
+	// ----------------------------------------------------------------------
+	// Prettier Options
+	// ----------------------------------------------------------------------
 	//
-	// For a complete list of supported options and acceptable values see
-	// https://github.com/jlongster/prettier
+	// Native Prettier Options. For a complete list of supported options and
+	// acceptable values, visit https://github.com/jlongster/prettier.
+	// ----------------------------------------------------------------------
 
 	"prettier_options": {
 		// Fit code within this line limit
