@@ -101,7 +101,7 @@
 	"allow_inline_formatting": false,
 
 	// ----------------------------------------------------------------------
-	// Custom File Extensions { array | default = [] }
+	// Custom File Extensions
 	// ----------------------------------------------------------------------
 	//
 	// @param {array} "custom_file_extensions"
