@@ -184,10 +184,10 @@ file, accessible from the **Preferences** > **Package Settings** >
     **Example:**
   
         {
+            "--no-color": "",
+            "--single-quote=false": "",
             "--cursor-offset": -1,
-            "--fix": "",
-            "--foo=bar": "",
-            "--something-else": "foo"
+            "--list-different": ""
         }
   
     > **NOTE:** If choosing to specify additional cli args, it is assumed that
