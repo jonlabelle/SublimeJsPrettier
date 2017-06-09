@@ -202,8 +202,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if view.file_name() is None:
             return sublime.error_message(
                 '{0} Error\n\n'
-                'The current View must be Saved '
-                'before running JsPrettier.'.format(PLUGIN_NAME))
+                'File must first be saved.'.format(PLUGIN_NAME))
 
         prettier_cli_path = self.prettier_cli_path
         if prettier_cli_path is None:
