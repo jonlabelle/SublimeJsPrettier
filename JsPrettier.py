@@ -201,27 +201,30 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         view = self.view
 
         if view.file_name() is None:
+            #
+            # File must first be saved...
             if not IS_SUBLIME_TEXT_LATEST:
                 # old sublime text dialogs are limited...
                 return sublime.error_message(
                     '{0} Error\n\n'
                     'File must first be saved.'.format(PLUGIN_NAME))
             else:
+                #
                 # use sublime text 3x+ dialog api if available
                 # present a dialog that includes a save option:
                 result = sublime.yes_no_cancel_dialog(
                     '{0}\n\n'
-                    'The file must first be saved...'.format(PLUGIN_NAME),
-                    'Save', "Don't Save")
-
+                    'File must first be Saved.'.format(PLUGIN_NAME),
+                    'Save...', "Don't Save")
                 if result == sublime.DIALOG_YES:
                     view.run_command('save')
 
-                if result == sublime.DIALOG_CANCEL or \
-                        result == sublime.DIALOG_NO:
-                    return sublime.set_timeout(lambda: sublime.status_message(
-                        '{0}: File save canceled.'.format(
-                            PLUGIN_NAME)), 0)
+        #
+        # re-check if file was saved here... incase user canceled or closed
+        # the save diaolog:
+        if view.file_name() is None:
+            return sublime.set_timeout(lambda: sublime.status_message(
+                '{0}: File save canceled.'.format(PLUGIN_NAME)), 0)
 
         prettier_cli_path = self.prettier_cli_path
         if prettier_cli_path is None:
