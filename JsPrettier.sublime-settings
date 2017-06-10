@@ -101,20 +101,19 @@
 	"allow_inline_formatting": false,
 
 	// ----------------------------------------------------------------------
-	// Custom File Extensions
+	// File Extensions
 	// ----------------------------------------------------------------------
 	//
-	// @param {array} "custom_file_extensions"
+	// @param {array} "file_extensions"
 	// @default []
 	//
 	// Additional custom file extensions to format.
 	//
-	// There's built-in support already for "js", "jsx", "ts", "tsx", "css",
-	// "scss", "sass", "less" files. Any additional file extensions must be
+	// There's built-in support already for "js", "jsx" Any additional file extensions must be
 	// specified here (excluding the leading dot).
 	// ----------------------------------------------------------------------
 
-	"custom_file_extensions": [],
+	"file_extensions": [],
 
 	// ----------------------------------------------------------------------
 	// Additional CLI Arguments

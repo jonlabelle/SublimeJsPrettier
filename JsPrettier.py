@@ -62,12 +62,6 @@ PRETTIER_OPTION_CLI_MAP = [
 ALLOWED_FILE_EXTENSIONS = [
     'js',
     'jsx',
-    'ts',
-    'tsx',
-    'css',
-    'scss',
-    'sass',
-    'less'
 ]
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
@@ -189,10 +183,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
 
         file_ext = os.path.splitext(filename)[1][1:]
-        if file_ext in ALLOWED_FILE_EXTENSIONS:
-            return True
 
-        if file_ext in set(self.get_setting('custom_file_extensions', [])):
+        if file_ext in set(self.get_setting('file_extensions', [])):
             return True
 
         return False
@@ -766,8 +758,8 @@ class CommandOnSave(sublime_plugin.EventListener):
     def auto_format_on_save(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
 
-    def custom_file_extensions(self, view):
-        return self.get_setting(view, 'custom_file_extensions', [])
+    def file_extensions(self, view):
+        return self.get_setting(view, 'file_extensions', [])
 
     def is_allowed(self, view):
         return self.is_allowed_file_ext(view)
@@ -784,7 +776,7 @@ class CommandOnSave(sublime_plugin.EventListener):
         if file_ext in ALLOWED_FILE_EXTENSIONS:
             return True
 
-        if file_ext in set(self.custom_file_extensions(view)):
+        if file_ext in set(self.file_extensions(view)):
             return True
 
         return False
