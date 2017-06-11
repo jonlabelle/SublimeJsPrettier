@@ -13,6 +13,9 @@ formatter.
 
 ---
 
+<details>
+<summary><strong>Table of Contents</strong></summary>
+
 - [Installation](#installation)
     - [Requirements](#requirements)
     - [Install Prettier](#install-prettier)
@@ -30,6 +33,8 @@ formatter.
 - [Changes](#changes)
 - [Author](#author)
 - [License](#license)
+
+</details>
 
 ## Installation
 

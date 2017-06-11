@@ -5,5 +5,14 @@
   "MD013": { "line_length": 80 },
   "MD009": { "br_spaces": 2 },
   "MD029": { "style": "ordered" },
-  "MD033": { "allowed_elements": ["a", "kbd", "p"] }
+  "MD033": {
+    "allowed_elements": [
+      "a",
+      "details",
+      "kbd",
+      "p",
+      "strong"
+      "summary",
+    ]
+  }
 }
