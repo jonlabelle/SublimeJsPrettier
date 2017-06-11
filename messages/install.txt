@@ -1,7 +1,7 @@
 # Js​Prettier
 
-    JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated
-    JavaScript (and CSS) formatter.
+    JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code
+    formatter.
 
 
 ## Install Prettier
@@ -28,10 +28,10 @@
 ## Usage
 
     To run the JsPrettier command... open the Sublime Text Command Palette
-    (super + shift + p), and type "JsPrettier".
+    (super + shift + p), and type "JsPrettier: Format Code".
 
-    You can also right-click anywhere in the view to bring up the "Context
-    Menu", and select "JsPrettier".
+    You can also right-click anywhere on the file to bring up the Context Menu
+    and select "JsPrettier Format Code".
 
 
     ### Command Scope

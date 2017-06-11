@@ -4,8 +4,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/ta7379jk57cdwu76/branch/master?svg=true)](https://ci.appveyor.com/project/jonlabelle/sublimejsprettier/branch/master)
 [![Downloads](https://packagecontrol.herokuapp.com/downloads/JsPrettier.svg?color=80d4cd)](https://packagecontrol.io/packages/JsPrettier)
 
-[JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated
-JavaScript (and CSS) formatter.
+[JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
+formatter.
 
 [![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
@@ -33,7 +33,8 @@ JavaScript (and CSS) formatter.
 
 ## Installation
 
-[JsPrettier] is compatible with both Sublime Text 2 and 3, and all supported Operating Systems.
+[JsPrettier] is compatible with both Sublime Text 2 and 3, and all supported
+Operating Systems.
 
 ### Requirements
 
@@ -101,7 +102,7 @@ You can locate your Sublime Text Packages directory by using the menu item
 To run the `JsPrettier` command... open the Sublime Text **Command Palette**
 (<kbd>super + shift + p</kbd>) and type ***JsPrettier: Format Code***.
 
-You can also right-click anywhere in the view to bring up the **Context Menu**,
+You can also right-click anywhere in the file to bring up the **Context Menu**
 and select ***JsPrettier Format Code***.
 
 ### Command Scope
