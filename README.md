@@ -101,10 +101,10 @@ You can locate your Sublime Text Packages directory by using the menu item
 ## Usage
 
 To run the `JsPrettier` command... open the Sublime Text **Command Palette**
-(<kbd>super + shift + p</kbd>) and type ***JsPrettier***.
+(<kbd>super + shift + p</kbd>) and type ***JsPrettier: Format Code***.
 
 You can also right-click anywhere in the view to bring up the **Context Menu**,
-and select ***JsPrettier***.
+and select ***JsPrettier Format Code***.
 
 ### Command Scope
 

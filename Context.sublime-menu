@@ -3,7 +3,7 @@
 		"caption": "-"
 	},
 	{
-		"caption": "JsPrettier",
+		"caption": "JsPrettier Format Code",
 		"command": "js_prettier"
 	},
 	{
