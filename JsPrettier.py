@@ -201,16 +201,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if view.file_name() is None:
             #
-            # File must first be saved...
+            # Handle file must first be saved:
             if not IS_SUBLIME_TEXT_LATEST:
-                # old sublime text dialogs are limited...
+                # sublime text 2x: limited dialog support, just show error:
                 return sublime.error_message(
                     '{0} Error\n\n'
                     'File must first be saved.'.format(PLUGIN_NAME))
             else:
                 #
-                # use sublime text 3x+ dialog api if available
-                # present a dialog that includes a save option:
+                # sublime text 3+: show dialog that includes a save option:
                 result = sublime.yes_no_cancel_dialog(
                     '{0}\n\n'
                     'File must first be Saved.'.format(PLUGIN_NAME),
@@ -219,8 +218,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     view.run_command('save')
 
         #
-        # re-check if file was saved here... incase user canceled or closed
-        # the save diaolog:
+        # re-check if the file was saved here, incase user canceled or closed
+        # the save dialog:
         if view.file_name() is None:
             return sublime.set_timeout(lambda: sublime.status_message(
                 '{0}: File save canceled.'.format(PLUGIN_NAME)), 0)
@@ -340,7 +339,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         try:
             self.show_debug_message(
                 'Prettier CLI Command', self.list_to_str(cmd))
-
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
@@ -511,26 +509,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def is_source_js(view):
-        """
-        Detect whether or not the current syntax or file type is JavaScript.
-
-        :param view: The Sublime Text view object.
-        :return: True if the current if is JavaScript, otherwise False.
-        """
         return view.scope_name(0).startswith('source.js')
 
     @staticmethod
     def is_css(view):
-        """
-        Detect whether or not the current syntax or file type is CSS.
-
-        :param view: The Sublime Text view object.
-        :return: True if the current if is CSS, otherwise False.
-        """
         filename = view.file_name()
         if not filename:
             return False
-
         scopename = view.scope_name(0)
         if scopename.startswith('source.css') or filename.endswith('.css'):
             return True
@@ -538,24 +523,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if scopename.startswith('source.less') or filename.endswith('.less'):
             return True
-
         return False
 
     @staticmethod
     def is_typescript(view):
-        """
-        Detect whether or not the current file type is TypeScript.
-
-        :param view: The Sublime Text view object.
-        :return: True if TypeScript, otherwise False.
-        """
         filename = view.file_name()
         if not filename:
             return False
-
         if filename.endswith('.ts') or filename.endswith('.tsx'):
             return True
-
         return False
 
     @staticmethod
@@ -662,7 +638,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_str_empty_or_whitespace_only(txt):
         if not txt or len(txt) == 0:
             return True
-        # strip all whitespace/invisible chars. to determine textual content:
+        # strip all whitespace/invisible chars to determine textual content:
         txt = sub(r'\s+', '', txt)
         if not txt or len(txt) == 0:
             return True
@@ -672,7 +648,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def list_to_str(list_to_convert):
         """Convert a list of values into string.
 
-        Each list value will be seperated by a single space.
+        Each value will be seperated by a single space.
 
         :param list_to_convert: The list to convert to a string.
         :return: The list converted into a string.
@@ -776,14 +752,11 @@ class CommandOnSave(sublime_plugin.EventListener):
         filename = view.file_name()
         if not filename:
             return False
-
         file_ext = os.path.splitext(filename)[1][1:]
         if file_ext in ALLOWED_FILE_EXTENSIONS:
             return True
-
         if file_ext in set(self.custom_file_extensions(view)):
             return True
-
         return False
 
     def get_setting(self, view, key, default_value=None):
