@@ -38,8 +38,7 @@ Text 2 and 3, and all supported Operating Systems.
 
 ### Requirements
 
-The Js​Prettier plug-in requires the following programs to
-be installed:
+JsPrettier requires the following programs to be installed prior to use:
 
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
