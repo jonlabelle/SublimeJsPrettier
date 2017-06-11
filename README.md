@@ -33,8 +33,7 @@ JavaScript (and CSS) formatter.
 
 ## Installation
 
-Js​Prettier ([JsPrettier]) is compatible with both Sublime
-Text 2 and 3, and all supported Operating Systems.
+[JsPrettier] is compatible with both Sublime Text 2 and 3, and all supported Operating Systems.
 
 ### Requirements
 
