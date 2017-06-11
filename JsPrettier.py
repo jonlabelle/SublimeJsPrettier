@@ -66,7 +66,6 @@ ALLOWED_FILE_EXTENSIONS = [
     'tsx',
     'css',
     'scss',
-    'sass',
     'less'
 ]
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
@@ -536,8 +535,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if scopename.startswith('source.css') or filename.endswith('.css'):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
-            return True
-        if scopename.startswith('source.sass') or filename.endswith('.sass'):
             return True
         if scopename.startswith('source.less') or filename.endswith('.less'):
             return True

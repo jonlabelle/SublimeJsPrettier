@@ -110,8 +110,8 @@
 	// Additional custom file extensions to format.
 	//
 	// There's built-in support already for "js", "jsx", "ts", "tsx", "css",
-	// "scss", "sass", "less" files. Any additional file extensions must be
-	// specified here (excluding the leading dot).
+	// "scss", "less" files. Any additional file extensions must be specified
+	// here (excluding the leading dot).
 	// ----------------------------------------------------------------------
 
 	"custom_file_extensions": [],
