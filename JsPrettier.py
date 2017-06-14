@@ -249,7 +249,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
-            transformed = self.run_prettier(
+            transformed = self.exec_cmd(
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
@@ -299,7 +299,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                         PLUGIN_NAME)), 0)
                 continue
 
-            transformed = self.run_prettier(
+            transformed = self.exec_cmd(
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
@@ -323,8 +323,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def run_prettier(self, source, node_path, prettier_cli_path,
-                     prettier_args):
+    def exec_cmd(self, source, node_path, prettier_cli_path,
+                 prettier_args):
         self._error_message = None
 
         if self.is_str_none_or_empty(node_path):
