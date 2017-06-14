@@ -13,7 +13,10 @@ class TestSettings(unittest.TestCase):
             for filename in fnmatch.filter(filenames, file_pattern):
                 yield os.path.join(root, filename)
             for dirname in [d for d in dirnames
-                            if d not in ('.git', '.idea')]:
+                            if d not in ('.git', '.github', '.idea',
+                                         'messages', 'screenshots',
+                                         os.path.join(
+                                             'tests', '__pycache__'))]:
                 for f in self._get_json_files(
                         file_pattern, os.path.join(root, dirname)):
                     yield f
@@ -24,7 +27,8 @@ class TestSettings(unittest.TestCase):
             '*.json',
             '*.sublime-commands',
             '*.sublime-menu',
-            '*.sublime-settings'
+            '*.sublime-settings',
+            '.markdownlintrc'
         )
         for file_pattern in file_patterns:
             for f in self._get_json_files(file_pattern):
