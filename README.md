@@ -178,8 +178,8 @@ file, accessible from the **Preferences** > **Package Settings** >
     Text syntaxes.
   
 - **custom_file_extensions** (default: [])  
-    There's built-in support already for `js`, `jsx`, `ts`, `tsx`, `css`,
-    `scss`, `less` files. Any additional file extensions must be specified here
+    There's built-in support already for `js`, `jsx`, `ts`, `tsx`, `css`, `scss`
+    and `less` files. Any additional file extensions must be specified here
     (excluding the leading dot).
   
 - **additional_cli_args** (default: {})  
