@@ -13,8 +13,8 @@ class TestSettings(unittest.TestCase):
             for filename in fnmatch.filter(filenames, file_pattern):
                 yield os.path.join(root, filename)
             for dirname in [d for d in dirnames
-                            if d not in ('.git', '.github', '.idea',
-                                         'messages', 'screenshots',
+                            if d not in ('.cache', '.git', '.github', '.idea',
+                                         'messages', 'screenshots', 'scripts',
                                          os.path.join(
                                              'tests', '__pycache__'))]:
                 for f in self._get_json_files(
