@@ -525,7 +525,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         filename = view.file_name()
         if not filename:
             return False
-        if filename.endswith('.ts') or filename.endswith('.tsx'):
+        scopename = view.scope_name(0)
+        if scopename.startswith('source.ts') or filename.endswith('.ts'):
+            return True
+        if scopename.startswith('source.tsx') or filename.endswith('.tsx'):
             return True
         return False
 
