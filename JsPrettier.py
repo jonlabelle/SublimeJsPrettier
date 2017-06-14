@@ -186,14 +186,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         filename = view.file_name()
         if not filename:
             return False
-
         file_ext = os.path.splitext(filename)[1][1:]
         if file_ext in ALLOWED_FILE_EXTENSIONS:
             return True
-
         if file_ext in set(self.get_setting('custom_file_extensions', [])):
             return True
-
         return False
 
     def run(self, edit, force_entire_file=False):
@@ -249,7 +246,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
-            transformed = self.exec_cmd(
+            transformed = self._exec_cmd(
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
@@ -299,7 +296,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                         PLUGIN_NAME)), 0)
                 continue
 
-            transformed = self.exec_cmd(
+            transformed = self._exec_cmd(
                 source, node_path, prettier_cli_path, prettier_args)
             if self.has_error:
                 self.show_console_error()
@@ -323,8 +320,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def exec_cmd(self, source, node_path, prettier_cli_path,
-                 prettier_args):
+    def _exec_cmd(self, source, node_path, prettier_cli_path,
+                  prettier_args):
         self._error_message = None
 
         if self.is_str_none_or_empty(node_path):
@@ -336,9 +333,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_args
+
         try:
             self.show_debug_message(
                 'Prettier CLI Command', self.list_to_str(cmd))
+
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
@@ -357,7 +356,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def is_visible(self):
         view = self.view
-
         if self.allow_inline_formatting is True:
             return True
         if self.is_source_js(view) is True:
@@ -366,12 +364,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_allowed_file_ext(view) is True:
             return True
-
         return False
 
     def is_enabled(self):
         view = self.view
-
         if self.allow_inline_formatting is True:
             return True
         if self.is_source_js(view) is True:
@@ -380,7 +376,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_allowed_file_ext(view) is True:
             return True
-
         return False
 
     def get_setting(self, key, default_value=None):
