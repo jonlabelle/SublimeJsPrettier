@@ -493,9 +493,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     def format_error_message(self, error_message, error_code):
-        self.error_message = '## Prettier CLI Error Output:\n\n{0}\n' \
-                             '## Prettier CLI Return Code:\n\n{1}'\
-            .format(error_message.replace('\n', '\n    '), '    {0}'
+        self.error_message = 'Prettier reported the following ' \
+                             'error:\n\n{0}\n' \
+                             'Process finished with exit code {1}\n'\
+            .format(error_message, '{0}'
                     .format(error_code))
 
     @staticmethod
