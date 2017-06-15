@@ -354,7 +354,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    def is_visible(self):
+    def should_show_plugin(self):
         view = self.view
         if self.allow_inline_formatting is True:
             return True
@@ -366,17 +366,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         return False
 
+    def is_visible(self):
+        return self.should_show_plugin()
+
     def is_enabled(self):
-        view = self.view
-        if self.allow_inline_formatting is True:
-            return True
-        if self.is_source_js(view) is True:
-            return True
-        if self.is_css(view) is True:
-            return True
-        if self.is_allowed_file_ext(view) is True:
-            return True
-        return False
+        return self.should_show_plugin()
 
     def get_setting(self, key, default_value=None):
         settings = self.view.settings().get(PLUGIN_NAME)
@@ -402,7 +396,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return project_value
 
     def parse_prettier_options(self, view):
+        # TODO: optimize option parsing...
         prettier_cli_args = []
+
         is_css = self.is_css(view)
         is_typescript = self.is_typescript(view)
 
