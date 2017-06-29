@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.11.0
+
+**Release Date:** 2017-06-29
+
+- Added support for JSON formatting (requires [prettier v1.5+]).
+- Added support for GraphQL formatting (requires [prettier v1.5+]).
+
 ## 1.10.0
 
 **Release Date:** 2017-06-07
@@ -161,3 +168,4 @@
 [Prettier]: https://github.com/jlongster/prettier
 [Project-level settings]: https://github.com/jonlabelle/SublimeJsPrettier#project-level-settings
 [prettier v1.4+]: https://github.com/prettier/prettier/releases/tag/1.4.0
+[prettier v1.5+]: https://github.com/prettier/prettier/releases/tag/1.5.0

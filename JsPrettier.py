@@ -61,8 +61,9 @@ PRETTIER_OPTION_CLI_MAP = [
 ]
 ALLOWED_FILE_EXTENSIONS = [
     'js',
-    'json',
     'jsx',
+    'json',
+    'graphql',
     'ts',
     'tsx',
     'css',
@@ -403,6 +404,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         is_css = self.is_css(view)
         is_typescript = self.is_typescript(view)
         is_json = self.is_json(view)
+        is_graphql = self.is_graphql(view)
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
@@ -428,6 +430,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if option_name == 'parser' and is_json:
                 prettier_cli_args.append(cli_option_name)
                 prettier_cli_args.append('json')
+                continue
+
+            # internally override the 'parser' for graphql
+            # and set the value to 'graphql':
+            if option_name == 'parser' and is_graphql:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append('graphql')
                 continue
 
             if option_value is None or str(option_value) == '':
@@ -545,6 +554,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('source.json') or filename.endswith('.json'):
+            return True
+        return False
+
+    @staticmethod
+    def is_graphql(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        if filename.endswith('.graphql'):
             return True
         return False
 
