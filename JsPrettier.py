@@ -61,6 +61,7 @@ PRETTIER_OPTION_CLI_MAP = [
 ]
 ALLOWED_FILE_EXTENSIONS = [
     'js',
+    'json',
     'jsx',
     'ts',
     'tsx',
@@ -401,6 +402,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         is_css = self.is_css(view)
         is_typescript = self.is_typescript(view)
+        is_json = self.is_json(view)
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
@@ -419,6 +421,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if option_name == 'parser' and is_typescript:
                 prettier_cli_args.append(cli_option_name)
                 prettier_cli_args.append('typescript')
+                continue
+
+            # internally override the 'parser' for json
+            # and set the value to 'json':
+            if option_name == 'parser' and is_json:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append('json')
                 continue
 
             if option_value is None or str(option_value) == '':
@@ -526,6 +535,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if scopename.startswith('source.ts') or filename.endswith('.ts'):
             return True
         if scopename.startswith('source.tsx') or filename.endswith('.tsx'):
+            return True
+        return False
+
+    @staticmethod
+    def is_json(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if scopename.startswith('source.json') or filename.endswith('.json'):
             return True
         return False
 
