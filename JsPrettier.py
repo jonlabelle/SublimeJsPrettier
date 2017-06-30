@@ -430,6 +430,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_cli_args.append('json')
                 continue
 
+            if option_name == 'trailingComma' and is_json:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append('none')
+                continue
+
             if option_value is None or str(option_value) == '':
                 option_value = mapping['default']
             option_value = str(option_value).strip()
