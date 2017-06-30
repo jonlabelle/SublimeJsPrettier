@@ -432,6 +432,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_cli_args.append('json')
                 continue
 
+            # internally override the 'trailingComma' for json
+            # and set the value to 'none':
+            if option_name == 'trailingComma' and is_json:
+                prettier_cli_args.append(cli_option_name)
+                prettier_cli_args.append('none')
+
             # internally override the 'parser' for graphql
             # and set the value to 'graphql':
             if option_name == 'parser' and is_graphql:
