@@ -86,6 +86,25 @@
 	"auto_format_on_save": false,
 
 	// ----------------------------------------------------------------------
+	// Auto Format on Save Excludes
+	// ----------------------------------------------------------------------
+	//
+	// @param {array} "auto_format_on_save_excludes"
+	// @default ["*/node_modules/*","*/.git/*"],
+	//
+	// Exclude folders, files or extensions on autosave if auto_format_on_save
+	// is true. Example: "auto_format_on_save_excludes":
+	// [
+	//	"*.json"
+	//  "*/node_modules/*"
+	//  "*/file.js"
+	//  "*.json"
+	// ],
+	// ----------------------------------------------------------------------
+
+	"auto_format_on_save_excludes": ["*/node_modules/*","*/.git/*"],
+
+	// ----------------------------------------------------------------------
 	// Allow Inline Formatting
 	// ----------------------------------------------------------------------
 	//
