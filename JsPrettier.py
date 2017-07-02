@@ -2,8 +2,9 @@
 
 import os
 import platform
+import fnmatch
 
-from re import sub
+from re import match, sub
 from subprocess import PIPE
 from subprocess import Popen
 
@@ -764,12 +765,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 
 class CommandOnSave(sublime_plugin.EventListener):
+
     def on_pre_save(self, view):
-        if self.is_allowed(view) and self.is_enabled(view):
+        if self.is_allowed(view) and self.is_enabled(view) and self.is_allowed_on_save(view):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def auto_format_on_save(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
+    
+    def auto_format_on_save_excludes(self, view):
+        return self.get_setting(view, 'auto_format_on_save_excludes', [])
 
     def custom_file_extensions(self, view):
         return self.get_setting(view, 'custom_file_extensions', [])
@@ -779,6 +784,17 @@ class CommandOnSave(sublime_plugin.EventListener):
 
     def is_enabled(self, view):
         return self.auto_format_on_save(view)
+
+    def is_allowed_on_save(self, view):
+        filename = view.file_name()
+        excludefolders = self.auto_format_on_save_excludes(view)
+        regmatch_excludefolders = [fnmatch.translate(p) for p in excludefolders]
+        if not filename:
+            return False
+        for p in regmatch_excludefolders:
+            if match(p, filename):
+                return False
+        return True
 
     def is_allowed_file_ext(self, view):
         filename = view.file_name()
