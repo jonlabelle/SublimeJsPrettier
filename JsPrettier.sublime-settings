@@ -90,19 +90,21 @@
 	// ----------------------------------------------------------------------
 	//
 	// @param {array} "auto_format_on_save_excludes"
-	// @default ["*/node_modules/*","*/.git/*"],
+	// @default ["*/node_modules/*", "*/.git/*"]
 	//
-	// Exclude folders, files or extensions on autosave if auto_format_on_save
-	// is true. Example: "auto_format_on_save_excludes":
-	// [
-	//	"*.json"
-	//  "*/node_modules/*"
-	//  "*/file.js"
-	//  "*.json"
-	// ],
+	// Ignore auto formatting when the target file, or its path resides in a
+	// particular location, and when `auto_format_on_save` is turned on.
+	//
+	// Examples:
+	//
+	//     [
+	//         "*/node_modules/*",
+	//         "*/file.js",
+	//         "*.json"
+	//     ]
 	// ----------------------------------------------------------------------
 
-	"auto_format_on_save_excludes": ["*/node_modules/*","*/.git/*"],
+	"auto_format_on_save_excludes": ["*/node_modules/*", "*/.git/*"],
 
 	// ----------------------------------------------------------------------
 	// Allow Inline Formatting
@@ -116,8 +118,6 @@
 	// selection of JavaScript code within a PHP or HTML file. When `true`, the
 	// JsPrettier command is available for use across all Sublime Text syntaxes.
 	// ----------------------------------------------------------------------
-
-
 
 	"allow_inline_formatting": false,
 

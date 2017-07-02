@@ -171,6 +171,18 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **auto_format_on_save** (default: ***false***)  
     Whether or not to automatically format on every file save.
   
+- **auto_format_on_save_excludes** (default: [])  
+    Ignore auto formatting when the target file, or its path resides in a
+    particular location, and when `auto_format_on_save` is turned on.
+  
+    **Example:**
+  
+        [
+            "*/node_modules/*",
+            "*/file.js",
+            "*.json"
+        ]
+  
 - **allow_inline_formatting** (default: ***false***)  
     Enables the ability to format *selections* of in-lined code. For example, to
     format a selection of JavaScript code within a PHP or HTML file. When
@@ -273,6 +285,7 @@ must be created under the project file's `settings` section.
             "prettier_cli_path": "",
             "node_path": "",
             "auto_format_on_save": false,
+            "auto_format_on_save_excludes": ["*/node_modules/*", "*/.git/*"],
             "allow_inline_formatting": false,
             "custom_file_extensions": [],
             "additional_cli_args": {},

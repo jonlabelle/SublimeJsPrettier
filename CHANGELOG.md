@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.0
+
+**Release Date:** 2017-07-02
+
+- Added new `auto_format_on_save_excludes` setting to ignore auto formatting
+  when the target file, or its path resides in a particular location, and when
+  `auto_format_on_save` is turned on.
+
 ## 1.11.0
 
 **Release Date:** 2017-06-29
