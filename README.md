@@ -171,7 +171,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **auto_format_on_save** (default: ***false***)  
     Whether or not to automatically format on every file save.
   
-- **auto_format_on_save_excludes** (default: ["*/node_modules/*", "*/.git/*"])  
+- **auto_format_on_save_excludes** (default: ["\*/node_modules/\*", "\*/.git/\*"])  
     Ignore auto formatting when the target file, or its path resides in a
     particular location, and when `auto_format_on_save` is turned on.
   
