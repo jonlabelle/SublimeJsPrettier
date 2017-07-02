@@ -117,6 +117,8 @@
 	// JsPrettier command is available for use across all Sublime Text syntaxes.
 	// ----------------------------------------------------------------------
 
+
+
 	"allow_inline_formatting": false,
 
 	// ----------------------------------------------------------------------
