@@ -767,7 +767,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         if self.is_allowed(view) and self.is_enabled(view):
-            if self.is_allowed_on_save(view):
+            if self.is_excluded(view):
                 view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def auto_format_on_save(self, view):
@@ -785,7 +785,7 @@ class CommandOnSave(sublime_plugin.EventListener):
     def is_enabled(self, view):
         return self.auto_format_on_save(view)
 
-    def is_allowed_on_save(self, view):
+    def is_excluded(self, view):
         filename = view.file_name()
         if not filename:
             return False
