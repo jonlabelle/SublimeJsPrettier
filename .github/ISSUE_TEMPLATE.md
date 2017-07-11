@@ -155,8 +155,10 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
 
 The steps one would take to reproduce and observe the problem.
 
-    1. ...
-    2. ...
-    3. ...
+    1. This is the first step
+    2. This is the second step
+    3. Further steps, etc.
+    
+    Any other information you want to share that is relevant to the issue being reported.
 
 [debug setting]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L14
