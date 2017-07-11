@@ -159,6 +159,6 @@ The steps one would take to reproduce and observe the problem.
     2. This is the second step
     3. Further steps, etc.
     
-    Any other information you want to share that is relevant to the issue being reported.
+    Any other information you want to share that is relevant to the issue being reported. This might include the lines of code that you have identified as causing the bug, and potential solutions (and your opinions on their merits).
 
 [debug setting]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L14
