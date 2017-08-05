@@ -252,24 +252,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.error_message = 'Empty content returned to stdout'
                 return self.show_status_bar_error()
 
-            file_changed = False
+            source = self.trim_trailing_ws_and_lines(source)
             transformed = self.trim_trailing_ws_and_lines(transformed)
-            if transformed:
-                if transformed == self.trim_trailing_ws_and_lines(source):
-                    if self.ensure_newline_at_eof(view, edit) is True:
-                        # no formatting changes applied, however, a line
-                        # break was needed/inserted at the end of the file:
-                        file_changed = True
-                else:
-                    view.replace(edit, region, transformed)
-                    self.ensure_newline_at_eof(view, edit)
-                    file_changed = True
-            else:
-                view.replace(edit, region, transformed)
-                self.ensure_newline_at_eof(view, edit)
-                file_changed = True
+            newline_added = self.ensure_newline_at_eof(view, edit)
+            file_changed = transformed != source or newline_added
 
-            if file_changed is True:
+            if file_changed:
+                view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File formatted.'.format(PLUGIN_NAME)), 0)
             else:
@@ -303,15 +292,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
-            if transformed \
-                    and transformed == self.trim_trailing_ws_and_lines(source):
-                sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: Selection(s) already formatted.'.format(
-                        PLUGIN_NAME)), 0)
-            else:
+            source = self.trim_trailing_ws_and_lines(source)
+            selection_changed = transformed != source
+            if selection_changed:
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
+            else:
+                sublime.set_timeout(lambda: sublime.status_message(
+                    '{0}: Selection(s) already formatted.'.format(
+                        PLUGIN_NAME)), 0)
 
     def _exec_cmd(self, source, node_path, prettier_cli_path,
                   prettier_args):
