@@ -154,9 +154,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def use_tabs(self):
         translate_tabs_to_spaces = self.view.settings().get(
             'translate_tabs_to_spaces', True)
-        if not translate_tabs_to_spaces:
-            return True
-        return False
+        return not translate_tabs_to_spaces
 
     @property
     def allow_inline_formatting(self):
