@@ -75,7 +75,7 @@ IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
-    _error_message = None
+    error_message = None
 
     @property
     def debug(self):
@@ -83,17 +83,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def has_error(self):
-        if not self._error_message:
+        if not self.error_message:
             return False
         return True
-
-    @property
-    def error_message(self):
-        return self._error_message
-
-    @error_message.setter
-    def error_message(self, message=None):
-        self._error_message = message
 
     @property
     def proc_env(self):
@@ -325,7 +317,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def _exec_cmd(self, source, node_path, prettier_cli_path,
                   prettier_args):
-        self._error_message = None
+        self.error_message = None
 
         if self.is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
