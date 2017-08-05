@@ -74,6 +74,43 @@ ALLOWED_FILE_EXTENSIONS = [
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
 
+def get_project_setting(key):
+    """Get a project setting.
+
+    JsPrettier project settings are stored in the sublime project file
+    as a dictionary, e.g.:
+
+        "settings":
+        {
+            "js_prettier": { "key": "value", ... }
+        }
+
+    :param key: The project setting key.
+    :return: The project setting value.
+    :rtype: str
+    """
+    project_settings = sublime.active_window().active_view().settings()
+    if not project_settings:
+        return None
+    js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY)
+    if js_prettier_settings:
+        if key in js_prettier_settings:
+            return js_prettier_settings[key]
+    return None
+
+
+def get_setting(view, key, default_value):
+    settings = view.settings().get(PLUGIN_NAME)
+    if settings is None or settings.get(key) is None:
+        settings = sublime.load_settings(SETTINGS_FILE)
+    value = settings.get(key, default_value)
+    # check for project-level overrides:
+    project_value = get_project_setting(key)
+    if project_value is None:
+        return value
+    return project_value
+
+
 class JsPrettierCommand(sublime_plugin.TextCommand):
     error_message = None
 
@@ -356,15 +393,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.should_show_plugin()
 
     def get_setting(self, key, default_value=None):
-        settings = self.view.settings().get(PLUGIN_NAME)
-        if settings is None or settings.get(key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        value = settings.get(key, default_value)
-        # check for project-level overrides:
-        project_value = self._get_project_setting(key)
-        if project_value is None:
-            return value
-        return project_value
+        return get_setting(self.view, key, default_value)
 
     def get_sub_setting(self, key=None):
         settings = self.view.settings().get(PLUGIN_NAME)
@@ -580,28 +609,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def _get_project_setting(key):
-        """Get a project setting.
-
-        JsPrettier project settings are stored in the sublime project file
-        as a dictionary, e.g.:
-
-            "settings":
-            {
-                "js_prettier": { "key": "value", ... }
-            }
-
-        :param key: The project setting key.
-        :return: The project setting value.
-        :rtype: str
-        """
-        project_settings = sublime.active_window().active_view().settings()
-        if not project_settings:
-            return None
-        js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY)
-        if js_prettier_settings:
-            if key in js_prettier_settings:
-                return js_prettier_settings[key]
-        return None
+        return get_project_setting(key)
 
     @staticmethod
     def _get_project_sub_setting(option):
@@ -787,24 +795,10 @@ class CommandOnSave(sublime_plugin.EventListener):
             return True
         return False
 
-    def get_setting(self, view, key, default_value=None):
-        settings = view.settings().get(PLUGIN_NAME)
-        if settings is None or settings.get(key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        value = settings.get(key, default_value)
-        # check for project-level overrides:
-        project_value = self._get_project_setting(key)
-        if project_value is None:
-            return value
-        return project_value
+    @staticmethod
+    def get_setting(view, key, default_value=None):
+        return get_setting(view, key, default_value)
 
     @staticmethod
     def _get_project_setting(key):
-        settings = sublime.active_window().active_view().settings()
-        if not settings:
-            return None
-        jsprettier = settings.get(PROJECT_SETTINGS_KEY)
-        if jsprettier:
-            if key in jsprettier:
-                return jsprettier[key]
-        return None
+        return get_project_setting(key)
