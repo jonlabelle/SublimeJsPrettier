@@ -183,6 +183,20 @@
 	"max_file_size_limit": -1,
 
 	// ----------------------------------------------------------------------
+	// Show Error Output from Prettier as Phantoms
+	// ----------------------------------------------------------------------
+	//
+	// @param {bool} "show_error_phantoms"
+	// @default false
+	//
+	// When enabled (true), potential errors from Prettier (e.g., syntax
+	// errors in your code) will be shown directly within the code at the
+	// location where they occurred.
+	// This is only supported in Sublime Text versions > 3118.
+	// ----------------------------------------------------------------------
+	"show_error_phantoms": false,
+
+	// ----------------------------------------------------------------------
 	// Prettier Options
 	// ----------------------------------------------------------------------
 	//
