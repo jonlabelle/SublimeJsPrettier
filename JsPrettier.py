@@ -108,6 +108,10 @@ def get_setting(view, key, default_value):
     project_value = get_project_setting(key)
     if project_value is None:
         return value
+    if isinstance(value, dict):
+        merged_value = value.copy()
+        merged_value.update(project_value)
+        return merged_value
     return project_value
 
 
@@ -395,17 +399,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def get_setting(self, key, default_value=None):
         return get_setting(self.view, key, default_value)
 
-    def get_sub_setting(self, key=None):
-        settings = self.view.settings().get(PLUGIN_NAME)
-        if settings is None or settings.get(PRETTIER_OPTIONS_KEY).get(
-                key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
-        value = settings.get(PRETTIER_OPTIONS_KEY).get(key)
-        # check for project-level overrides:
-        project_value = self._get_project_sub_setting(key)
-        if project_value is None:
-            return value
-        return project_value
+    def get_sub_setting(self, key):
+        return get_setting(self.view, PRETTIER_OPTIONS_KEY, {}).get(key)
 
     def parse_prettier_options(self, view):
         # TODO: optimize option parsing...
@@ -610,18 +605,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def _get_project_setting(key):
         return get_project_setting(key)
-
-    @staticmethod
-    def _get_project_sub_setting(option):
-        project_settings = sublime.active_window().active_view().settings()
-        js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY, None)
-        if not js_prettier_settings:
-            return None
-        prettier_options = js_prettier_settings.get(PRETTIER_OPTIONS_KEY, None)
-        if prettier_options:
-            if option in prettier_options:
-                return prettier_options.get(option, None)
-        return None
 
     @staticmethod
     def is_bool_str(val):
