@@ -4,7 +4,7 @@ import os
 import platform
 import fnmatch
 
-from re import match, sub
+from re import match, sub, search
 from subprocess import PIPE
 from subprocess import Popen
 
@@ -72,6 +72,7 @@ ALLOWED_FILE_EXTENSIONS = [
     'less'
 ]
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
+CAN_SUBLIME_TEXT_DO_PHANTOM = int(sublime.version()) >= 3118
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -80,6 +81,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @property
     def debug(self):
         return self.get_setting('debug', False)
+
+    @property
+    def show_error_phantoms(self):
+        return self.get_setting('show_error_phantoms', False)
 
     @property
     def has_error(self):
@@ -351,11 +356,54 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if stderr or proc.returncode != 0:
                 self.format_error_message(
                     stderr.decode('utf-8'), str(proc.returncode))
+                self.maybe_show_phantom_error(stderr.decode('utf-8'))
                 return None
+            else:
+                self.clear_phantom_error()
             return stdout.decode('utf-8')
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
+
+    def maybe_show_phantom_error(self, error_message):
+        if not CAN_SUBLIME_TEXT_DO_PHANTOM or not self.show_error_phantoms:
+            return
+        view = self.view
+
+        error_pos_regex = r"\(([0-9]+):([0-9]+)\)"
+        matches = search(error_pos_regex, error_message)
+
+        self.clear_phantom_error()
+        if not matches:
+            return
+
+        line, col = matches.groups()
+        line, col = int(line), int(col)
+        error_point = view.text_point(line - 1, col - 1)
+        region = sublime.Region(error_point, error_point)
+        formatted_message = error_message.replace('\n', "<br>") \
+            .replace(" ", u"\u00A0")
+        html = """
+            <body id="jsprettier-error-message">
+                <style>
+                    code.error {
+                        color: var(--redish);
+                        background-color: var(--background);
+                        padding: 5px;
+                    }
+                </style>
+                <code class="error">
+                    """ + formatted_message + """
+                </code>
+            </body>
+        """
+        view.add_phantom("jsPrettierError", region, html, sublime.LAYOUT_BELOW)
+        view.show(region)
+
+    def clear_phantom_error(self):
+        if not CAN_SUBLIME_TEXT_DO_PHANTOM:
+            return
+        self.view.erase_phantoms("jsPrettierError")
 
     def should_show_plugin(self):
         view = self.view
@@ -769,6 +817,11 @@ class CommandOnSave(sublime_plugin.EventListener):
         if self.is_allowed(view) and self.is_enabled(view):
             if self.is_excluded(view):
                 view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
+
+    def on_modified_async(self, view):
+        if not CAN_SUBLIME_TEXT_DO_PHANTOM:
+            return
+        view.erase_phantoms("jsPrettierError")
 
     def auto_format_on_save(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
