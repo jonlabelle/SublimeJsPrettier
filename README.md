@@ -63,8 +63,6 @@ yarn global add prettier
 npm install -g prettier
 ```
 
-*We're defaulting to [yarn] but you can use [npm] if you like.*
-
 ### Install JsPrettier via Package Control
 
 The easiest and recommended way to install Js​Prettier is
