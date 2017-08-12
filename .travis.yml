@@ -1,4 +1,3 @@
-# recommended by travis support:
 sudo: required
 
 language:
@@ -14,17 +13,17 @@ node_js:
 
 cache:
   directories:
-  # cache pylint stats
-  - $HOME/.pylint.d
+    # cache pylint stat files:
+    - $HOME/.pylint.d
 
-# install dependencies:
 install:
+  # install dev/test dependencies:
   - bash scripts/install.sh
 
-# run tests:
 script:
+  # run tests:
   - bash scripts/run_tests.sh
 
-# disable email build notifications:
 notifications:
+  # disable all email build notifications:
   email: false

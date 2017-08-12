@@ -1,5 +1,4 @@
 environment:
-
   matrix:
     - PYTHON: C:\Python27
     - PYTHON: C:\Python33
@@ -9,11 +8,14 @@ cache:
   '%USERPROFILE%\.pylint.d -> .pylintrc'
 
 install:
-  # install the latest stable version of node.js:
+  # install latest, stable node.js:
   - ps: Install-Product node ''
+
+  # install dev/test dependencies:
   - scripts\install.cmd %PYTHON%
 
 test_script:
+  # run tests:
   - scripts\run_tests.cmd %PYTHON%
 
 build: off
