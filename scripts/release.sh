@@ -75,8 +75,8 @@ echo "> git commit/push/tag/push --tags"
 set -x
 git add package.json
 git commit -m "Bump to v$VERSION"
-git push "$ORIGIN" "$BRANCH"
-git tag -a "$VERSION"
+git push origin master
+git tag -a "$VERSION" -m "Tag v$VERSION"
 git push --tags
 set +x
 
