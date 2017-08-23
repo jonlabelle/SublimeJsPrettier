@@ -11,10 +11,10 @@
 #
 # ... which performs the following operations:
 #
-# - Bumps 'package.json' file to passed <semver> arg (1).
-# - Commit and push the change (on master)
-# - Create and push <semver> git tag
-# - publish the npm package
+# - Bumps 'package.json' version field to the passed <semver> arg (1).
+# - Commit and push the change (to master).
+# - Create and push passed <semver> arg (1) git tag.
+# - Run npm publish.
 #
 # Example:
 #
