@@ -55,7 +55,7 @@ sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$VERSION"'"'/ pa
     mv /tmp/package.json package.json
 grep "$VERSION" -C 1 package.json
 
-if [[ ! $(git diff --stat) =~ "2 files changed, 2 insertions(+), 2 deletions(-)" ]]; then
+if [[ ! $(git diff --stat) =~ "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
     echo "WARNING! Expected exactly 2 changes in 2 files after replacing version number. Bailing! (check git status and git diff)"
     exit 1
 fi
