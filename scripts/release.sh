@@ -18,7 +18,7 @@
 #
 # Example:
 #
-#   $ release.sh 1.2.1
+#   $ bash scripts/release.sh 1.2.1
 ##
 
 set -e
