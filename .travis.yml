@@ -1,4 +1,15 @@
+dist: trusty
 sudo: required
+
+addons:
+  sonarcloud:
+    organization: "jonlabelle-github"
+    token:
+      secure: "EfB1NODLgc/Sp8JGzckrrxLPWB3x/mmfujMAMNBpLSbMDTn6tWdG7PKrOS5VNBlv/UtkSJgJ3VJkDA7A0IS8IxAdy1fxRBK/XB1Ws/OAh8m25/3Unm05PBGLOtyZlgup3jUzWm7pLtz+TLGLcvp+Z+RD80BM9Ck6dDZZrDBeImw9vwINebHGbbwrAUK07vqwl0BCrTmAWwILyPXLO4vlXtJyZeiUIVP2xaBXXG0rjpmy8Re4VIs/BClkGVAa5R0hKZAq5lsFavMXROLeUQyJd4axqsXY9/btCBGxvFFZW39OZPtZvAKTsvtbmyWwg8YgkhUx8bbEu6IkEgJKFZfrZEdPqWmQGH97fMVR2N8vl0ln0n0HHGtjGuXxtK3pWgp20Texa7BR+pMJRZkd/hVdXdKbQ/5og4ZwGZUwP//Ct9Mhq9gJ5dzYNsYx9vIsT6O++71jQM6zlETHpRjzBByt4BDOl6eHSDw1yqWqBJL++Wci64jE9HQFvflgVywCzQU4O0b0fLZcn/A2/d+b6dYF8yxpS26ZQ0yUotCBhbRMzHTqENemMAyyyuJgtdkEcH0l2j6ZmFAWWDgfus/H6cYM52mLUcu6lFgKzl6IRIrBUq4E4jEiU7J/DYRpFvY2/5xoWeJ11E6oOPCr+M3khHLArV221KLqFWwI/qTuy1hA1VY="
+
+# jdk required by sonar-scanner:
+jdk:
+  - oraclejdk8
 
 language:
   - python
@@ -13,17 +24,15 @@ node_js:
 
 cache:
   directories:
-    # cache pylint stat files:
     - $HOME/.pylint.d
+    - $HOME/.sonar/cache
 
 install:
-  # install dev/test dependencies:
   - bash scripts/install.sh
 
 script:
-  # run tests:
   - bash scripts/run_tests.sh
+  - sonar-scanner
 
 notifications:
-  # disable all email build notifications:
   email: false
