@@ -476,9 +476,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return prettier_cli_args
 
     def which(self, executable, path=None):
-        if not self.is_str_none_or_empty(executable):
-            if os.path.isfile(executable):
-                return executable
+        if not self.is_str_none_or_empty(executable) \
+                and os.path.isfile(executable):
+            return executable
 
         if self.is_str_none_or_empty(path):
             path = os.environ['PATH']
@@ -616,9 +616,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not project_settings:
             return None
         js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY)
-        if js_prettier_settings:
-            if key in js_prettier_settings:
-                return js_prettier_settings[key]
+        if js_prettier_settings and key in js_prettier_settings:
+            return js_prettier_settings[key]
         return None
 
     @staticmethod
@@ -628,9 +627,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not js_prettier_settings:
             return None
         prettier_options = js_prettier_settings.get(PRETTIER_OPTIONS_KEY, None)
-        if prettier_options:
-            if option in prettier_options:
-                return prettier_options.get(option, None)
+        if prettier_options and option in prettier_options:
+            return prettier_options.get(option, None)
         return None
 
     @staticmethod
@@ -764,9 +762,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        if self.is_allowed(view) and self.is_enabled(view):
-            if self.is_excluded(view):
-                view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
+        if self.is_allowed(view) \
+                and self.is_enabled(view) and self.is_excluded(view):
+            view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def auto_format_on_save(self, view):
         return self.get_setting(view, 'auto_format_on_save', False)
@@ -822,7 +820,6 @@ class CommandOnSave(sublime_plugin.EventListener):
         if not settings:
             return None
         jsprettier = settings.get(PROJECT_SETTINGS_KEY)
-        if jsprettier:
-            if key in jsprettier:
-                return jsprettier[key]
+        if jsprettier and key in jsprettier:
+            return jsprettier[key]
         return None
