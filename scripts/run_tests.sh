@@ -10,7 +10,7 @@ set -x
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 pushd "${SCRIPTSDIR}" && pushd ..
 
-pytest .
+py.test .
 flake8 .
 pylint JsPrettier.py
 markdownlint .
