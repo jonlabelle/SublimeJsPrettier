@@ -2,12 +2,9 @@
 
 set -e
 
-#
-# cd to project root and run tests
-#
-
 SONAR_LOGIN=$1
 SONAR_SCANNER_CMD=$2
+
 if [ $# -eq 0 ]; then
     echo "Usage: run_sonar_scan.sh <sonar login/api key> [sonar scanner command path]"
     exit 1
@@ -20,13 +17,12 @@ if [ -z "$SONAR_SCANNER_CMD" ]; then
     SONAR_SCANNER_CMD=sonar-scanner
 fi
 
-# cd to project root:
-readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
+# cd to project root and run analysis:
+echo
+echo '> Run sonar analysis'
+echo
+SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 pushd "${SCRIPTSDIR}" && pushd ..
-
-echo
-echo '> Running sonar analysis'
-echo
 "${SONAR_SCANNER_CMD}" -Dsonar.login="${SONAR_LOGIN}"
 echo
 echo Finished.
