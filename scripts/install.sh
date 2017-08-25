@@ -1,16 +1,34 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
-
-#
-# cd to project root and install dev/test dependencies
-#
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
+
+PIP_CMD=
+resolve_pip()
+{
+    if [ -x "$(command -v pip)" ]; then
+        PIP_CMD=$(which pip)
+    elif [ -x "$(command -v pip2)" ]; then
+        PIP_CMD=$(which pip2)
+    elif [ -x "$(command -v pip3)" ]; then
+        PIP_CMD=$(which pip3)
+    else
+        echo "Error: Could not resolve path to pip." >&2
+        exit 1
+    fi
+}
+resolve_pip
+
+echo
+echo '> Install package dependencies'
+echo
+
 pushd "${SCRIPTSDIR}" && pushd ..
-
-pip install -r requirements.txt
+"${PIP_CMD}" install -r requirements.txt
 npm install -g markdownlint-cli
-
 popd && popd
+
+echo
+echo 'Finished.'
+echo

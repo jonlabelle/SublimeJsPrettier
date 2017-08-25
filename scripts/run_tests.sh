@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
-
-#
-# cd to project root and run tests
-#
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
-pushd "${SCRIPTSDIR}" && pushd ..
 
+echo
+echo '> Run tests'
+echo
+
+pushd "${SCRIPTSDIR}" && pushd ..
 py.test .
 flake8 .
 pylint JsPrettier.py
 markdownlint .
-
 popd && popd
+
+echo
+echo 'Finished.'
+echo

@@ -4,17 +4,21 @@ setlocal
 set PYTHON=%~1
 if defined PYTHON set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
 
-::
-:: cd to project root and run tests
-::
-
 set SCRIPTSDIR=%~dp0
-pushd "%SCRIPTSDIR%" && pushd ..
 
-pytest .
+echo.
+echo. > Run tests
+echo.
+
+pushd "%SCRIPTSDIR%" && pushd ..
+py.test .
 flake8 .
 pylint JsPrettier.py
 markdownlint .
-
 popd && popd
+
+echo.
+echo. Finished.
+echo.
+
 endlocal
