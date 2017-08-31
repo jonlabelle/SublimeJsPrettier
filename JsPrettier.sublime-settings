@@ -138,6 +138,40 @@
 	"custom_file_extensions": [],
 
 	// ----------------------------------------------------------------------
+	// Maximum File Size Limit
+	// ----------------------------------------------------------------------
+	//
+	// @param {int} "max_file_size_limit"
+	// @default -1
+	//
+	// The maximum allowed file size to format in bytes. For performance
+	// reasons, files with a greater file size than the specified
+	// `max_file_size_limit` will not be formatted.
+	//
+	// Setting the `max_file_size_limit` value to `-1` will disable file size
+	// checking (default).
+	// ----------------------------------------------------------------------
+
+	"max_file_size_limit": -1,
+
+	// ----------------------------------------------------------------------
+	// Use Prettier Configuration Files
+	// ----------------------------------------------------------------------
+	//
+	// @param {bool} "use_prettier_config_files"
+	// @default false
+	//
+	// Whether or not to support Prettier Configuration Files. If `true`,
+	// *Prettier* options specified from SublimeText settings will be ignored,
+	// and resolved natively through Prettier.
+	//
+	// See <https://github.com/prettier/prettier#configuration-file> for more
+	// information on Prettier Configuration Files.
+	// ----------------------------------------------------------------------
+
+	"use_prettier_config_files": false,
+
+	// ----------------------------------------------------------------------
 	// Additional CLI Arguments
 	// ----------------------------------------------------------------------
 	//
@@ -164,23 +198,6 @@
 	// ----------------------------------------------------------------------
 
 	"additional_cli_args": {},
-
-	// ----------------------------------------------------------------------
-	// Maximum File Size Limit
-	// ----------------------------------------------------------------------
-	//
-	// @param {int} "max_file_size_limit"
-	// @default -1
-	//
-	// The maximum allowed file size to format in bytes. For performance
-	// reasons, files with a greater file size than the specified
-	// `max_file_size_limit` will not be formatted.
-	//
-	// Setting the `max_file_size_limit` value to `-1` will disable file size
-	// checking (default).
-	// ----------------------------------------------------------------------
-
-	"max_file_size_limit": -1,
 
 	// ----------------------------------------------------------------------
 	// Prettier Options

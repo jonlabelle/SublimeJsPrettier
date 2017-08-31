@@ -173,6 +173,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.get_setting('additional_cli_args', {})
 
     @property
+    def use_prettier_config_files(self):
+        return self.get_setting('use_prettier_config_files', False)
+
+    @property
     def max_file_size_limit(self):
         return int(self.get_setting('max_file_size_limit', -1))
 
@@ -237,6 +241,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         prettier_args = self.parse_prettier_options(view)
         node_path = self.node_path
+
+        source_file_dir = os.path.abspath(os.path.dirname(view.file_name()))
+        os.chdir(source_file_dir)
 
         # Format entire file:
         if not self.has_selection(view) or force_entire_file is True:
@@ -410,54 +417,74 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             cli_option_name = mapping['cli']
             option_value = self.get_sub_setting(option_name)
 
-            # internally override the 'parser' option for css
-            # and set the value to 'postcss':
-            if option_name == 'parser' and is_css:
-                prettier_cli_args.append(cli_option_name)
-                prettier_cli_args.append('postcss')
-                continue
+            if option_name == 'parser':
+                if is_css:
+                    # internally override the 'parser' option for css
+                    # and set the value to 'postcss':
+                    prettier_cli_args.append(cli_option_name)
+                    prettier_cli_args.append('postcss')
+                    continue
 
-            # internally override the 'parser' for typescript
-            # and set the value to 'typescript':
-            if option_name == 'parser' and is_typescript:
-                prettier_cli_args.append(cli_option_name)
-                prettier_cli_args.append('typescript')
-                continue
+                if is_typescript:
+                    # internally override the 'parser' for typescript
+                    # and set the value to 'typescript':
+                    prettier_cli_args.append(cli_option_name)
+                    prettier_cli_args.append('typescript')
+                    continue
 
-            # internally override the 'parser' for json
-            # and set the value to 'json':
-            if option_name == 'parser' and is_json:
-                prettier_cli_args.append(cli_option_name)
-                prettier_cli_args.append('json')
-                continue
+                if is_json:
+                    # internally override the 'parser' for json
+                    # and set the value to 'json':
+                    prettier_cli_args.append(cli_option_name)
+                    prettier_cli_args.append('json')
+                    continue
 
-            # internally override the 'parser' for graphql
-            # and set the value to 'graphql':
-            if option_name == 'parser' and is_graphql:
-                prettier_cli_args.append(cli_option_name)
-                prettier_cli_args.append('graphql')
-                continue
+                if is_graphql:
+                    # internally override the 'parser' for graphql
+                    # and set the value to 'graphql':
+                    prettier_cli_args.append(cli_option_name)
+                    prettier_cli_args.append('graphql')
+                    continue
 
-            if option_value is None or str(option_value) == '':
-                option_value = mapping['default']
-            option_value = str(option_value).strip()
+            if self.use_prettier_config_files is False:
+                #
+                # When applicable, these options can be
+                # read the .prettierrc config file. The
+                # default is to read Prettier options
+                # specified in SublimeText settings files.
+                # The default is to use SublimeText settings
+                # files.
 
-            if self.is_bool_str(option_value):
-                prettier_cli_args.append('{0}={1}'.format(
-                    cli_option_name, option_value.lower()))
-            else:
-                prettier_cli_args.append(cli_option_name)
-                prettier_cli_args.append(option_value)
+                if option_value is None or str(option_value) == '':
+                    option_value = mapping['default']
+                option_value = str(option_value).strip()
 
-        # set the `tabWidth` option based on the current view:
-        prettier_cli_args.append('--tab-width')
-        prettier_cli_args.append(str(self.tab_size))
+                if self.is_bool_str(option_value):
+                    prettier_cli_args.append('{0}={1}'.format(
+                        cli_option_name, option_value.lower()))
+                else:
+                    prettier_cli_args.append(cli_option_name)
+                    prettier_cli_args.append(option_value)
 
-        # set the `useTabs` option based on the current view:
-        prettier_cli_args.append('{0}={1}'.format(
-            '--use-tabs', str(self.use_tabs).lower()))
+        if self.use_prettier_config_files is False:
+            #
+            # When applicable, these options can be
+            # read the .prettierrc config file. The
+            # default is to read Prettier options
+            # specified in SublimeText settings files.
+            # The default is to use SublimeText settings
+            # files.
 
-        # add the additional arguments from the settings file to the command:
+            # set the `tabWidth` option based on the current view:
+            prettier_cli_args.append('--tab-width')
+            prettier_cli_args.append(str(self.tab_size))
+
+            # set the `useTabs` option based on the current view:
+            prettier_cli_args.append('{0}={1}'.format(
+                '--use-tabs', str(self.use_tabs).lower()))
+
+        #
+        # Append any additional specified arguments:
         if self.additional_cli_args and len(self.additional_cli_args) > 0:
             for arg_key, arg_value in self.additional_cli_args.items():
                 arg_key = str(arg_key).strip()
