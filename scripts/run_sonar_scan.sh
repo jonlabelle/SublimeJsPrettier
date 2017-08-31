@@ -4,15 +4,16 @@ set -e
 
 SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
+# cd to project root
+pushd "${SCRIPTSDIR}" && pushd ..
+
 SONAR_LOGIN=$1
 SONAR_SCANNER_CMD=$2
 
-pushd "${SCRIPTSDIR}" && pushd ..
-
-# if no args passed... try to suck suck .env file:
+# if no args passed... try to suck in .env file:
 if [ $# -eq 0 ]; then
     if [ -r .env ] && [ -f .env ]; then
-        while read -r line; do export $line; done < .env
+        source .env
     else
         echo "Usage: run_sonar_scan.sh <sonar login/api key> [sonar scanner command path]"
         exit 1
