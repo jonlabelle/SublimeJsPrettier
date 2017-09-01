@@ -23,62 +23,126 @@
 
 set -e
 
-readonly SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
-
-#
-# cd to scripts dir, then project root (assuming this script is
-# stored at <root>/scripts:
-cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" && cd ../
-
 VERSION=$1
-if [[ ! ${VERSION} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    echo "$VERSION is not a valid semver (ex: 1.2.1)"
-    exit 1
-fi
 
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [ "$GIT_BRANCH" != "master" ]; then
-    echo "$SCRIPT_NAME must be run from the 'master' branch (current branch is: '$GIT_BRANCH')."
-    exit 1
-fi
+readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
+readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
-if ! git diff-index --quiet HEAD --; then
-    echo "git repo is dirty. Commit all changes before using $SCRIPT_NAME."
-    exit 1
-fi
+show_info() {
+    local msg="$1"
+    echo -e "\e[36m${1}\e[0m"
+}
 
-echo
-echo "> Bump package.json version:"
-echo
-TMP_PKG_FILE="${TMPDIR:-/tmp}/package.json.$$"
-sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$VERSION"'"'/ package.json > "$TMP_PKG_FILE" && mv "$TMP_PKG_FILE" package.json
-grep "$VERSION" -C 1 package.json
+show_success() {
+    local msg="$1"
+    echo -e "\e[32m${msg}\e[0m"
+}
 
-if [[ ! $(git diff --stat) =~ "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
-    echo "WARNING! Expected exactly 1 change in 1 file after replacing version number. Bailing! (check git status and git diff)"
-    exit 1
-fi
+show_warning() {
+    local msg="$1"
+    echo -e "\e[33mwarning\e[0m : ${1}"
+}
 
-echo
-while true; do
-    read -r -p "> Ready to build, commit, tag and release v$VERSION? (y/n): " yn
-    case ${yn} in
-        [Yy]* )   break;;
-        [NnQq]* ) exit;;
-        * ) echo "Please answer w [Y]es or [N]o.";;
-    esac
-done
+show_error() {
+    local msg="$1"
+    echo -e "\e[31merror\e[0m : ${1}"
+}
 
-echo
-echo "> git commit/push/tag/push --tags"
-set -x
-git add package.json
-git commit -m "Bump to v$VERSION"
-git push origin master
-git tag -a "$VERSION" -m "Tag v$VERSION"
-git push --tags
-set +x
+cd_root_dir() {
+    show_info '> cd to project root'
+    pushd "${SCRIPTSDIR}" && pushd ..
+}
 
-echo
-echo "> npm publish"
-npm publish
+cd_previous_dir() {
+    show_info '> Restore previous working directory'
+    popd && popd
+}
+
+ensure_semver_arg() {
+    if [[ ! ${VERSION} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        show_error "$VERSION is not a valid semver (ex: 1.2.1)"
+        exit 1
+    fi
+}
+
+ensure_branch_is_master() {
+    show_info "> Ensure current branch is 'master'"
+    local git_branch=$(git rev-parse --abbrev-ref HEAD)
+    if [ "$git_branch" != "master" ]; then
+        show_error "$SCRIPTNAME must be run from the 'master' branch (current branch is: '$git_branch')."
+        exit 1
+    fi
+}
+
+ensure_repo_is_clean() {
+    show_info "> Ensure repo is clean"
+    if ! git diff-index --quiet HEAD --; then
+        show_error "git repo is dirty. Commit all changes before using $SCRIPTNAME."
+        exit 1
+    fi
+}
+
+bump_package_json_version() {
+    show_info "> Bump version in 'package.json' file"
+    TMPPKGFILE="${TMPDIR:-/tmp}/package.json.$$"
+    sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$VERSION"'"'/ package.json > "$TMPPKGFILE" && mv "$TMPPKGFILE" package.json
+    grep "$VERSION" -C 1 package.json
+}
+
+ensure_only_one_file_changed() {
+    show_info "> Ensure only one file changed (package.json and version field)"
+    if [[ ! $(git diff --stat) =~ "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
+        show_error "WARNING! Expected exactly 1 change in 1 file after replacing version number. Bailing! (check git status and git diff)"
+        exit 1
+    fi
+}
+
+confirm_before_commit_tag_release() {
+    echo
+    while true; do
+        read -r -p "> Ready to build, commit, tag and release v$VERSION? (y/n): " yn
+        case ${yn} in
+            [Yy]* )   break;;
+            [NnQq]* ) exit;;
+            * ) show_warning "Please answer w [Y]es or [N]o.";;
+        esac
+    done
+}
+
+commit_tag_release() {
+    echo
+    show_info "> git commit/push/tag/push --tags"
+    set -x
+    git add package.json
+    git commit -m "Bump to v$VERSION"
+    git push origin master
+    git tag -a "$VERSION" -m "Tag v$VERSION"
+    git push --tags
+    set +x
+}
+
+run_npm_publish() {
+    echo
+    show_info "> Publish npm package"
+    npm publish
+}
+
+
+main() {
+    cd_root_dir
+    ensure_semver_arg
+    ensure_branch_is_master
+    ensure_repo_is_clean
+    bump_package_json_version
+    ensure_only_one_file_changed
+    confirm_before_commit_tag_release
+    commit_tag_release
+    run_npm_publish
+    cd_previous_dir
+
+    echo
+    show_success "Finished."
+    echo
+}
+
+main
