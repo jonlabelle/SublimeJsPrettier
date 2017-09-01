@@ -193,6 +193,30 @@ file, accessible from the **Preferences** > **Package Settings** >
     `tsx`, `css`, `scss` and `less` files. Any additional file extensions must
     be specified here (exclude the leading dot).
   
+- **max_file_size_limit** (default: ***-1***)  
+    The maximum allowed file size to format in bytes. For performance reasons,
+    files with a greater file size than the specified `max_file_size_limit` will
+    not be formatted. Setting the `max_file_size_limit` value to ***-1*** will
+    disable file size checking (default).
+  
+- **use_prettier_config_files** (default: ***false***)  
+    Whether or not to use [Prettier Configuration files] (e.g.: `.prettierrc)`.
+    If `true`, *Prettier* options specified in SublimeText settings files will
+    be ignored, and Prettier config file paths will be resolved natively by
+    Prettier.
+  
+    **NOTE:** To specify a *custom* Prettier config file path, outside of the
+    normal Prettier config file path resolution lookup; you will need to set the
+    `use_prettier_config_files` setting to `true`, and add your custom Prettier
+    config path to the `additional_cli_args` setting below. Here's an example of
+    what your `JsPrettier.sublime-settings` file might look like...
+  
+        "use_prettier_config_files": true,
+  
+        "additional_cli_args": {
+            "--config": "/custom/path/to/my/.prettierrc"
+        },
+  
 - **additional_cli_args** (default: {})  
     A key-value pair of additional arguments to append to the prettier command.
   
@@ -211,12 +235,6 @@ file, accessible from the **Preferences** > **Package Settings** >
     > the [Sublime Text Console]. You can also enable the `debug` setting to
     > inspect the generated command-line output passed to prettier; which is
     > also useful for quickly troubleshooting issues.
-
-- **max_file_size_limit** (default: ***-1***)  
-    The maximum allowed file size to format in bytes. For performance reasons,
-    files with a greater file size than the specified `max_file_size_limit` will
-    not be formatted. Setting the `max_file_size_limit` value to ***-1*** will
-    disable file size checking (default).
 
 ### Prettier Options
 
@@ -287,8 +305,9 @@ must be created under the project file's `settings` section.
             "auto_format_on_save_excludes": ["*/node_modules/*", "*/.git/*"],
             "allow_inline_formatting": false,
             "custom_file_extensions": [],
-            "additional_cli_args": {},
             "max_file_size_limit": -1,
+            "use_prettier_config_files": false,
+            "additional_cli_args": {},
             "prettier_options": {
                 "printWidth": 80,
                 "singleQuote": false,
@@ -338,6 +357,7 @@ Jon LaBelle
 [manual download instructions]: #manual-download
 [Sublime Text Console]: http://docs.sublimetext.info/en/latest/basic_concepts.html#sublime-text-is-programmable
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
+[Prettier Configuration files]: https://github.com/prettier/prettier/blob/master/README.md#configuration-file
 [issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE.md
 [report an issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md

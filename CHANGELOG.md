@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.0
+
+**Release Date:** 2017-09-01
+
+- Add support for reading configuration options from Prettier configuration
+  files (e.g.: `.prettierrc` files). Requires [prettier v1.6+].
+
 ## 1.12.0
 
 **Release Date:** 2017-07-02
@@ -177,3 +184,4 @@
 [Project-level settings]: https://github.com/jonlabelle/SublimeJsPrettier#project-level-settings
 [prettier v1.4+]: https://github.com/prettier/prettier/releases/tag/1.4.0
 [prettier v1.5+]: https://github.com/prettier/prettier/releases/tag/1.5.0
+[prettier v1.6+]: https://github.com/prettier/prettier/releases/tag/1.6.0

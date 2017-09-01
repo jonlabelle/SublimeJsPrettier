@@ -242,6 +242,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_args = self.parse_prettier_options(view)
         node_path = self.node_path
 
+        # cd to the path of the file being formattting:
         source_file_dir = os.path.abspath(os.path.dirname(view.file_name()))
         os.chdir(source_file_dir)
 
@@ -446,7 +447,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append('graphql')
                     continue
 
-            if self.use_prettier_config_files is False:
+            if not self.use_prettier_config_files:
                 #
                 # When applicable, these options can be
                 # read the .prettierrc config file. The
@@ -466,7 +467,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append(cli_option_name)
                     prettier_cli_args.append(option_value)
 
-        if self.use_prettier_config_files is False:
+        if not self.use_prettier_config_files:
             #
             # When applicable, these options can be
             # read the .prettierrc config file. The

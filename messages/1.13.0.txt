@@ -1,0 +1,6 @@
+## 1.13.0
+
+Release Date: 2017-09-01
+
+- Add support for reading configuration options from Prettier configuration
+  files (e.g.: `.prettierrc` files). Requires prettier v1.6+.
