@@ -4,7 +4,7 @@
 
 **Release Date:** 2017-09-02
 
-- Prettier configuration files are now automatically resolved via the 
+- Prettier configuration files are now automatically resolved via the
   `prettier --find-config-path <target_file_to_format>` command.
   Requires [prettier v1.6+].
 
