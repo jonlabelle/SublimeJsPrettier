@@ -50,7 +50,7 @@ show_error() {
 
 
 show_usage() {
-    echo "Usage: bash $SCRIPTNAME <semver>"
+    echo "Usage: bash $SCRIPTNAME <semver/version>"
 }
 
 cd_project_root() {
@@ -63,9 +63,9 @@ restore_previous_working_dir() {
     popd && popd
 }
 
-ensure_semver_arg() {
+validate_version() {
     if [[ ! ${VERSION} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-        show_error "$VERSION is not a valid semver (ex: 1.2.1)"
+        show_error "'$VERSION' is not a valid semver/version number (ex: 1.2.1)."
         exit 1
     fi
 }
@@ -74,7 +74,7 @@ ensure_git_branch_is_master() {
     show_info "> Ensure current branch is 'master'"
     local git_branch=$(git rev-parse --abbrev-ref HEAD)
     if [ "$git_branch" != "master" ]; then
-        show_error "$SCRIPTNAME must be run from the 'master' branch (current branch is: '$git_branch')."
+        show_error "'$SCRIPTNAME' must be run on the 'master' branch, and the current branch is '$git_branch'."
         exit 1
     fi
 }
@@ -82,34 +82,34 @@ ensure_git_branch_is_master() {
 ensure_git_repo_is_clean() {
     show_info "> Ensure repo is clean"
     if ! git diff-index --quiet HEAD --; then
-        show_error "git repo is dirty. Commit all changes before using $SCRIPTNAME."
+        show_error "git repo is dirty. commit all changes before using '$SCRIPTNAME'."
         exit 1
     fi
 }
 
 bump_package_json_version() {
     show_info "> Bump version in 'package.json' file"
-    TMPPKGFILE="${TMPDIR:-/tmp}/package.json.$$"
-    sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$VERSION"'"'/ package.json > "$TMPPKGFILE" && mv "$TMPPKGFILE" package.json
+    local tmp_pkg_file="${TMPDIR:-/tmp}/package.json.$$"
+    sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$VERSION"'"'/ package.json > "$tmp_pkg_file" && mv "$tmp_pkg_file" package.json
     grep "$VERSION" -C 1 package.json
 }
 
 ensure_only_one_file_changed() {
     show_info "> Ensure only one file changed (package.json and version field)"
     if [[ ! $(git diff --stat) =~ "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
-        show_error "WARNING! Expected exactly 1 change in 1 file after replacing version number. Bailing! (check git status and git diff)"
+        show_error "expected '1 file changed, 1 insertion(+), 1 deletion(-)'. check git status and git diff."
         exit 1
     fi
 }
 
 confirm_git_commit_tag_release() {
-    show_info "> Acquire confirmations"
+    show_info "> Acquire confirmation"
     while true; do
-        read -r -p "Ready to build, commit, tag and release v$VERSION? (y/n): " yn
+        read -r -p "Ready to commit, tag and release 'v$VERSION'? (y/n): " yn
         case ${yn} in
             [Yy]* )   break;;
             [NnQq]* ) exit;;
-            * ) show_warning "Please answer w [Y]es or [N]o.";;
+            * ) show_warning "Please answer [Y]es or [N]o.";;
         esac
     done
 }
@@ -131,8 +131,8 @@ run_npm_publish() {
 }
 
 main() {
+    validate_version
     cd_project_root
-    ensure_semver_arg
     ensure_git_branch_is_master
     ensure_git_repo_is_clean
     bump_package_json_version
@@ -141,12 +141,13 @@ main() {
     git_commit_tag_release
     run_npm_publish
     restore_previous_working_dir
+
     echo && show_success "Finished." && echo
 }
 
 
 if [ $# -eq 0 ]; then
-    show_error "missing semver/version argument"
+    show_error "you must specify a valid semver/version number for the release."
     show_usage
     exit 1
 else
