@@ -8,6 +8,7 @@ readonly SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
 SONAR_LOGIN=$1
 SONAR_SCANNER_CMD=$2
 
+
 show_info() {
     local msg="$1"
     echo -e "\e[36m${1}\e[0m"
@@ -28,31 +29,31 @@ show_error() {
     echo -e "\e[31merror\e[0m : ${1}"
 }
 
-cd_root_dir() {
-    show_info '> cd to project root'
-    echo
-    pushd "${SCRIPTSDIR}" && pushd ..
-}
-
-cd_previous_dir() {
-    show_info '> Restore previous working directory'
-    echo
-    popd && popd
-}
 
 show_usage() {
     echo "Usage: bash $SCRIPT_NAME <SONAR_LOGIN/API_KEY> [path/to/sonar-scanner]"
 }
 
+cd_project_root() {
+    show_info '> cd to project root'
+    pushd "${SCRIPTSDIR}" && pushd ..
+    echo
+}
+
+restore_previous_working_dir() {
+    show_info '> Restore previous working directory'
+    popd && popd
+    echo
+}
+
 run_scan() {
-    echo
     show_info '> Run sonar scanner analysis'
-    echo
     "${SONAR_SCANNER_CMD}" -Dsonar.login="${SONAR_LOGIN}"
     echo
 }
 
-cd_root_dir
+
+cd_project_root
 
 #
 # if no args passed... try to suck in .env file:
@@ -77,8 +78,5 @@ if [ -z "$SONAR_SCANNER_CMD" ]; then
 fi
 
 run_scan
-cd_previous_dir
-
-echo
+restore_previous_working_dir
 show_success 'Finished.'
-echo

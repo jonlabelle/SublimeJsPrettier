@@ -1,24 +1,23 @@
 #!/usr/bin/env bash
 
 ##
-# Release tasks bulked into one script (user intervention required)
-#
-# Usage:
-#
-# From the 'master' branch... run:
-#
-#   $ release.sh <semver>
-#
-# ... which performs the following operations:
+# Release tasks bulked into one script w/ user
+# intervention/confirmation required.
 #
 # - Bumps 'package.json' version field to the passed <semver> arg (1).
 # - Commit and push the change (to master).
 # - Create and push passed <semver> arg (1) git tag.
 # - Run npm publish.
 #
+# Usage:
+#
+# From the 'master' branch... run:
+#
+#     release.sh <semver>
+#
 # Example:
 #
-#   $ bash scripts/release.sh 1.2.1
+#     bash release.sh 1.2.1
 ##
 
 set -e
@@ -27,6 +26,7 @@ VERSION=$1
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
+
 
 show_info() {
     local msg="$1"
@@ -48,12 +48,13 @@ show_error() {
     echo -e "\e[31merror\e[0m : ${1}"
 }
 
-cd_root_dir() {
+
+cd_project_root() {
     show_info '> cd to project root'
     pushd "${SCRIPTSDIR}" && pushd ..
 }
 
-cd_previous_dir() {
+restore_previous_working_dir() {
     show_info '> Restore previous working directory'
     popd && popd
 }
@@ -65,7 +66,7 @@ ensure_semver_arg() {
     fi
 }
 
-ensure_branch_is_master() {
+ensure_git_branch_is_master() {
     show_info "> Ensure current branch is 'master'"
     local git_branch=$(git rev-parse --abbrev-ref HEAD)
     if [ "$git_branch" != "master" ]; then
@@ -74,7 +75,7 @@ ensure_branch_is_master() {
     fi
 }
 
-ensure_repo_is_clean() {
+ensure_git_repo_is_clean() {
     show_info "> Ensure repo is clean"
     if ! git diff-index --quiet HEAD --; then
         show_error "git repo is dirty. Commit all changes before using $SCRIPTNAME."
@@ -97,10 +98,10 @@ ensure_only_one_file_changed() {
     fi
 }
 
-confirm_before_commit_tag_release() {
-    echo
+confirm_git_commit_tag_release() {
+    show_success "> Acquire confirmations"
     while true; do
-        read -r -p "> Ready to build, commit, tag and release v$VERSION? (y/n): " yn
+        read -r -p "Ready to build, commit, tag and release v$VERSION? (y/n): " yn
         case ${yn} in
             [Yy]* )   break;;
             [NnQq]* ) exit;;
@@ -109,8 +110,7 @@ confirm_before_commit_tag_release() {
     done
 }
 
-commit_tag_release() {
-    echo
+git_commit_tag_release() {
     show_info "> git commit/push/tag/push --tags"
     set -x
     git add package.json
@@ -129,20 +129,17 @@ run_npm_publish() {
 
 
 main() {
-    cd_root_dir
+    cd_project_root
     ensure_semver_arg
-    ensure_branch_is_master
-    ensure_repo_is_clean
+    ensure_git_branch_is_master
+    ensure_git_repo_is_clean
     bump_package_json_version
     ensure_only_one_file_changed
-    confirm_before_commit_tag_release
-    commit_tag_release
+    confirm_git_commit_tag_release
+    git_commit_tag_release
     run_npm_publish
-    cd_previous_dir
-
-    echo
-    show_success "Finished."
-    echo
+    restore_previous_working_dir
+    echo && show_success "Finished." && echo
 }
 
 main
