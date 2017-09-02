@@ -456,6 +456,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         is_typescript = self.is_typescript(view)
         is_json = self.is_json(view)
         is_graphql = self.is_graphql(view)
+        prettier_config_exists = \
+            not self.is_str_none_or_empty(prettier_config_path)
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
@@ -491,7 +493,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append('graphql')
                     continue
 
-            if self.is_str_none_or_empty(prettier_config_path):
+            if not prettier_config_exists:
                 #
                 # When applicable, these options can be
                 # read the .prettierrc config file. The
@@ -511,7 +513,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append(cli_option_name)
                     prettier_cli_args.append(option_value)
 
-        if self.is_str_none_or_empty(prettier_config_path):
+        if not prettier_config_exists:
             #
             # When applicable, these options can be
             # read the .prettierrc config file. The
