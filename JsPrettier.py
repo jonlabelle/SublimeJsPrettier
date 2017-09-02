@@ -494,18 +494,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     continue
 
             if not prettier_config_exists:
-                #
-                # When applicable, these options can be
-                # read the .prettierrc config file. The
-                # default is to read Prettier options
-                # specified in SublimeText settings files.
-                # The default is to use SublimeText settings
-                # files.
-
                 if option_value is None or str(option_value) == '':
                     option_value = mapping['default']
                 option_value = str(option_value).strip()
-
                 if self.is_bool_str(option_value):
                     prettier_cli_args.append('{0}={1}'.format(
                         cli_option_name, option_value.lower()))
@@ -514,14 +505,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append(option_value)
 
         if not prettier_config_exists:
-            #
-            # When applicable, these options can be
-            # read the .prettierrc config file. The
-            # default is to read Prettier options
-            # specified in SublimeText settings files.
-            # The default is to use SublimeText settings
-            # files.
-
             # set the `tabWidth` option based on the current view:
             prettier_cli_args.append('--tab-width')
             prettier_cli_args.append(str(self.tab_size))
@@ -529,6 +512,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # set the `useTabs` option based on the current view:
             prettier_cli_args.append('{0}={1}'.format(
                 '--use-tabs', str(self.use_tabs).lower()))
+
+            # disable prettier from resolving config file path:
+            prettier_cli_args.append('--no-config')
         else:
             # use config file
             prettier_cli_args.append('--config')
@@ -540,13 +526,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             for arg_key, arg_value in self.additional_cli_args.items():
                 arg_key = str(arg_key).strip()
                 arg_value = str(arg_value).strip()
-
                 # handle bool options
                 if arg_value != '' and self.is_bool_str(arg_value):
                     prettier_cli_args.append(
                         '{0}={1}'.format(arg_key, arg_value.lower()))
                     continue
-
                 prettier_cli_args.append(arg_key)
                 if arg_value != '':
                     prettier_cli_args.append(arg_value)
