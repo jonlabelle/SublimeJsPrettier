@@ -99,7 +99,7 @@ ensure_only_one_file_changed() {
 }
 
 confirm_git_commit_tag_release() {
-    show_success "> Acquire confirmations"
+    show_info "> Acquire confirmations"
     while true; do
         read -r -p "Ready to build, commit, tag and release v$VERSION? (y/n): " yn
         case ${yn} in
