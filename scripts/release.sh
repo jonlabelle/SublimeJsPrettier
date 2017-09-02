@@ -122,7 +122,6 @@ git_commit_tag_release() {
 }
 
 run_npm_publish() {
-    echo
     show_info "> Publish npm package"
     npm publish
 }
