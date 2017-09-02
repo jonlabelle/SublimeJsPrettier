@@ -49,6 +49,10 @@ show_error() {
 }
 
 
+show_usage() {
+    echo "Usage: bash $SCRIPTNAME <semver>"
+}
+
 cd_project_root() {
     show_info '> cd to project root'
     pushd "${SCRIPTSDIR}" && pushd ..
@@ -126,7 +130,6 @@ run_npm_publish() {
     npm publish
 }
 
-
 main() {
     cd_project_root
     ensure_semver_arg
@@ -141,4 +144,11 @@ main() {
     echo && show_success "Finished." && echo
 }
 
-main
+
+if [ $# -eq 0 ]; then
+    show_error "missing semver/version argument"
+    show_usage
+    exit 1
+else
+    main
+fi
