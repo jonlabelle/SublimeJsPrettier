@@ -218,14 +218,22 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     'Save...', "Don't Save")
                 if result == sublime.DIALOG_YES:
                     view.run_command('save')
-
-        #
-        # re-check if the file was saved here, incase user canceled or closed
+        # Re-check if file was saved, in case user canceled or closed
         # the save dialog:
         if view.file_name() is None:
             return sublime.set_timeout(lambda: sublime.status_message(
                 '{0}: File save canceled.'.format(PLUGIN_NAME)), 0)
 
+        #
+        # Max file size check
+        if self.exceeds_max_file_size_limit(view):
+            return sublime.set_timeout(lambda: sublime.status_message(
+                '{0}: File ignored, max allowed file size '
+                'limit reached.'.format(PLUGIN_NAME)), 0)
+
+        #
+        # Get node and prettier command paths:
+        node_path = self.node_path
         prettier_cli_path = self.prettier_cli_path
         if prettier_cli_path is None:
             return sublime.error_message(
@@ -234,17 +242,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'not be found! Please ensure the path to prettier is '
                 'set in your PATH environment variable.'.format(PLUGIN_NAME))
 
-        if self.exceeds_max_file_size_limit(view):
-            return sublime.set_timeout(lambda: sublime.status_message(
-                '{0}: File ignored, max allowed file size '
-                'limit reached.'.format(PLUGIN_NAME)), 0)
-
-        prettier_args = self.parse_prettier_options(view)
-        node_path = self.node_path
-
+        #
         # cd to the path of the file being formattting:
         source_file_dir = os.path.abspath(os.path.dirname(view.file_name()))
         os.chdir(source_file_dir)
+
+        #
+        # check for prettier configs
+        prettier_config_path = self.resolve_prettier_config_path(
+            node_path, prettier_cli_path, view.file_name())
+
+        #
+        # Parse prettier options:
+        prettier_args = self.parse_prettier_options(
+            view, prettier_config_path)
 
         # Format entire file:
         if not self.has_selection(view) or force_entire_file is True:
@@ -363,6 +374,39 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
+    def resolve_prettier_config_path(self, node_path, prettier_cli_path,
+                                     file_to_format_path):
+        """
+        Find athe path to a Prettier config file based on the given file
+        to be formatted.
+        """
+        if self.is_str_none_or_empty(node_path):
+            cmd = [prettier_cli_path] \
+                + ['--find-config-path'] \
+                + [file_to_format_path]
+        else:
+            cmd = [node_path] \
+                + [prettier_cli_path] \
+                + ['--find-config-path'] \
+                + [file_to_format_path]
+
+        try:
+            proc = Popen(
+                cmd, stdin=PIPE,
+                stderr=PIPE,
+                stdout=PIPE,
+                env=self.proc_env,
+                shell=self.is_windows())
+            stdout, stderr = proc.communicate(input=None)
+            if stderr or proc.returncode != 0:
+                return None
+            output = stdout.decode('utf-8')
+            # strip line breaks
+            return sub('\r?\n', '', output)
+        except OSError as ex:
+            sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
+            raise
+
     def should_show_plugin(self):
         view = self.view
         if self.allow_inline_formatting is True:
@@ -404,7 +448,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return value
         return project_value
 
-    def parse_prettier_options(self, view):
+    def parse_prettier_options(self, view, prettier_config_path=None):
         # TODO: optimize option parsing...
         prettier_cli_args = []
 
@@ -447,7 +491,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append('graphql')
                     continue
 
-            if not self.use_prettier_config_files:
+            if self.is_str_none_or_empty(prettier_config_path):
                 #
                 # When applicable, these options can be
                 # read the .prettierrc config file. The
@@ -467,7 +511,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_cli_args.append(cli_option_name)
                     prettier_cli_args.append(option_value)
 
-        if not self.use_prettier_config_files:
+        if self.is_str_none_or_empty(prettier_config_path):
             #
             # When applicable, these options can be
             # read the .prettierrc config file. The
@@ -483,6 +527,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # set the `useTabs` option based on the current view:
             prettier_cli_args.append('{0}={1}'.format(
                 '--use-tabs', str(self.use_tabs).lower()))
+        else:
+            # use config file
+            prettier_cli_args.append('--config')
+            prettier_cli_args.append(prettier_config_path)
 
         #
         # Append any additional specified arguments:
