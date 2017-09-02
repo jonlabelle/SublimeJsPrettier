@@ -173,10 +173,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.get_setting('additional_cli_args', {})
 
     @property
-    def use_prettier_config_files(self):
-        return self.get_setting('use_prettier_config_files', False)
-
-    @property
     def max_file_size_limit(self):
         return int(self.get_setting('max_file_size_limit', -1))
 
@@ -249,12 +245,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # check for prettier configs
-        prettier_config_path = self.resolve_prettier_config_path(
+        prettier_config_path = self._resolve_prettier_config_path(
             node_path, prettier_cli_path, view.file_name())
 
         #
         # Parse prettier options:
-        prettier_args = self.parse_prettier_options(
+        prettier_options = self.parse_prettier_options(
             view, prettier_config_path)
 
         # Format entire file:
@@ -267,7 +263,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
             transformed = self._exec_cmd(
-                source, node_path, prettier_cli_path, prettier_args)
+                source, node_path, prettier_cli_path, prettier_options)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -317,7 +313,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 continue
 
             transformed = self._exec_cmd(
-                source, node_path, prettier_cli_path, prettier_args)
+                source, node_path, prettier_cli_path, prettier_options)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -341,18 +337,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
     def _exec_cmd(self, source, node_path, prettier_cli_path,
-                  prettier_args):
+                  prettier_options):
         self._error_message = None
 
         if self.is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
                 + ['--stdin'] \
-                + prettier_args
+                + prettier_options
         else:
             cmd = [node_path] \
                 + [prettier_cli_path] \
                 + ['--stdin'] \
-                + prettier_args
+                + prettier_options
 
         try:
             self.show_debug_message(
@@ -374,8 +370,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    def resolve_prettier_config_path(self, node_path, prettier_cli_path,
-                                     file_to_format_path):
+    def _resolve_prettier_config_path(self, node_path, prettier_cli_path,
+                                      file_to_format_path):
         """
         Find athe path to a Prettier config file based on the given file
         to be formatted.
@@ -448,14 +444,31 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return value
         return project_value
 
+    def parse_additional_cli_args(self):
+        additional_cli_args = []
+        if self.additional_cli_args and len(self.additional_cli_args) > 0:
+            for arg_key, arg_value in self.additional_cli_args.items():
+                arg_key = str(arg_key).strip()
+                arg_value = str(arg_value).strip()
+                # handle bool options
+                if arg_value != '' and self.is_bool_str(arg_value):
+                    additional_cli_args.append(
+                        '{0}={1}'.format(arg_key, arg_value.lower()))
+                    continue
+                additional_cli_args.append(arg_key)
+                if arg_value != '':
+                    additional_cli_args.append(arg_value)
+        return additional_cli_args
+
     def parse_prettier_options(self, view, prettier_config_path=None):
         # TODO: optimize option parsing...
-        prettier_cli_args = []
+        prettier_options = []
 
         is_css = self.is_css(view)
         is_typescript = self.is_typescript(view)
         is_json = self.is_json(view)
         is_graphql = self.is_graphql(view)
+
         prettier_config_exists = \
             not self.is_str_none_or_empty(prettier_config_path)
 
@@ -468,29 +481,29 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if is_css:
                     # internally override the 'parser' option for css
                     # and set the value to 'postcss':
-                    prettier_cli_args.append(cli_option_name)
-                    prettier_cli_args.append('postcss')
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('postcss')
                     continue
 
                 if is_typescript:
                     # internally override the 'parser' for typescript
                     # and set the value to 'typescript':
-                    prettier_cli_args.append(cli_option_name)
-                    prettier_cli_args.append('typescript')
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('typescript')
                     continue
 
                 if is_json:
                     # internally override the 'parser' for json
                     # and set the value to 'json':
-                    prettier_cli_args.append(cli_option_name)
-                    prettier_cli_args.append('json')
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('json')
                     continue
 
                 if is_graphql:
                     # internally override the 'parser' for graphql
                     # and set the value to 'graphql':
-                    prettier_cli_args.append(cli_option_name)
-                    prettier_cli_args.append('graphql')
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('graphql')
                     continue
 
             if not prettier_config_exists:
@@ -498,44 +511,32 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     option_value = mapping['default']
                 option_value = str(option_value).strip()
                 if self.is_bool_str(option_value):
-                    prettier_cli_args.append('{0}={1}'.format(
+                    prettier_options.append('{0}={1}'.format(
                         cli_option_name, option_value.lower()))
                 else:
-                    prettier_cli_args.append(cli_option_name)
-                    prettier_cli_args.append(option_value)
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append(option_value)
 
         if not prettier_config_exists:
             # set the `tabWidth` option based on the current view:
-            prettier_cli_args.append('--tab-width')
-            prettier_cli_args.append(str(self.tab_size))
+            prettier_options.append('--tab-width')
+            prettier_options.append(str(self.tab_size))
 
             # set the `useTabs` option based on the current view:
-            prettier_cli_args.append('{0}={1}'.format(
+            prettier_options.append('{0}={1}'.format(
                 '--use-tabs', str(self.use_tabs).lower()))
 
             # disable prettier from resolving config file path:
-            prettier_cli_args.append('--no-config')
+            prettier_options.append('--no-config')
         else:
             # use config file
-            prettier_cli_args.append('--config')
-            prettier_cli_args.append(prettier_config_path)
+            prettier_options.append('--config')
+            prettier_options.append(prettier_config_path)
 
-        #
         # Append any additional specified arguments:
-        if self.additional_cli_args and len(self.additional_cli_args) > 0:
-            for arg_key, arg_value in self.additional_cli_args.items():
-                arg_key = str(arg_key).strip()
-                arg_value = str(arg_value).strip()
-                # handle bool options
-                if arg_value != '' and self.is_bool_str(arg_value):
-                    prettier_cli_args.append(
-                        '{0}={1}'.format(arg_key, arg_value.lower()))
-                    continue
-                prettier_cli_args.append(arg_key)
-                if arg_value != '':
-                    prettier_cli_args.append(arg_value)
+        prettier_options.extend(self.parse_additional_cli_args())
 
-        return prettier_cli_args
+        return prettier_options
 
     def which(self, executable, path=None):
         if not self.is_str_none_or_empty(executable) \
