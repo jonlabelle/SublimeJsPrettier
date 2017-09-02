@@ -401,7 +401,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if stderr or proc.returncode != 0:
                 return None
             output = stdout.decode('utf-8')
-            # strip line breaks
+            # remove line breaks from proc output
             return sub('\r?\n', '', output)
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))

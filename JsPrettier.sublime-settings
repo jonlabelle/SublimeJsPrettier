@@ -155,36 +155,6 @@
 	"max_file_size_limit": -1,
 
 	// ----------------------------------------------------------------------
-	// Use Prettier Configuration Files
-	// ----------------------------------------------------------------------
-	//
-	// @param {bool} "use_prettier_config_files"
-	// @default false
-	//
-	// Whether or not to use Prettier Configuration files (e.g.: `.prettierrc)`.
-	// If `true`, *Prettier* options specified in SublimeText settings files
-	// will be ignored, and Prettier config file paths will be resolved natively
-	// by Prettier.
-	//
-	// NOTE: To specify a *custom* Prettier config file path, outside of the
-	// normal Prettier config file path resolution lookup; you will need to set
-	// the `use_prettier_config_files` setting to `true`, and add your custom
-	// Prettier config path to the `additional_cli_args` setting below. Here's
-	// an example of what your `JsPrettier.sublime-settings` file might look
-	// like...
-	//
-	//     "use_prettier_config_files": true,
-	//     "additional_cli_args": {
-	//         "--config": "/custom/path/to/my/.prettierrc"
-	//     },
-	//
-	// See <https://github.com/prettier/prettier#configuration-file> for more
-	// information on Prettier Configuration Files.
-	// ----------------------------------------------------------------------
-
-	"use_prettier_config_files": false,
-
-	// ----------------------------------------------------------------------
 	// Additional CLI Arguments
 	// ----------------------------------------------------------------------
 	//
