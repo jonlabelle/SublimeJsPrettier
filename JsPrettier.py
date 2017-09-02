@@ -101,8 +101,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not self.is_windows():
             env = os.environ.copy()
             usr_path = ':/usr/local/bin'
-            if not self.env_path_exists(usr_path) \
-                    and self.path_exists(usr_path):
+            if not self.env_path_contains(usr_path) \
+                    and self.env_path_exists(usr_path):
                 env['PATH'] += usr_path
         return env
 
@@ -512,8 +512,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             path = os.environ['PATH']
             if not self.is_windows():
                 usr_path = ':/usr/local/bin'
-                if not self.env_path_exists(usr_path, path) \
-                        and self.path_exists(usr_path):
+                if not self.env_path_contains(usr_path, path) \
+                        and self.env_path_exists(usr_path):
                     path += usr_path
 
         paths = path.split(os.pathsep)
@@ -752,27 +752,27 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def env_path_exists(find_path, env_path=None):
+    def env_path_contains(path_to_look_for, env_path=None):
         """Check if the specified path is listed in OS enviornment path.
 
-        :param find_path: The path the search for.
+        :param path_to_look_for: The path the search for.
         :param env_path: The environment path str.
         :return: True if the find_path exists in the env_path.
         :rtype: bool
         """
-        if not find_path:
+        if not path_to_look_for:
             return False
         if not env_path:
             env_path = os.environ['PATH']
-        find_path = str.replace(find_path, os.pathsep, '')
+        path_to_look_for = str.replace(path_to_look_for, os.pathsep, '')
         paths = env_path.split(os.pathsep)
         for path in paths:
-            if path == find_path:
+            if path == path_to_look_for:
                 return True
         return False
 
     @staticmethod
-    def path_exists(path):
+    def env_path_exists(path):
         if not path:
             return False
         if os.path.exists(str.replace(path, os.pathsep, '')):
