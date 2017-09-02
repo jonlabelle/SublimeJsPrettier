@@ -220,9 +220,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 ### Prettier Options
 
-**NOTE** When [Prettier Configuration files] are detected, Prettier options
-defined in Sublime Text settings files will be ignored (with the exception of
-`parser`).
+> **NOTE** When [Prettier Configuration files] are detected, Prettier options
+> defined in Sublime Text settings files will be ignored (with the exception of
+> `parser`).
 
 - **useTabs** (internally set by the [***translate_tabs_to_spaces***] setting)  
     Indent lines with tabs.
