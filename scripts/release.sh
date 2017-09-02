@@ -125,7 +125,7 @@ git_commit_tag_release() {
     set +x
 }
 
-run_npm_publish() {
+npm_publish() {
     show_info "> Publish npm package"
     npm publish
 }
@@ -139,7 +139,7 @@ main() {
     ensure_only_one_file_changed
     confirm_git_commit_tag_release
     git_commit_tag_release
-    run_npm_publish
+    npm_publish
     restore_previous_working_dir
 
     echo && show_success "Finished." && echo
