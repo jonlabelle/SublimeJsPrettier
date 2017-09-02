@@ -3,7 +3,7 @@
 set -e
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
-readonly SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
+readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
 SONAR_LOGIN=$1
 SONAR_SCANNER_CMD=$2
@@ -31,7 +31,7 @@ show_error() {
 
 
 show_usage() {
-    echo "Usage: bash $SCRIPT_NAME <SONAR_LOGIN/API_KEY> [path/to/sonar-scanner]"
+    echo "Usage: bash $SCRIPTNAME <SONAR_LOGIN/API_KEY> [path/to/sonar-scanner]"
 }
 
 cd_project_root() {
