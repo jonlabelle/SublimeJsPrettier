@@ -77,6 +77,14 @@ ALLOWED_FILE_EXTENSIONS = [
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
 
+def str_contains(needle, haystack):
+    if not needle or not haystack:
+        return False
+    if needle in haystack:
+        return True
+    return False
+
+
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
 
@@ -494,7 +502,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('graphql')
                     continue
 
-                if self.is_html(view):
+                if self.is_html(view) and not self.is_source_js(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('parse5')
                     continue
@@ -574,15 +582,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def is_source_js(view):
-        return view.scope_name(0).startswith('source.js')
+        scopename = view.scope_name(view.sel()[0].b)
+        if scopename.startswith('source.js') \
+                or str_contains('source.js.embedded.html', scopename):
+            return True
+        return False
 
     @staticmethod
     def is_css(view):
         filename = view.file_name()
         if not filename:
             return False
-        scopename = view.scope_name(0)
-        if scopename.startswith('source.css') or filename.endswith('.css'):
+        scopename = view.scope_name(view.sel()[0].b)
+        if scopename.startswith('source.css') or filename.endswith('.css') \
+                or str_contains('meta.selector.css', scopename):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
             return True
