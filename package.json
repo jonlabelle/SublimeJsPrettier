@@ -7,10 +7,7 @@
   "dependencies": {
     "prettier": "latest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jonlabelle/SublimeJsPrettier.git"
-  },
+  "repository": "jonlabelle/SublimeJsPrettier",
   "keywords": [
     "sublime",
     "sublimetext",
