@@ -70,7 +70,9 @@ ALLOWED_FILE_EXTENSIONS = [
     'tsx',
     'css',
     'scss',
-    'less'
+    'less',
+    'htm',
+    'html'
 ]
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
@@ -462,14 +464,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return additional_cli_args
 
     def parse_prettier_options(self, view, prettier_config_path=None):
-        # TODO: optimize option parsing...
         prettier_options = []
-
-        is_css = self.is_css(view)
-        is_typescript = self.is_typescript(view)
-        is_json = self.is_json(view)
-        is_graphql = self.is_graphql(view)
-
         prettier_config_exists = \
             not self.is_str_none_or_empty(prettier_config_path)
 
@@ -479,32 +474,29 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             option_value = self.get_sub_setting(option_name)
 
             if option_name == 'parser':
-                if is_css:
-                    # internally override the 'parser' option for css
-                    # and set the value to 'postcss':
+                if self.is_css(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('postcss')
                     continue
 
-                if is_typescript:
-                    # internally override the 'parser' for typescript
-                    # and set the value to 'typescript':
+                if self.is_typescript(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('typescript')
                     continue
 
-                if is_json:
-                    # internally override the 'parser' for json
-                    # and set the value to 'json':
+                if self.is_json(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('json')
                     continue
 
-                if is_graphql:
-                    # internally override the 'parser' for graphql
-                    # and set the value to 'graphql':
+                if self.is_graphql(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('graphql')
+                    continue
+
+                if self.is_html(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('parse5')
                     continue
 
             if not prettier_config_exists:
@@ -626,6 +618,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         if filename.endswith('.graphql') or filename.endswith('.gql'):
+            return True
+        return False
+
+    @staticmethod
+    def is_html(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if scopename.startswith('text.html') \
+                or filename.endswith('.html') \
+                or filename.endswith('.htm'):
             return True
         return False
 
