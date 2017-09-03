@@ -57,7 +57,7 @@ restore_previous_working_dir() {
 }
 
 run_scan() {
-    show_info '> Run sonar scanner analysis'
+    show_info '> Run sonar scan analysis'
     "${SONAR_SCANNER_CMD}" -Dsonar.login="${SONAR_LOGIN}"
     echo
 }
