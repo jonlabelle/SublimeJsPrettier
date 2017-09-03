@@ -65,6 +65,7 @@ ALLOWED_FILE_EXTENSIONS = [
     'jsx',
     'json',
     'graphql',
+    'gql',
     'ts',
     'tsx',
     'css',
@@ -624,7 +625,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         filename = view.file_name()
         if not filename:
             return False
-        if filename.endswith('.graphql'):
+        if filename.endswith('.graphql') or filename.endswith('.gql'):
             return True
         return False
 
