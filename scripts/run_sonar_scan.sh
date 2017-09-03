@@ -31,7 +31,17 @@ show_error() {
 
 
 show_usage() {
-    echo "Usage: bash $SCRIPTNAME <SONAR_LOGIN/API_KEY> [path/to/sonar-scanner]"
+    echo "Usage:"
+    echo
+    echo "    $SCRIPTNAME <SONAR_LOGIN/API_KEY> [path/to/sonar-scanner]"
+}
+
+is_readable_file() {
+    local filepath=$1
+    if [ -r "$filepath" ] && [ -f "$filepath" ]; then
+        return 0
+    fi
+    return 1
 }
 
 cd_project_root() {
@@ -58,9 +68,14 @@ cd_project_root
 #
 # if no args passed... try to suck in .env file:
 if [ $# -eq 0 ]; then
-    if [ -r .env ] && [ -f .env ]; then
+    show_info "> No command args specified... looking for '.env' file in project root"
+    if is_readable_file .env; then
+        show_success "using '.env' file found in project root"
         source .env
+        echo
     else
+        show_error "no '.env' file found in project root"
+        echo
         show_usage
         exit 1
     fi
