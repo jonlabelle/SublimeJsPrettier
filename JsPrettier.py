@@ -469,8 +469,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def parse_prettier_options(self, view, prettier_config_path=None):
         prettier_options = []
-        prettier_config_exists = \
-            not self.is_str_none_or_empty(prettier_config_path)
+
+        #
+        # Check for prettier configs:
+        prettier_config_exists = not self.is_str_none_or_empty(
+            prettier_config_path)
+        if prettier_config_exists:
+            prettier_options.append('--config')
+            prettier_options.append(prettier_config_path)
+        else:
+            prettier_options.append('--no-config')
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
@@ -506,29 +514,21 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if not prettier_config_exists:
                 if option_value is None or str(option_value) == '':
                     option_value = mapping['default']
+
                 option_value = str(option_value).strip()
                 if self.is_bool_str(option_value):
-                    prettier_options.append('{0}={1}'.format(
-                        cli_option_name, option_value.lower()))
-                else:
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append(option_value)
+                    option_value = option_value.lower()
 
-        if not prettier_config_exists:
-            # set the `tabWidth` option based on the current view:
-            prettier_options.append('--tab-width')
-            prettier_options.append(str(self.tab_size))
+                prettier_options.append(cli_option_name)
+                prettier_options.append(option_value)
 
-            # set the `useTabs` option based on the current view:
-            prettier_options.append('{0}={1}'.format(
-                '--use-tabs', str(self.use_tabs).lower()))
+        # set the `tabWidth` option based on the current view:
+        prettier_options.append('--tab-width')
+        prettier_options.append(str(self.tab_size))
 
-            # disable prettier from resolving config file path:
-            prettier_options.append('--no-config')
-        else:
-            # use config file
-            prettier_options.append('--config')
-            prettier_options.append(prettier_config_path)
+        # set the `useTabs` option based on the current view:
+        prettier_options.append('--use-tabs')
+        prettier_options.append(str(self.use_tabs).lower())
 
         # Append any additional specified arguments:
         prettier_options.extend(self.parse_additional_cli_args())
