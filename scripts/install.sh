@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 set -e
+if [ "$TRAVIS" == "true" ]; then
+    set -x
+fi
 
 PIP_CMD=
 
