@@ -190,8 +190,8 @@ file, accessible from the **Preferences** > **Package Settings** >
   
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `json`, `graphql/gql`,
-    `ts`, `tsx`, `css`, `scss`, `less` and `html/htm` files. Any additional
-    file extensions must be specified here (without the leading dot).
+    `ts`, `tsx`, `css`, `scss` and `less` files. Any additional file
+    extensions must be specified here, without the leading dot.
   
 - **max_file_size_limit** (default: ***-1***)  
     The maximum allowed file size to format in bytes. For performance reasons,

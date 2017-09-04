@@ -70,9 +70,9 @@ ALLOWED_FILE_EXTENSIONS = [
     'tsx',
     'css',
     'scss',
-    'less',
-    'htm',
-    'html'
+    'less'
+    # 'htm',
+    # 'html'
 ]
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
@@ -502,10 +502,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('graphql')
                     continue
 
-                if self.is_html(view) and not self.is_source_js(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('parse5')
-                    continue
+                # if self.is_html(view) and not self.is_source_js(view):
+                #     prettier_options.append(cli_option_name)
+                #     prettier_options.append('parse5')
+                #     continue
 
             if not prettier_config_exists:
                 if option_value is None or str(option_value) == '':
@@ -634,17 +634,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         return False
 
-    @staticmethod
-    def is_html(view):
-        filename = view.file_name()
-        if not filename:
-            return False
-        scopename = view.scope_name(0)
-        if scopename.startswith('text.html') \
-                or filename.endswith('.html') \
-                or filename.endswith('.htm'):
-            return True
-        return False
+    # @staticmethod
+    # def is_html(view):
+    #     filename = view.file_name()
+    #     if not filename:
+    #         return False
+    #     scopename = view.scope_name(0)
+    #     if scopename.startswith('text.html') \
+    #             or filename.endswith('.html') \
+    #             or filename.endswith('.htm'):
+    #         return True
+    #     return False
 
     @staticmethod
     def get_active_project_path():
