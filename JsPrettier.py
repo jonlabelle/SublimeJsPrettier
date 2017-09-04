@@ -256,7 +256,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # check for prettier configs
-        prettier_config_path = self._resolve_prettier_config_path(
+        prettier_config_path = self.find_prettier_config_path(
             node_path, prettier_cli_path, view.file_name())
 
         #
@@ -273,7 +273,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
-            transformed = self._exec_cmd(
+            transformed = self.format_code(
                 source, node_path, prettier_cli_path, prettier_options)
             if self.has_error:
                 self.show_console_error()
@@ -323,7 +323,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                         PLUGIN_NAME)), 0)
                 continue
 
-            transformed = self._exec_cmd(
+            transformed = self.format_code(
                 source, node_path, prettier_cli_path, prettier_options)
             if self.has_error:
                 self.show_console_error()
@@ -347,8 +347,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def _exec_cmd(self, source, node_path, prettier_cli_path,
-                  prettier_options):
+    def format_code(self, source, node_path, prettier_cli_path,
+                    prettier_options):
         self._error_message = None
 
         if self.is_str_none_or_empty(node_path):
@@ -360,7 +360,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_options
-
         try:
             self.show_debug_message(
                 'Prettier CLI Command', self.list_to_str(cmd))
@@ -381,8 +380,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    def _resolve_prettier_config_path(self, node_path, prettier_cli_path,
-                                      file_to_format_path):
+    def find_prettier_config_path(self, node_path, prettier_cli_path,
+                                  file_to_format_path):
         """
         Find athe path to a Prettier config file based on the given file
         to be formatted.
@@ -396,7 +395,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + [prettier_cli_path] \
                 + ['--find-config-path'] \
                 + [file_to_format_path]
-
         try:
             proc = Popen(
                 cmd, stdin=PIPE,
@@ -407,9 +405,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             stdout, stderr = proc.communicate(input=None)
             if stderr or proc.returncode != 0:
                 return None
-            output = stdout.decode('utf-8')
-            # remove line breaks from proc output
-            return sub('\r?\n', '', output)
+            return sub('\r?\n', '', stdout.decode('utf-8'))
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
