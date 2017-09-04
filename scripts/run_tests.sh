@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+[ "$TRAVIS" == "true" ] && set -x
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
