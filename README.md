@@ -259,8 +259,8 @@ file, accessible from the **Preferences** > **Package Settings** >
     add a semicolon only at the beginning of lines that may introduce ASI
     failures.
 
-> *For further details and examples of setting Prettier's options, please see
-> the [Prettier API section] on the Prettier homepage.*
+> For further details and examples of setting Prettier's options, please see the
+> [Prettier API section] on the Prettier homepage.
 
 #### Prettier Configuration Files
 
