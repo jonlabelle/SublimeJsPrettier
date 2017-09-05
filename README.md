@@ -202,13 +202,14 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **additional_cli_args** (default: {})
     A key-value pair of additional arguments to append to the prettier command.
 
-    **Example:**
+    **Examples:**
 
         {
-            "--no-color": "",
-            "--single-quote=false": "",
-            "--cursor-offset": -1,
-            "--list-different": ""
+            "--config": "path/to/my/custom/.prettierrc",
+            "--no-config": "",
+            "--with-node-modules": ""
+            "--ignore-path": "path/to/.prettierignore"
+            "--config-precedence": "file-override"
         }
 
     > **NOTE:** If choosing to specify additional cli args, it is assumed that
