@@ -212,8 +212,8 @@ file, accessible from the **Preferences** > **Package Settings** >
             "--config-precedence": "file-override"
         }
 
-    > **NOTE:** If choosing to specify additional cli args, it is assumed that
-    > each argument is supported by the prettier-cli. Otherwise, the command
+    > **NOTE:** If choosing to specify additional CLI args, it is assumed that
+    > each argument is supported by the [Prettier CLI]. Otherwise, the command
     > will fail to run, and errors will be dumped out to
     > the [Sublime Text Console]. You can also enable the `debug` setting to
     > inspect the generated command-line output passed to prettier; which is
@@ -359,6 +359,7 @@ Jon LaBelle
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://github.com/jlongster/prettier
 [Prettier API section]: https://github.com/prettier/prettier#api
+[Prettier CLI]: https://github.com/prettier/prettier#cli
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
