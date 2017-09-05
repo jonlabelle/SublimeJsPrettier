@@ -1,3 +1,4 @@
 [flake8]
+max-line-length = 120
 ignore = D100,D101,D102
 exclude = .git,__pycache__,.idea,messages,screenshots
