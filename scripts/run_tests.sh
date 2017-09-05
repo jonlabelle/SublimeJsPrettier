@@ -5,27 +5,53 @@ set -e
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
-pushd "${SCRIPTSDIR}" && pushd ..
 
-echo
-echo '> Run pytest'
-py.test .
+cd_project_root() {
+    echo '> cd to project root'
+    pushd "${SCRIPTSDIR}" && pushd ..
+}
 
-echo
-echo '> Run flake8'
-flake8 .
+restore_previous_working_dir() {
+    echo '> Restore previous working directory'
+    popd && popd
+    echo
+}
 
-echo
-echo '> Run pylint'
-pylint JsPrettier.py
+run_pytest() {
+    echo
+    echo '> Run pytest'
+    py.test .
+}
 
-echo
-echo '> Run markdownlint'
-markdownlint .
+run_flake8() {
+    echo
+    echo '> Run flake8'
+    echo -n 'Total errors: '
+    flake8 . --count
+}
 
-echo
-popd && popd
-echo
+run_pylint() {
+    echo
+    echo -n '> Run pylint'
+    pylint JsPrettier.py
+}
 
-echo 'Finished.'
+run_markdownlint() {
+    echo -n '> Run markdownlint'
+    markdownlint .
+    echo 'Markdown looks good.' && echo
+}
 
+
+main() {
+    cd_project_root
+    run_pytest
+    run_flake8
+    run_pylint
+    run_markdownlint
+    restore_previous_working_dir
+
+    echo & echo 'Finished.'
+}
+
+main
