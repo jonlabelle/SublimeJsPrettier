@@ -77,12 +77,10 @@ ALLOWED_FILE_EXTENSIONS = [
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
 
-def str_contains(needle, haystack):
+def contains(needle, haystack):
     if not needle or not haystack:
         return False
-    if needle in haystack:
-        return True
-    return False
+    return needle in haystack
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -255,15 +253,25 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         os.chdir(source_file_dir)
 
         #
-        # check for prettier configs
-        prettier_config_path = self.find_prettier_config_path(
-            node_path, prettier_cli_path, view.file_name())
+        # if a prettier config option is set in the 'additional_cli_args'
+        # ST setting... no action is required. otherwise, try to sniff out
+        # the config file path:
+        parsed_additional_cli_args = self.parse_additional_cli_args()
+        has_custom_config = parsed_additional_cli_args.count('--config') > 0
+        has_custom_no_config = parsed_additional_cli_args.count('--no-config') > 0
 
-        #
+        # only try to find prettier config path if not specified
+        # in 'additional_cli_args':
+        prettier_config_path = None
+        if not has_custom_config and not has_custom_no_config:
+            prettier_config_path = self.find_prettier_config_path(node_path, prettier_cli_path, view.file_name())
+
         # Parse prettier options:
         prettier_options = self.parse_prettier_options(
-            view, prettier_config_path)
+            view, parsed_additional_cli_args, prettier_config_path,
+            has_custom_config, has_custom_no_config)
 
+        #
         # Format entire file:
         if not self.has_selection(view) or force_entire_file is True:
             region = sublime.Region(0, view.size())
@@ -311,6 +319,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
             return
 
+        #
         # Format each selection:
         for region in view.sel():
             if region.empty():
@@ -467,18 +476,25 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     additional_cli_args.append(arg_value)
         return additional_cli_args
 
-    def parse_prettier_options(self, view, prettier_config_path=None):
+    def parse_prettier_options(self, view, parsed_additional_cli_args,
+                               prettier_config_path, has_custom_config, has_custom_no_config):
         prettier_options = []
 
         #
         # Check for prettier configs:
-        prettier_config_exists = not self.is_str_none_or_empty(
-            prettier_config_path)
+        prettier_config_exists = not self.is_str_none_or_empty(prettier_config_path)
+
         if prettier_config_exists:
-            prettier_options.append('--config')
-            prettier_options.append(prettier_config_path)
+            if not has_custom_config:
+                # only add the '--config <path>' option if it's
+                # not already specified as an additional cli arg:
+                prettier_options.append('--config')
+                prettier_options.append(prettier_config_path)
         else:
-            prettier_options.append('--no-config')
+            if not has_custom_no_config and not has_custom_config:
+                # only add the '--no-config' option if it's
+                # not already specified as an additional cli arg:
+                prettier_options.append('--no-config')
 
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
@@ -511,14 +527,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 #     prettier_options.append('parse5')
                 #     continue
 
-            if not prettier_config_exists:
+            if not prettier_config_exists and not has_custom_config:
+                # add the cli args or the respective defaults:
                 if option_value is None or str(option_value) == '':
                     option_value = mapping['default']
-
                 option_value = str(option_value).strip()
                 if self.is_bool_str(option_value):
                     option_value = option_value.lower()
-
                 prettier_options.append(cli_option_name)
                 prettier_options.append(option_value)
 
@@ -531,7 +546,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options.append(str(self.use_tabs).lower())
 
         # Append any additional specified arguments:
-        prettier_options.extend(self.parse_additional_cli_args())
+        prettier_options.extend(parsed_additional_cli_args)
 
         return prettier_options
 
@@ -580,7 +595,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_source_js(view):
         scopename = view.scope_name(view.sel()[0].b)
         if scopename.startswith('source.js') \
-                or str_contains('source.js.embedded.html', scopename):
+                or contains('source.js.embedded.html', scopename):
             return True
         return False
 
@@ -591,7 +606,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(view.sel()[0].b)
         if scopename.startswith('source.css') or filename.endswith('.css') \
-                or str_contains('meta.selector.css', scopename):
+                or contains('meta.selector.css', scopename):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
             return True

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.15.0
+
+**Release Date:** 2017-09-05
+
+- Added support for setting a custom Prettier config path
+  (via`additional_cli_args` setting), or disabling Prettier config discovery all
+  together; using the `additional_cli_args` setting.
+
+  See the [docs](https://github.com/jonlabelle/SublimeJsPrettier#prettier-configuration-files)
+  for more details and config examples.
+
 ## 1.14.0
 
 **Release Date:** 2017-09-02
