@@ -11,5 +11,4 @@ test_script:
   - scripts\run_tests.cmd %PYTHON%
 
 build: off
-
 version: "{build}"
