@@ -275,8 +275,9 @@ Sublime Text settings files will be ignored, with the exception of `parser`,
 
 ##### Custom Prettier Config File Path
 
-To specify a custom `--config` path, simply add it to the `additional_cli_args`
-setting, for example:
+To specify a custom Prettier config path, simply add the `--config` argument
+with an appropriate path to the `additional_cli_args` setting. Here's an
+example.
 
 ```json
 {
@@ -289,7 +290,7 @@ setting, for example:
 ##### Disable Prettier Config File Discovery
 
 You can also add the `--no-config` option to the `additional_cli_args` setting,
-and tell Prettier not to attempt to find config files all.
+and tell Prettier not to attempt to find config files.
 
 ```json
 {
