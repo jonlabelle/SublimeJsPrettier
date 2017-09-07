@@ -8,6 +8,9 @@ indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+[*.py]
+max_line_length = 120
+
 [{Context.sublime-menu,JsPrettier.sublime-commands,JsPrettier.sublime-settings}]
 indent_style = tab
 
