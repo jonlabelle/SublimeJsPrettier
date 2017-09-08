@@ -79,6 +79,17 @@ ensure_git_branch_is_master() {
     fi
 }
 
+ensure_git_branch_is_up_to_date() {
+    # compare local/remote hashes: https://stackoverflow.com/a/15119807
+    show_info "> Ensure 'master' branch is up-to-date with remote"
+    local git_local_hash="$(git rev-parse --verify origin/master)"
+    local git_remote_hash="$(git ls-remote origin master | cut -d$'\t' -f 1)"
+    if [ "$git_local_hash" != "$git_remote_hash" ]; then
+        show_error "git remote history differs. please pull remote changes first."
+        exit 1
+    fi
+}
+
 ensure_git_repo_is_clean() {
     show_info "> Ensure repo is clean"
     if ! git diff-index --quiet HEAD --; then
@@ -134,6 +145,7 @@ main() {
     validate_version
     cd_project_root
     ensure_git_branch_is_master
+    ensure_git_branch_is_up_to_date
     ensure_git_repo_is_clean
     bump_package_json_version
     ensure_only_one_file_changed
