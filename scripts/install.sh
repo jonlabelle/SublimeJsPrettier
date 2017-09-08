@@ -12,7 +12,7 @@ cd_project_root() {
     pushd "${SCRIPTSDIR}" && pushd ..
 }
 
-restore_previous_working_dir() {
+cd_previous_working_dir() {
     echo '> Restore previous working directory'
     popd && popd
 }
@@ -65,7 +65,7 @@ main() {
     resolve_pip_cmd "$(python_major_version)"
     install_pip_requirements
     install_npm_packages
-    restore_previous_working_dir
+    cd_previous_working_dir
 
     echo && echo 'Finished.'
 }

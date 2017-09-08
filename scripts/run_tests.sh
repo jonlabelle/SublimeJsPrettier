@@ -11,7 +11,7 @@ cd_project_root() {
     pushd "${SCRIPTSDIR}" && pushd ..
 }
 
-restore_previous_working_dir() {
+cd_previous_working_dir() {
     echo '> Restore previous working directory'
     popd && popd
     echo
@@ -49,7 +49,7 @@ main() {
     run_flake8
     run_pylint
     run_markdownlint
-    restore_previous_working_dir
+    cd_previous_working_dir
 
     echo & echo 'Finished.'
 }

@@ -50,7 +50,7 @@ cd_project_root() {
     echo
 }
 
-restore_previous_working_dir() {
+cd_previous_working_dir() {
     show_info '> Restore previous working directory'
     popd && popd
     echo
@@ -93,5 +93,5 @@ if [ -z "$SONAR_SCANNER_CMD" ]; then
 fi
 
 run_scan
-restore_previous_working_dir
+cd_previous_working_dir
 show_success 'Finished.'

@@ -58,7 +58,7 @@ cd_project_root() {
     pushd "${SCRIPTSDIR}" && pushd ..
 }
 
-restore_previous_working_dir() {
+cd_previous_working_dir() {
     show_info '> Restore previous working directory'
     popd && popd
 }
@@ -140,7 +140,7 @@ main() {
     confirm_git_commit_tag_release
     git_commit_tag_release
     npm_publish
-    restore_previous_working_dir
+    cd_previous_working_dir
 
     echo && show_success "Finished." && echo
 }
