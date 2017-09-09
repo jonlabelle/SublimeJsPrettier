@@ -66,8 +66,8 @@
 	//
 	// Examples:
 	//
-	//     - macOS/Linux...: "/path/to/node"
-	//     - Windows.......: "C:/path/to/node.exe"
+	// macOS/Linux...: "node_path": "/path/to/node"
+	// Windows.......: "node_path": "C:/path/to/node.exe"
 	// ----------------------------------------------------------------------
 
 	"node_path": "",
@@ -165,13 +165,15 @@
 	// A key-value pair of additional arguments to append to the prettier
 	// command.
 	//
-	// Example:
-	// {
-	//     "--no-color": "",
-	//     "--single-quote=false": "",
-	//     "--cursor-offset": -1,
-	//     "--list-different": ""
-	// }
+	// Examples:
+	//
+	//     "additional_cli_args": {
+	//         "--config": "path/to/my/custom/.prettierrc",
+	//         "--no-config": "",
+	//         "--with-node-modules": ""
+	//         "--ignore-path": "path/to/.prettierignore"
+	//         "--config-precedence": "file-override"
+	//     }
 	//
 	// NOTE: If choosing to specify additional cli args, it is assumed that each
 	// argument is supported by the prettier-cli. Otherwise, the command will
