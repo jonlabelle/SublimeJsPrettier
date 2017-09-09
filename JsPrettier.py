@@ -139,14 +139,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if self.is_str_none_or_empty(user_prettier_path):
             global_prettier_path = self.which('prettier')
-            project_prettier_path = os.path.join(
-                project_path, 'node_modules', '.bin', 'prettier')
-            plugin_prettier_path = os.path.join(
-                PLUGIN_PATH, 'node_modules', '.bin', 'prettier')
+            project_prettier_path = os.path.join(project_path, 'node_modules', '.bin', 'prettier')
+            plugin_prettier_path = os.path.join(PLUGIN_PATH, 'node_modules', '.bin', 'prettier')
 
             if os.path.exists(project_prettier_path):
                 return project_prettier_path
-
             if os.path.exists(plugin_prettier_path):
                 return plugin_prettier_path
 
@@ -215,7 +212,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0} Error\n\n'
                     'File must first be saved.'.format(PLUGIN_NAME))
             else:
-                #
                 # sublime text 3+: show dialog that includes a save option:
                 result = sublime.yes_no_cancel_dialog(
                     '{0}\n\n'
@@ -223,8 +219,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     'Save...', "Don't Save")
                 if result == sublime.DIALOG_YES:
                     view.run_command('save')
-        # Re-check if file was saved, in case user canceled or closed
-        # the save dialog:
+        # Re-check if file was saved, in case user canceled or closed the save dialog:
         if view.file_name() is None:
             return sublime.set_timeout(lambda: sublime.status_message(
                 '{0}: File save canceled.'.format(PLUGIN_NAME)), 0)
@@ -253,23 +248,23 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         os.chdir(source_file_dir)
 
         #
-        # if a prettier config option is set in the 'additional_cli_args'
-        # ST setting... no action is required. otherwise, try to sniff out
-        # the config file path:
+        # if a `--config <path>` option is set in 'additional_cli_args',
+        # no action is required. otherwise, try to sniff out the config
+        # file path:
         parsed_additional_cli_args = self.parse_additional_cli_args()
-        has_custom_config = parsed_additional_cli_args.count('--config') > 0
-        has_custom_no_config = parsed_additional_cli_args.count('--no-config') > 0
+        has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
+        has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
 
-        # only try to find prettier config path if not specified
+        # only try `--find-config-path` if a config option is not specified
         # in 'additional_cli_args':
         prettier_config_path = None
-        if not has_custom_config and not has_custom_no_config:
+        if not has_custom_config_defined and not has_no_config_defined:
             prettier_config_path = self.find_prettier_config_path(node_path, prettier_cli_path, view.file_name())
 
         # Parse prettier options:
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
-            has_custom_config, has_custom_no_config)
+            has_custom_config_defined, has_no_config_defined)
 
         #
         # Format entire file:
@@ -312,8 +307,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 file_changed = True
 
             if file_changed is True:
-                sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: File formatted.'.format(PLUGIN_NAME)), 0)
+                sublime.set_timeout(lambda: sublime.status_message('{0}: File formatted.'.format(PLUGIN_NAME)), 0)
             else:
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: File already formatted.'.format(PLUGIN_NAME)), 0)
@@ -328,12 +322,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             source = view.substr(region)
             if self.is_str_empty_or_whitespace_only(source):
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: Nothing to format in selection.'.format(
-                        PLUGIN_NAME)), 0)
+                    '{0}: Nothing to format in selection.'.format(PLUGIN_NAME)), 0)
                 continue
 
-            transformed = self.format_code(
-                source, node_path, prettier_cli_path, prettier_options)
+            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -346,18 +338,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return self.show_status_bar_error()
 
             transformed = self.trim_trailing_ws_and_lines(transformed)
-            if transformed \
-                    and transformed == self.trim_trailing_ws_and_lines(source):
+            if transformed and transformed == self.trim_trailing_ws_and_lines(source):
                 sublime.set_timeout(lambda: sublime.status_message(
-                    '{0}: Selection(s) already formatted.'.format(
-                        PLUGIN_NAME)), 0)
+                    '{0}: Selection(s) already formatted.'.format(PLUGIN_NAME)), 0)
             else:
                 view.replace(edit, region, transformed)
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def format_code(self, source, node_path, prettier_cli_path,
-                    prettier_options):
+    def format_code(self, source, node_path, prettier_cli_path, prettier_options):
         self._error_message = None
 
         if self.is_str_none_or_empty(node_path):
@@ -369,9 +358,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_options
+
         try:
-            self.show_debug_message(
-                'Prettier CLI Command', self.list_to_str(cmd))
+            self.show_debug_message('Prettier CLI Command', self.list_to_str(cmd))
 
             proc = Popen(
                 cmd, stdin=PIPE,
@@ -381,16 +370,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if stderr or proc.returncode != 0:
-                self.format_error_message(
-                    stderr.decode('utf-8'), str(proc.returncode))
+                self.format_error_message(stderr.decode('utf-8'), str(proc.returncode))
                 return None
             return stdout.decode('utf-8')
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    def find_prettier_config_path(self, node_path, prettier_cli_path,
-                                  file_to_format_path):
+    def find_prettier_config_path(self, node_path, prettier_cli_path, file_to_format_path):
         """
         Find athe path to a Prettier config file based on the given file
         to be formatted.
@@ -405,6 +392,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + ['--find-config-path'] \
                 + [file_to_format_path]
         try:
+
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
@@ -462,40 +450,46 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def parse_additional_cli_args(self):
         additional_cli_args = []
-        if self.additional_cli_args and len(self.additional_cli_args) > 0:
+
+        if self.additional_cli_args and len(self.additional_cli_args) > 0 \
+                and isinstance(self.additional_cli_args, dict):
             for arg_key, arg_value in self.additional_cli_args.items():
                 arg_key = str(arg_key).strip()
                 arg_value = str(arg_value).strip()
-                # handle bool options
-                if arg_value != '' and self.is_bool_str(arg_value):
-                    additional_cli_args.append(
-                        '{0}={1}'.format(arg_key, arg_value.lower()))
+                if arg_key == '':
+                    # arg key cannot be empty
                     continue
                 additional_cli_args.append(arg_key)
-                if arg_value != '':
-                    additional_cli_args.append(arg_value)
+                if arg_value == '':
+                    # arg values can be empty, but don't need to be included
+                    continue
+                if self.is_bool_str(arg_value):
+                    arg_value = arg_value.lower()
+                additional_cli_args.append(arg_value)
+
         return additional_cli_args
 
-    def parse_prettier_options(self, view, parsed_additional_cli_args,
-                               prettier_config_path, has_custom_config, has_custom_no_config):
+    def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path,
+                               has_custom_config_defined, has_no_config_defined):
         prettier_options = []
 
         #
-        # Check for prettier configs:
+        # Check for prettier config file:
         prettier_config_exists = not self.is_str_none_or_empty(prettier_config_path)
-
         if prettier_config_exists:
-            if not has_custom_config:
-                # only add the '--config <path>' option if it's
-                # not already specified as an additional cli arg:
+            if not has_custom_config_defined:
+                # only add the '--config <path>' option if it's not
+                # already specified as an additional cli arg:
                 prettier_options.append('--config')
                 prettier_options.append(prettier_config_path)
         else:
-            if not has_custom_no_config and not has_custom_config:
-                # only add the '--no-config' option if it's
-                # not already specified as an additional cli arg:
+            if not has_no_config_defined and not has_custom_config_defined:
+                # only add the '--no-config' option if it's not
+                # already specified as an additional cli arg:
                 prettier_options.append('--no-config')
 
+        #
+        # Iterate over option map:
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_option_name = mapping['cli']
@@ -527,7 +521,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 #     prettier_options.append('parse5')
                 #     continue
 
-            if not prettier_config_exists and not has_custom_config:
+            if not prettier_config_exists and not has_custom_config_defined:
                 # add the cli args or the respective defaults:
                 if option_value is None or str(option_value) == '':
                     option_value = mapping['default']
@@ -594,8 +588,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def is_source_js(view):
         scopename = view.scope_name(view.sel()[0].b)
-        if scopename.startswith('source.js') \
-                or contains('source.js.embedded.html', scopename):
+        if scopename.startswith('source.js') or contains('source.js.embedded.html', scopename):
             return True
         return False
 
@@ -605,8 +598,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(view.sel()[0].b)
-        if scopename.startswith('source.css') or filename.endswith('.css') \
-                or contains('meta.selector.css', scopename):
+        if scopename.startswith('source.css') or filename.endswith('.css') or contains('meta.selector.css', scopename):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
             return True
@@ -854,8 +846,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        if self.is_allowed(view) \
-                and self.is_enabled(view) and self.is_excluded(view):
+        if self.is_allowed(view) and self.is_enabled(view) and self.is_excluded(view):
             view.run_command(PLUGIN_CMD_NAME, {'force_entire_file': True})
 
     def auto_format_on_save(self, view):
