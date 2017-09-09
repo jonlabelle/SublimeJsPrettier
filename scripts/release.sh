@@ -141,6 +141,7 @@ npm_publish() {
     npm publish
 }
 
+
 main() {
     validate_version
     cd_project_root
@@ -156,7 +157,6 @@ main() {
 
     echo && show_success "Finished." && echo
 }
-
 
 if [ $# -eq 0 ]; then
     show_error "you must specify a valid semver/version number for the release."
