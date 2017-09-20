@@ -369,9 +369,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 env=self.proc_env,
                 shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
-            if stderr or proc.returncode != 0:
+            if proc.returncode != 0:
                 self.error_message = self.format_error_message(stderr.decode('utf-8'), str(proc.returncode))
                 return None
+            if stderr:
+                print(self.format_error_message(stderr.decode('utf-8'), str(proc.returncode)))
             return stdout.decode('utf-8')
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
