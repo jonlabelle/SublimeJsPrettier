@@ -32,7 +32,7 @@ install:
 
 script:
   - bash scripts/run_tests.sh
-  - sonar-scanner
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then sonar-scanner; fi'
 
 notifications:
   email: false
