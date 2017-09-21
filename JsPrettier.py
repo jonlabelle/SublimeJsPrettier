@@ -10,12 +10,6 @@ from re import match, sub
 from subprocess import PIPE
 from subprocess import Popen
 
-try:
-    from functools import lru_cache
-except ImportError:
-    # Fallback to custom LRU cache decorator for Python 2
-    from JsPrettier.cache import lru_cache
-
 import sublime
 import sublime_plugin
 
@@ -388,7 +382,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
-    @lru_cache(maxsize=1024)
     def find_prettier_config_path(self, node_path, prettier_cli_path, file_to_format_path):
         """
         Find athe path to a Prettier config file based on the given file
