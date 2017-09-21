@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 import os
 import platform
 import fnmatch
@@ -379,6 +381,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.error_message = self.format_error_message(stderr.decode('utf-8'), str(proc.returncode))
                 return None
             if stderr:
+                # allow warnings to pass-through
                 print(self.format_error_message(stderr.decode('utf-8'), str(proc.returncode)))
             return stdout.decode('utf-8')
         except OSError as ex:
@@ -587,12 +590,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
-    def format_error_message(self, error_message, error_code):
+    @staticmethod
+    def format_error_message(error_message, error_code):
         return 'Prettier reported the following ' \
                'error:\n\n{0}\n' \
-               'Process finished with exit code {1}\n'\
-            .format(error_message, '{0}'
-                    .format(error_code))
+               'Process finished with exit code {1}\n' \
+            .format(error_message, '{0}'.format(error_code))
 
     @staticmethod
     def is_source_js(view):
