@@ -585,8 +585,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def format_error_message(error_message, error_code):
-        return 'Prettier reported the following ' \
-               'error:\n\n{0}\n' \
+        return 'Prettier reported the following error(s):\n\n' \
+               '{0}\n' \
                'Process finished with exit code {1}\n' \
             .format(error_message, '{0}'.format(error_code))
 
