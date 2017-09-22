@@ -6,8 +6,8 @@
 [![Package Control Installs](https://img.shields.io/packagecontrol/dt/JsPrettier.svg?label=installs)](https://packagecontrol.io/packages/JsPrettier)
 [![Latest Release](https://img.shields.io/github/tag/jonlabelle/SublimeJsPrettier.svg?label=version)](https://github.com/jonlabelle/SublimeJsPrettier/releases)
 
-[JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
-formatter.
+> [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
+> formatter.
 
 [![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
