@@ -175,13 +175,15 @@ file, accessible from the **Preferences** > **Package Settings** >
     Ignore auto formatting when the target file, or its path resides in a
     particular location, and when `auto_format_on_save` is turned on.
 
-    **Example:**
+    **Examples:**
 
-        [
-            "*/node_modules/*",
-            "*/file.js",
-            "*.json"
-        ]
+    ```json
+    [
+        "*/node_modules/*",
+        "*/file.js",
+        "*.json"
+    ]
+    ```
 
 - **allow_inline_formatting** (default: ***false***)  
     Enables the ability to format *selections* of in-lined code. For example, to
@@ -205,13 +207,15 @@ file, accessible from the **Preferences** > **Package Settings** >
 
     **Examples:**
 
-        {
-            "--config": "path/to/my/custom/.prettierrc",
-            "--no-config": "",
-            "--with-node-modules": ""
-            "--ignore-path": "path/to/.prettierignore"
-            "--config-precedence": "file-override"
-        }
+    ```json
+    {
+        "--config": "path/to/my/custom/.prettierrc",
+        "--no-config": "",
+        "--with-node-modules": "",
+        "--ignore-path": "path/to/.prettierignore",
+        "--config-precedence": "file-override"
+    }
+    ```
 
     > **NOTE:** If choosing to specify additional CLI args, it is assumed that
     > each argument is supported by the [Prettier CLI]. Otherwise, the command
