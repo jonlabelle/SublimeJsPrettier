@@ -7,7 +7,7 @@
 - Added new setting for [requirePragma] option.
 - Allow formatting to take place when Prettier reports non-fatal errors. For
   example, when Prettier reports warnings (to stderr) about *unknown options*
-  (#63, #64, #67, #68, #72).
+  ([#63], [#64], [#67], [#68], [#72]).
 
 ## 1.15.0
 
@@ -214,3 +214,8 @@
 [prettier v1.5+]: https://github.com/prettier/prettier/releases/tag/1.5.0
 [prettier v1.6+]: https://github.com/prettier/prettier/releases/tag/1.6.0
 [requirePragma]: https://github.com/prettier/prettier#require-pragma
+[#63]: https://github.com/jonlabelle/SublimeJsPrettier/issues/63
+[#64]: https://github.com/jonlabelle/SublimeJsPrettier/issues/64
+[#67]: https://github.com/jonlabelle/SublimeJsPrettier/issues/67
+[#68]: https://github.com/jonlabelle/SublimeJsPrettier/issues/68
+[#72]: https://github.com/jonlabelle/SublimeJsPrettier/issues/72
