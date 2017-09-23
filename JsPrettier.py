@@ -60,6 +60,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'semi',
         'cli': '--semi',
         'default': 'true'
+    },
+    {
+        'option': 'requirePragma',
+        'cli': '--require-pragma',
+        'default': 'false'
     }
 ]
 ALLOWED_FILE_EXTENSIONS = [

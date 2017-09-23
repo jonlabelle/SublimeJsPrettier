@@ -1,0 +1,9 @@
+## 1.16.0
+
+Release Date: 2017-09-23
+
+- Added new setting for [requirePragma](https://github.com/prettier/prettier#require-pragma) option.
+
+- Allow formatting to take place when Prettier reports non-fatal errors. For
+  example, when Prettier reports warnings (to stderr) about *unknown options*
+  (#63, #64, #67, #68, #72).

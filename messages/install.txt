@@ -90,7 +90,8 @@
                         "bracketSpacing": true,
                         "jsxBracketSameLine": false,
                         "parser": "babylon",
-                        "semi": true
+                        "semi": true,
+                        "requirePragma": false
                     }
                 }
             }
