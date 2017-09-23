@@ -266,6 +266,23 @@ file, accessible from the **Preferences** > **Package Settings** >
     comment, called a pragma, at the top of the file. This is very useful when
     gradually transitioning large, unformatted codebases to prettier.
 
+    For example, a file with the following as its first comment will be
+    formatted when `--require-pragma` is supplied:
+
+    ```js
+    /**
+     * @prettier
+     */
+    ```
+
+    or
+
+    ```js
+    /**
+     * @format
+     */
+    ```
+
 > For further details and examples of setting Prettier's options, please see the
 > [Prettier API section] on the Prettier homepage.
 
