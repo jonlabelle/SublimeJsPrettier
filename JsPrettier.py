@@ -7,8 +7,7 @@ import platform
 import fnmatch
 
 from re import match, sub
-from subprocess import PIPE
-from subprocess import Popen
+from subprocess import PIPE, Popen
 
 import sublime
 import sublime_plugin
