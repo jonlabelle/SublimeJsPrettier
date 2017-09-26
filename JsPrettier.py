@@ -388,7 +388,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def find_prettier_config_path(self, node_path, prettier_cli_path, file_to_format_path):
         """
-        Find athe path to a Prettier config file based on the given file
+        Find the path to a Prettier config file based on the given file
         to be formatted.
         """
         if self.is_str_none_or_empty(node_path):
@@ -753,7 +753,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def list_to_str(list_to_convert):
         """Convert a list of values into string.
 
-        Each value will be seperated by a single space.
+        Each value will be separated by a single space.
 
         :param list_to_convert: The list to convert to a string.
         :return: The list converted into a string.
@@ -801,7 +801,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @staticmethod
     def env_path_contains(path_to_look_for, env_path=None):
-        """Check if the specified path is listed in OS enviornment path.
+        """Check if the specified path is listed in OS environment path.
 
         :param path_to_look_for: The path the search for.
         :param env_path: The environment path str.
