@@ -248,13 +248,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 'set in your PATH environment variable.'.format(PLUGIN_NAME))
 
         #
-        # cd to the path of the file being formattting:
+        # cd to the path of the target file:
         source_file_dir = os.path.abspath(os.path.dirname(view.file_name()))
         os.chdir(source_file_dir)
 
         #
         # if a `--config <path>` option is set in 'additional_cli_args',
-        # no action is required. otherwise, try to sniff out the config
+        # no action is necessary. otherwise, try to sniff the config
         # file path:
         parsed_additional_cli_args = self.parse_additional_cli_args()
         has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
@@ -266,6 +266,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not has_custom_config_defined and not has_no_config_defined:
             prettier_config_path = self.find_prettier_config_path(node_path, prettier_cli_path, view.file_name())
 
+        #
         # Parse prettier options:
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
