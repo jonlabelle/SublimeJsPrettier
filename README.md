@@ -30,6 +30,7 @@
 - [Settings](#settings)
     - [Sublime Text Settings](#sublime-text-settings)
     - [Prettier Options](#prettier-options)
+    - [Prettier Configuration Files](#prettier-configuration-files)
     - [Project-level Settings](#project-level-settings)
 - [Issues](#issues)
 - [Changes](#changes)
@@ -209,11 +210,13 @@ file, accessible from the **Preferences** > **Package Settings** >
 
     ```json
     {
-        "--config": "path/to/my/custom/.prettierrc",
-        "--no-config": "",
-        "--with-node-modules": "",
-        "--ignore-path": "path/to/.prettierignore",
-        "--config-precedence": "file-override"
+        additional_cli_args: {
+            "--config": "path/to/my/custom/.prettierrc",
+            "--no-config": "",
+            "--with-node-modules": "",
+            "--ignore-path": "path/to/.prettierignore",
+            "--config-precedence": "prefer-file"
+        }
     }
     ```
 

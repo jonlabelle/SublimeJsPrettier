@@ -259,6 +259,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         parsed_additional_cli_args = self.parse_additional_cli_args()
         has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
+        has_config_precedence_defined = parsed_additional_cli_args.count('--config-precedence') > 0
 
         # only try `--find-config-path` if a config option is not specified
         # in 'additional_cli_args':
@@ -270,7 +271,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # Parse prettier options:
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
-            has_custom_config_defined, has_no_config_defined)
+            has_custom_config_defined, has_no_config_defined, has_config_precedence_defined)
 
         #
         # Format entire file:
@@ -479,7 +480,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return additional_cli_args
 
     def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path,
-                               has_custom_config_defined, has_no_config_defined):
+                               has_custom_config_defined, has_no_config_defined, has_config_precedence_defined):
         prettier_options = []
 
         #
@@ -491,6 +492,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 # already specified as an additional cli arg:
                 prettier_options.append('--config')
                 prettier_options.append(prettier_config_path)
+
+                # set config-precedence to 'prefer-file' if
+                # the key wasn't defined in additional_cli_args:
+                if not has_config_precedence_defined:
+                    prettier_options.append('--config-precedence')
+                    prettier_options.append('prefer-file')
         else:
             if not has_no_config_defined and not has_custom_config_defined:
                 # only add the '--no-config' option if it's not

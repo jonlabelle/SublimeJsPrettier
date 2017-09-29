@@ -174,7 +174,7 @@
 	//         "--no-config": "",
 	//         "--with-node-modules": "",
 	//         "--ignore-path": "path/to/.prettierignore",
-	//         "--config-precedence": "file-override"
+	//         "--config-precedence": "prefer-file"
 	//     }
 	//
 	// NOTE: If choosing to specify additional cli args, it is assumed that each
