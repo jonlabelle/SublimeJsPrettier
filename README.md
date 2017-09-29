@@ -311,7 +311,8 @@ example.
 ```json
 {
     "additional_cli_args": {
-        "--config": "path/to/my/custom/.prettierrc"
+        "--config": "path/to/my/custom/.prettierrc",
+        "--config-precedence": "prefer-file"
     }
 }
 ```
