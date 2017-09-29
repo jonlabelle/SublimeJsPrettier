@@ -36,7 +36,6 @@
 - [Changes](#changes)
 - [Author](#author)
 - [License](#license)
-
 </details>
 
 ## Installation
@@ -210,7 +209,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 
     ```json
     {
-        additional_cli_args: {
+        "additional_cli_args": {
             "--config": "path/to/my/custom/.prettierrc",
             "--no-config": "",
             "--with-node-modules": "",
@@ -293,7 +292,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 > For further details and examples of setting Prettier's options, please see the
 > [Prettier API section] on the Prettier homepage.
 
-#### Prettier Configuration Files
+### Prettier Configuration Files
 
 When [Prettier Configuration files] are detected, Prettier options defined in
 Sublime Text settings files will be ignored, with the exception of `parser`,
@@ -303,7 +302,7 @@ Sublime Text settings files will be ignored, with the exception of `parser`,
 > being formatted, and searching up the file tree until a config file is (or
 > isn't) found.*
 
-##### Custom Prettier Config File Path
+#### Custom Prettier Config File Path
 
 To specify a custom Prettier config path, simply add the `--config` argument
 with an appropriate path to the `additional_cli_args` setting. Here's an
@@ -317,7 +316,7 @@ example.
 }
 ```
 
-##### Disable Prettier Config File Discovery
+#### Disable Prettier Config File Discovery
 
 You can also add the `--no-config` option to the `additional_cli_args` setting,
 and tell Prettier not to attempt to find config files.
