@@ -36,6 +36,7 @@
 - [Changes](#changes)
 - [Author](#author)
 - [License](#license)
+
 </details>
 
 ## Installation
