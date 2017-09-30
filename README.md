@@ -214,10 +214,9 @@ file, accessible from the **Preferences** > **Package Settings** >
     {
         "additional_cli_args": {
             "--config": "path/to/my/custom/.prettierrc",
-            "--no-config": "",
-            "--with-node-modules": "",
+            "--config-precedence": "prefer-file",
             "--ignore-path": "path/to/.prettierignore",
-            "--config-precedence": "prefer-file"
+            "--with-node-modules": ""
         }
     }
     ```
