@@ -179,11 +179,13 @@ file, accessible from the **Preferences** > **Package Settings** >
     **Examples:**
 
     ```json
-    [
-        "*/node_modules/*",
-        "*/file.js",
-        "*.json"
-    ]
+    {
+        "auto_format_on_save_excludes": [
+            "*/node_modules/*",
+            "*/file.js",
+            "*.json"
+        ]
+    }
     ```
 
 - **allow_inline_formatting** (default: ***false***)  
