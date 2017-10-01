@@ -5,6 +5,7 @@ from __future__ import print_function
 import os
 import platform
 import fnmatch
+import functools
 
 from re import match, sub
 from subprocess import PIPE, Popen
@@ -79,6 +80,18 @@ ALLOWED_FILE_EXTENSIONS = [
     'less'
 ]
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
+
+
+def memoize(obj):
+    cache = obj.cache = {}
+
+    @functools.wraps(obj)
+    def memoizer(*args, **kwargs):
+        key = str(args) + str(kwargs)
+        if key not in cache:
+            cache[key] = obj(*args, **kwargs)
+        return cache[key]
+    return memoizer
 
 
 def contains(needle, haystack):
@@ -387,6 +400,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
 
+    @memoize
     def find_prettier_config_path(self, node_path, prettier_cli_path, file_to_format_path):
         """
         Find the path to a Prettier config file based on the given file
