@@ -1,6 +1,6 @@
 {
   "name": "sublime-js-prettier",
-  "version": "1.16.4",
+  "version": "1.16.5",
   "description": "JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code formatter.",
   "author": "Jon LaBelle",
   "license": "MIT",
