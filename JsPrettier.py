@@ -271,7 +271,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # Parse prettier options:
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
-            has_custom_config_defined, has_no_config_defined, has_config_precedence_defined)
+            has_custom_config_defined, has_no_config_defined,
+            has_config_precedence_defined)
 
         #
         # Format entire file:
@@ -365,7 +366,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_options
-
         try:
             self.show_debug_message('Prettier CLI Command', self.list_to_str(cmd))
 
@@ -402,7 +402,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + ['--find-config-path'] \
                 + [file_to_format_path]
         try:
-
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
@@ -480,7 +479,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return additional_cli_args
 
     def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path,
-                               has_custom_config_defined, has_no_config_defined, has_config_precedence_defined):
+                               has_custom_config_defined, has_no_config_defined,
+                               has_config_precedence_defined):
         prettier_options = []
 
         #
