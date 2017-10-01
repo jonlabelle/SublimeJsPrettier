@@ -23,7 +23,7 @@
 set -e
 
 VERSION=$1
-LAST_VERSION="$(git describe --abbrev=0 --tags)"
+PREVIOUS_VERSION="$(git describe --abbrev=0 --tags)"
 
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
@@ -162,7 +162,7 @@ main() {
 if [ $# -eq 0 ]; then
     show_error "a valid semver number for the new release is required."
     show_usage
-    echo "Currently, the latest release is '$(show_success ${LAST_VERSION})'."
+    echo "Currently, the latest release is '$(show_success ${PREVIOUS_VERSION})'."
     exit 1
 else
     main
