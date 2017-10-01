@@ -100,7 +100,7 @@ ensure_git_repo_is_clean() {
 }
 
 bump_package_json_version() {
-    show_info "> Bump version in 'package.json' file"
+    show_info "> Bump version in 'package.json' file, 'v$PREVIOUS_VERSION' -> 'v$VERSION'"
     local tmp_pkg_file="${TMPDIR:-/tmp}/package.json.$$"
     sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$VERSION"'"'/ package.json > "$tmp_pkg_file" && mv "$tmp_pkg_file" package.json
     grep "$VERSION" -C 1 package.json
