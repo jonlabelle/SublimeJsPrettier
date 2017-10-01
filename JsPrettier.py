@@ -19,11 +19,11 @@ sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_NAME = 'JsPrettier'
-PLUGIN_PATH = os.path.join(sublime.packages_path(),
-                           os.path.dirname(os.path.realpath(__file__)))
+PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
 PLUGIN_CMD_NAME = 'js_prettier'
 PROJECT_SETTINGS_KEY = PLUGIN_CMD_NAME
 SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
+IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 PRETTIER_OPTIONS_KEY = 'prettier_options'
 PRETTIER_OPTION_CLI_MAP = [
     {
@@ -79,7 +79,6 @@ ALLOWED_FILE_EXTENSIONS = [
     'scss',
     'less'
 ]
-IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 
 
 def memoize(obj):
@@ -292,13 +291,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not self.has_selection(view) or force_entire_file is True:
             region = sublime.Region(0, view.size())
             source = view.substr(region)
-
             if self.is_str_empty_or_whitespace_only(source):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
-            transformed = self.format_code(
-                source, node_path, prettier_cli_path, prettier_options)
+            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -327,7 +324,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.ensure_newline_at_eof(view, edit)
                 file_changed = True
 
-            if file_changed is True:
+            if file_changed:
                 sublime.set_timeout(lambda: sublime.status_message('{0}: File formatted.'.format(PLUGIN_NAME)), 0)
             else:
                 sublime.set_timeout(lambda: sublime.status_message(
@@ -369,7 +366,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def format_code(self, source, node_path, prettier_cli_path, prettier_options):
         self._error_message = None
-
         if self.is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
                 + ['--stdin'] \
@@ -381,7 +377,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + prettier_options
         try:
             self.show_debug_message('Prettier CLI Command', self.list_to_str(cmd))
-
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
@@ -473,7 +468,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def parse_additional_cli_args(self):
         additional_cli_args = []
-
         if self.additional_cli_args and len(self.additional_cli_args) > 0 \
                 and isinstance(self.additional_cli_args, dict):
             for arg_key, arg_value in self.additional_cli_args.items():
@@ -489,7 +483,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if self.is_bool_str(arg_value):
                     arg_value = arg_value.lower()
                 additional_cli_args.append(arg_value)
-
         return additional_cli_args
 
     def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path,
