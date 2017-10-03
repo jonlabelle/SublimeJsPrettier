@@ -1,11 +1,11 @@
 {
   "default": true,
-  "MD003": { "style": "atx" },
-  "MD007": { "indent": 4 },
-  "MD013": { "line_length": 120 },
-  "MD009": { "br_spaces": 2 },
-  "MD029": { "style": "ordered" },
-  "MD033": {
+  "headers": { "style": "atx" },
+  "line_length": { "line_length": 120 },
+  "whitespace": { "br_spaces": 2 },
+  "ul": { "indent": 4 },
+  "ol": { "style": "ordered" },
+  "html": {
     "allowed_elements": [
       "a",
       "details",
