@@ -522,7 +522,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if option_name == 'parser':
                 if self.is_css(view):
                     prettier_options.append(cli_option_name)
-                    prettier_options.append('postcss')
+                    prettier_options.append('css')
                     continue
 
                 if self.is_typescript(view):

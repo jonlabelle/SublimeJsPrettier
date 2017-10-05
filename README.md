@@ -275,10 +275,10 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **parser** (default: "***babylon***")  
     Which parser to use. Valid options are "***flow***", "***babylon***",
-    "***typescript***" and "***postcss***".
+    "***typescript***" and "***css***".
 
     > If CSS or TypeScript is detected in Sublime Text, the parser option will
-    > *always* be internally overridden and set to "***postcss***" or
+    > *always* be internally overridden and set to "***css***" or
     > "***typescript***" respectively.
 
 - **semi** (default: ***true***)  
