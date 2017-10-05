@@ -315,7 +315,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 When [Prettier configuration files] are detected, Prettier options defined in
 *Sublime Text* settings and Project files will be overridden with their Prettier
-config file counterparts.
+config file counterparts, with the exception of `parser`, `tabWidth` and
+`useTabs`; which are all auto-detected based of the current view or
+selection(s).
 
 > *The configuration file will be resolved starting from the location of the file
 > being formatted, and searching up the file tree until a config file is (or

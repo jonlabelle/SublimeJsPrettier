@@ -506,7 +506,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 # the key wasn't defined in additional_cli_args:
                 if not has_config_precedence_defined:
                     prettier_options.append('--config-precedence')
-                    prettier_options.append('prefer-file')
+                    prettier_options.append('cli-override')
         else:
             if not has_no_config_defined and not has_custom_config_defined:
                 # only add the '--no-config' option if it's not
