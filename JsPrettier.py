@@ -285,7 +285,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
             has_custom_config_defined, has_no_config_defined,
-            has_config_precedence_defined)
+            has_config_precedence_defined, view.file_name())
 
         #
         # Format entire file:
@@ -486,9 +486,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 additional_cli_args.append(arg_value)
         return additional_cli_args
 
-    def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path,
-                               has_custom_config_defined, has_no_config_defined,
-                               has_config_precedence_defined):
+    def parse_prettier_options(self, view, parsed_additional_cli_args,
+                               prettier_config_path, has_custom_config_defined,
+                               has_no_config_defined, has_config_precedence_defined,
+                               file_name):
         prettier_options = []
 
         #
@@ -557,6 +558,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # set the `useTabs` option based on the current view:
         prettier_options.append('--use-tabs')
         prettier_options.append(str(self.use_tabs).lower())
+
+        prettier_options.append('--stdin-filepath')
+        prettier_options.append(file_name)
 
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
