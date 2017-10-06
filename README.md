@@ -176,30 +176,13 @@ file, accessible from the **Preferences** > **Package Settings** >
     Ignore auto formatting when the target file, or its path resides in a
     particular location, and when `auto_format_on_save` is turned on.
   
-    > **NOTE:** Be sure to use the appropriate directory separators according to
-    > your platform. Also note that if using Windows, the backslash character
-    > must be be escaped with an extra backslash. See below for examples by
-    > Platform.
-
-    **POSIX Platforms (macOS, Linux) Example:**
-
+    **Example:**
+  
     ```json
     {
         "auto_format_on_save_excludes": [
             "*/node_modules/*",
             "*/file.js",
-            "*.json"
-        ]
-    }
-    ```
-  
-    **Windows Platforms Example:**
-
-    ```json
-    {
-        "auto_format_on_save_excludes": [
-            "*\\node_modules\\*",
-            "*\\file.js",
             "*.json"
         ]
     }
