@@ -2,7 +2,7 @@
 
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues), please include the following information in your post:
 
-- [ ] **Explain the issue**
+- [ ] **Explain the Issue and Expected Behavior**
 - [ ] **Prettier version**
 - [ ] **JsPrettier Plug-in Version**
 - [ ] **Platform Details**
@@ -14,9 +14,9 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 
 ---
 
-### Explain the issue
+### Explain the Issue and Expected Behavior
 
-Provide a story of the issue with as much detail as possible...
+Provide a story of the issue with as much detail as possible, including the expected behavior.
 
 ### Prettier version
 
