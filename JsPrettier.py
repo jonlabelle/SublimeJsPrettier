@@ -559,6 +559,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options.append('--use-tabs')
         prettier_options.append(str(self.use_tabs).lower())
 
+        # append the current file name to stdin-filepath:
         prettier_options.append('--stdin-filepath')
         prettier_options.append(file_name)
 
