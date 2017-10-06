@@ -2,7 +2,7 @@ import codecs
 import json
 import re
 
-RE_LINE_PRESERVE = re.compile(r"\r?\n", re.MULTILINE)
+RE_LINE_PRESERVE = re.compile(r'\r?\n', re.MULTILINE)
 RE_COMMENT = re.compile(
     r'''(?x)
         (?P<comments>

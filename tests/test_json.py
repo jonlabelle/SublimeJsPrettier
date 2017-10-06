@@ -14,11 +14,8 @@ class TestSettings(unittest.TestCase):
                 yield os.path.join(root, filename)
             for dirname in [d for d in dirnames
                             if d not in ('.cache', '.git', '.github', '.idea',
-                                         'messages', 'screenshots', 'scripts',
-                                         os.path.join(
-                                             'tests', '__pycache__'))]:
-                for f in self._get_json_files(
-                        file_pattern, os.path.join(root, dirname)):
+                                         'messages', 'screenshots', 'scripts', os.path.join('tests', '__pycache__'))]:
+                for f in self._get_json_files(file_pattern, os.path.join(root, dirname)):
                     yield f
 
     def test_json_settings(self):
@@ -33,7 +30,5 @@ class TestSettings(unittest.TestCase):
         for file_pattern in file_patterns:
             for f in self._get_json_files(file_pattern):
                 print(f)
-                self.assertFalse(
-                    validate_json_format.CheckJsonFormat(
-                        False, True).check_format(f),
-                    "%s does not comform to expected format!" % f)
+                self.assertFalse(validate_json_format.CheckJsonFormat(False, True).check_format(f),
+                                 "%s does not comform to expected format!" % f)
