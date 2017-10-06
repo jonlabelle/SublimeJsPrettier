@@ -881,7 +881,7 @@ class CommandOnSave(sublime_plugin.EventListener):
         if not filename:
             return False
         excludes = self.auto_format_on_save_excludes(view)
-        regmatch_ef = [fnmatch.translate(pattern) for pattern in excludes]
+        regmatch_ef = [fnmatch.translate(os.path.normpath(pattern)) for pattern in excludes]
         for regmatch in regmatch_ef:
             if match(regmatch, filename):
                 return False
