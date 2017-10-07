@@ -392,7 +392,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.error_message = self.format_error_message(error_output, str(proc.returncode))
 
                 # detect syntax errors, and scroll to the source error line:
-                error, message, error_line, col = self.is_syntax_error(error_output)
+                _, _, error_line, _ = self.is_syntax_error(error_output)
                 if error_line != -1:
                     view.run_command('goto_line', {"line": error_line})
 
@@ -619,7 +619,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         col = -1
         match_groups = search(
             r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)', error_output)
-        if match:
+        if match_groups:
             error = match_groups.group('error')
             message = match_groups.group('message')
             line = int(match_groups.group('line'))
