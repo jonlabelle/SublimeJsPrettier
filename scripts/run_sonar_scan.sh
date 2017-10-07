@@ -11,22 +11,22 @@ SONAR_SCANNER_CMD=$2
 
 show_info() {
     local msg="$1"
-    echo -e "\e[36m${1}\e[0m"
+    echo -e "\\e[36m${msg}\\e[0m"
 }
 
 show_success() {
     local msg="$1"
-    echo -e "\e[32m${msg}\e[0m"
+    echo -e "\\e[32m${msg}\\e[0m"
 }
 
 show_warning() {
     local msg="$1"
-    echo -e "\e[33mwarning\e[0m : ${1}"
+    echo -e "\\e[33mwarning\\e[0m : ${msg}"
 }
 
 show_error() {
     local msg="$1"
-    echo -e "\e[31merror\e[0m : ${1}"
+    echo -e "\\e[31merror\\e[0m : ${msg}"
 }
 
 

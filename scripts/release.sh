@@ -33,19 +33,19 @@ readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
 
 show_info() {
-    echo -e "\e[36m${1}\e[0m"
+    echo -e "\\e[36m${1}\\e[0m"
 }
 
 show_success() {
-    echo -e "\e[32m${1}\e[0m"
+    echo -e "\\e[32m${1}\\e[0m"
 }
 
 show_warning() {
-    echo -e "\e[33m${1}\e[0m"
+    echo -e "\\e[33m${1}\\e[0m"
 }
 
 show_error() {
-    echo -e "\e[31mError:\e[0m ${1}"
+    echo -e "\\e[31mError:\\e[0m ${1}"
 }
 
 

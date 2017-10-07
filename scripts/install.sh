@@ -30,8 +30,7 @@ python_major_version() {
     echo "$py_major_ver"
 }
 
-resolve_pip_cmd()
-{
+resolve_pip_cmd() {
     echo '> Resolve pip command'
 
     local py_major_ver="$1"
