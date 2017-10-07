@@ -7,7 +7,7 @@ import platform
 import fnmatch
 import functools
 
-from re import match, sub
+from re import match, sub, search
 from subprocess import PIPE, Popen
 
 import sublime
@@ -296,7 +296,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Nothing to format in file.'.format(PLUGIN_NAME)), 0)
 
-            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options)
+            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options, view)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -344,7 +344,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0}: Nothing to format in selection.'.format(PLUGIN_NAME)), 0)
                 continue
 
-            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options)
+            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options, view)
             if self.has_error:
                 self.show_console_error()
                 return self.show_status_bar_error()
@@ -365,8 +365,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 sublime.set_timeout(lambda: sublime.status_message(
                     '{0}: Selection(s) formatted.'.format(PLUGIN_NAME)), 0)
 
-    def format_code(self, source, node_path, prettier_cli_path, prettier_options):
+    def format_code(self, source, node_path, prettier_cli_path, prettier_options, view):
         self._error_message = None
+
         if self.is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
                 + ['--stdin'] \
@@ -376,6 +377,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_options
+
         try:
             self.show_debug_message('Prettier CLI Command', self.list_to_str(cmd))
             proc = Popen(
@@ -386,7 +388,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 shell=self.is_windows())
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if proc.returncode != 0:
-                self.error_message = self.format_error_message(stderr.decode('utf-8'), str(proc.returncode))
+                error_output = stderr.decode('utf-8')
+                self.error_message = self.format_error_message(error_output, str(proc.returncode))
+
+                # detect syntax errors, and scroll to the source error line:
+                error, message, error_line, col = self.is_syntax_error(error_output)
+                if error_line != -1:
+                    view.run_command('goto_line', {"line": error_line})
+
                 return None
             if stderr:
                 # allow warnings to pass-through
@@ -601,6 +610,21 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def show_console_error(self):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
+
+    @staticmethod
+    def is_syntax_error(error_output):
+        error = None
+        message = ''
+        line = -1
+        col = -1
+        match_groups = search(
+            r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)', error_output)
+        if match:
+            error = match_groups.group('error')
+            message = match_groups.group('message')
+            line = int(match_groups.group('line'))
+            col = int(match_groups.group('col'))
+        return error, message, line, col
 
     @staticmethod
     def format_error_message(error_message, error_code):
