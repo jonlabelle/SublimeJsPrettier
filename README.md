@@ -122,10 +122,10 @@ entire file will be formatted.
 ### Custom Key Binding
 
 To add a [custom key binding] to `JsPrettier`, please reference the following
-example which binds `js_prettier` to <kbd>ctrl/cmd + b</kbd>.
+example which binds `js_prettier` to <kbd>ctrl/cmd + alt + f</kbd>.
 
 ```json
-{ "keys": ["super+b"], "command": "js_prettier" }
+{ "keys": ["super+alt+f"], "command": "js_prettier" }
 ```
 
 ## Settings

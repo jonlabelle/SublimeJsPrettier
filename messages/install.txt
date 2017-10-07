@@ -45,9 +45,9 @@
     ### Custom Key Binding
 
         To add a custom key binding to JsPrettier, please reference the
-        following example which binds `js_prettier` to "ctrl/cmd + b".
+        following example which binds `js_prettier` to "ctrl/cmd + alt + f".
 
-            { "keys": ["super+b"], "command": "js_prettier" }
+            { "keys": ["super+alt+f"], "command": "js_prettier" }
 
 
 ## Settings
