@@ -392,7 +392,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.error_message = self.format_error_message(error_output, str(proc.returncode))
 
                 # detect syntax errors, and scroll to the source error line:
-                _, _, error_line, _ = self.is_syntax_error(error_output)
+                _, _, error_line, _ = self.has_syntax_error(error_output)
                 if error_line != -1:
                     view.run_command('goto_line', {"line": error_line})
 
@@ -612,7 +612,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     @staticmethod
-    def is_syntax_error(error_output):
+    def has_syntax_error(error_output):
         error = None
         message = ''
         line = -1
