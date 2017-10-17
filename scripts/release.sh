@@ -173,7 +173,7 @@ if [ $# -eq 0 ]; then
     exit 1
 else
     if [ "$1" = "-n" ] || [ "$1" = "--next" ]; then
-        VERSION=$NEXT_VERSION
+        VERSION=${NEXT_VERSION}
     fi
     if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
         show_usage
