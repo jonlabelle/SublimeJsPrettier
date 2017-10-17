@@ -380,21 +380,23 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         try:
             self.show_debug_message('Prettier CLI Command', self.list_to_str(cmd))
+
             proc = Popen(
                 cmd, stdin=PIPE,
                 stderr=PIPE,
                 stdout=PIPE,
                 env=self.proc_env,
                 shell=self.is_windows())
+
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if proc.returncode != 0:
                 error_output = stderr.decode('utf-8')
                 self.error_message = self.format_error_message(error_output, str(proc.returncode))
 
-                # detect syntax errors, and scroll to the source error line:
-                _, _, error_line, _ = self.has_syntax_error(error_output)
-                if error_line != -1:
-                    view.run_command('goto_line', {"line": error_line})
+                # detect and scroll to 'Syntax Errors':
+                _, _, error_line, error_col = self.has_syntax_error(error_output)
+                if error_line != -1 and error_col != -1:
+                    self.scroll_view_to(view, error_line, error_col)
 
                 return None
             if stderr:
@@ -610,6 +612,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def show_console_error(self):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
+
+    @staticmethod
+    def scroll_view_to(view, row_no, col_no):
+        # error positions are offset by -1
+        # prettier -> sublime text
+        row_no -= 1
+        col_no -= 1
+
+        textpoint = view.text_point(row_no, col_no)
+        view.sel().clear()
+        view.sel().add(sublime.Region(textpoint))
+        view.show_at_center(textpoint)
 
     @staticmethod
     def has_syntax_error(error_output):
