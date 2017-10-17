@@ -67,7 +67,7 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': 'false'
     }
 ]
-ALLOWED_FILE_EXTENSIONS = [
+AUTO_FORMAT_FILE_EXTENSIONS = [
     'js',
     'jsx',
     'json',
@@ -206,12 +206,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         return False
 
-    def is_allowed_file_ext(self, view):
+    def is_file_auto_formattable(self, view):
         filename = view.file_name()
         if not filename:
             return False
         file_ext = os.path.splitext(filename)[1][1:]
-        if file_ext in ALLOWED_FILE_EXTENSIONS:
+        if file_ext in AUTO_FORMAT_FILE_EXTENSIONS:
             return True
         if file_ext in set(self.get_setting('custom_file_extensions', [])):
             return True
@@ -443,7 +443,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_css(view) is True:
             return True
-        if self.is_allowed_file_ext(view) is True:
+        if self.is_file_auto_formattable(view) is True:
             return True
         return False
 
@@ -895,7 +895,7 @@ class CommandOnSave(sublime_plugin.EventListener):
         return self.get_setting(view, 'custom_file_extensions', [])
 
     def is_allowed(self, view):
-        return self.is_allowed_file_ext(view)
+        return self.is_file_auto_formattable(view)
 
     def is_enabled(self, view):
         return self.auto_format_on_save(view)
@@ -911,12 +911,12 @@ class CommandOnSave(sublime_plugin.EventListener):
                 return False
         return True
 
-    def is_allowed_file_ext(self, view):
+    def is_file_auto_formattable(self, view):
         filename = view.file_name()
         if not filename:
             return False
         file_ext = os.path.splitext(filename)[1][1:]
-        if file_ext in ALLOWED_FILE_EXTENSIONS:
+        if file_ext in AUTO_FORMAT_FILE_EXTENSIONS:
             return True
         if file_ext in set(self.custom_file_extensions(view)):
             return True
