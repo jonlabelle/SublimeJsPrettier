@@ -12,3 +12,5 @@ test_script:
 
 build: off
 version: "{build}"
+clone_depth: 3
+max_jobs: 2
