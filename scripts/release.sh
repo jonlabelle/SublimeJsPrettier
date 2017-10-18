@@ -18,7 +18,7 @@
 #   To bump and tag to the specified version (1.2.1):
 #       $ release.sh 1.2.1
 #
-#   To bump and tag automatically incrementing to the next minor version:
+#   To bump and tag automatically incrementing to the next patch version:
 #       $ release.sh --next
 ##
 
@@ -56,7 +56,7 @@ show_usage() {
     echo "Release tasks bulked into one script."
     echo
     echo "OPTIONS"
-    echo "    -n, --next    auto-increment to the next minor version"
+    echo "    -n, --next    auto-increment to the next patch version"
     echo "    -h, --help    show usage"
     echo
 }
@@ -168,7 +168,7 @@ main() {
 
 if [ $# -eq 0 ]; then
     show_error "a valid semver number for the new release is required"
-    echo "Currently, the latest release is '$(show_success ${PREVIOUS_VERSION})'"
+    echo "Currently, the latest release is '$(show_success "${PREVIOUS_VERSION}")'"
     show_usage
     exit 1
 else
