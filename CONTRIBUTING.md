@@ -19,7 +19,7 @@ Github interface. Check out the step-by-step instructions (with screenshots) on
 
 Alternatively, you can do most of the process from the command line:
 
-- fork the repository on the github web interface
+- [fork the repository] on the github web interface
 
 - clone your fork locally:  
   `git clone https://github.com/{your_username}/SublimeJsPrettier.git 'JsPrettier' && cd JsPrettier`
@@ -45,7 +45,7 @@ Alternatively, you can do most of the process from the command line:
 For the commit message, please follow the
 *[The seven rules of a great Git commit message]*.
 
-
 [issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues
 [Github Help]: https://help.github.com/articles/editing-files-in-another-user-s-repository/
 [The seven rules of a great Git commit message]: https://chris.beams.io/posts/git-commit/#seven-rules
+[fork the repository]: https://github.com/jonlabelle/SublimeJsPrettier/fork
