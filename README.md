@@ -30,8 +30,8 @@
 - [Settings](#settings)
     - [Sublime Text Settings](#sublime-text-settings)
     - [Prettier Options](#prettier-options)
-    - [Prettier Configuration Files](#prettier-configuration-files)
     - [Project-level Settings](#project-level-settings)
+    - [Prettier Configuration Files](#prettier-configuration-files)
 - [Issues](#issues)
 - [Changes](#changes)
 - [Author](#author)
@@ -294,46 +294,6 @@ file, accessible from the **Preferences** > **Package Settings** >
 > For further details and examples of setting Prettier's options, please see the
 > [Prettier API section] on the Prettier homepage.
 
-### Prettier Configuration Files
-
-When [Prettier configuration files] are detected, Prettier options defined in
-*Sublime Text* settings and Project files will be overridden with their Prettier
-config file counterparts, with the exception of `parser`, `tabWidth` and
-`useTabs`; which are all auto-detected based of the current view or
-selection(s).
-
-> *The configuration file will be resolved starting from the location of the file
-> being formatted, and searching up the file tree until a config file is (or
-> isn't) found.*
-
-#### Custom Prettier Config File Path
-
-To specify a custom Prettier config path, simply add the `--config` argument
-with an appropriate path to the `additional_cli_args` setting. Here's an
-example.
-
-```json
-{
-    "additional_cli_args": {
-        "--config": "path/to/my/custom/.prettierrc",
-        "--config-precedence": "prefer-file"
-    }
-}
-```
-
-#### Disable Prettier Config File Discovery
-
-You can also add the `--no-config` option to the `additional_cli_args` setting,
-and tell Prettier not to attempt to find config files.
-
-```json
-{
-    "additional_cli_args": {
-        "--no-config": ""
-    }
-}
-```
-
 ### Project-level Settings
 
 JsPrettier supports [Project-level settings], specified in
@@ -372,6 +332,46 @@ must be created under the project file's `settings` section.
                 "requirePragma": false
             }
         }
+    }
+}
+```
+
+### Prettier Configuration Files
+
+When [Prettier configuration files] are detected, Prettier options defined in
+*Sublime Text* settings and Project files will be overridden with their Prettier
+config file counterparts, with the exception of `parser`, `tabWidth` and
+`useTabs`; which are all auto-detected based of the current view or
+selection(s).
+
+> *The configuration file will be resolved starting from the location of the file
+> being formatted, and searching up the file tree until a config file is (or
+> isn't) found.*
+
+#### Custom Prettier Config File Path
+
+To specify a custom Prettier config path, simply add the `--config` argument
+with an appropriate path to the `additional_cli_args` setting. Here's an
+example.
+
+```json
+{
+    "additional_cli_args": {
+        "--config": "path/to/my/custom/.prettierrc",
+        "--config-precedence": "prefer-file"
+    }
+}
+```
+
+#### Disable Prettier Config File Discovery
+
+You can also add the `--no-config` option to the `additional_cli_args` setting,
+and tell Prettier not to attempt to find config files.
+
+```json
+{
+    "additional_cli_args": {
+        "--no-config": ""
     }
 }
 ```
