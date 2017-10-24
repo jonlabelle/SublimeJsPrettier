@@ -570,9 +570,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options.append('--use-tabs')
         prettier_options.append(str(self.use_tabs).lower())
 
-        # append the current file name to stdin-filepath:
-        prettier_options.append('--stdin-filepath')
-        prettier_options.append(file_name)
+        # add the current file name to `--stdin-filepath`, only when
+        # the current file being edited is NOT html, and in order
+        # detect and format css/js selection(s) within html files:
+        if not self.is_html(view):
+            prettier_options.append('--stdin-filepath')
+            prettier_options.append(file_name)
 
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
@@ -696,6 +699,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         if filename.endswith('.graphql') or filename.endswith('.gql'):
+            return True
+        return False
+
+    @staticmethod
+    def is_html(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if scopename.startswith('text.html') \
+                or filename.endswith('.html') \
+                or filename.endswith('.htm'):
             return True
         return False
 
