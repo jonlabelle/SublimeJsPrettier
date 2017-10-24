@@ -356,7 +356,7 @@ must be created under the project file's `settings` section.
             "prettier_cli_path": "",
             "node_path": "",
             "auto_format_on_save": false,
-            "auto_format_on_save_excludes": ["*/node_modules/*", "*/.git/*"],
+            "auto_format_on_save_excludes": [],
             "allow_inline_formatting": false,
             "custom_file_extensions": [],
             "max_file_size_limit": -1,
