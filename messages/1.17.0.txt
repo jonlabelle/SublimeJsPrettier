@@ -1,0 +1,5 @@
+## 1.17.0
+
+Release Date: 2017-11-10
+
+- Add support for formatting Markdown files (requires Prettier v1.8+).

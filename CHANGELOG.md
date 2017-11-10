@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.17.0
+
+**Release Date:** 2017-11-10
+
+- Added support for formatting Markdown files (requires [Prettier v1.8+]).
+
 ## 1.16.0
 
 **Release Date:** 2017-09-23
@@ -47,8 +53,8 @@
 
 **Release Date:** 2017-06-29
 
-- Added support for JSON formatting (requires [prettier v1.5+]).
-- Added support for GraphQL formatting (requires [prettier v1.5+]).
+- Added support for JSON formatting (requires [Prettier v1.5+]).
+- Added support for GraphQL formatting (requires [Prettier v1.5+]).
 
 ## 1.10.0
 
@@ -69,7 +75,7 @@
 **Release Date:** 2017-06-04
 
 - Added new setting to allow formatting custom file extensions.
-- Support for CSS formatting (requires [prettier v1.4+]).
+- Support for CSS formatting (requires [Prettier v1.4+]).
 - Built-in support for TypeScript.
 
 ## 1.7.0
@@ -207,13 +213,14 @@
 - JsPrettier now available on [Package Control].
 
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
-[#4]: https://github.com/jonlabelle/SublimeJsPrettier/issues/4
 [Prettier]: https://github.com/jlongster/prettier
 [Project-level settings]: https://github.com/jonlabelle/SublimeJsPrettier#project-level-settings
-[prettier v1.4+]: https://github.com/prettier/prettier/releases/tag/1.4.0
-[prettier v1.5+]: https://github.com/prettier/prettier/releases/tag/1.5.0
-[prettier v1.6+]: https://github.com/prettier/prettier/releases/tag/1.6.0
+[Prettier v1.4+]: https://github.com/prettier/prettier/releases/tag/1.4.0
+[Prettier v1.5+]: https://github.com/prettier/prettier/releases/tag/1.5.0
+[Prettier v1.6+]: https://github.com/prettier/prettier/releases/tag/1.6.0
+[Prettier v1.8+]: https://github.com/prettier/prettier/releases/tag/1.8.0
 [requirePragma]: https://github.com/prettier/prettier#require-pragma
+[#4]: https://github.com/jonlabelle/SublimeJsPrettier/issues/4
 [#63]: https://github.com/jonlabelle/SublimeJsPrettier/issues/63
 [#64]: https://github.com/jonlabelle/SublimeJsPrettier/issues/64
 [#67]: https://github.com/jonlabelle/SublimeJsPrettier/issues/67

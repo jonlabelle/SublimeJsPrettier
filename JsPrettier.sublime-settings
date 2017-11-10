@@ -131,8 +131,8 @@
 	// Additional custom file extensions to format.
 	//
 	// There's built-in support already for "js", "jsx", "json", "graphql/gql",
-	// "ts", "tsx", "css", "scss" and "less". Any additional file extensions
-	// must be specified here, without the leading dot.
+	// "ts", "tsx", "css", "scss", "less" and "md". Additional file extensions
+	// MUST be specified here, without the leading dot.
 	// ----------------------------------------------------------------------
 
 	"custom_file_extensions": [],

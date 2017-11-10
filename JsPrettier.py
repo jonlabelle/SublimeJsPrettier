@@ -77,7 +77,8 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'tsx',
     'css',
     'scss',
-    'less'
+    'less',
+    'md'
 ]
 
 
@@ -552,6 +553,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('graphql')
                     continue
 
+                if self.is_markdown(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('markdown')
+                    continue
+
             if not prettier_config_exists and not has_custom_config_defined:
                 # add the cli args or the respective defaults:
                 if option_value is None or str(option_value) == '':
@@ -708,9 +714,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(0)
-        if scopename.startswith('text.html') \
-                or filename.endswith('.html') \
-                or filename.endswith('.htm'):
+        if scopename.startswith('text.html.markdown'):
+            return False
+        if scopename.startswith('text.html') or filename.endswith('.html') or filename.endswith('.htm'):
+            return True
+        return False
+
+    @staticmethod
+    def is_markdown(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if scopename.startswith('text.html.markdown') or filename.endswith('.md'):
             return True
         return False
 

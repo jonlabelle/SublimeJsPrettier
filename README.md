@@ -196,8 +196,8 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `json`, `graphql/gql`,
-    `ts`, `tsx`, `css`, `scss` and `less` files. Any additional file
-    extensions must be specified here, without the leading dot.
+    `ts`, `tsx`, `css`, `scss`, `less` and `md` files. Additional file
+    extensions MUST be specified here, without the leading dot.
 
 - **max_file_size_limit** (default: ***-1***)  
     The maximum allowed file size to format in bytes. For performance reasons,
@@ -258,12 +258,13 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **parser** (default: "***babylon***")  
     Which parser to use. Valid options are "***flow***", "***babylon***",
-    "***typescript***" and "***css***".
-
-    > If CSS or TypeScript is detected in Sublime Text, the parser option will
-    > *always* be internally overridden and set to "***css***" or
-    > "***typescript***" respectively.
-
+    "***typescript***", "***css***", "***json***", "***graphql***"
+    and "***markdown***".
+  
+    The `parser` options automatically set based on the file type or selection
+    being edited, and should need to be adjusted; or left alone using the
+    default.
+  
 - **semi** (default: ***true***)  
     ***true*** to add a semicolon at the end of every line, or ***false*** to
     add a semicolon only at the beginning of lines that may introduce ASI
