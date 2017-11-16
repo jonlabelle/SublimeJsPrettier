@@ -65,6 +65,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'requirePragma',
         'cli': '--require-pragma',
         'default': 'false'
+    },
+    {
+        'option': 'proseWrap',
+        'cli': '--prose-wrap',
+        'default': 'true'
     }
 ]
 AUTO_FORMAT_FILE_EXTENSIONS = [

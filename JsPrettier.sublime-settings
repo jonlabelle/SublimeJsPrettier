@@ -234,6 +234,9 @@
 		// special comment, called a pragma, at the top of the file. This is
 		// very useful when gradually transitioning large, unformatted codebases
 		// to prettier.
-		"requirePragma": false
+		"requirePragma": false,
+
+		// Wrap prose if it exceeds the print width. (markdown)
+		"proseWrap": false
 	}
 }

@@ -292,6 +292,9 @@ file, accessible from the **Preferences** > **Package Settings** >
      */
     ```
 
+- **proseWrap** (default: ***true***)  
+    ***true*** to wrap prose if it exceeds the print width. (markdown)
+
 > For further details and examples of setting Prettier's options, please see the
 > [Prettier API section] on the Prettier homepage.
 
@@ -330,7 +333,8 @@ must be created under the project file's `settings` section.
                 "jsxBracketSameLine": false,
                 "parser": "babylon",
                 "semi": true,
-                "requirePragma": false
+                "requirePragma": false,
+                "proseWrap": true
             }
         }
     }
