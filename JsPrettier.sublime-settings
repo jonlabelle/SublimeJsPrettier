@@ -237,6 +237,6 @@
 		"requirePragma": false,
 
 		// Wrap prose if it exceeds the print width. (markdown)
-		"proseWrap": false
+		"proseWrap": true
 	}
 }
