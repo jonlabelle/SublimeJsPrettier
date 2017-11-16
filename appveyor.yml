@@ -1,3 +1,10 @@
+build: off
+deploy: off
+version: '{build}'
+clone_depth: 3
+pull_requests:
+  do_not_increment_build_number: true
+
 environment:
   matrix:
     - PYTHON: C:\Python27
@@ -9,8 +16,3 @@ install:
 
 test_script:
   - scripts\run_tests.cmd %PYTHON%
-
-build: off
-version: "{build}"
-clone_depth: 3
-max_jobs: 2
