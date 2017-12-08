@@ -292,11 +292,19 @@ file, accessible from the **Preferences** > **Package Settings** >
      */
     ```
 
-- **proseWrap** (default: ***true***)  
-    ***true*** to wrap prose if it exceeds the print width. (markdown)
+- **proseWrap** (default: "***preserve***")  
+    (*Markdown Only*) By default, Prettier will wrap markdown text as-is since
+    some services use a linebreak-sensitive renderer, e.g. GitHub comment and
+    BitBucket. In some cases you may want to rely on editor/viewer soft wrapping
+    instead, so this option allows you to opt out with "never".
 
-> For further details and examples of setting Prettier's options, please see the
-> [Prettier API section] on the Prettier homepage.
+    Valid Options:
+
+    - "***always***" – Wrap prose if it exceeds the print width.
+    - "***never***"  – Do not wrap prose.
+    - "***preserve***" (default)  – Wrap prose as-is. available in v1.9.0+
+
+See the Prettier Options [doc page] for more details and examples.
 
 ### Project-level Settings
 
@@ -334,7 +342,7 @@ must be created under the project file's `settings` section.
                 "parser": "babylon",
                 "semi": true,
                 "requirePragma": false,
-                "proseWrap": true
+                "proseWrap": "preserve"
             }
         }
     }
@@ -422,3 +430,4 @@ Jon LaBelle
 [report an issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
+[doc page]: https://prettier.io/docs/en/options.html

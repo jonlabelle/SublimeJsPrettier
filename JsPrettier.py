@@ -69,7 +69,7 @@ PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'proseWrap',
         'cli': '--prose-wrap',
-        'default': 'true'
+        'default': 'preserve'
     }
 ]
 AUTO_FORMAT_FILE_EXTENSIONS = [
