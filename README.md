@@ -295,7 +295,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **proseWrap** (default: "***preserve***")  
     (*Markdown Only*) By default, Prettier will wrap markdown text as-is since
     some services use a linebreak-sensitive renderer, e.g. GitHub comment and
-    BitBucket. In some cases you may want to rely on editor/viewer soft wrapping
+    BitBucket. In some cases you may want to rely on SublimeText soft wrapping
     instead, so this option allows you to opt out with "never".
 
     Valid Options:
