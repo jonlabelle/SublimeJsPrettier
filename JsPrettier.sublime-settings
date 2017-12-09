@@ -79,8 +79,7 @@
 	// @param {bool} "auto_format_on_save"
 	// @default false
 	//
-	// Whether or not to run the `js_prettier` command automatically
-	// on every file save.
+	// Whether or not to automatically format the file on save.
 	// ----------------------------------------------------------------------
 
 	"auto_format_on_save": false,

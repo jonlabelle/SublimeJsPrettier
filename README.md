@@ -170,7 +170,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     > environment.
 
 - **auto_format_on_save** (default: ***false***)  
-    Whether or not to automatically format on every file save.
+    Whether or not to automatically format the file on save.
 
 - **auto_format_on_save_excludes** (default: [])  
     Ignore auto formatting when the target file, or its path resides in a
@@ -244,9 +244,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **trailingComma** (default: "***none***")  
    Controls the printing of trailing commas wherever possible. Valid options:
-    - "***none***" -- No trailing commas
-    - "***es5***"  -- Trailing commas where valid in ES5 (objects, arrays, etc)
-    - "***all***"  -- Trailing commas wherever possible (function arguments)
+    - "***none***" - No trailing commas
+    - "***es5***" - Trailing commas where valid in ES5 (objects, arrays, etc)
+    - "***all***" - Trailing commas wherever possible (function arguments)
 
 - **bracketSpacing** (default: ***true***)  
     Controls the printing of spaces inside object literals.
