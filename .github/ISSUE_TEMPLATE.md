@@ -74,7 +74,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
 
 ### Is the same behavior observed when run against Prettier directly?
 
-For example, the following command passes the contents of `messy_formatted_file.js` to Prettier as stdin (`--stdin`) and prints the formatted to stdout.
+For example, the following command passes the contents of `messy_formatted_file.js` to Prettier as stdin (`--stdin`) and prints the formatted code back to stdout.
 
     /usr/local/bin/prettier           \
         --stdin                       \
