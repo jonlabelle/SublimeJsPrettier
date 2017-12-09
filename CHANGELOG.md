@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.18.0
+
+**Release Date:** 2017-12-09
+
+- Added support for [`arrowParens`] option. Configure formatting to include
+  parentheses around a sole arrow function parameter. Requires [Prettier v1.9+].
+
 ## 1.17.0
 
 **Release Date:** 2017-11-10
@@ -226,3 +233,5 @@
 [#67]: https://github.com/jonlabelle/SublimeJsPrettier/issues/67
 [#68]: https://github.com/jonlabelle/SublimeJsPrettier/issues/68
 [#72]: https://github.com/jonlabelle/SublimeJsPrettier/issues/72
+[`arrowParens`]: https://prettier.io/docs/en/options.html#arrow-function-parentheses
+[Prettier v1.9+]: https://github.com/prettier/prettier/releases/tag/1.9.0

@@ -246,7 +246,15 @@
 		//
 		// "always" - Wrap prose if it exceeds the print width.
 		// "never" - Do not wrap prose.
-		// "preserve" - Wrap prose as-is. available in v1.9.0+
-		"proseWrap": "preserve"
+		// "preserve" (default) - Wrap prose as-is. available in v1.9.0+
+		"proseWrap": "preserve",
+
+		// Include parentheses around a sole arrow function parameter.
+		//
+		// Valid Options:
+		//
+		// - "avoid" (default) - Omit parentheses when possible. Example: `x => x`
+		// - "always" - Always include parentheses. Example: `(x) => x`
+		"arrowParens": "avoid"
 	}
 }

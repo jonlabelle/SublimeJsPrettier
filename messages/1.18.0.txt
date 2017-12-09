@@ -1,0 +1,9 @@
+## 1.18.0
+
+Release Date: 2017-12-09
+
+- Added support for "arrowParens" option. Configure formatting to include
+  parentheses around a sole arrow function parameter. Requires Prettier v1.9+.
+
+  See the Prettier "arrowParens" doc page for more info:
+  https://prettier.io/docs/en/options.html#arrow-function-parentheses

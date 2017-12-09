@@ -48,10 +48,10 @@ Operating Systems.
 
 JsPrettier requires the following programs to be installed prior to use:
 
-- [Sublime Text] – Text editor for code
-- [node.js] – JavaScript runtime
-- [yarn] or [npm] – Package manager for JavaScript
-- [Prettier] – Opinionated JavaScript formatter
+- [Sublime Text] - Text editor for code
+- [node.js] - JavaScript runtime
+- [yarn] or [npm] - Package manager for JavaScript
+- [Prettier] - Opinionated JavaScript formatter
 
 ### Install Prettier
 
@@ -244,9 +244,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **trailingComma** (default: "***none***")  
    Controls the printing of trailing commas wherever possible. Valid options:
-    - "***none***" – No trailing commas
-    - "***es5***"  – Trailing commas where valid in ES5 (objects, arrays, etc)
-    - "***all***"  – Trailing commas wherever possible (function arguments)
+    - "***none***" -- No trailing commas
+    - "***es5***"  -- Trailing commas where valid in ES5 (objects, arrays, etc)
+    - "***all***"  -- Trailing commas wherever possible (function arguments)
 
 - **bracketSpacing** (default: ***true***)  
     Controls the printing of spaces inside object literals.
@@ -300,9 +300,17 @@ file, accessible from the **Preferences** > **Package Settings** >
 
     Valid Options:
 
-    - "***always***" – Wrap prose if it exceeds the print width.
-    - "***never***"  – Do not wrap prose.
-    - "***preserve***" (default)  – Wrap prose as-is. available in v1.9.0+
+    - "***always***" - Wrap prose if it exceeds the print width.
+    - "***never***" - Do not wrap prose.
+    - "***preserve***" (default) - Wrap prose as-is. available in v1.9.0+
+
+- **arrowParens** (default: "***avoid***")  
+    Include parentheses around a sole arrow function parameter.
+
+    Valid Options:
+
+    - "***avoid***" (default) - Omit parentheses when possible. Example: `x => x`
+    - "***always***" - Always include parentheses. Example: `(x) => x`
 
 See the Prettier Options [doc page] for more details and examples.
 
