@@ -350,7 +350,8 @@ must be created under the project file's `settings` section.
                 "parser": "babylon",
                 "semi": true,
                 "requirePragma": false,
-                "proseWrap": "preserve"
+                "proseWrap": "preserve",
+                "arrowParens": "avoid"
             }
         }
     }

@@ -92,7 +92,8 @@
                         "parser": "babylon",
                         "semi": true,
                         "requirePragma": false,
-                        "proseWrap": "preserve"
+                        "proseWrap": "preserve",
+                        "arrowParens": "avoid"
                     }
                 }
             }
