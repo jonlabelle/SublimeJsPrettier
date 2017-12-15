@@ -2,7 +2,7 @@
 ignore=.cache,.git,.idea,__pycache__,messages,screenshots
 
 [MESSAGES CONTROL]
-disable=missing-docstring,too-many-branches,too-many-public-methods,unidiomatic-typecheck,len-as-condition,too-many-return-statements,too-many-statements,fixme,too-many-locals,too-many-arguments
+disable=missing-docstring,too-many-branches,too-many-public-methods,unidiomatic-typecheck,len-as-condition,too-many-return-statements,too-many-statements,fixme,too-many-locals,too-many-arguments,invalid-name,inconsistent-return-statements
 
 [FORMAT]
 max-line-length=120
