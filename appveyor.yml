@@ -2,6 +2,7 @@ build: off
 deploy: off
 version: '{build}'
 clone_depth: 3
+shallow_clone: true
 pull_requests:
   do_not_increment_build_number: true
 
