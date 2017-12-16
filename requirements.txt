@@ -1,5 +1,5 @@
 # pip dev/test dependencies
 flake8
 pep8-naming
-pytest
+pytest==3.2.3
 pylint
