@@ -434,7 +434,7 @@ Jon LaBelle
 [manual download instructions]: #manual-download
 [Sublime Text Console]: http://docs.sublimetext.info/en/latest/basic_concepts.html#sublime-text-is-programmable
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
-[Prettier Configuration files]: https://github.com/prettier/prettier/blob/master/README.md#configuration-file
+[Prettier Configuration files]: https://prettier.io/docs/en/configuration.html
 [issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE.md
 [report an issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
