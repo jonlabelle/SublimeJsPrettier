@@ -426,8 +426,8 @@ Jon LaBelle
 [***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [installed globally]: #install-prettier
-[yarn]: https://yarnpkg.com/
-[npm]: https://www.npmjs.com/
+[yarn]: https://yarnpkg.com
+[npm]: https://www.npmjs.com
 [nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
