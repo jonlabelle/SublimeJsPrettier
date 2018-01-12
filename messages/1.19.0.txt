@@ -1,0 +1,5 @@
+## 1.19.0
+
+Release Date: 2018-01-12
+
+- Support for Vue Single File Components. Requires Prettier v1.10+.

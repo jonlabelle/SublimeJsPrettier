@@ -196,7 +196,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `json`, `graphql/gql`,
-    `ts`, `tsx`, `css`, `scss`, `less` and `md` files. Additional file
+    `ts`, `tsx`, `css`, `scss`, `less`, `md` and `vue` files. Additional file
     extensions MUST be specified here, without the leading dot.
 
 - **max_file_size_limit** (default: ***-1***)  

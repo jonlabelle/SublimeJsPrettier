@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.19.0
+
+**Release Date:** 2018-01-12
+
+- Support for Vue Single File Components. Requires [Prettier v1.10+].
+
 ## 1.18.0
 
 **Release Date:** 2017-12-09
@@ -235,3 +241,4 @@
 [#72]: https://github.com/jonlabelle/SublimeJsPrettier/issues/72
 [`arrowParens`]: https://prettier.io/docs/en/options.html#arrow-function-parentheses
 [Prettier v1.9+]: https://github.com/prettier/prettier/releases/tag/1.9.0
+[Prettier v1.10+]: https://prettier.io/blog/2018/01/10/1.10.0.html
