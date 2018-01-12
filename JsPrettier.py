@@ -730,7 +730,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(0)
-        if scopename.startswith('text.html.markdown'):
+        if scopename.startswith('text.html.markdown') or scopename.startswith('text.html.vue'):
             return False
         if scopename.startswith('text.html') or filename.endswith('.html') or filename.endswith('.htm'):
             return True
