@@ -9,7 +9,7 @@
 > [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
 > formatter.
 
-[![](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
+[![Before and After JsPrettier](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
 
 > [Watch a Quick Demo]
 
