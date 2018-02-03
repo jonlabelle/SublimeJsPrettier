@@ -398,6 +398,13 @@ and tell Prettier not to attempt to find config files.
 }
 ```
 
+#### Auto-detection of `.prettierignore` in Project Root
+
+When the [`--ignore-path`] option is NOT specified in the `additional_cli_args`
+[JsPrettier] setting, the plug-in will automatically pass in `--ignore-path <file>`
+when a `.prettierignore` file is detected in your Sublime Text Project root
+directory.
+
 ## Issues
 
 To [report an issue], please follow the steps outlined in the [Issue Template].
@@ -440,3 +447,4 @@ Jon LaBelle
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
 [doc page]: https://prettier.io/docs/en/options.html
+[`--ignore-path`]: https://prettier.io/docs/en/cli.html#ignore-path

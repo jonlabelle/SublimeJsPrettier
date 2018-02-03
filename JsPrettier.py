@@ -164,7 +164,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         :return: The prettier cli path.
         """
         user_prettier_path = self.get_setting('prettier_cli_path', '')
-        project_path = self.get_active_project_path()
+        project_path = self.get_sublime_text_project_path()
 
         if self.is_str_none_or_empty(user_prettier_path):
             global_prettier_path = self.which('prettier')
@@ -286,18 +286,25 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
         has_config_precedence_defined = parsed_additional_cli_args.count('--config-precedence') > 0
 
-        # only try `--find-config-path` if a config option is not specified
+        # only try `--find-config-path` if a config option isn't specified
         # in 'additional_cli_args':
         prettier_config_path = None
         if not has_custom_config_defined and not has_no_config_defined:
             prettier_config_path = self.find_prettier_config_path(node_path, prettier_cli_path, view.file_name())
+
+        # try to find a '.prettierignore' file path in the project root
+        # if the '--ignore-path' option isn't specified in 'additional_cli_args':
+        prettier_ignore_filepath = None
+        if not parsed_additional_cli_args.count('--ignore-path') > 0:
+            prettier_ignore_filepath = self.auto_resolve_prettier_ignore_path()
 
         #
         # Parse prettier options:
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
             has_custom_config_defined, has_no_config_defined,
-            has_config_precedence_defined, view.file_name())
+            has_config_precedence_defined, prettier_ignore_filepath,
+            view.file_name())
 
         #
         # Format entire file:
@@ -512,7 +519,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def parse_prettier_options(self, view, parsed_additional_cli_args,
                                prettier_config_path, has_custom_config_defined,
                                has_no_config_defined, has_config_precedence_defined,
-                               file_name):
+                               prettier_ignore_filepath, file_name):
         prettier_options = []
 
         #
@@ -599,6 +606,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             prettier_options.append('--stdin-filepath')
             prettier_options.append(file_name)
 
+        if prettier_ignore_filepath is not None:
+            prettier_options.append('--ignore-path')
+            prettier_options.append(prettier_ignore_filepath)
+
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
 
@@ -637,6 +648,21 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def show_console_error(self):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
+
+    def auto_resolve_prettier_ignore_path(self):
+        """Look for a '.prettierignore' file in ST project root (#97).
+
+        :return: The path (str) to a '.prettierignore' file (if one exists) in the active Sublime Text Project Window.
+        """
+        project_path = self.get_sublime_text_project_path()
+
+        prettier_ignore_filename = '.prettierignore'
+        prettier_ignore_filepath = os.path.join(project_path, prettier_ignore_filename)
+
+        if os.path.exists(prettier_ignore_filepath):
+            return prettier_ignore_filepath
+
+        return None
 
     @staticmethod
     def scroll_view_to(view, row_no, col_no):
@@ -757,7 +783,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
-    def get_active_project_path():
+    def get_sublime_text_project_path():
         """Get the active Sublime Text project path.
 
         Original: https://gist.github.com/astronaughts/9678368
