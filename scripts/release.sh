@@ -28,9 +28,18 @@ VERSION=$1
 PREVIOUS_VERSION="$(git describe --abbrev=0 --tags)"
 NEXT_VERSION="${PREVIOUS_VERSION%.*}.$((${PREVIOUS_VERSION##*.}+1))"
 
+readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
+
+cd_project_root() {
+    cd "${SCRIPTSDIR}" && cd ..
+}
+
+cd_previous_working_dir() {
+    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
+}
 
 show_info() {
     echo -e "\\e[36m${1}\\e[0m"
@@ -48,7 +57,6 @@ show_error() {
     echo -e "\\e[31mError:\\e[0m ${1}"
 }
 
-
 show_usage() {
     echo
     echo "Usage: $SCRIPTNAME [options] [version]"
@@ -59,16 +67,6 @@ show_usage() {
     echo "    -n, --next    auto-increment to the next patch version"
     echo "    -h, --help    show usage"
     echo
-}
-
-cd_project_root() {
-    show_info '> cd to project root'
-    pushd "${SCRIPTSDIR}" && pushd ..
-}
-
-cd_previous_working_dir() {
-    show_info '> Restore previous working directory'
-    popd && popd
 }
 
 validate_version() {

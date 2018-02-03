@@ -3,18 +3,18 @@
 set -e
 [ "$TRAVIS" == "true" ] && set -x
 
-PIP_CMD=
-
+readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
+PIPCMD=
+
+
 cd_project_root() {
-    echo '> cd to project root'
-    pushd "${SCRIPTSDIR}" && pushd ..
+    cd "${SCRIPTSDIR}" && cd ..
 }
 
 cd_previous_working_dir() {
-    echo '> Restore previous working directory'
-    popd && popd
+    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
 }
 
 python_major_version() {
@@ -31,30 +31,30 @@ python_major_version() {
 }
 
 resolve_pip_cmd() {
-    echo '> Resolve pip command'
+    echo && echo '> Resolve pip command'
 
     local py_major_ver="$1"
     local pip_cmd_ver="pip${py_major_ver}"
 
     if [ -x "$(command -v pip)" ]; then
-        PIP_CMD=$(which pip)
+        PIPCMD=$(which pip)
     elif [ -x "$(command -v "$pip_cmd_ver")" ]; then
-        PIP_CMD=$(which "$pip_cmd_ver")
+        PIPCMD=$(which "$pip_cmd_ver")
     else
         echo "Error: Could not resolve path to pip." >&2
         exit 1
     fi
 
-    echo "$PIP_CMD"
+    echo "$PIPCMD"
 }
 
 install_pip_requirements() {
-    echo '> Install pip requirements'
-    "${PIP_CMD}" install -r requirements.txt
+    echo && echo '> Install pip requirements'
+    "${PIPCMD}" install -r requirements.txt
 }
 
 install_npm_packages() {
-    echo '> Install npm packages'
+    echo && echo '> Install npm packages'
     npm install -g markdownlint-cli
 }
 

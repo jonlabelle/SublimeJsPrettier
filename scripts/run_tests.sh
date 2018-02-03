@@ -3,18 +3,18 @@
 set -e
 [ "$TRAVIS" == "true" ] && set -x
 
+readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
 
 cd_project_root() {
     echo '> cd to project root'
-    pushd "${SCRIPTSDIR}" && pushd ..
+    cd "${SCRIPTSDIR}" && cd ..
 }
 
 cd_previous_working_dir() {
     echo '> Restore previous working directory'
-    popd && popd
-    echo
+    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
 }
 
 run_pytest() {
@@ -32,12 +32,12 @@ run_flake8() {
 
 run_pylint() {
     echo
-    echo -n '> Run pylint'
+    echo '> Run pylint'
     pylint JsPrettier.py
 }
 
 run_markdownlint() {
-    echo -n '> Run markdownlint'
+    echo '> Run markdownlint'
     markdownlint .
     echo 'Markdown looks good.' && echo
 }
