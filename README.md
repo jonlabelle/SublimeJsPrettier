@@ -398,7 +398,7 @@ and tell Prettier not to attempt to find config files.
 }
 ```
 
-#### Auto-detection of `.prettierignore` Files
+#### Prettier Ignore Config File Discovery (`.prettierignore`)
 
 When the [`--ignore-path`] option is NOT specified in the `additional_cli_args`
 setting, the plug-in will attempt to automatically set the `--ignore-path
