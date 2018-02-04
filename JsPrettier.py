@@ -19,12 +19,13 @@ sublime.Region.totuple = lambda self: (self.a, self.b)
 sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_NAME = 'JsPrettier'
-PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
 PLUGIN_CMD_NAME = 'js_prettier'
+PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
 PROJECT_SETTINGS_KEY = PLUGIN_CMD_NAME
-SETTINGS_FILE = '{0}.sublime-settings'.format(PLUGIN_NAME)
+SETTINGS_FILENAME = '{0}.sublime-settings'.format(PLUGIN_NAME)
 IS_SUBLIME_TEXT_LATEST = int(sublime.version()) >= 3000
 PRETTIER_OPTIONS_KEY = 'prettier_options'
+
 PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'printWidth',
@@ -267,10 +268,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_cli_path = self.prettier_cli_path
         if prettier_cli_path is None:
             return sublime.error_message(
-                '{0} Error\n\n'
-                'The path to the Prettier cli executable could '
-                'not be found! Please ensure the path to prettier is '
-                'set in your PATH environment variable.'.format(PLUGIN_NAME))
+                "{0} Error\n\n"
+                "Command not found: 'prettier'\n\n"
+                "Ensure 'prettier' is installed in your environment PATH, "
+                "or manually specify an absolute path in your '{1}' file "
+                "and the 'prettier_cli_path' setting.".format(PLUGIN_NAME, SETTINGS_FILENAME))
 
         #
         # cd to the path of the target file:
@@ -477,7 +479,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def get_setting(self, key, default_value=None):
         settings = self.view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
+            settings = sublime.load_settings(SETTINGS_FILENAME)
         value = settings.get(key, default_value)
         # check for project-level overrides:
         project_value = self._get_project_setting(key)
@@ -489,7 +491,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         settings = self.view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(PRETTIER_OPTIONS_KEY).get(
                 key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
+            settings = sublime.load_settings(SETTINGS_FILENAME)
         value = settings.get(PRETTIER_OPTIONS_KEY).get(key)
         # check for project-level overrides:
         project_value = self._get_project_sub_setting(key)
@@ -1022,7 +1024,7 @@ class CommandOnSave(sublime_plugin.EventListener):
     def get_setting(self, view, key, default_value=None):
         settings = view.settings().get(PLUGIN_NAME)
         if settings is None or settings.get(key) is None:
-            settings = sublime.load_settings(SETTINGS_FILE)
+            settings = sublime.load_settings(SETTINGS_FILENAME)
         value = settings.get(key, default_value)
         # check for project-level overrides:
         project_value = self._get_project_setting(key)
