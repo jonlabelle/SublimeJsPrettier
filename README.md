@@ -403,7 +403,7 @@ and tell Prettier not to attempt to find config files.
 When the [`--ignore-path`] option is NOT specified in the `additional_cli_args`
 setting, the plug-in will attempt to automatically set the `--ignore-path
 <file>` option when a `.prettierignore` file exists in the same source file
-directory (first), then by checking your Sublime Text Project directory
+directory (first), then by checking your Sublime Text Project's root directory
 (second).
 
 ## Issues
