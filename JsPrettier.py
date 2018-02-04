@@ -78,6 +78,7 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': 'avoid'
     }
 ]
+
 AUTO_FORMAT_FILE_EXTENSIONS = [
     'js',
     'jsx',
@@ -215,6 +216,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return sublime.set_timeout(lambda: sublime.status_message(
                 '{0}: File save canceled.'.format(PLUGIN_NAME)), 0)
 
+        source_file_dir = self.get_source_file_dir(view)
+        sublime_text_project_dir = self.get_sublime_text_project_path()
+
+        #
+        # cd to the active sublime text project dir:
+        os.chdir(sublime_text_project_dir)
+
         #
         # Max file size check
         if self.exceeds_max_file_size_limit(view):
@@ -233,13 +241,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "Ensure 'prettier' is installed in your environment PATH, "
                 "or manually specify an absolute path in your '{1}' file "
                 "and the 'prettier_cli_path' setting.".format(PLUGIN_NAME, SETTINGS_FILENAME))
-
-        source_file_dir = self.get_source_file_dir(view)
-        sublime_text_project_dir = self.get_sublime_text_project_path()
-
-        #
-        # cd to the active sublime text project dir:
-        os.chdir(sublime_text_project_dir)
 
         #
         # if a `--config <path>` option is set in 'additional_cli_args',
