@@ -146,47 +146,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return env
 
     @property
-    def prettier_cli_path(self):
-        """The prettier cli path.
-
-        When the `prettier_cli_path` setting is empty (""),
-        the path is resolved by searching locations in the following order,
-        returning the first match of the prettier cli path...
-
-        - Locally installed prettier, relative to a Sublime Text Project
-          file's root directory, e.g.: `node_modules/.bin/prettier'.
-        - User's $HOME/node_modules directory.
-        - Look in the JsPrettier Sublime Text plug-in directory for
-          `node_modules/.bin/prettier`.
-        - Finally, check if prettier is installed globally,
-          e.g.: `yarn global add prettier`
-            or: `npm install -g prettier`
-
-        :return: The prettier cli path.
-        """
-        user_prettier_path = self.get_setting('prettier_cli_path', '')
-        project_path = self.get_sublime_text_project_path()
-
-        if self.is_str_none_or_empty(user_prettier_path):
-            global_prettier_path = self.which('prettier')
-            project_prettier_path = os.path.join(project_path, 'node_modules', '.bin', 'prettier')
-            plugin_prettier_path = os.path.join(PLUGIN_PATH, 'node_modules', '.bin', 'prettier')
-
-            if os.path.exists(project_prettier_path):
-                return project_prettier_path
-            if os.path.exists(plugin_prettier_path):
-                return plugin_prettier_path
-
-            return global_prettier_path
-
-        # handle cases when the user specifies a prettier cli path that is
-        # relative to the working file or project:
-        if not os.path.isabs(user_prettier_path):
-            user_prettier_path = os.path.join(project_path, user_prettier_path)
-
-        return user_prettier_path
-
-    @property
     def node_path(self):
         return self.get_setting('node_path', None)
 
@@ -250,6 +209,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     '{0} Error\n\n'
                     'File must first be saved.'.format(PLUGIN_NAME))
 
+        #
         # Re-check if file was saved, in case user canceled or closed the save dialog:
         if view.file_name() is None:
             return sublime.set_timeout(lambda: sublime.status_message(
@@ -265,7 +225,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         #
         # Get node and prettier command paths:
         node_path = self.node_path
-        prettier_cli_path = self.prettier_cli_path
+        prettier_cli_path = self.resolve_prettier_cli_path()
         if prettier_cli_path is None:
             return sublime.error_message(
                 "{0} Error\n\n"
@@ -292,13 +252,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # in 'additional_cli_args':
         prettier_config_path = None
         if not has_custom_config_defined and not has_no_config_defined:
-            prettier_config_path = self.find_prettier_config_path(node_path, prettier_cli_path, view.file_name())
+            prettier_config_path = self.resolve_prettier_config_path(node_path, prettier_cli_path, view.file_name())
 
         # try to find a '.prettierignore' file path in the project root
         # if the '--ignore-path' option isn't specified in 'additional_cli_args':
         prettier_ignore_filepath = None
         if not parsed_additional_cli_args.count('--ignore-path') > 0:
-            prettier_ignore_filepath = self.auto_resolve_prettier_ignore_path()
+            prettier_ignore_filepath = self.resolve_prettier_ignore_path()
 
         #
         # Parse prettier options:
@@ -424,36 +384,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 # allow warnings to pass-through
                 print(self.format_error_message(stderr.decode('utf-8'), str(proc.returncode)))
             return stdout.decode('utf-8')
-        except OSError as ex:
-            sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
-            raise
-
-    @memoize
-    def find_prettier_config_path(self, node_path, prettier_cli_path, file_to_format_path):
-        """
-        Find the path to a Prettier config file based on the given file
-        to be formatted.
-        """
-        if self.is_str_none_or_empty(node_path):
-            cmd = [prettier_cli_path] \
-                + ['--find-config-path'] \
-                + [file_to_format_path]
-        else:
-            cmd = [node_path] \
-                + [prettier_cli_path] \
-                + ['--find-config-path'] \
-                + [file_to_format_path]
-        try:
-            proc = Popen(
-                cmd, stdin=PIPE,
-                stderr=PIPE,
-                stdout=PIPE,
-                env=self.proc_env,
-                shell=self.is_windows())
-            stdout, stderr = proc.communicate(input=None)
-            if stderr or proc.returncode != 0:
-                return None
-            return sub('\r?\n', '', stdout.decode('utf-8'))
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
@@ -651,7 +581,77 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
-    def auto_resolve_prettier_ignore_path(self):
+    @memoize
+    def resolve_prettier_config_path(self, node_path, prettier_cli_path, file_to_format_path):
+        """
+        Find the path to a Prettier config file based on the given file
+        to be formatted.
+        """
+        if self.is_str_none_or_empty(node_path):
+            cmd = [prettier_cli_path] \
+                + ['--find-config-path'] \
+                + [file_to_format_path]
+        else:
+            cmd = [node_path] \
+                + [prettier_cli_path] \
+                + ['--find-config-path'] \
+                + [file_to_format_path]
+        try:
+            proc = Popen(
+                cmd, stdin=PIPE,
+                stderr=PIPE,
+                stdout=PIPE,
+                env=self.proc_env,
+                shell=self.is_windows())
+            stdout, stderr = proc.communicate(input=None)
+            if stderr or proc.returncode != 0:
+                return None
+            return sub('\r?\n', '', stdout.decode('utf-8'))
+        except OSError as ex:
+            sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
+            raise
+
+    def resolve_prettier_cli_path(self):
+        """The prettier cli path.
+
+        When the `prettier_cli_path` setting is empty (""),
+        the path is resolved by searching locations in the following order,
+        returning the first match of the prettier cli path...
+
+        - Locally installed prettier, relative to a Sublime Text Project
+          file's root directory, e.g.: `node_modules/.bin/prettier'.
+        - User's $HOME/node_modules directory.
+        - Look in the JsPrettier Sublime Text plug-in directory for
+          `node_modules/.bin/prettier`.
+        - Finally, check if prettier is installed globally,
+          e.g.: `yarn global add prettier`
+            or: `npm install -g prettier`
+
+        :return: The prettier cli path.
+        """
+        user_prettier_path = self.get_setting('prettier_cli_path', '')
+        project_path = self.get_sublime_text_project_path()
+
+        if self.is_str_none_or_empty(user_prettier_path):
+            global_prettier_path = self.which('prettier')
+            project_prettier_path = os.path.join(project_path, 'node_modules', '.bin', 'prettier')
+            plugin_prettier_path = os.path.join(PLUGIN_PATH, 'node_modules', '.bin', 'prettier')
+
+            if os.path.exists(project_prettier_path):
+                return project_prettier_path
+            if os.path.exists(plugin_prettier_path):
+                return plugin_prettier_path
+
+            return global_prettier_path
+
+        # handle cases when the user specifies a prettier cli path that is
+        # relative to the working file or project:
+        if not os.path.isabs(user_prettier_path):
+            user_prettier_path = os.path.join(project_path, user_prettier_path)
+
+        return user_prettier_path
+
+    def resolve_prettier_ignore_path(self):
         """Look for a '.prettierignore' file in ST project root (#97).
 
         :return: The path (str) to a '.prettierignore' file (if one exists) in the active Sublime Text Project Window.
