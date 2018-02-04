@@ -234,9 +234,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "or manually specify an absolute path in your '{1}' file "
                 "and the 'prettier_cli_path' setting.".format(PLUGIN_NAME, SETTINGS_FILENAME))
 
+        source_file_dir = self.get_source_file_dir(view)
+        sublime_text_project_dir = self.get_sublime_text_project_path()
+
         #
         # cd to the path of the target file:
-        source_file_dir = os.path.abspath(os.path.dirname(view.file_name()))
         os.chdir(source_file_dir)
 
         #
@@ -258,7 +260,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # if the '--ignore-path' option isn't specified in 'additional_cli_args':
         prettier_ignore_filepath = None
         if not parsed_additional_cli_args.count('--ignore-path') > 0:
-            prettier_ignore_filepath = self.resolve_prettier_ignore_path()
+            prettier_ignore_filepath = self.resolve_prettier_ignore_path(source_file_dir, sublime_text_project_dir)
 
         #
         # Parse prettier options:
@@ -651,18 +653,24 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         return user_prettier_path
 
-    def resolve_prettier_ignore_path(self):
+    @staticmethod
+    def resolve_prettier_ignore_path(source_file_dir, sublime_text_project_dir):
         """Look for a '.prettierignore' file in ST project root (#97).
 
         :return: The path (str) to a '.prettierignore' file (if one exists) in the active Sublime Text Project Window.
         """
-        project_path = self.get_sublime_text_project_path()
 
-        prettier_ignore_filename = '.prettierignore'
-        prettier_ignore_filepath = os.path.join(project_path, prettier_ignore_filename)
+        prettier_ignore_file = '.prettierignore'
 
-        if os.path.exists(prettier_ignore_filepath):
-            return prettier_ignore_filepath
+        # check for .prettierignore in source file dir:
+        source_file_dir_ignore_path = os.path.join(source_file_dir, prettier_ignore_file)
+        if os.path.exists(source_file_dir_ignore_path):
+            return source_file_dir_ignore_path
+
+        # check for .prettierignore in sublime text project root:
+        sublime_text_project_dir_path = os.path.join(sublime_text_project_dir, prettier_ignore_file)
+        if os.path.exists(sublime_text_project_dir_path):
+            return sublime_text_project_dir_path
 
         return None
 
@@ -808,6 +816,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if active_file_name.startswith(folder):
                     return folder
             return os.path.dirname(active_file_name)
+
+    @staticmethod
+    def get_source_file_dir(view):
+        return os.path.abspath(os.path.dirname(view.file_name()))
 
     @staticmethod
     def show_status_bar_error():
