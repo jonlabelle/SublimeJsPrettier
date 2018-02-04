@@ -238,8 +238,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         sublime_text_project_dir = self.get_sublime_text_project_path()
 
         #
-        # cd to the path of the target file:
-        os.chdir(source_file_dir)
+        # cd to the active sublime text project dir:
+        os.chdir(sublime_text_project_dir)
 
         #
         # if a `--config <path>` option is set in 'additional_cli_args',
