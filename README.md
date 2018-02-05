@@ -135,8 +135,8 @@ file, accessible from the **Preferences** > **Package Settings** >
 ### Sublime Text Settings
 
 - **debug** (default: ***false***)  
-    When enabled (*true*), debug info will print the console - useful for
-    troubleshooting and inspecting the generated command passed to Prettier.
+    When enabled (*true*), debug info will print to the console - useful for
+    troubleshooting and inspecting generated commands passed to Prettier.
 
 - **prettier_cli_path** (default: ***empty***)  
     If Sublime Text has problems automatically resolving a path to [Prettier],
