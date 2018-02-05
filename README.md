@@ -135,16 +135,14 @@ file, accessible from the **Preferences** > **Package Settings** >
 ### Sublime Text Settings
 
 - **debug** (default: ***false***)  
-    When enabled (*true*), debug info will print to the Sublime Text Console -
-    useful for troubleshooting purposes and inspecting the generated command
-    passed to Prettier.
+    When enabled (*true*), debug info will print the console - useful for
+    troubleshooting and inspecting the generated command passed to Prettier.
 
 - **prettier_cli_path** (default: ***empty***)  
-    It's recommended to leave this setting empty (the default). If Sublime Text
-    has problems resolving the CLI path to the [Prettier] executable, you can
-    explicitly set the appropriate path here.
+    If Sublime Text has problems automatically resolving a path to [Prettier],
+    you can set a custom path here.
 
-    When this setting is empty, the plug-in will attempt to find Prettier by...
+    When the setting is empty, the plug-in will attempt to find Prettier by...
 
     - Searching the path relative to the current Sublime Text Project directory,
       e.g.: `node_modules/.bin/prettier`.
@@ -155,10 +153,9 @@ file, accessible from the **Preferences** > **Package Settings** >
     > [nvm] users must set an appropriate absolute *prettier_cli_path* (and
     > absolute *node_path*), according to the runtime environment.
 
-- **node_path** (default: ***empty***)  
-    It's recommended to leave this setting empty (the default). However, if
-    Sublime Text has problems resolving the absolute path to the node
-    executable, you can explicitly set the appropriate path here.
+- **node_path** (default: ***empty***)      
+    If Sublime Text has problems resolving the absolute path to node, you can
+    set a custom path here.
 
     > [nvm] users must set an appropriate absolute *node_path* (and
     > absolute *prettier_cli_path*), according to the runtime environment.
@@ -167,7 +164,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     Automatically format the file on save.
 
 - **auto_format_on_save_excludes** (default: [])  
-    Ignore auto-formatting files in the specified exclusion path patterns.
+    File exclusion patterns to ignore when `auto_format_on_save` is enabled.
   
     **Example:**
   
@@ -190,7 +187,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `json`, `graphql/gql`,
     `ts`, `tsx`, `css`, `scss`, `less`, `md` and `vue` files. Put additional
-    file extensions here, and be sure not to include the leading dot in the
+    file extensions here, but be sure not to include the leading dot in the
     file extension.
 
 - **max_file_size_limit** (default: ***-1***)  
@@ -378,11 +375,10 @@ and tell Prettier not to attempt to find config files.
 
 #### Prettier Ignore Config File Discovery (`.prettierignore`)
 
-When the [`--ignore-path`] option is NOT specified in the `additional_cli_args`
-setting, the plug-in will attempt to automatically set the `--ignore-path
-<file>` option when a `.prettierignore` file exists in the same source file
-directory (first), then by checking your Sublime Text Project's root directory
-(second).
+When the [`--ignore-path`] option is NOT specified in `additional_cli_args`, the
+plug-in will attempt to discover and set `--ignore-path <file>` when a
+`.prettierignore` config exists in the same directory of the source file
+(first), or the active Sublime Text project root directory (second).
 
 ## Issues
 
