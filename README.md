@@ -153,7 +153,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     > [nvm] users must set an appropriate absolute *prettier_cli_path* (and
     > absolute *node_path*), according to the runtime environment.
 
-- **node_path** (default: ***empty***)      
+- **node_path** (default: ***empty***)  
     If Sublime Text has problems resolving the absolute path to node, you can
     set a custom path here.
 
