@@ -178,6 +178,10 @@ file, accessible from the **Preferences** > **Package Settings** >
     }
     ```
 
+- **auto_format_on_save_requires_prettier_conifg** (default: ***false***)  
+    Enable auto format on save *only* when a Prettier config file is found.
+    Executes the `prettier --find-config-path` command.
+
 - **allow_inline_formatting** (default: ***false***)  
     Enables the ability to format *selections* of in-lined code. For example, to
     format a selection of JavaScript code within a PHP or HTML file. When

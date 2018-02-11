@@ -1,0 +1,6 @@
+## 1.20.0
+
+Release Date: 2018-02-08
+
+- Enable auto format on save ONLY when a Prettier config file is found.
+  Executes the `prettier --find-config-path` command.

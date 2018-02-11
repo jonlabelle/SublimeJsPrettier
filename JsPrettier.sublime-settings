@@ -106,6 +106,19 @@
 	"auto_format_on_save_excludes": [],
 
 	// ----------------------------------------------------------------------
+	// Auto Format Requires Prettier Config File
+	// ----------------------------------------------------------------------
+	//
+	// @param {bool} "auto_format_requires_prettier_conifg"
+	// @default false
+	//
+	// Enable auto format on save ONLY when a Prettier config file is found.
+	// Executes the `prettier --find-config-path` command.
+
+	"auto_format_on_save_requires_prettier_conifg": false,
+
+
+	// ----------------------------------------------------------------------
 	// Allow Inline Formatting
 	// ----------------------------------------------------------------------
 	//
