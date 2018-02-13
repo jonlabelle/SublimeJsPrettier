@@ -109,7 +109,7 @@
 	// Auto Format Requires Prettier Config File
 	// ----------------------------------------------------------------------
 	//
-	// @param {bool} "auto_format_requires_prettier_conifg"
+	// @param {bool} "auto_format_on_save_requires_prettier_config"
 	// @default false
 	//
 	// Enable auto format on save ONLY when a Prettier config file is found.
