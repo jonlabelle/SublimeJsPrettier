@@ -327,7 +327,9 @@ def parse_additional_cli_args(additional_cli_args_setting=None):
 
 
 def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, default=None):
-    if not additional_cli_args or len(additional_cli_args) == 0 or not arg_key:
+    if not additional_cli_args or not arg_key:
+        return default
+    if not isinstance(additional_cli_args, dict):
         return default
     result = None
     for key, val in additional_cli_args.items():

@@ -194,10 +194,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         prettier_config_path = None
         if not has_no_config_defined:
-            if save_file and auto_format_prettier_config_path:
+            if save_file and auto_format_prettier_config_path and os.path.exists(auto_format_prettier_config_path):
                 prettier_config_path = auto_format_prettier_config_path
             if not prettier_config_path:
-                prettier_config_path = get_cli_arg_value(parsed_additional_cli_args, '--config')
+                custom_prettier_config = get_cli_arg_value(self.additional_cli_args, '--config')
+                if custom_prettier_config and not os.path.exists(custom_prettier_config):
+                    prettier_config_path = custom_prettier_config
             if not prettier_config_path:
                 prettier_config_path = resolve_prettier_config(view)
 
@@ -581,8 +583,8 @@ class CommandOnSave(sublime_plugin.EventListener):
             if self.get_auto_format_on_save_requires_prettier_conifg(view):
 
                 # check if '--config <filename>' is defined in 'additional_cli_args'
-                parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
-                prettier_config_path = get_cli_arg_value(parsed_additional_cli_args, '--config')
+                # parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
+                prettier_config_path = get_cli_arg_value(self.get_additional_cli_args, '--config')
                 if not prettier_config_path or not os.path.exists(prettier_config_path):
                     # trying to resolve the config path
                     prettier_config_path = resolve_prettier_config(view)
@@ -623,7 +625,7 @@ class CommandOnSave(sublime_plugin.EventListener):
 
     @staticmethod
     def get_additional_cli_args(view):
-        return get_setting(view, 'additional_cli_args', {})
+        return dict(get_setting(view, 'additional_cli_args', {}))
 
     def is_enabled(self, view):
         return self.get_auto_format_on_save(view)
