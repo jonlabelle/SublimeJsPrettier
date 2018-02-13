@@ -587,7 +587,7 @@ class CommandOnSave(sublime_plugin.EventListener):
                     prettier_config_path = resolve_prettier_config(view)
 
                 if prettier_config_path and os.path.exists(prettier_config_path):
-                    debug(view, "Auto format Prettier config file found '{0}'\n".format(prettier_config_path))
+                    debug(view, "Auto format Prettier config file found '{0}'".format(prettier_config_path))
                     view.run_command(PLUGIN_CMD_NAME, {
                         'save_file': True,
                         'auto_format_prettier_config_path': prettier_config_path
