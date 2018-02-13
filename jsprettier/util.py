@@ -110,7 +110,7 @@ def _find_file(start_dir, filename, parent=False, limit=None, aux_dirs=None):
 def _prettier_opts_in_package_json(package_json_file):
     has_key = False
     with open(package_json_file) as package_file:
-        json_data = json.load(package_file)
+        json_data = json.load(package_file, encoding='utf-8')
     try:
         if 'prettier' in json_data:
             has_key = True
