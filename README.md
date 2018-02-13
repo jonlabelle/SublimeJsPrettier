@@ -178,7 +178,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     }
     ```
 
-- **auto_format_on_save_requires_prettier_conifg** (default: ***false***)  
+- **auto_format_on_save_requires_prettier_config** (default: ***false***)  
     Enable auto format on save *only* when a Prettier config file is (or isn't)
     found.
 

@@ -580,7 +580,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         if self.is_allowed(view) and self.is_enabled(view) and self.is_excluded(view):
-            if self.get_auto_format_on_save_requires_prettier_conifg(view):
+            if self.get_auto_format_on_save_requires_prettier_config(view):
 
                 # check if '--config <filename>' is defined in 'additional_cli_args'
                 # parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
@@ -616,8 +616,8 @@ class CommandOnSave(sublime_plugin.EventListener):
         return get_setting(view, 'custom_file_extensions', [])
 
     @staticmethod
-    def get_auto_format_on_save_requires_prettier_conifg(view):
-        return bool(get_setting(view, 'auto_format_on_save_requires_prettier_conifg', False))
+    def get_auto_format_on_save_requires_prettier_config(view):
+        return bool(get_setting(view, 'auto_format_on_save_requires_prettier_config', False))
 
     @staticmethod
     def is_allowed(view):

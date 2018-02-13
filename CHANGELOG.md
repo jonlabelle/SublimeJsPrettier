@@ -4,7 +4,7 @@
 
 **Release Date:** 2018-02-13
 
-- Added new `auto_format_on_save_requires_prettier_conifg` setting that will
+- Added new `auto_format_on_save_requires_prettier_config` setting that will
   enable/disable auto format on save *only* if a Prettier config file is (or isn't) found.
   
   The Prettier config file is resolved by first checking if a `--config </path/to/prettier/config>`  

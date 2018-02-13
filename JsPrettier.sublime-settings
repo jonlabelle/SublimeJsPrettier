@@ -120,7 +120,7 @@
 	// tree until a config file is (or isn't) found.
 	// ----------------------------------------------------------------------
 
-	"auto_format_on_save_requires_prettier_conifg": false,
+	"auto_format_on_save_requires_prettier_config": false,
 
 	// ----------------------------------------------------------------------
 	// Allow Inline Formatting
