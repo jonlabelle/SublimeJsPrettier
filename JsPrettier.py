@@ -51,7 +51,8 @@ if IS_PY2:
         resolve_prettier_ignore_path, \
         format_error_message, \
         format_debug_message, \
-        parse_additional_cli_args, get_cli_arg_value
+        parse_additional_cli_args,\
+        get_cli_arg_value
 else:
     from .jsprettier.const import \
         PLUGIN_NAME, \
