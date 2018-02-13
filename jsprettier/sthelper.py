@@ -1,43 +1,52 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from . import util
-from . import const
+from .util import \
+    which, \
+    is_str_none_or_empty, \
+    find_prettier_config, \
+    get_file_abs_dir
+
+from .const import \
+    SETTINGS_FILENAME, \
+    PRETTIER_OPTIONS_KEY,\
+    PLUGIN_NAME,\
+    PROJECT_SETTINGS_KEY, \
+    AUTO_FORMAT_FILE_EXTENSIONS
 
 import os
 import sublime
 
 
 def st_status_message(msg):
-    sublime.set_timeout(
-        lambda: sublime.status_message('{0}: {1}'.format('JsPretter', msg)), 0)
+    sublime.set_timeout(lambda: sublime.status_message('{0}: {1}'.format('JsPretter', msg)), 0)
 
 
 def get_setting(view, key, default_value=None):
-    settings = view.settings().get(const.PLUGIN_NAME)
+    settings = view.settings().get(PLUGIN_NAME)
     if settings is None or settings.get(key) is None:
-        settings = sublime.load_settings(const.SETTINGS_FILENAME)
+        settings = sublime.load_settings(SETTINGS_FILENAME)
     value = settings.get(key, default_value)
     # check for project-level overrides:
-    project_value = get_project_setting(key)
+    project_value = _get_project_setting(key)
     if project_value is None:
         return value
     return project_value
 
 
 def get_sub_setting(view, key=None):
-    settings = view.settings().get(const.PLUGIN_NAME)
-    if settings is None or settings.get(const.PRETTIER_OPTIONS_KEY).get(key) is None:
-        settings = sublime.load_settings(const.SETTINGS_FILENAME)
-    value = settings.get(const.PRETTIER_OPTIONS_KEY).get(key)
+    settings = view.settings().get(PLUGIN_NAME)
+    if settings is None or settings.get(PRETTIER_OPTIONS_KEY).get(key) is None:
+        settings = sublime.load_settings(SETTINGS_FILENAME)
+    value = settings.get(PRETTIER_OPTIONS_KEY).get(key)
     # check for project-level overrides:
-    project_value = get_project_sub_setting(key)
+    project_value = _get_project_sub_setting(key)
     if project_value is None:
         return value
     return project_value
 
 
-def get_project_setting(key):
+def _get_project_setting(key):
     """Get a project setting.
 
     JsPrettier project settings are stored in the sublime project file
@@ -55,18 +64,18 @@ def get_project_setting(key):
     project_settings = sublime.active_window().active_view().settings()
     if not project_settings:
         return None
-    js_prettier_settings = project_settings.get(const.PROJECT_SETTINGS_KEY)
+    js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY)
     if js_prettier_settings and key in js_prettier_settings:
         return js_prettier_settings[key]
     return None
 
 
-def get_project_sub_setting(option):
+def _get_project_sub_setting(option):
     project_settings = sublime.active_window().active_view().settings()
-    js_prettier_settings = project_settings.get(const.PROJECT_SETTINGS_KEY, None)
+    js_prettier_settings = project_settings.get(PROJECT_SETTINGS_KEY, None)
     if not js_prettier_settings:
         return None
-    prettier_options = js_prettier_settings.get(const.PRETTIER_OPTIONS_KEY, None)
+    prettier_options = js_prettier_settings.get(PRETTIER_OPTIONS_KEY, None)
     if prettier_options and option in prettier_options:
         return prettier_options.get(option, None)
     return None
@@ -77,14 +86,14 @@ def is_file_auto_formattable(view):
     if not filename:
         return False
     file_ext = os.path.splitext(filename)[1][1:]
-    if file_ext in const.AUTO_FORMAT_FILE_EXTENSIONS:
+    if file_ext in AUTO_FORMAT_FILE_EXTENSIONS:
         return True
     if file_ext in set(get_setting(view, 'custom_file_extensions', [])):
         return True
     return False
 
 
-def resolve_st_project_path():
+def get_st_project_path():
     """Get the active Sublime Text project path.
 
     Original: https://gist.github.com/astronaughts/9678368
@@ -149,10 +158,10 @@ def resolve_prettier_cli_path(view, plugin_path):
     :return: The prettier cli path.
     """
     custom_prettier_cli_path = get_setting(view, 'prettier_cli_path', '')
-    project_path = resolve_st_project_path()
+    project_path = get_st_project_path()
 
-    if util.is_str_none_or_empty(custom_prettier_cli_path):
-        global_prettier_path = util.which('prettier')
+    if is_str_none_or_empty(custom_prettier_cli_path):
+        global_prettier_path = which('prettier')
         project_prettier_path = os.path.join(project_path, 'node_modules', '.bin', 'prettier')
         plugin_prettier_path = os.path.join(plugin_path, 'node_modules', '.bin', 'prettier')
 
@@ -169,3 +178,32 @@ def resolve_prettier_cli_path(view, plugin_path):
         custom_prettier_cli_path = os.path.join(project_path, custom_prettier_cli_path)
 
     return custom_prettier_cli_path
+
+
+def log(msg):
+    print("{0}: {1}".format(PLUGIN_NAME, msg))
+
+
+def debug(view, msg):
+    if debug_enabled(view):
+        log(msg)
+    return
+
+
+def debug_enabled(view):
+    return bool(get_setting(view, 'debug', False))
+
+
+def resolve_prettier_config(view):
+    """
+    Look for prettier config file in 'additional_cli_args',
+    then starting from in source file dir, or up the dir
+    tree until a match is (or isn't) found.
+    """
+    resolved_prettier_config_path = None
+    source_file = view.file_name()
+    if source_file:
+        resolved_prettier_config_path = find_prettier_config(get_file_abs_dir(source_file))
+        if not resolved_prettier_config_path:
+            resolved_prettier_config_path = find_prettier_config(get_st_project_path())
+    return resolved_prettier_config_path

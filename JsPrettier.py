@@ -19,13 +19,74 @@ PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.real
 
 if IS_PY2:
     # st with python 2x
-    from jsprettier.const import *
-    from jsprettier.sthelper import *
-    from jsprettier.util import *
+    from jsprettier.const import \
+        PLUGIN_NAME, \
+        PLUGIN_CMD_NAME, \
+        SETTINGS_FILENAME, \
+        PRETTIER_OPTION_CLI_MAP
+
+    from jsprettier.sthelper import \
+        st_status_message, \
+        get_setting, \
+        get_sub_setting, \
+        is_file_auto_formattable, \
+        get_st_project_path, \
+        scroll_view_to, \
+        has_selection, \
+        resolve_prettier_cli_path, \
+        debug, \
+        debug_enabled, \
+        resolve_prettier_config
+
+    from jsprettier.util import \
+        contains, \
+        is_windows, \
+        is_bool_str, \
+        trim_trailing_ws_and_lines, \
+        list_to_str, \
+        is_str_empty_or_whitespace_only, \
+        is_str_none_or_empty,\
+        get_file_abs_dir, \
+        get_proc_env, \
+        resolve_prettier_ignore_path, \
+        format_error_message, \
+        format_debug_message, \
+        parse_additional_cli_args, get_cli_arg_value
 else:
-    from .jsprettier.const import *
-    from .jsprettier.sthelper import *
-    from .jsprettier.util import *
+    from .jsprettier.const import \
+        PLUGIN_NAME, \
+        PLUGIN_CMD_NAME, \
+        SETTINGS_FILENAME, \
+        PRETTIER_OPTION_CLI_MAP
+
+    from .jsprettier.sthelper import \
+        st_status_message, \
+        get_setting, \
+        get_sub_setting, \
+        is_file_auto_formattable, \
+        get_st_project_path, \
+        scroll_view_to, \
+        has_selection, \
+        resolve_prettier_cli_path, \
+        debug, \
+        debug_enabled, \
+        resolve_prettier_config
+
+    from .jsprettier.util import \
+        contains, \
+        is_windows, \
+        is_bool_str, \
+        trim_trailing_ws_and_lines, \
+        list_to_str, \
+        is_str_empty_or_whitespace_only, \
+        is_str_none_or_empty,\
+        get_file_abs_dir, \
+        get_proc_env, \
+        resolve_prettier_ignore_path, \
+        format_error_message, \
+        format_debug_message, \
+        parse_additional_cli_args, \
+        get_cli_arg_value
 
 #
 # Monkey patch `sublime.Region` so it can be iterable:
@@ -35,10 +96,6 @@ sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
     _error_message = None
-
-    @staticmethod
-    def debug(view):
-        return bool(get_setting(view, 'debug', False))
 
     @property
     def has_error(self):
@@ -86,7 +143,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         return False
 
-    def run(self, edit, save_file=False, resolved_prettier_config_path=None):
+    def run(self, edit, save_file=False, auto_format_prettier_config_path=None):
         view = self.view
         source_file_path = view.file_name()
 
@@ -113,8 +170,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # Re-check if file was saved, in case user canceled or closed the save dialog:
             return st_status_message('Save canceled.')
 
+        #
+        # Max file size check
+        if self.exceeds_max_file_size_limit(source_file_path):
+            return st_status_message('Maximum file size reached.')
+
         source_file_dir = get_file_abs_dir(source_file_path)
-        st_project_path = resolve_st_project_path()
+        st_project_path = get_st_project_path()
 
         #
         # cd to the active sublime text project dir:
@@ -124,50 +186,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # if a `--config <path>` option is set in 'additional_cli_args',
         # no action is necessary. otherwise, try to sniff the config
         # file path:
-        parsed_additional_cli_args = self.parse_additional_cli_args()
+        parsed_additional_cli_args = parse_additional_cli_args(self.additional_cli_args)
         has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
         has_config_precedence_defined = parsed_additional_cli_args.count('--config-precedence') > 0
 
-        #
-        # Look for a prettier config file either specified in JsPrettier.sublime-settings
-        # in 'additional_cli_args', or passed in the run command with a 'resoloved_prettier_config'
         prettier_config_path = None
-        if not has_no_config_defined and resolved_prettier_config_path is not None:
-            if not has_custom_config_defined and os.path.exists(resolved_prettier_config_path):
-                    prettier_config_path = resolved_prettier_config_path
-        if save_file and prettier_config_path is None:
-            if not has_custom_config_defined:
-                if self.debug(view):
-                    print('{0}: Auto-format on save ignored - '
-                          'no Prettier config files not detected.'.format(PLUGIN_NAME))
-                    return
-                else:
-                    if self.debug(view):
-                        print("{0}: Auto-format on save using Prettier config "
-                              "file found in '{1}' 'additional_cli_args' setting."
-                              "".format(PLUGIN_NAME, SETTINGS_FILENAME))
-                    return
-
-        #
-        # Max file size check
-        if self.exceeds_max_file_size_limit(source_file_path):
-            return st_status_message('Maximum file size reached.')
-
-        # print(find_file(start_dir=source_file_dir, filename='.bowerrc', parent=False, limit=100, aux_dirs=[]))
-
-        # only try `--find-config-path` if a config option isn't specified
-        # in 'additional_cli_args':
-        # prettier_config_path = None
-        if not has_custom_config_defined and not has_no_config_defined and prettier_config_path is None:
-            # prettier_config_path = self.run_prettier_find_config_path(node_path, prettier_cli_path, source_file_path)
-            prettier_config_path = find_prettier_config(source_file_dir)
-            if prettier_config_path is not None:
-                if self.debug(view):
-                    print("{0}: Prettier config file detected: '{1}'".format(PLUGIN_NAME, prettier_config_path))
-            else:
-                print("{0}: No Prettier config files detected - using "
-                      "options defined '{1}'".format(PLUGIN_NAME, SETTINGS_FILENAME))
+        if not has_no_config_defined:
+            if save_file and auto_format_prettier_config_path:
+                prettier_config_path = auto_format_prettier_config_path
+            if not prettier_config_path:
+                prettier_config_path = get_cli_arg_value(parsed_additional_cli_args, '--config')
+            if not prettier_config_path:
+                prettier_config_path = resolve_prettier_config(view)
 
         #
         # Get node and prettier command paths:
@@ -282,8 +313,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + prettier_options
 
         try:
-            format_debug_message(
-                'Prettier CLI Command', list_to_str(cmd), self.debug(view))
+            format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
 
             proc = Popen(
                 cmd, stdin=PIPE,
@@ -328,25 +358,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def is_enabled(self):
         return self.should_show_plugin()
-
-    def parse_additional_cli_args(self):
-        additional_cli_args = []
-        if self.additional_cli_args and len(self.additional_cli_args) > 0 \
-                and isinstance(self.additional_cli_args, dict):
-            for arg_key, arg_value in self.additional_cli_args.items():
-                arg_key = str(arg_key).strip()
-                arg_value = str(arg_value).strip()
-                if arg_key == '':
-                    # arg key cannot be empty
-                    continue
-                additional_cli_args.append(arg_key)
-                if arg_value == '':
-                    # arg value can be empty... continue
-                    continue
-                if is_bool_str(arg_value):
-                    arg_value = arg_value.lower()
-                additional_cli_args.append(arg_value)
-        return additional_cli_args
 
     def parse_prettier_options(self, view, parsed_additional_cli_args,
                                prettier_config_path, has_custom_config_defined,
@@ -450,35 +461,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def format_console_error(self):
         print('\n------------------\n {0} ERROR \n------------------\n\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
-
-    @memoize
-    def run_prettier_find_config_path(self, node_path, prettier_cli_path, file_to_format_path):
-        """
-        Find the path to a Prettier config file based on the given file to be formatted.
-        """
-        if is_str_none_or_empty(node_path):
-            cmd = [prettier_cli_path] \
-                + ['--find-config-path'] \
-                + [file_to_format_path]
-        else:
-            cmd = [node_path] \
-                + [prettier_cli_path] \
-                + ['--find-config-path'] \
-                + [file_to_format_path]
-        try:
-            proc = Popen(
-                cmd, stdin=PIPE,
-                stderr=PIPE,
-                stdout=PIPE,
-                env=get_proc_env(),
-                shell=is_windows())
-            stdout, stderr = proc.communicate(input=None)
-            if stderr or proc.returncode != 0:
-                return None
-            return sub('\r?\n', '', stdout.decode('utf-8'))
-        except OSError as ex:
-            sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
-            raise
 
     @staticmethod
     def has_syntax_error(error_output):
@@ -595,72 +577,63 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         if self.is_allowed(view) and self.is_enabled(view) and self.is_excluded(view):
-            if self._auto_format_on_save_requires_prettier_conifg(view):
-                # attempt to resolve find an appropriate prettier config file:
-                view.run_command(PLUGIN_CMD_NAME, {
-                    'save_file': True,
-                    'resolved_prettier_config_path': self.resolve_prettier_config_path(view)
-                })
+            if self.get_auto_format_on_save_requires_prettier_conifg(view):
+
+                # check if '--config <filename>' is defined in 'additional_cli_args'
+                parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
+                prettier_config_path = get_cli_arg_value(parsed_additional_cli_args, '--config')
+                if not prettier_config_path or not os.path.exists(prettier_config_path):
+                    # trying to resolve the config path
+                    prettier_config_path = resolve_prettier_config(view)
+
+                if prettier_config_path and os.path.exists(prettier_config_path):
+                    debug(view, "Auto format Prettier config file found '{0}'\n".format(prettier_config_path))
+                    view.run_command(PLUGIN_CMD_NAME, {
+                        'save_file': True,
+                        'auto_format_prettier_config_path': prettier_config_path
+                    })
+                else:
+                    debug(view, "Auto formatting ignored - no Prettier config file found.")
             else:
                 view.run_command(PLUGIN_CMD_NAME, {
                     'save_file': True,
-                    'resolved_prettier_config_path': None
+                    'auto_format_prettier_config_path': None
                 })
 
     @staticmethod
-    def _auto_format_on_save(view):
+    def get_auto_format_on_save(view):
         return get_setting(view, 'auto_format_on_save', False)
 
     @staticmethod
-    def _auto_format_on_save_excludes(view):
+    def get_auto_format_on_save_excludes(view):
         return get_setting(view, 'auto_format_on_save_excludes', [])
 
     @staticmethod
-    def _custom_file_extensions(view):
+    def get_custom_file_extensions(view):
         return get_setting(view, 'custom_file_extensions', [])
 
     @staticmethod
-    def _auto_format_on_save_requires_prettier_conifg(view):
+    def get_auto_format_on_save_requires_prettier_conifg(view):
         return bool(get_setting(view, 'auto_format_on_save_requires_prettier_conifg', False))
 
     @staticmethod
-    def resolve_prettier_config_path(view):
-        """
-        Look for prettier config files starting from in source file dir,
-        or up the dir tree until a match is found (if one exists).
-        """
-        filename = view.file_name()
-        if filename:
-            return find_prettier_config(get_file_abs_dir(filename), resolve_st_project_path())
-        else:
-            return find_prettier_config(resolve_st_project_path())
+    def is_allowed(view):
+        return is_file_auto_formattable(view)
 
-    def _is_file_auto_formattable(self, view):
-        filename = view.file_name()
-        if not filename:
-            return False
-        file_ext = os.path.splitext(filename)[1][1:]
-        if file_ext in AUTO_FORMAT_FILE_EXTENSIONS:
-            return True
-        if file_ext in set(self._custom_file_extensions(view)):
-            return True
-        return False
-
-    def is_allowed(self, view):
-        return self._is_file_auto_formattable(view)
+    @staticmethod
+    def get_additional_cli_args(view):
+        return get_setting(view, 'additional_cli_args', {})
 
     def is_enabled(self, view):
-        return self._auto_format_on_save(view)
+        return self.get_auto_format_on_save(view)
 
     def is_excluded(self, view):
         filename = view.file_name()
         if not filename:
             return False
-        excludes = self._auto_format_on_save_excludes(view)
+        excludes = self.get_auto_format_on_save_excludes(view)
         regmatch_ef = [fnmatch.translate(os.path.normpath(pattern)) for pattern in excludes]
         for regmatch in regmatch_ef:
             if match(regmatch, filename):
                 return False
         return True
-
-

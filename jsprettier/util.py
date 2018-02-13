@@ -8,7 +8,10 @@ import os
 import platform
 from re import sub
 
-from .const import PLUGIN_NAME, PRETTIER_IGNORE_FILE, PRETTIER_CONFIG_FILES
+from .const import \
+    PLUGIN_NAME, \
+    PRETTIER_IGNORE_FILE, \
+    PRETTIER_CONFIG_FILES
 
 
 def memoize(obj):
@@ -28,55 +31,6 @@ def contains(needle, haystack):
     if not needle or not haystack:
         return False
     return needle in haystack
-
-
-def search_list_of_dicts(key, value, list_of_dicts):
-    """
-    Search a List of Dictionaries for a particular value.
-
-    Example Usage:
-
-        list_of_dicts = [
-            {
-                'option': 'printWidth',
-                'cli': '--print-width',
-                'default': '80'
-            },
-            {
-                'option': 'singleQuote',
-                'cli': '--single-quote',
-                'default': 'false'
-            },
-            {
-                'option': 'trailingComma',
-                'cli': '--trailing-comma',
-                'default': 'none'
-            }
-        ]
-
-        #
-        # Get the matched dict in the list of dictionaries:
-        dict_match = search_list_of_dicts('option', 'singleQuote', list_of_dicts)
-        >> [{'default': 'false', 'option': 'singleQuote', 'cli': '--single-quote'}]
-
-        #
-        # Get the cli key value from the matched list of dictionaries:
-        dict_match2 = search_list_of_dicts('option', 'singleQuote', list_of_dicts)
-        print(dict_match2[0]['cli'])
-        >> --single-quote
-
-    Hat tip to https://stackoverflow.com/a/24845196
-
-    :param key: The key to search for in the list of dictionaries.
-    :param value: The value to search for in the list of dictionaries.
-    :param list_of_dicts: The list of dictionaries to search.
-    :return: The matching dictionary, or None if not found.
-    """
-    try:
-        return [element for element in list_of_dicts if element[key] == value]
-    except KeyError:
-        pass
-    return None
 
 
 def find_prettier_config(start_dir, alt_dirs=None):
@@ -128,7 +82,7 @@ def _find_file(start_dir, filename, parent=False, limit=None, aux_dirs=None):
         If parent is True the path to the file's parent directory is returned.
     :param limit: If limit is None, the search will continue up to the root directory.
         Otherwise a maximum of limit directories will be checked.
-    :param aux_dirs: list If aux_dirs is not empty and the file hierarchy search failed,
+    :param aux_dirs: If aux_dirs is not empty and the file hierarchy search failed,
         those directories are also checked.
     """
     if aux_dirs is None:
@@ -348,3 +302,41 @@ def format_debug_message(label, message, debug_enabled=False):
     horizontal_rule = repeat_str('-', len(header))
     print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
         horizontal_rule, header, horizontal_rule, message))
+
+
+def parse_additional_cli_args(additional_cli_args_setting=None):
+    listofargs = []
+    if additional_cli_args_setting is None:
+        additional_cli_args_setting = {}
+    if additional_cli_args_setting and len(additional_cli_args_setting) > 0 \
+            and isinstance(additional_cli_args_setting, dict):
+        for arg_key, arg_value in additional_cli_args_setting.items():
+            arg_key = str(arg_key).strip()
+            arg_value = str(arg_value).strip()
+            if arg_key == '':
+                # arg key cannot be empty
+                continue
+            listofargs.append(arg_key)
+            if arg_value == '':
+                # arg value can be empty... continue
+                continue
+            if is_bool_str(arg_value):
+                arg_value = arg_value.lower()
+            listofargs.append(arg_value)
+    return listofargs
+
+
+def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, default=None):
+    if not additional_cli_args or len(additional_cli_args) == 0 or not arg_key:
+        return default
+    result = None
+    for key, val in additional_cli_args.items():
+        if key == arg_key:
+            if arg_val_can_be_empty:
+                result = key
+            else:
+                result = val
+        break
+    if result is None:
+        return default
+    return result

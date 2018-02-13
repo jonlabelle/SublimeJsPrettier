@@ -113,10 +113,14 @@
 	// @default false
 	//
 	// Enable auto format on save ONLY when a Prettier config file is found.
-	// Executes the `prettier --find-config-path` command.
+	//
+	// The Prettier config file is resolved by first checking if a `--config </path/to/prettier/config>`
+	// is specified in the `additional_cli_args` setting, then by searching the
+	// location of the file being formatted, and finally navigating up the file
+	// tree until a config file is (or isn't) found.
+	// ----------------------------------------------------------------------
 
 	"auto_format_on_save_requires_prettier_conifg": false,
-
 
 	// ----------------------------------------------------------------------
 	// Allow Inline Formatting

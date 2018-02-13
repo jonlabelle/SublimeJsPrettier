@@ -88,4 +88,3 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'md',
     'vue'
 ]
-
