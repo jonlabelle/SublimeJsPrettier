@@ -42,12 +42,10 @@ def find_prettier_config(start_dir, alt_dirs=None):
             start_dir=start_dir, filename=config_file, parent=False, limit=100, aux_dirs=alt_dirs)
         if prettier_config:
             break
-    if prettier_config:
-        # check for prettier key defined package.json
-        if os.path.basename(prettier_config) == 'package.json' and _prettier_opts_in_package_json(prettier_config):
+    # check for prettier key defined package.json
+    if prettier_config and os.path.basename(prettier_config) == 'package.json':
+        if _prettier_opts_in_package_json(prettier_config):
             return prettier_config
-        else:
-            return None
     return prettier_config
 
 
