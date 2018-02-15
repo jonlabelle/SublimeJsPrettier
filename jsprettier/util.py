@@ -109,8 +109,15 @@ def _find_file(start_dir, filename, parent=False, limit=None, aux_dirs=None):
 
 def _prettier_opts_in_package_json(package_json_file):
     has_key = False
-    with open(package_json_file) as package_file:
-        json_data = json.load(package_file, encoding='utf-8')
+    try:
+        with open(package_json_file) as package_file:
+            json_data = json.load(package_file)
+    except:
+        # TODO: rework this... reading a package.json file that isn't utf-8 will throw...
+        pass
+        print("{0}: An error occured trying to read '{0}'".format(PLUGIN_NAME, package_json_file))
+        return False
+
     try:
         if 'prettier' in json_data:
             has_key = True
