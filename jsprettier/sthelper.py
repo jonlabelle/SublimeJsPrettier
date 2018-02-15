@@ -3,9 +3,7 @@ from __future__ import print_function
 
 from .util import \
     which, \
-    is_str_none_or_empty, \
-    find_prettier_config, \
-    get_file_abs_dir
+    is_str_none_or_empty
 
 from .const import \
     SETTINGS_FILENAME, \
@@ -194,16 +192,19 @@ def debug_enabled(view):
     return bool(get_setting(view, 'debug', False))
 
 
-def resolve_prettier_config(view):
-    """
-    Look for prettier config file in 'additional_cli_args',
-    then starting from in source file dir, or up the dir
-    tree until a match is (or isn't) found.
-    """
-    resolved_prettier_config_path = None
-    source_file = view.file_name()
-    if source_file:
-        resolved_prettier_config_path = find_prettier_config(get_file_abs_dir(source_file))
-        if not resolved_prettier_config_path:
-            resolved_prettier_config_path = find_prettier_config(get_st_project_path())
-    return resolved_prettier_config_path
+# def resolve_prettier_config(view):
+#     """
+#     Look for prettier config file in 'additional_cli_args',
+#     then starting from in source file dir, or up the dir
+#     tree until a match is (or isn't) found.
+#     """
+#     resolved_prettier_config_path = None
+#     source_file = view.file_name()
+#     print('Source filename: {0}'.format(source_file))
+#     if source_file:
+#         resolved_prettier_config_path = find_prettier_config(get_file_abs_dir(source_file))
+#         print('resolved_prettier_config_path: source file dir: {0} '.format(resolved_prettier_config_path))
+#         if not resolved_prettier_config_path:
+#             resolved_prettier_config_path = find_prettier_config(get_st_project_path())
+#             print('resolved_prettier_config_path: st project dir: {0} '.format(resolved_prettier_config_path))
+#     return resolved_prettier_config_path

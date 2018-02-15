@@ -36,18 +36,18 @@ def contains(needle, haystack):
 def find_prettier_config(start_dir, alt_dirs=None):
     if alt_dirs is None:
         alt_dirs = []
+    if '~' not in alt_dirs:
+        alt_dirs.append('~')
     prettier_config = None
     for config_file in PRETTIER_CONFIG_FILES:
         prettier_config = _find_file(
-            start_dir=start_dir, filename=config_file, parent=False, limit=100, aux_dirs=alt_dirs)
-        if prettier_config:
+            start_dir=start_dir, filename=config_file, parent=False, limit=500, aux_dirs=alt_dirs)
+        if prettier_config and os.path.exists(prettier_config):
             break
-    if prettier_config:
+    if prettier_config and os.path.exists(prettier_config):
         # check for prettier key defined package.json
         if os.path.basename(prettier_config) == 'package.json' and _prettier_opts_in_package_json(prettier_config):
             return prettier_config
-        else:
-            return None
     return prettier_config
 
 
@@ -269,23 +269,29 @@ def get_proc_env():
     return env
 
 
-def resolve_prettier_ignore_path(source_file_dir, st_project_path):
-    """Look for a '.prettierignore' file in ST project root (#97).
-
-    :return: The path (str) to a '.prettierignore' file (if one exists) inthe active Sublime Text Project Window.
-    """
-
+def in_source_file_path_or_project_root(source_file_dir, st_project_path, filename):
     # check for .prettierignore in source file dir:
-    source_file_dir_ignore_path = os.path.join(source_file_dir, PRETTIER_IGNORE_FILE)
+    source_file_dir_ignore_path = os.path.join(source_file_dir, filename)
     if os.path.exists(source_file_dir_ignore_path):
         return source_file_dir_ignore_path
 
     # check for .prettierignore in sublime text project root:
-    sublime_text_project_dir_path = os.path.join(st_project_path, PRETTIER_IGNORE_FILE)
+    sublime_text_project_dir_path = os.path.join(st_project_path, filename)
     if os.path.exists(sublime_text_project_dir_path):
         return sublime_text_project_dir_path
 
     return None
+
+
+def resolve_prettier_ignore_path(source_file_dir, st_project_path):
+    """Look for a '.prettierignore'
+
+    Try to resolve a '.prettieringore' file in source file dir, or ST project root (#97).
+
+    :return: The path (str) to a '.prettierignore' file (if one exists) in the active Sublime Text Project Window.
+    """
+
+    return in_source_file_path_or_project_root(source_file_dir, st_project_path, PRETTIER_IGNORE_FILE)
 
 
 def format_error_message(error_message, error_code):

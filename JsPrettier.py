@@ -35,8 +35,7 @@ if IS_PY2:
         has_selection, \
         resolve_prettier_cli_path, \
         debug, \
-        debug_enabled, \
-        resolve_prettier_config
+        debug_enabled
 
     from jsprettier.util import \
         contains, \
@@ -45,14 +44,16 @@ if IS_PY2:
         trim_trailing_ws_and_lines, \
         list_to_str, \
         is_str_empty_or_whitespace_only, \
-        is_str_none_or_empty,\
+        is_str_none_or_empty, \
         get_file_abs_dir, \
         get_proc_env, \
         resolve_prettier_ignore_path, \
         format_error_message, \
         format_debug_message, \
-        parse_additional_cli_args,\
-        get_cli_arg_value
+        parse_additional_cli_args, \
+        get_cli_arg_value, \
+        in_source_file_path_or_project_root, \
+        find_prettier_config
 else:
     from .jsprettier.const import \
         PLUGIN_NAME, \
@@ -70,8 +71,7 @@ else:
         has_selection, \
         resolve_prettier_cli_path, \
         debug, \
-        debug_enabled, \
-        resolve_prettier_config
+        debug_enabled
 
     from .jsprettier.util import \
         contains, \
@@ -87,7 +87,9 @@ else:
         format_error_message, \
         format_debug_message, \
         parse_additional_cli_args, \
-        get_cli_arg_value
+        get_cli_arg_value, \
+        in_source_file_path_or_project_root, \
+        find_prettier_config
 
 #
 # Monkey patch `sublime.Region` so it can be iterable:
@@ -144,6 +146,45 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         return False
 
+    def try_find_prettier_config(self, view):
+        source_file_dir = get_file_abs_dir(view.file_name())
+        st_project_path = get_st_project_path()
+
+        #
+        # 1. Attempt to use prettier config defined in the 'additional_cli_args' (if exist - ensure it's abs path)
+
+        # check if '--config <filename>' is defined in 'additional_cli_args'
+        # parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
+        additional_cli_arg_config = get_cli_arg_value(self.additional_cli_args, '--config')
+        if not is_str_none_or_empty(additional_cli_arg_config):
+            additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
+            if not os.path.isabs(additional_cli_arg_config):
+                additional_cli_arg_config = in_source_file_path_or_project_root(
+                    source_file_dir, st_project_path, additional_cli_arg_config)
+                if not additional_cli_arg_config or not os.path.exists(additional_cli_arg_config):
+                    debug(view, "Unable to find Prettier config file defined in 'additional_cli_args' "
+                                "-> '--config <path>'. File formatting ignored.")
+                    return None
+
+                debug(view, "Using Prettier config path defined "
+                            "in 'additional_cli_args' config -> '{0}'".format(additional_cli_arg_config))
+
+                return additional_cli_arg_config
+
+        #
+        # 2. Attempt to resolve a prettier config path:
+        resolved_prettier_config = find_prettier_config(source_file_dir)
+
+        if not resolved_prettier_config or not os.path.exists(resolved_prettier_config):
+            debug(view, "Unable to resolve Prettier config file path. Using Prettier options defined in '{0}'."
+                  .format(SETTINGS_FILENAME))
+            return None
+
+        debug(view, "Prettier config file resolved at: '{0}'"
+              .format(resolved_prettier_config))
+
+        return resolved_prettier_config
+
     def run(self, edit, save_file=False, auto_format_prettier_config_path=None):
         view = self.view
         source_file_path = view.file_name()
@@ -197,11 +238,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if save_file and auto_format_prettier_config_path and os.path.exists(auto_format_prettier_config_path):
                 prettier_config_path = auto_format_prettier_config_path
             if not prettier_config_path:
-                custom_prettier_config = get_cli_arg_value(self.additional_cli_args, '--config')
-                if custom_prettier_config and not os.path.exists(custom_prettier_config):
-                    prettier_config_path = custom_prettier_config
-            if not prettier_config_path:
-                prettier_config_path = resolve_prettier_config(view)
+                resolved_prettier_config = self.try_find_prettier_config(view)
+                if resolved_prettier_config and os.path.exists(resolved_prettier_config):
+                    prettier_config_path = resolved_prettier_config
+        if not prettier_config_path or not os.path.exists(prettier_config_path):
+            prettier_config_path = ''
+            has_custom_config_defined = False
 
         #
         # Get node and prettier command paths:
@@ -580,32 +622,51 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         if self.is_allowed(view) and self.is_enabled(view) and self.is_excluded(view):
-            if self.get_auto_format_on_save_requires_prettier_config(view):
-
-                # check if '--config <filename>' is defined in 'additional_cli_args'
-                # parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
-                prettier_config_path = get_cli_arg_value(self.get_additional_cli_args, '--config')
-                if not prettier_config_path or not os.path.exists(prettier_config_path):
-                    # trying to resolve the config path
-                    prettier_config_path = resolve_prettier_config(view)
-
-                if prettier_config_path and os.path.exists(prettier_config_path):
-                    debug(view, "Auto format Prettier config file found '{0}'".format(prettier_config_path))
-                    view.run_command(PLUGIN_CMD_NAME, {
-                        'save_file': True,
-                        'auto_format_prettier_config_path': prettier_config_path
-                    })
-                else:
-                    debug(view, "Auto formatting ignored - no Prettier config file found.")
+            if self.get_auto_format_on_save_requires_prettier_config(view) is True:
+                resolved_prettier_config = self.try_find_prettier_config(view)
+                if not resolved_prettier_config:
+                    return
+                view.run_command(PLUGIN_CMD_NAME, {
+                    'save_file': True,
+                    'auto_format_prettier_config_path': resolved_prettier_config
+                })
+                return
             else:
                 view.run_command(PLUGIN_CMD_NAME, {
                     'save_file': True,
                     'auto_format_prettier_config_path': None
                 })
 
+    def try_find_prettier_config(self, view):
+        source_file_dir = get_file_abs_dir(view.file_name())
+        st_project_path = get_st_project_path()
+
+        #
+        # 1. Attempt to use prettier config defined in the 'additional_cli_args' (if exist - ensure it's abs path)
+        additional_cli_arg_config = get_cli_arg_value(self.get_additional_cli_args(view), '--config')
+        if not is_str_none_or_empty(additional_cli_arg_config):
+            additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
+            if not os.path.isabs(additional_cli_arg_config):
+                additional_cli_arg_config = in_source_file_path_or_project_root(
+                    source_file_dir, st_project_path, additional_cli_arg_config)
+                if not additional_cli_arg_config or not os.path.exists(additional_cli_arg_config):
+                    return None
+
+                return additional_cli_arg_config
+
+        #
+        # 2. Attempt to resolve a prettier config path:
+        resolved_prettier_config = find_prettier_config(source_file_dir)
+
+        if not resolved_prettier_config or not os.path.exists(resolved_prettier_config):
+            return None
+
+        # if we get here, a config file was found:
+        return resolved_prettier_config
+
     @staticmethod
     def get_auto_format_on_save(view):
-        return get_setting(view, 'auto_format_on_save', False)
+        return bool(get_setting(view, 'auto_format_on_save', False))
 
     @staticmethod
     def get_auto_format_on_save_excludes(view):
