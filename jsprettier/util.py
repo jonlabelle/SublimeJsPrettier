@@ -6,12 +6,24 @@ import functools
 import json
 import os
 import platform
+
 from re import sub
 
-from .const import \
-    PLUGIN_NAME, \
-    PRETTIER_IGNORE_FILE, \
-    PRETTIER_CONFIG_FILES
+from .const import PLUGIN_NAME
+from .const import PRETTIER_CONFIG_FILES
+from .const import PRETTIER_IGNORE_FILE
+
+
+def log(msg):
+    print("{0}: {1}".format(PLUGIN_NAME, msg))
+
+
+def log_warn(msg):
+    print("{0} [WARNING]: {1}".format(PLUGIN_NAME, msg))
+
+
+def log_info(msg):
+    print("{0} [INFO]: {1}".format(PLUGIN_NAME, msg))
 
 
 def memoize(obj):
@@ -108,16 +120,15 @@ def _find_file(start_dir, filename, parent=False, limit=None, aux_dirs=None):
 
 
 def _prettier_opts_in_package_json(package_json_file):
-    has_key = False
     try:
         with open(package_json_file) as package_file:
             json_data = json.load(package_file)
-    except:
-        # TODO: rework this... reading a package.json file that isn't utf-8 will throw...
-        pass
-        print("{0}: An error occured trying to read '{0}'".format(PLUGIN_NAME, package_json_file))
+    except Exception:
+        log_warn("Cannot parse '{0}' file. Prettier options "
+                 "defined in this file will be ignored.".format(package_json_file))
         return False
 
+    has_key = False
     try:
         if 'prettier' in json_data:
             has_key = True
@@ -355,3 +366,4 @@ def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, 
     if result is None:
         return default
     return result
+

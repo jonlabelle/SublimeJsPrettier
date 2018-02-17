@@ -1,16 +1,14 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-from .util import \
-    which, \
-    is_str_none_or_empty
+from .util import is_str_none_or_empty
+from .util import which
 
-from .const import \
-    SETTINGS_FILENAME, \
-    PRETTIER_OPTIONS_KEY,\
-    PLUGIN_NAME,\
-    PROJECT_SETTINGS_KEY, \
-    AUTO_FORMAT_FILE_EXTENSIONS
+from .const import AUTO_FORMAT_FILE_EXTENSIONS
+from .const import PLUGIN_NAME
+from .const import PRETTIER_OPTIONS_KEY
+from .const import PROJECT_SETTINGS_KEY
+from .const import SETTINGS_FILENAME
 
 import os
 import sublime
@@ -178,15 +176,14 @@ def resolve_prettier_cli_path(view, plugin_path):
     return custom_prettier_cli_path
 
 
-def log(msg):
-    print("{0}: {1}".format(PLUGIN_NAME, msg))
+def debug_enabled(view):
+    return bool(get_setting(view, 'debug', False))
 
 
-def debug(view, msg):
+def log_debug(view, msg):
     if debug_enabled(view):
-        log(msg)
+        print("{0} [DEBUG]: {1}".format(PLUGIN_NAME, msg))
     return
 
 
-def debug_enabled(view):
-    return bool(get_setting(view, 'debug', False))
+
