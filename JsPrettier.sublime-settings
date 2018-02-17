@@ -234,16 +234,14 @@
 		"jsxBracketSameLine": false,
 
 		// Which parser to use. Valid options are "flow", "babylon",
-		// "typescript" and "css".
+		// "typescript", "css", "json", "graphql" and "markdown".
 		//
-		// If CSS or TypeScript is detected in Sublime Text, the parser option
-		// will always be internally overridden and set to "css" or
-		// "typescript" respectively.
+		// NOTE: The `parser` option is automatically set by the plug-in
+		// (JsPrettier), based on the contents of current file or selection.
 		"parser": "babylon",
 
 		// Whether to add a semicolon at the end of every line (semi: true), or
-		// only at the beginning of lines that may introduce
-		// ASI failures (semi: false)
+		// only at the beginning of lines that may introduce ASI failures (semi: false)
 		"semi": true,
 
 		// Prettier can restrict itself to only format files that contain a

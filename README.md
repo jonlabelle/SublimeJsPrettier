@@ -253,8 +253,8 @@ file, accessible from the **Preferences** > **Package Settings** >
     "***typescript***", "***css***", "***json***", "***graphql***"
     and "***markdown***".
   
-    The `parser` option is automatically specified based on the current source
-    file or selection.
+    The `parser` option is automatically set by the plug-in (JsPrettier), based
+    on the contents of current file or selection.
   
 - **semi** (default: ***true***)  
     ***true*** to add a semicolon at the end of every line, or ***false*** to
@@ -358,12 +358,13 @@ or selection(s) defined in Sublime Text.
 
 #### Custom Prettier Config File Path
 
-To specify a custom Prettier config path, add the `--config` argument with an
-appropriate path to the `additional_cli_args` setting. Here's an example.
+To specify a custom Prettier config path, simply add a `--config <path>`
+key-value item to `additional_cli_args`. Here's an example:
 
 ```json
 {
-    "additional_cli_args": {
+    "additional_cli_args":
+    {
         "--config": "path/to/my/custom/.prettierrc",
         "--config-precedence": "prefer-file"
     }
