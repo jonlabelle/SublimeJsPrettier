@@ -55,11 +55,14 @@ def find_prettier_config(start_dir, alt_dirs=None):
         prettier_config = _find_file(
             start_dir=start_dir, filename=config_file, parent=False, limit=500, aux_dirs=alt_dirs)
         if prettier_config and os.path.exists(prettier_config):
+            # check for prettier key defined package.json
+            if os.path.basename(prettier_config) == 'package.json' and not \
+                    _prettier_opts_in_package_json(prettier_config):
+                # no prettier key... reset found confile to None
+                prettier_config = None
+                continue
             break
-    if prettier_config and os.path.exists(prettier_config):
-        # check for prettier key defined package.json
-        if os.path.basename(prettier_config) == 'package.json' and _prettier_opts_in_package_json(prettier_config):
-            return prettier_config
+
     return prettier_config
 
 
@@ -128,13 +131,12 @@ def _prettier_opts_in_package_json(package_json_file):
                  "defined in this file will be ignored.".format(package_json_file))
         return False
 
-    has_key = False
     try:
-        if 'prettier' in json_data:
-            has_key = True
+        if json_data['prettier']:
+            return True
+        return False
     except KeyError:
-        pass
-    return has_key
+        return False
 
 
 def is_mac_os():
