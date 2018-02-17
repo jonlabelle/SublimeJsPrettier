@@ -102,6 +102,7 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
         "node_path": "",
         "auto_format_on_save": false,
         "auto_format_on_save_excludes": [],
+        "auto_format_on_save_requires_prettier_config": false,
         "allow_inline_formatting": false,
         "custom_file_extensions": [],
         "max_file_size_limit": -1,
