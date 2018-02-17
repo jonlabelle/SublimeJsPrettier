@@ -15,10 +15,15 @@ from subprocess import Popen
 import sublime
 import sublime_plugin
 
-IS_ST3 = int(sublime.version()) >= 3000
-IS_PY2 = sys.version_info[0] == 2
+#
+# Monkey patch `sublime.Region` so it can be iterable:
+sublime.Region.totuple = lambda self: (self.a, self.b)
+sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
+
+IS_ST3 = int(sublime.version()) >= 3000
+IS_PY2 = sys.version_info[0] == 2
 
 if IS_PY2:
     # st with python 2x
@@ -87,11 +92,6 @@ else:
     from .jsprettier.util import parse_additional_cli_args
     from .jsprettier.util import resolve_prettier_ignore_path
     from .jsprettier.util import trim_trailing_ws_and_lines
-
-#
-# Monkey patch `sublime.Region` so it can be iterable:
-sublime.Region.totuple = lambda self: (self.a, self.b)
-sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
