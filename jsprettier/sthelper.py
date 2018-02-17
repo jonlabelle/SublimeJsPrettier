@@ -184,6 +184,3 @@ def log_debug(view, msg):
     if debug_enabled(view):
         print("{0} [DEBUG]: {1}".format(PLUGIN_NAME, msg))
     return
-
-
-

@@ -366,4 +366,3 @@ def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, 
     if result is None:
         return default
     return result
-
