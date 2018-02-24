@@ -475,13 +475,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_options.append(cli_option_name)
                 prettier_options.append(option_value)
 
-        # set the `tabWidth` option based on the current view:
-        prettier_options.append('--tab-width')
-        prettier_options.append(str(self.tab_size))
+        if not prettier_config_exists and not has_custom_config_defined:
+                # set the `tabWidth` option based on the current view:
+                prettier_options.append('--tab-width')
+                prettier_options.append(str(self.tab_size))
 
-        # set the `useTabs` option based on the current view:
-        prettier_options.append('--use-tabs')
-        prettier_options.append(str(self.use_tabs).lower())
+                # set the `useTabs` option based on the current view:
+                prettier_options.append('--use-tabs')
+                prettier_options.append(str(self.use_tabs).lower())
 
         # add the current file name to `--stdin-filepath`, only when
         # the current file being edited is NOT html, and in order
