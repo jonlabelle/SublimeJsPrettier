@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import with_statement
@@ -6,12 +8,25 @@ import functools
 import json
 import os
 import platform
+import sys
 
 from re import sub
 
 from .const import PLUGIN_NAME
 from .const import PRETTIER_CONFIG_FILES
 from .const import PRETTIER_IGNORE_FILE
+
+
+IS_PY2 = sys.version_info[0] == 2
+
+if IS_PY2:
+    text_type = unicode
+    string_types = (str, unicode)
+    integer_types = (int, long)
+else:
+    text_type = str
+    string_types = (str,)
+    integer_types = (int,)
 
 
 def log(msg):
@@ -147,6 +162,16 @@ def is_windows():
     return platform.system() == 'Windows' or os.name == 'nt'
 
 
+def to_str(value):
+    if value is None:
+        return ''
+    if value is True:
+        return 'true'
+    if value is False:
+        return 'false'
+    return text_type(value)
+
+
 def is_bool_str(val):
     """Determine if the specified string :val is 'true' or 'false'.
 
@@ -156,7 +181,7 @@ def is_bool_str(val):
     """
     if val is None:
         return False
-    if type(val) == str:
+    if isinstance(val, string_types):
         val = val.lower().strip()
         if val == 'true' or val == 'false':
             return True
@@ -194,7 +219,7 @@ def list_to_str(list_to_convert):
     :param list_to_convert: The list to convert to a string.
     :return: The list converted into a string.
     """
-    return ' '.join(str(l) for l in list_to_convert)
+    return ' '.join(to_str(l) for l in list_to_convert)
 
 
 def is_str_empty_or_whitespace_only(txt):
@@ -216,7 +241,7 @@ def is_str_none_or_empty(val):
     """
     if val is None:
         return True
-    if type(val) == str:
+    if isinstance(val, string_types):
         val = val.strip()
     if not val:
         return True
@@ -337,14 +362,15 @@ def parse_additional_cli_args(additional_cli_args_setting=None):
     if additional_cli_args_setting and len(additional_cli_args_setting) > 0 \
             and isinstance(additional_cli_args_setting, dict):
         for arg_key, arg_value in additional_cli_args_setting.items():
-            arg_key = str(arg_key).strip()
-            arg_value = str(arg_value).strip()
-            if arg_key == '':
+            arg_key = to_str(arg_key).strip()
+            if len(arg_key) == 0:
                 # arg key cannot be empty
                 continue
             listofargs.append(arg_key)
-            if arg_value == '':
-                # arg value can be empty... continue
+
+            arg_value = to_str(arg_value).strip()
+            if len(arg_value) == 0:
+                # arg value can be empty... just don't append it
                 continue
             if is_bool_str(arg_value):
                 arg_value = arg_value.lower()
