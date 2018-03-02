@@ -15,7 +15,7 @@ import sublime
 
 
 def st_status_message(msg):
-    sublime.set_timeout(lambda: sublime.status_message('{0}: {1}'.format('JsPrettier', msg)), 0)
+    sublime.set_timeout(lambda: sublime.status_message('{0}: {1}'.format(PLUGIN_NAME, msg)), 0)
 
 
 def get_setting(view, key, default_value=None):
