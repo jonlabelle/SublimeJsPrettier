@@ -242,7 +242,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         #
         # Get node and prettier command paths:
         node_path = self.node_path
-        prettier_cli_path = resolve_prettier_cli_path(view, PLUGIN_PATH)
+        prettier_cli_path = resolve_prettier_cli_path(view, PLUGIN_PATH, st_project_path)
         if prettier_cli_path is None:
             return st_status_message(
                 "Error\n\n"
