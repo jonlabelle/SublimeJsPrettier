@@ -212,11 +212,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return st_status_message('Maximum file size reached.')
 
         source_file_dir = get_file_abs_dir(source_file_path)
-        st_project_path = get_st_project_path()
+        st_project_path = str(get_st_project_path())
 
         #
         # cd to the active sublime text project dir:
-        os.chdir(str(st_project_path))
+        os.chdir(st_project_path)
 
         #
         # if a `--config <path>` option is set in 'additional_cli_args',
