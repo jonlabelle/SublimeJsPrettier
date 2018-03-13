@@ -56,6 +56,7 @@ if IS_PY2:
     from jsprettier.util import is_str_none_or_empty
     from jsprettier.util import is_windows
     from jsprettier.util import list_to_str
+    from jsprettier.util import log_error
     from jsprettier.util import log_warn
     from jsprettier.util import parse_additional_cli_args
     from jsprettier.util import resolve_prettier_ignore_path
@@ -90,6 +91,7 @@ else:
     from .jsprettier.util import is_str_none_or_empty
     from .jsprettier.util import is_windows
     from .jsprettier.util import list_to_str
+    from .jsprettier.util import log_error
     from .jsprettier.util import log_warn
     from .jsprettier.util import parse_additional_cli_args
     from .jsprettier.util import resolve_prettier_ignore_path
@@ -243,13 +245,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # Get node and prettier command paths:
         node_path = self.node_path
         prettier_cli_path = resolve_prettier_cli_path(view, PLUGIN_PATH, st_project_path)
-        if prettier_cli_path is None:
-            return st_status_message(
-                "Error\n\n"
-                "Command not found: 'prettier'\n\n"
+        if not prettier_cli_path:
+            log_error(
                 "Ensure 'prettier' is installed in your environment PATH, "
                 "or manually specify an absolute path in your '{0}' file "
                 "and the 'prettier_cli_path' setting.".format(SETTINGS_FILENAME))
+            return st_status_message('Prettier not found. Open console for more details.')
 
         # try to find a '.prettierignore' file path in the project root
         # if the '--ignore-path' option isn't specified in 'additional_cli_args':

@@ -35,6 +35,10 @@ def log_warn(msg):
     print("{0} [WARNING]: {1}".format(PLUGIN_NAME, msg))
 
 
+def log_error(msg):
+    print("{0} [ERROR]: {1}".format(PLUGIN_NAME, msg))
+
+
 def log_info(msg):
     print("{0} [INFO]: {1}".format(PLUGIN_NAME, msg))
 
