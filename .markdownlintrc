@@ -1,6 +1,7 @@
 {
   "default": true,
   "headers": { "style": "atx" },
+  "first-header-h1": false,
   "line_length": { "line_length": 120 },
   "whitespace": { "br_spaces": 2 },
   "ul": { "indent": 4 },
