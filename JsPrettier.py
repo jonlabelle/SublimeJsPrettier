@@ -176,8 +176,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             log_debug(view, "Prettier config resolved at '{0}'".format(resolved_prettier_config))
             return resolved_prettier_config
 
-        log_debug(view, "Unable to resolve a Prettier config file. "
-                        "Using options defined in '{0}'.".format(SETTINGS_FILENAME))
+        log_debug(view, "Prettier config file not found. "
+                        "Will use Prettier options defined in Sublime Text '{0}' file.".format(SETTINGS_FILENAME))
 
         return None
 
