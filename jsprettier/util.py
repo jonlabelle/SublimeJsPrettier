@@ -27,22 +27,6 @@ else:
     string_types = (str,)
 
 
-def log(msg):
-    print("{0}: {1}".format(PLUGIN_NAME, msg))
-
-
-def log_warn(msg):
-    print("{0} [WARNING]: {1}".format(PLUGIN_NAME, msg))
-
-
-def log_error(msg):
-    print("{0} [ERROR]: {1}".format(PLUGIN_NAME, msg))
-
-
-def log_info(msg):
-    print("{0} [INFO]: {1}".format(PLUGIN_NAME, msg))
-
-
 def memoize(obj):
     cache = obj.cache = {}
 
@@ -144,8 +128,9 @@ def _prettier_opts_in_package_json(package_json_file):
         with open(package_json_file) as package_file:
             json_data = json.load(package_file)
     except Exception:
+        from .sthelper import log_warn
         log_warn("Cannot parse '{0}' file. Prettier options "
-                 "defined in this file will be ignored.".format(package_json_file))
+                 "defined in this file will be ignored.".format(package_json_file), True)
         return False
 
     try:

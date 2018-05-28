@@ -39,6 +39,8 @@ if IS_PY2:
     from jsprettier.sthelper import has_selection
     from jsprettier.sthelper import is_file_auto_formattable
     from jsprettier.sthelper import log_debug
+    from jsprettier.sthelper import log_error
+    from jsprettier.sthelper import log_warn
     from jsprettier.sthelper import resolve_prettier_cli_path
     from jsprettier.sthelper import scroll_view_to
     from jsprettier.sthelper import st_status_message
@@ -56,8 +58,6 @@ if IS_PY2:
     from jsprettier.util import is_str_none_or_empty
     from jsprettier.util import is_windows
     from jsprettier.util import list_to_str
-    from jsprettier.util import log_error
-    from jsprettier.util import log_warn
     from jsprettier.util import parse_additional_cli_args
     from jsprettier.util import resolve_prettier_ignore_path
     from jsprettier.util import trim_trailing_ws_and_lines
@@ -74,6 +74,8 @@ else:
     from .jsprettier.sthelper import has_selection
     from .jsprettier.sthelper import is_file_auto_formattable
     from .jsprettier.sthelper import log_debug
+    from .jsprettier.sthelper import log_error
+    from .jsprettier.sthelper import log_warn
     from .jsprettier.sthelper import resolve_prettier_cli_path
     from .jsprettier.sthelper import scroll_view_to
     from .jsprettier.sthelper import st_status_message
@@ -91,8 +93,7 @@ else:
     from .jsprettier.util import is_str_none_or_empty
     from .jsprettier.util import is_windows
     from .jsprettier.util import list_to_str
-    from .jsprettier.util import log_error
-    from .jsprettier.util import log_warn
+
     from .jsprettier.util import parse_additional_cli_args
     from .jsprettier.util import resolve_prettier_ignore_path
     from .jsprettier.util import trim_trailing_ws_and_lines
@@ -163,21 +164,25 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 additional_cli_arg_config = in_source_file_path_or_project_root(
                     source_file_dir, st_project_path, additional_cli_arg_config)
                 if additional_cli_arg_config and os.path.exists(additional_cli_arg_config):
-                    log_debug(view, "Using Prettier config defined in 'additional_cli_args' config -> {0}'"
-                                    "".format(additional_cli_arg_config))
+                    log_debug(view, "Using Prettier config file defined in 'additional_cli_args' config -> {0}'"
+                                    "".format(additional_cli_arg_config), True)
                     return additional_cli_arg_config
-                log_warn("Cannot find Prettier config defined in 'additional_cli_args' -> '--config <path>'.")
+
+                log_warn("Cannot find Prettier config file defined "
+                         "in 'additional_cli_args' -> '--config <path>'.", True)
+
                 return None
 
         #
         # 2. Attempt to resolve a prettier config path:
         resolved_prettier_config = find_prettier_config(source_file_dir)
         if resolved_prettier_config and os.path.exists(resolved_prettier_config):
-            log_debug(view, "Prettier config resolved at '{0}'".format(resolved_prettier_config))
+            log_debug(view, "Prettier config file discovered at '{0}'".format(resolved_prettier_config))
             return resolved_prettier_config
 
         log_debug(view, "Prettier config file not found. "
-                        "Will use Prettier options defined in Sublime Text '{0}' file.".format(SETTINGS_FILENAME))
+                        "Will use Prettier options defined in Sublime Text '{0}' file."
+                  .format(SETTINGS_FILENAME), True)
 
         return None
 
