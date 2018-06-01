@@ -129,8 +129,7 @@ def scroll_view_to(view, row_no, col_no):
 
 def has_selection(view):
     for sel in view.sel():
-        start, end = sel
-        if start != end:
+        if not sel.empty():
             return True
     return False
 

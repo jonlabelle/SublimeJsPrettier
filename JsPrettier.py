@@ -15,10 +15,6 @@ from subprocess import Popen
 import sublime
 import sublime_plugin
 
-#
-# Monkey patch `sublime.Region` so it can be iterable:
-sublime.Region.totuple = lambda self: (self.a, self.b)
-sublime.Region.__iter__ = lambda self: self.totuple().__iter__()
 
 PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
 
