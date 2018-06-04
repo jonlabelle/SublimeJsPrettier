@@ -278,12 +278,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if is_str_empty_or_whitespace_only(source):
                 return st_status_message('Nothing to format in file.')
 
-            transformed, new_cursor = self.format_code(
+            result = self.format_code(
                 source, node_path, prettier_cli_path, prettier_options, view,
                 provide_cursor=True)
             if self.has_error:
                 self.format_console_error()
                 return self.show_status_bar_error()
+
+            transformed, new_cursor = result
 
             # sanity check to ensure textual content was returned from cmd
             # stdout, not necessarily caught in OSError try/catch
