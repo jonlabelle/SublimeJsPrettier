@@ -5,10 +5,10 @@ from __future__ import print_function
 
 import fnmatch
 import os
+import re
 import sys
 
 from re import match
-from re import search
 from subprocess import PIPE
 from subprocess import Popen
 
@@ -20,6 +20,10 @@ PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.real
 
 IS_ST3 = int(sublime.version()) >= 3000
 IS_PY2 = sys.version_info[0] == 2
+
+SYNTAX_ERROR_RE = re.compile(
+    r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)',
+    re.M)
 
 if IS_PY2:
     # st with python 2x
@@ -509,8 +513,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         message = ''
         line = -1
         col = -1
-        match_groups = search(
-            r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)', error_output)
+        match_groups = SYNTAX_ERROR_RE.search(error_output)
         if match_groups:
             error = match_groups.group('error')
             message = match_groups.group('message')
