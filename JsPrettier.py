@@ -394,6 +394,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_css(view) is True:
             return True
+        if self.is_html(view) is True:
+            return True
         if is_file_auto_formattable(view) is True:
             return True
         return False
@@ -467,6 +469,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if self.is_vue(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('vue')
+                    continue
+
+                if self.is_html(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('parse5')
                     continue
 
             if not prettier_config_exists and not has_custom_config_defined:
@@ -581,6 +588,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.markdown') or scopename.startswith('text.html.vue'):
             return False
+        if scopename == 'text.html.basic':
+            return True
         if scopename.startswith('text.html') or filename.endswith('.html') or filename.endswith('.htm'):
             return True
         return False
