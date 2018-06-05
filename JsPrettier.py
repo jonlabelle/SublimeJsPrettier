@@ -494,16 +494,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options.append('--use-tabs')
         prettier_options.append(str(self.use_tabs).lower())
 
-        # add the current file name to `--stdin-filepath`, only when
-        # the current file being edited is NOT html, and in order
-        # detect and format css/js selection(s) within html files:
-        if not self.is_html(view):
-            prettier_options.append('--stdin-filepath')
-            prettier_options.append(file_name)
-
         if prettier_ignore_filepath is not None:
             prettier_options.append('--ignore-path')
             prettier_options.append(prettier_ignore_filepath)
+
+        prettier_options.append('--stdin-filepath')
+        prettier_options.append(file_name)
 
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
