@@ -5,10 +5,9 @@ from __future__ import print_function
 
 import fnmatch
 import os
-import re
 import sys
 
-from re import match
+from re import match, compile as re_compile, M as RE_MULTILINE
 from subprocess import PIPE
 from subprocess import Popen
 
@@ -21,9 +20,9 @@ PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.real
 IS_ST3 = int(sublime.version()) >= 3000
 IS_PY2 = sys.version_info[0] == 2
 
-SYNTAX_ERROR_RE = re.compile(
+SYNTAX_ERROR_RE = re_compile(
     r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)',
-    re.M)
+    RE_MULTILINE)
 
 if IS_PY2:
     # st with python 2x
