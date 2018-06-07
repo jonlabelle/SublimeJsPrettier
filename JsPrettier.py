@@ -471,6 +471,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('vue')
                     continue
 
+                if self.is_source_js(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('babylon')
+                    continue
+
                 if self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('parse5')
@@ -498,8 +503,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             prettier_options.append('--ignore-path')
             prettier_options.append(prettier_ignore_filepath)
 
-        prettier_options.append('--stdin-filepath')
-        prettier_options.append(file_name)
+        # add the current file name to `--stdin-filepath`, only when
+        # the current file being edited is NOT html, and in order
+        # detect and format css/js selection(s) within html files:
+        if not self.is_html(view):
+            prettier_options.append('--stdin-filepath')
+            prettier_options.append(file_name)
 
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
@@ -584,8 +593,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.markdown') or scopename.startswith('text.html.vue'):
             return False
-        if scopename == 'text.html.basic':
-            return True
         if scopename.startswith('text.html') or filename.endswith('.html') or filename.endswith('.htm'):
             return True
         return False
