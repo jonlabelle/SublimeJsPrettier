@@ -234,7 +234,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         has_config_precedence_defined = parsed_additional_cli_args.count('--config-precedence') > 0
 
         prettier_config_path = None
-        if not has_no_config_defined:
+        # only try to resolve prettier config if '--no-config' or '--config' are NOT in 'additional_cli_args'
+        if not has_no_config_defined and not has_custom_config_defined:
             if save_file and auto_format_prettier_config_path and os.path.exists(auto_format_prettier_config_path):
                 prettier_config_path = auto_format_prettier_config_path
             if not prettier_config_path:
@@ -243,7 +244,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_config_path = resolved_prettier_config
         if not prettier_config_path or not os.path.exists(prettier_config_path):
             prettier_config_path = ''
-            has_custom_config_defined = False
 
         #
         # Get node and prettier command paths:
