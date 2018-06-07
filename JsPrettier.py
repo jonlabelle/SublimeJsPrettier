@@ -437,7 +437,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_option_name = mapping['cli']
-            option_value = get_sub_setting(self.view, option_name)
+            option_value = get_sub_setting(view, option_name)
 
             if option_name == 'parser':
                 if self.is_css(view):
