@@ -389,12 +389,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return None
 
             if stderr:
-                # allow warnings to pass-through
                 stderr_output = stderr.decode('utf-8')
                 if provide_cursor:
                     stderr_lines = stderr_output.splitlines()
                     stderr_output, new_cursor = '\n'.join(stderr_lines[:-1]), stderr_lines[-1]
-                print(format_error_message(stderr_output, str(proc.returncode)))
+
+                # allow warnings to pass-through
+                if stderr_output:
+                    print(format_error_message(stderr_output, str(proc.returncode)))
 
             if provide_cursor:
                 return stdout.decode('utf-8'), int(new_cursor)
