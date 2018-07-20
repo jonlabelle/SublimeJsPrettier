@@ -278,10 +278,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if is_str_empty_or_whitespace_only(source):
                 return st_status_message('Nothing to format in file.')
 
-            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options, view)
+            result = self.format_code(
+                source, node_path, prettier_cli_path, prettier_options, view,
+                provide_cursor=True)
             if self.has_error:
                 self.format_console_error()
                 return self.show_status_bar_error()
+
+            transformed, new_cursor = result
 
             # sanity check to ensure textual content was returned from cmd
             # stdout, not necessarily caught in OSError try/catch
@@ -308,6 +312,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 source_modified = True
 
             if source_modified:
+                view.sel().clear()
+                view.sel().add(sublime.Region(new_cursor))
                 st_status_message('File formatted.')
             else:
                 st_status_message('File already formatted.')
@@ -343,8 +349,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 view.replace(edit, region, transformed)
                 st_status_message('Selection(s) formatted.')
 
-    def format_code(self, source, node_path, prettier_cli_path, prettier_options, view):
+    def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False):
         self._error_message = None
+
+        if provide_cursor:
+            cursor = view.sel()[0].a
+            prettier_options += ['--cursor-offset', str(cursor)]
 
         if is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
@@ -377,9 +387,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     scroll_view_to(view, error_line, error_col)
 
                 return None
+
             if stderr:
+                stderr_output = stderr.decode('utf-8')
+                if provide_cursor:
+                    stderr_lines = stderr_output.splitlines()
+                    stderr_output, new_cursor = '\n'.join(stderr_lines[:-1]), stderr_lines[-1]
+
                 # allow warnings to pass-through
-                print(format_error_message(stderr.decode('utf-8'), str(proc.returncode)))
+                if stderr_output:
+                    print(format_error_message(stderr_output, str(proc.returncode)))
+
+            if provide_cursor:
+                return stdout.decode('utf-8'), int(new_cursor)
+
             return stdout.decode('utf-8')
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
