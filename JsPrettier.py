@@ -352,6 +352,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False):
         self._error_message = None
 
+        cursor = None
         if provide_cursor:
             cursor = view.sel()[0].a
             prettier_options += ['--cursor-offset', str(cursor)]
@@ -388,6 +389,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
                 return None
 
+            new_cursor = None
             if stderr:
                 stderr_output = stderr.decode('utf-8')
                 if provide_cursor:
@@ -399,6 +401,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     print(format_error_message(stderr_output, str(proc.returncode)))
 
             if provide_cursor:
+                if new_cursor is None and cursor is not None:
+                    new_cursor = cursor
                 return stdout.decode('utf-8'), int(new_cursor)
 
             return stdout.decode('utf-8')
