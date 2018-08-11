@@ -401,7 +401,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     print(format_error_message(stderr_output, str(proc.returncode)))
 
             if provide_cursor:
-                if new_cursor is None and cursor is not None:
+                if not new_cursor and cursor is not None:
                     new_cursor = cursor
                 return stdout.decode('utf-8'), int(new_cursor)
 
