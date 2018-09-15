@@ -20,7 +20,7 @@ cd_previous_working_dir() {
 run_pytest() {
     echo
     echo '> Run pytest'
-    pytest .
+    py.test .
 }
 
 run_flake8() {
