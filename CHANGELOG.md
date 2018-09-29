@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.21.0
+
+**Release Date:** 2018-09-28
+
+- Added YAML syntax/file formatting support. Requires [Prettier v1.14+].
+
 ## 1.20.0
 
 **Release Date:** 2018-02-13
@@ -254,3 +260,4 @@
 [`arrowParens`]: https://prettier.io/docs/en/options.html#arrow-function-parentheses
 [Prettier v1.9+]: https://github.com/prettier/prettier/releases/tag/1.9.0
 [Prettier v1.10+]: https://prettier.io/blog/2018/01/10/1.10.0.html
+[Prettier v1.14+]: https://prettier.io/blog/2018/07/29/1.14.0.html#yaml

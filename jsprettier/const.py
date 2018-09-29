@@ -86,5 +86,6 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'scss',
     'less',
     'md',
-    'vue'
+    'vue',
+    'yml'
 ]

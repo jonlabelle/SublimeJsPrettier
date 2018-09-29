@@ -195,9 +195,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `json`, `graphql/gql`,
-    `ts`, `tsx`, `css`, `scss`, `less`, `md` and `vue` files. Put additional
-    file extensions here, but be sure not to include the leading dot in the
-    file extension.
+    `ts`, `tsx`, `css`, `scss`, `less`, `md`, `yml` and `vue` files. Put
+    additional file extensions here, but be sure not to include the leading dot
+    in the file extension.
 
 - **max_file_size_limit** (default: ***-1***)  
     The max allowed file size to format in bytes. For performance reasons,
@@ -250,8 +250,8 @@ file, accessible from the **Preferences** > **Package Settings** >
 
 - **parser** (default: "***babylon***")  
     Which parser to use. Valid options are "***flow***", "***babylon***",
-    "***typescript***", "***css***", "***json***", "***graphql***"
-    and "***markdown***".
+    "***typescript***", "***css***", "***json***", "***graphql***",
+    "***markdown***" and "***yaml***".
   
     The `parser` option is automatically set by the plug-in (JsPrettier), based
     on the contents of current file or selection.
@@ -283,10 +283,11 @@ file, accessible from the **Preferences** > **Package Settings** >
     ```
 
 - **proseWrap** (default: "***preserve***")  
-    (*Markdown Only*) By default, Prettier will wrap markdown text as-is since
-    some services use a linebreak-sensitive renderer, e.g. GitHub comment and
-    BitBucket. In some cases you may want to rely on SublimeText soft wrapping
-    instead, so this option allows you to opt out with "never".
+    (*Markdown and YAML Only*) By default, Prettier will wrap Markdown and YAML
+    text as-is since some services use a linebreak-sensitive renderer, e.g.
+    GitHub comment and BitBucket. In some cases you may want to rely on
+    SublimeText soft wrapping instead, so this option allows you to opt out with
+    "never".
 
     Valid Options:
 

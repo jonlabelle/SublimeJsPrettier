@@ -1,0 +1,5 @@
+## 1.21.0
+
+Release Date: 2018-09-28
+
+- Added YAML syntax/file formatting support. Requires Prettier v1.14+.

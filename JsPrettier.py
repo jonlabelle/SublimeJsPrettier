@@ -490,6 +490,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('markdown')
                     continue
 
+                if self.is_yaml(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('yaml')
+                    continue
+
                 if self.is_vue(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('vue')
@@ -628,6 +633,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.markdown') or filename.endswith('.md'):
+            return True
+        return False
+
+    @staticmethod
+    def is_yaml(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if scopename.startswith('source.yaml') or filename.endswith('.yml'):
             return True
         return False
 
