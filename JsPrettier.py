@@ -121,7 +121,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def tab_size(self):
-        return int(self.view.settings().get('tab_size', 2))
+        return int(get_setting(self.view, 'tab_size', 2))
 
     @property
     def use_tabs(self):
