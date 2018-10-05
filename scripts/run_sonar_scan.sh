@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 set -e
+set -o pipefail
+[ "$TRAVIS" == "true" ] && set -x
 
 readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"

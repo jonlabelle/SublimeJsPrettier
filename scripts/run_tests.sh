@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+set -o pipefail
 [ "$TRAVIS" == "true" ] && set -x
 
 readonly PREVIOUSWRKDIR="$(pwd)"

@@ -23,6 +23,8 @@
 ##
 
 set -e
+set -o pipefail
+[ "$TRAVIS" == "true" ] && set -x
 
 VERSION=$1
 PREVIOUS_VERSION="$(git describe --abbrev=0 --tags)"
