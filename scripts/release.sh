@@ -11,7 +11,7 @@
 #
 # Usage:
 #
-#   $ release.sh [options] [version]
+#   $ release.sh -[option] <version>
 #
 # Examples:
 #
@@ -61,11 +61,12 @@ show_error() {
 
 show_usage() {
     echo
-    echo "Usage: $SCRIPTNAME [options] [version]"
+    echo "Release(.sh) tasks simplified."
     echo
-    echo "Release tasks bulked into one script."
+    echo "Usage: "
+    echo "    $SCRIPTNAME -[option] <version>"
     echo
-    echo "OPTIONS"
+    echo "Options"
     echo "    -n, --next    auto-increment to the next patch version"
     echo "    -h, --help    show usage"
     echo
