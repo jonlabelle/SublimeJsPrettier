@@ -129,6 +129,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return not translate_tabs_to_spaces
 
     @property
+    def use_view_use_tabs(self):
+        return get_setting(self.view, 'use_view_use_tabs', True)
+
+    @property
+    def use_view_tab_size(self):
+        return get_setting(self.view, 'use_view_tab_size', True)
+
+    @property
     def allow_inline_formatting(self):
         return get_setting(self.view, 'allow_inline_formatting', False)
 
@@ -523,12 +531,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_options.append(option_value)
 
         # set the `tabWidth` option based on the current view:
-        prettier_options.append('--tab-width')
-        prettier_options.append(str(self.tab_size))
+        if self.use_view_use_tabs:
+            prettier_options.append('--tab-width')
+            prettier_options.append(str(self.tab_size))
 
         # set the `useTabs` option based on the current view:
-        prettier_options.append('--use-tabs')
-        prettier_options.append(str(self.use_tabs).lower())
+        if self.use_view_tab_size:
+            prettier_options.append('--use-tabs')
+            prettier_options.append(str(self.use_tabs).lower())
 
         if prettier_ignore_filepath is not None:
             prettier_options.append('--ignore-path')

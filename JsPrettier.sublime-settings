@@ -155,6 +155,32 @@
 	"custom_file_extensions": [],
 
 	// ----------------------------------------------------------------------
+	// Use Sublime View's Tab Setting
+	// ----------------------------------------------------------------------
+	//
+	// @param {bool} "use_view_use_tabs"
+	// @default true
+	//
+	// Uses Sublime Text's view indentation preference (located on the bottom
+	// right menu as "Indent Using Spaces"). This defaults to tabs in Sublime
+	// Text global preferences.
+	// ----------------------------------------------------------------------
+	"use_view_use_tabs": true,
+
+	// ----------------------------------------------------------------------
+	// Use Sublime View's Tab Setting
+	// ----------------------------------------------------------------------
+	//
+	// @param {bool} "use_view_tab_size"
+	// @default true
+	//
+	// Uses Sublime Text's view tab size preference (located on the bottom
+	// right menu as "Tab Width: x"). This defaults to 4 in Sublime
+	// Text global preferences.
+	// ----------------------------------------------------------------------
+	"use_view_tab_size": true,
+
+	// ----------------------------------------------------------------------
 	// Maximum File Size Limit
 	// ----------------------------------------------------------------------
 	//
