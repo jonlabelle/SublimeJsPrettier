@@ -11,15 +11,17 @@
 #
 # Usage:
 #
-#   $ release.sh -[option] <version>
+#     release.sh [options] <version>
 #
 # Examples:
 #
 #   To bump and tag to the specified version (1.2.1):
-#       $ release.sh 1.2.1
+#
+#     release.sh 1.2.1
 #
 #   To bump and tag automatically incrementing to the next patch version:
-#       $ release.sh --next
+#
+#     release.sh --next
 ##
 
 set -e
