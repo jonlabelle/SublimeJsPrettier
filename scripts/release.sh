@@ -60,13 +60,12 @@ show_error() {
 }
 
 show_usage() {
-    echo
     echo "Release(.sh) tasks simplified."
     echo
-    echo "Usage: "
-    echo "    $SCRIPTNAME -[option] <version>"
+    echo "Usage: $SCRIPTNAME [options] <version>"
     echo
-    echo "Options"
+    echo "Options:"
+    echo
     echo "    -n, --next    auto-increment to the next patch version"
     echo "    -h, --help    show usage"
     echo
