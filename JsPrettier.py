@@ -514,7 +514,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
                 if self.is_html(view):
                     prettier_options.append(cli_option_name)
-                    prettier_options.append('parse5')
+                    prettier_options.append('html')
                     continue
 
             if not prettier_config_exists and not has_custom_config_defined:
