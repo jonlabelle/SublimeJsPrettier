@@ -87,5 +87,6 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'less',
     'md',
     'vue',
-    'yml'
+    'yml',
+    'mjs'
 ]

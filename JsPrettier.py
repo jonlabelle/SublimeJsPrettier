@@ -507,6 +507,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('babylon')
                     continue
 
+                if self.is_es_module(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('babylon')
+                    continue
+
                 if self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('parse5')
@@ -604,6 +609,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('source.json') or filename.endswith('.json'):
+            return True
+        return False
+
+    @staticmethod
+    def is_es_module(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        if filename.endswith('.mjs'):
             return True
         return False
 

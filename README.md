@@ -194,7 +194,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     Text syntaxes.
 
 - **custom_file_extensions** (default: [])  
-    There's built-in support already for `js`, `jsx`, `json`, `graphql/gql`,
+    There's built-in support already for `js`, `jsx`, `mjs`, `json`, `graphql/gql`,
     `ts`, `tsx`, `css`, `scss`, `less`, `md`, `yml` and `vue` files. Put
     additional file extensions here, but be sure not to include the leading dot
     in the file extension.

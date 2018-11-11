@@ -146,10 +146,10 @@
 	//
 	// Additional custom file extensions to format.
 	//
-	// There's built-in support already for "js", "jsx", "json", "graphql/gql",
-	// "ts", "tsx", "css", "scss", "less", "md", "yml" and "vue" files.
-	// Additional file extensions MUST be specified here, without the leading
-	// dot.
+	// There's built-in support already for "js", "jsx", "mjs", "json",
+	// "graphql/gql", "ts", "tsx", "css", "scss", "less", "md", "yml"
+	// and "vue" files. Additional file extensions MUST be specified here,
+	// without the leading dot.
 	// ----------------------------------------------------------------------
 
 	"custom_file_extensions": [],
