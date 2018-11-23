@@ -165,8 +165,8 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
         #
         # check locally installed prettier using the '--no-bin-links' opion...
         # and when symlinks aren't avail. see issue #146.
-        project_prettier_path_nbl = os.path.join(st_project_path, 'prettier', 'prettier-bin.js')
-        plugin_prettier_path_nbl = os.path.join(plugin_path, 'prettier', 'prettier-bin.js')
+        project_prettier_path_nbl = os.path.join(st_project_path, 'node_modules', 'prettier', 'prettier-bin.js')
+        plugin_prettier_path_nbl = os.path.join(plugin_path, 'node_modules', 'prettier', 'prettier-bin.js')
         if os.path.exists(project_prettier_path_nbl):
             return project_prettier_path_nbl
         if os.path.exists(plugin_prettier_path_nbl):
