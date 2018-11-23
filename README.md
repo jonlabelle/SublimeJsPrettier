@@ -142,13 +142,13 @@ file, accessible from the **Preferences** > **Package Settings** >
     If Sublime Text has problems automatically resolving a path to [Prettier],
     you can set a custom path here.
 
-    When the setting is empty, the plug-in will attempt to find Prettier by...
+    When the setting is empty, the plug-in will attempt to find Prettier by:
 
-    - Searching the path relative to the current Sublime Text Project directory,
-      e.g.: `node_modules/.bin/prettier`.
-    - The USER home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
-    - The *JsPrettier* plug-in directory, and `node_modules/.bin/prettier` path.
-    - Globally installed Prettier.
+    - Searching the path relative to the current Sublime Text Project directory...
+      `node_modules/.bin/prettier` and `node_modules/prettier/prettier-bin.js`.
+    - The *JsPrettier* plug-in directory... `node_modules/.bin/prettier` and `node_modules/prettier/prettier-bin.js`.
+    - The current user's home directory... `$HOME/node_modules/.bin/prettier`.
+    - And finally a globally installed Prettier instance.
 
     > [nvm] users must set an appropriate absolute *prettier_cli_path* (and
     > absolute *node_path*), according to the runtime environment.
