@@ -153,9 +153,10 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     :return: The prettier cli path.
     """
     custom_prettier_cli_path = get_setting(view, 'prettier_cli_path', '')
+
     if is_str_none_or_empty(custom_prettier_cli_path):
         #
-        # check locally installed prettier first
+        # 1. check locally installed prettier
         project_prettier_path = os.path.join(st_project_path, 'node_modules', '.bin', 'prettier')
         plugin_prettier_path = os.path.join(plugin_path, 'node_modules', '.bin', 'prettier')
         if os.path.exists(project_prettier_path):
@@ -163,8 +164,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
         if os.path.exists(plugin_prettier_path):
             return plugin_prettier_path
         #
-        # check locally installed prettier using the '--no-bin-links' opion...
-        # and when symlinks aren't avail. see issue #146.
+        # 2. check locally installed '--no-bin-links' prettier (see #146)
         project_prettier_path_nbl = os.path.join(st_project_path, 'node_modules', 'prettier', 'prettier-bin.js')
         plugin_prettier_path_nbl = os.path.join(plugin_path, 'node_modules', 'prettier', 'prettier-bin.js')
         if os.path.exists(project_prettier_path_nbl):
@@ -172,7 +172,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
         if os.path.exists(plugin_prettier_path_nbl):
             return plugin_prettier_path_nbl
         #
-        # check globally install prettier
+        # 3. check globally install prettier
         return which('prettier')
 
     # handle cases when the user specifies a prettier cli path that is
