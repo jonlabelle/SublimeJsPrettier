@@ -351,7 +351,8 @@ section.
                 "semi": true,
                 "requirePragma": false,
                 "proseWrap": "preserve",
-                "arrowParens": "avoid"
+                "arrowParens": "avoid",
+                "htmlWhitespaceSensitivity": "css"
             }
         }
     }

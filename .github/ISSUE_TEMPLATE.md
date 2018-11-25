@@ -54,7 +54,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
 **Example**
 
     -----------------------------------------
-     JsPrettier DEBUG - Prettier CLI Command 
+     JsPrettier DEBUG - Prettier CLI Command
     -----------------------------------------
 
     /usr/local/bin/prettier           \
@@ -69,7 +69,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --semi=true                   \
         --tab-width 4                 \
         --use-tabs=true
-        
+
 > **NOTE:** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
 ### Is the same behavior observed when run against Prettier directly?
@@ -117,10 +117,11 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
             "semi": true,
             "requirePragma": false,
             "proseWrap": "preserve",
-            "arrowParens": "avoid"
+            "arrowParens": "avoid",
+            "htmlWhitespaceSensitivity": "css"
         }
     }
-    
+
 ### The contents of your `<project_name>.sublime-project` file (if applicable)
 
 The entire contents of your ***User*** overridden JsPretter Project-level Settings, excluding the comments.
@@ -155,7 +156,8 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                     "semi": true,
                     "requirePragma": false,
                     "proseWrap": "preserve",
-                    "arrowParens": "avoid"
+                    "arrowParens": "avoid",
+                    "htmlWhitespaceSensitivity": "css"
                 }
             }
         }
