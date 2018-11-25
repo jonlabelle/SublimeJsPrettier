@@ -194,10 +194,12 @@ file, accessible from the **Preferences** > **Package Settings** >
     Text syntaxes.
 
 - **custom_file_extensions** (default: [])  
-    There's built-in support already for `js`, `jsx`, `mjs`, `json`, `graphql/gql`,
-    `ts`, `tsx`, `css`, `scss`, `less`, `md`, `yml` and `vue` files. Put
-    additional file extensions here, but be sure not to include the leading dot
-    in the file extension.
+    There's built-in support already for `js`, `jsx`, `mjs`, `json`, `html`,
+    `graphql/gql`, `ts`, `tsx`, `css`, `scss`, `less`, `md`, `mdx`, `yml`,
+    `vue` and `component.html` (angular html) files.
+
+    Put additional file extensions here, and be sure not to include the
+    leading dot in the file extension.
 
 - **max_file_size_limit** (default: ***-1***)  
     The max allowed file size to format in bytes. For performance reasons,
@@ -249,11 +251,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     placed at the end of the last line, instead of alone on the next line.
 
 - **parser** (default: "***babylon***")  
-    Which parser to use. Valid options are "***flow***", "***babylon***",
-    "***typescript***", "***css***", "***json***", "***graphql***",
-    "***markdown***" and "***yaml***".
-  
-    The `parser` option is automatically set by the plug-in (JsPrettier), based
+    The [`parser`] is automatically set by the plug-in (JsPrettier), based
     on the contents of current file or selection.
   
 - **semi** (default: ***true***)  
@@ -302,6 +300,16 @@ file, accessible from the **Preferences** > **Package Settings** >
 
     - "***avoid***" (default) - Omit parentheses when possible. Example: `x => x`
     - "***always***" - Always include parentheses. Example: `(x) => x`
+
+- **htmlWhitespaceSensitivity** (default: "***css***")  
+    (*HTML Only*) Specify the global whitespace sensitivity for HTML files,
+    see [whitespace-sensitive formatting] for more info.
+
+    Valid Options:
+
+    - "***css***" - Respect the default value of CSS display property.
+    - "***strict***" - Whitespaces are considered sensitive.
+    - "***ignore***" - Whitespaces are considered insensitive.
 
 See the Prettier Options [doc page] for more details and examples.
 
@@ -435,3 +443,5 @@ Jon LaBelle
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
 [doc page]: https://prettier.io/docs/en/options.html
 [`--ignore-path`]: https://prettier.io/docs/en/cli.html#ignore-path
+[whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
+[`parser`]: https://prettier.io/docs/en/options.html#parser

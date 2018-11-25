@@ -418,6 +418,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_css(view) is True:
             return True
+        if self.is_angular_html(view) is True:
+            return True
+        if self.is_mdx(view) is True:
+            return True
+        if self.is_markdown(view) is True:
+            return True
         if self.is_yaml(view) is True:
             return True
         if self.is_html(view) is True:
@@ -487,6 +493,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('graphql')
                     continue
 
+                if self.is_mdx(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('mdx')
+                    continue
+
                 if self.is_markdown(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('markdown')
@@ -502,12 +513,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('vue')
                     continue
 
-                if self.is_source_js(view):
+                if self.is_angular_html(view):
                     prettier_options.append(cli_option_name)
-                    prettier_options.append('babylon')
+                    prettier_options.append('angular')
                     continue
 
-                if self.is_es_module(view):
+                if self.is_source_js(view) or self.is_es_module(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('babylon')
                     continue
@@ -542,9 +553,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # add the current file name to `--stdin-filepath`, only when
         # the current file being edited is NOT html, and in order
         # detect and format css/js selection(s) within html files:
-        if not self.is_html(view):
-            prettier_options.append('--stdin-filepath')
-            prettier_options.append(file_name)
+        # if not self.is_html(view):
+        prettier_options.append('--stdin-filepath')
+        prettier_options.append(file_name)
 
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
@@ -636,7 +647,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(0)
-        if scopename.startswith('text.html.markdown') or scopename.startswith('text.html.vue'):
+        if scopename.startswith('text.html.markdown') \
+            or scopename.startswith('text.html.vue') \
+                or filename.endswith('component.html'):
             return False
         if scopename.startswith('text.html') or filename.endswith('.html') or filename.endswith('.htm'):
             return True
@@ -649,6 +662,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.markdown') or filename.endswith('.md'):
+            return True
+        return False
+
+    @staticmethod
+    def is_mdx(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        if filename.endswith('.mdx'):
             return True
         return False
 
@@ -669,6 +691,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.vue') or filename.endswith('.vue'):
+            return True
+        return False
+
+    @staticmethod
+    def is_angular_html(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        if filename.endswith('.component.html'):
             return True
         return False
 

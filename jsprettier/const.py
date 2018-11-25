@@ -72,6 +72,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'arrowParens',
         'cli': '--arrow-parens',
         'default': 'avoid'
+    },
+    {
+        'option': 'htmlWhitespaceSensitivity',
+        'cli': '--html-whitespace-sensitivity',
+        'default': 'css'
     }
 ]
 
@@ -89,5 +94,6 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'md',
     'vue',
     'yml',
-    'mjs'
+    'mjs',
+    'mdx'
 ]

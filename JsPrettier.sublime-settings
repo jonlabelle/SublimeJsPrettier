@@ -147,10 +147,11 @@
 	//
 	// Additional custom file extensions to format.
 	//
-	// There's built-in support already for "js", "jsx", "mjs", "json",
-	// "graphql/gql", "ts", "tsx", "css", "scss", "less", "md", "yml"
-	// and "vue" files. Additional file extensions MUST be specified here,
-	// without the leading dot.
+	// There's built-in support already for "js", "jsx", "mjs", "json", "html",
+	// "graphql/gql", "ts", "tsx", "css", "scss", "less", "md", "mdx", "yml"
+	// and "vue" and "component.html" (angular html) files.
+	//
+	// Additional file extensions MUST be specified here, and without the leading dot.
 	// ----------------------------------------------------------------------
 
 	"custom_file_extensions": [],
@@ -362,6 +363,24 @@
 		// - "always" - Always include parentheses. Example: `(x) => x`
 		// --------------------------------------------------------------------
 
-		"arrowParens": "avoid"
+		"arrowParens": "avoid",
+
+		// --------------------------------------------------------------------
+		// htmlWhitespaceSensitivity
+		// --------------------------------------------------------------------
+		//
+		// @param {string} "prettier_options.htmlWhitespaceSensitivity"
+		// @default "css"
+		//
+		// Specify the global whitespace sensitivity for HTML files.
+		//
+		// Valid Options:
+		//
+		// - "css" - Respect the default value of CSS display property.
+		// - "strict" - Whitespaces are considered sensitive.
+		// - "ignore" - Whitespaces are considered insensitive.
+		// --------------------------------------------------------------------
+
+		"htmlWhitespaceSensitivity": "css"
 	}
 }
