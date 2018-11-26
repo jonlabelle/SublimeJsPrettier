@@ -145,8 +145,8 @@ file, accessible from the **Preferences** > **Package Settings** >
     When the setting is empty, the plug-in will attempt to find Prettier by:
 
     - Searching the path relative to the current Sublime Text Project directory...
-      `node_modules/.bin/prettier` and `node_modules/prettier/prettier-bin.js`.
-    - The *JsPrettier* plug-in directory... `node_modules/.bin/prettier` and `node_modules/prettier/prettier-bin.js`.
+      `node_modules/.bin/prettier` and `node_modules/prettier/bin-prettier.js`.
+    - The *JsPrettier* plug-in directory... `node_modules/.bin/prettier` and `node_modules/prettier/bin-prettier.js`.
     - The current user's home directory... `$HOME/node_modules/.bin/prettier`.
     - And finally a globally installed Prettier instance.
 

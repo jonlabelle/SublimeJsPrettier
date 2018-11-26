@@ -142,7 +142,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     returning the first match of the prettier cli path...
 
     - Locally installed prettier, relative to a Sublime Text Project
-      file's root directory, e.g.: `node_modules/.bin/prettier' and 'node_modules/prettier/prettier-bin.js';
+      file's root directory, e.g.: `node_modules/.bin/prettier' and 'node_modules/prettier/bin-prettier.js';
     - User's $HOME/node_modules directory.
     - Look in the JsPrettier Sublime Text plug-in directory for
       `node_modules/.bin/prettier`.
@@ -165,8 +165,8 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
             return plugin_prettier_path
         #
         # 2. check locally installed '--no-bin-links' prettier (see #146)
-        project_prettier_path_nbl = os.path.join(st_project_path, 'node_modules', 'prettier', 'prettier-bin.js')
-        plugin_prettier_path_nbl = os.path.join(plugin_path, 'node_modules', 'prettier', 'prettier-bin.js')
+        project_prettier_path_nbl = os.path.join(st_project_path, 'node_modules', 'prettier', 'bin-prettier.js')
+        plugin_prettier_path_nbl = os.path.join(plugin_path, 'node_modules', 'prettier', 'bin-prettier.js')
         if os.path.exists(project_prettier_path_nbl):
             return project_prettier_path_nbl
         if os.path.exists(plugin_prettier_path_nbl):
