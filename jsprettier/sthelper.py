@@ -183,6 +183,10 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     return custom_prettier_cli_path
 
 
+def resolve_node_path():
+    return which('node')
+
+
 def debug_enabled(view):
     return bool(get_setting(view, 'debug', False))
 

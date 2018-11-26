@@ -40,6 +40,7 @@ if IS_PY2:
     from jsprettier.sthelper import log_debug
     from jsprettier.sthelper import log_error
     from jsprettier.sthelper import log_warn
+    from jsprettier.sthelper import resolve_node_path
     from jsprettier.sthelper import resolve_prettier_cli_path
     from jsprettier.sthelper import scroll_view_to
     from jsprettier.sthelper import st_status_message
@@ -75,6 +76,7 @@ else:
     from .jsprettier.sthelper import log_debug
     from .jsprettier.sthelper import log_error
     from .jsprettier.sthelper import log_warn
+    from .jsprettier.sthelper import resolve_node_path
     from .jsprettier.sthelper import resolve_prettier_cli_path
     from .jsprettier.sthelper import scroll_view_to
     from .jsprettier.sthelper import st_status_message
@@ -357,7 +359,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             cursor = view.sel()[0].a
             prettier_options += ['--cursor-offset', str(cursor)]
 
-        if is_str_none_or_empty(node_path):
+        if is_windows() and \
+                is_str_none_or_empty(node_path) and \
+                prettier_cli_path.endswith(".js") and not \
+                os.access(prettier_cli_path, os.F_OK | os.X_OK):
+            # on windows, when a custom 'node_path' is not specified and 'prettier_cli_path' is
+            # presumably a .js script (e.g: 'bin-prettier.js') and *not* executable (os.X_OK)...
+            # automatically prepend the environment detected node[.exe|.cmd] path to
+            # the generated command (see #146 --no-bin-links).
+            cmd = resolve_node_path() \
+                + [prettier_cli_path] \
+                + ['--stdin'] \
+                + prettier_options
+        elif is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_options
