@@ -1,7 +1,9 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+from .util import ensure_file_has_ext
 from .util import is_str_none_or_empty
+from .util import is_windows
 from .util import which
 
 from .const import AUTO_FORMAT_FILE_EXTENSIONS
@@ -173,18 +175,24 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
             return plugin_prettier_path_nbl
         #
         # 3. check globally install prettier
-        return which('prettier')
+        prettier_cmd = 'prettier'
+        if is_windows():
+            prettier_cmd = ensure_file_has_ext(prettier_cmd, ".cmd")
+        return which(prettier_cmd)
 
     # handle cases when the user specifies a prettier cli path that is
     # relative to the working file or project:
     if not os.path.isabs(custom_prettier_cli_path):
         custom_prettier_cli_path = os.path.join(st_project_path, custom_prettier_cli_path)
 
-    return custom_prettier_cli_path
+    return os.path.normpath(custom_prettier_cli_path)
 
 
 def resolve_node_path():
-    return which('node')
+    node_cmd = 'node'
+    if is_windows():
+        node_cmd = ensure_file_has_ext(node_cmd, ".exe")
+    return which(node_cmd)
 
 
 def debug_enabled(view):

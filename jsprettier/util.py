@@ -268,26 +268,59 @@ def env_path_exists(path):
 
 
 def which(executable, path=None):
-    if not is_str_none_or_empty(executable) \
-            and os.path.isfile(executable):
+    if is_str_none_or_empty(executable):
+        return None
+
+    executable = os.path.normpath(executable)
+    if os.path.isfile(executable):
         return executable
 
     if is_str_none_or_empty(path):
-        path = os.environ['PATH']
-        if not is_windows():
-            usr_path = ':/usr/local/bin'
-            if not env_path_contains(usr_path, path) \
-                    and env_path_exists(usr_path):
-                path += usr_path
+        path = os.environ.get("PATH", os.defpath)
+        if not path:
+            return None
 
-    paths = path.split(os.pathsep)
-    if not os.path.isfile(executable):
-        for directory in paths:
-            exec_path = os.path.join(directory, executable)
-            if os.path.isfile(exec_path):
-                return exec_path
-        return None
-    return executable
+        if not is_windows():
+            # add '/usr/local/bin' on macos/linux if not already in path.
+            usr_local_bin = ':/usr/local/bin'
+            if not env_path_contains(usr_local_bin, path) \
+                    and env_path_exists(usr_local_bin):
+                path += usr_local_bin
+
+    search_paths = path.split(os.pathsep)
+
+    if is_windows():
+        # The current directory takes precedence on Windows.
+        if os.curdir not in search_paths:
+            search_paths.insert(0, os.curdir)
+
+        # PATHEXT is necessary to check on Windows.
+        pathext = os.environ.get("PATHEXT", "").split(os.pathsep)
+        # See if the given file matches any of the expected path
+        # extensions. This will allow us to short circuit when given
+        # "python.exe". If it does match, only test that one, otherwise we
+        # have to try others.
+        # hat tip: https://github.com/pydanny/whichcraft/blob/master/whichcraft.py
+        if any(executable.lower().endswith(ext.lower()) for ext in pathext):
+            executable_files = [executable]
+        else:
+            executable_files = [executable + ext for ext in pathext]
+    else:
+        # On other platforms you don't have things like PATHEXT to tell you
+        # what file suffixes are executable, so just pass on cmd as-is.
+        executable_files = [executable]
+
+    dirs_seen = set()
+    for directory in search_paths:
+        dir_normalized = os.path.normcase(directory)
+        if dir_normalized not in dirs_seen:
+            dirs_seen.add(dir_normalized)
+            for exec_file in executable_files:
+                exec_file_path = os.path.normpath(os.path.join(directory, exec_file))
+                if os.path.isfile(exec_file_path):
+                    return exec_file_path
+
+    return None
 
 
 def get_proc_env():
@@ -381,3 +414,9 @@ def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, 
     if result is None:
         return default
     return result
+
+
+def ensure_file_has_ext(file_name, file_ext):
+    if not file_name.endswith(file_ext):
+        return '{0}.{1}'.format(file_name, file_ext)
+    return file_name
