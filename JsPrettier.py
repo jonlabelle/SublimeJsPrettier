@@ -359,15 +359,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             cursor = view.sel()[0].a
             prettier_options += ['--cursor-offset', str(cursor)]
 
-        if is_windows() and \
-                is_str_none_or_empty(node_path) and \
-                prettier_cli_path.endswith(".js") and not \
-                os.access(prettier_cli_path, os.F_OK | os.X_OK):
+        if is_windows() and is_str_none_or_empty(node_path) and prettier_cli_path.endswith(".js"):
             # on windows, when a custom 'node_path' is not specified and 'prettier_cli_path' is
-            # presumably a .js script (e.g: 'bin-prettier.js') and *not* executable (os.X_OK)...
+            # presumably a .js script (e.g: 'bin-prettier.js')...
             # automatically prepend the environment detected node[.exe|.cmd] path to
             # the generated command (see #146 --no-bin-links).
-            cmd = resolve_node_path() \
+            cmd = [resolve_node_path()] \
                 + [prettier_cli_path] \
                 + ['--stdin'] \
                 + prettier_options
