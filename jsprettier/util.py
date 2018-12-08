@@ -272,7 +272,7 @@ def which(executable, path=None):
         return None
 
     executable = os.path.normpath(executable)
-    if os.path.isfile(executable):
+    if os.path.isfile(executable) and os.access(executable, os.X_OK):
         return executable
 
     if is_str_none_or_empty(path):
@@ -317,7 +317,7 @@ def which(executable, path=None):
             dirs_seen.add(dir_normalized)
             for exec_file in executable_files:
                 exec_file_path = os.path.normpath(os.path.join(directory, exec_file))
-                if os.path.isfile(exec_file_path):
+                if os.path.isfile(exec_file_path) and os.access(exec_file_path, os.X_OK):
                     return exec_file_path
 
     return None
