@@ -418,5 +418,5 @@ def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, 
 
 def ensure_file_has_ext(file_name, file_ext):
     if not file_name.endswith(file_ext):
-        return '{0}.{1}'.format(file_name, file_ext)
+        return '{0}{1}'.format(file_name, file_ext)
     return file_name

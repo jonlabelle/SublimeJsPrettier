@@ -177,7 +177,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
         # 3. check globally install prettier
         prettier_cmd = 'prettier'
         if is_windows():
-            prettier_cmd = ensure_file_has_ext(prettier_cmd, "cmd")
+            prettier_cmd = ensure_file_has_ext(prettier_cmd, ".cmd")
         return which(prettier_cmd)
 
     # handle cases when the user specifies a prettier cli path that is
@@ -191,7 +191,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
 def resolve_node_path():
     node_cmd = 'node'
     if is_windows():
-        node_cmd = ensure_file_has_ext(node_cmd, "exe")
+        node_cmd = ensure_file_has_ext(node_cmd, ".exe")
     return which(node_cmd)
 
 
