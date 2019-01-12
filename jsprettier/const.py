@@ -95,5 +95,7 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'vue',
     'yml',
     'mjs',
-    'mdx'
+    'mdx',
+    'htm',
+    'html'
 ]
