@@ -659,8 +659,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         filename = os.path.basename(view.file_name())
         if not filename:
             return False
-        scopename = view.scope_name(0)
-        if scopename.startswith('source.json') and (filename == 'package.json'):
+        if filename == 'package.json':
             return True
         return False
 
