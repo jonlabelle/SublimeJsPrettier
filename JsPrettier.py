@@ -484,11 +484,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             option_value = get_sub_setting(view, option_name)
 
             if option_name == 'parser':
-                if self.is_css(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('css')
-                    continue
-
                 if self.is_typescript(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('typescript')
@@ -537,6 +532,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('html')
+                    continue
+
+                if self.is_css(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('css')
                     continue
 
             if not prettier_config_exists and not has_custom_config_defined:
@@ -594,7 +594,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def is_source_js(view):
         scopename = view.scope_name(view.sel()[0].b)
-        if scopename.startswith('source.js') or contains('source.js.embedded.html', scopename):
+        if scopename.startswith('source.js') or contains('source.js.embedded.html', scopename) or contains('source.css.embedded.js', scopename):
             return True
         return False
 
