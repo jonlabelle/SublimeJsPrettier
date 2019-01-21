@@ -64,12 +64,16 @@ show_error() {
 show_usage() {
     echo "Release(.sh) tasks simplified."
     echo
-    echo "Usage: $SCRIPTNAME [options] <version>"
+    echo "Usage: $SCRIPTNAME [options] <semver>"
     echo
     echo "Options:"
     echo
     echo "    -n, --next    auto-increment to the next patch version"
     echo "    -h, --help    show usage"
+    echo
+    echo "Positional Arguments:"
+    echo 
+    echo "    <semver>      the semver/version number for the release"
     echo
 }
 
@@ -169,7 +173,7 @@ main() {
 }
 
 if [ $# -eq 0 ]; then
-    show_error "a valid semver number for the new release is required"
+    show_error "a valid semver/version number for the new release is required"
     echo "Currently, the latest release is '$(show_success "${PREVIOUS_VERSION}")'"
     show_usage
     exit 1
