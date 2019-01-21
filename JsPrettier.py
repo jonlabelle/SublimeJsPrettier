@@ -594,7 +594,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     @staticmethod
     def is_source_js(view):
         scopename = view.scope_name(view.sel()[0].b)
-        if scopename.startswith('source.js') or contains('source.js.embedded.html', scopename) or contains('source.css.embedded.js', scopename):
+        if scopename.startswith('source.js') or contains('source.js.embedded.html', scopename) \
+                or contains('source.css.embedded.js', scopename):
             return True
         return False
 
