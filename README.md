@@ -207,6 +207,11 @@ file, accessible from the **Preferences** > **Package Settings** >
     not format. Setting the `max_file_size_limit` value to ***-1*** disables the
     file size checking (default).
 
+- **disable_tab_width_auto_detection** (default: ***false***)  
+    Whether or not to disable the plug-in from automatically setting Prettier's
+    "[tabWidth / \--tab-width](https://prettier.io/docs/en/options.html#tab-width)"
+    option, and always adhere to the Prettier configured setting.
+
 - **additional_cli_args** (default: {})  
     A key-value pair of arguments to append to the prettier command.
 
@@ -231,8 +236,13 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **printWidth** (default: ***80***)  
     Specifies that the formatted code should fit within this line limit.
 
-- **tabWidth** (internally set by the [***tab_size***] setting)  
-    The number of spaces to use per tab.
+- **tabWidth**  (default: ***2***)  
+    Specify the number of spaces per indentation-level.
+
+    **IMPORTANT:** By default, "tabWidth" is automatically set using the
+    SublimeText configured value for "[tab_size]". To disable this behavior, you
+    must first change the `disable_tab_width_auto_detection` value from `false`,
+    to `true`.
 
 - **singleQuote** (default: ***false***)  
     Format code using single or double-quotes.
@@ -426,7 +436,7 @@ Jon LaBelle
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
 [Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
-[***tab_size***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
+[tab_size]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [installed globally]: #install-prettier
 [yarn]: https://yarnpkg.com

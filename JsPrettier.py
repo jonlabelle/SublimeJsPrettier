@@ -135,6 +135,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return get_setting(self.view, 'allow_inline_formatting', False)
 
     @property
+    def disable_tab_width_auto_detection(self):
+        return get_setting(self.view, 'disable_tab_width_auto_detection', False)
+
+    @property
     def additional_cli_args(self):
         return get_setting(self.view, 'additional_cli_args', {})
 
@@ -465,7 +469,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_options.append('--config')
                 prettier_options.append(prettier_config_path)
 
-                # set config-precedence to 'prefer-file' if
+                # set config-precedence to 'cli-override' if
                 # the key wasn't defined in additional_cli_args:
                 if not has_config_precedence_defined:
                     prettier_options.append('--config-precedence')
@@ -544,14 +548,24 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if option_value is None or str(option_value) == '':
                     option_value = mapping['default']
                 option_value = str(option_value).strip()
+                # special handling for "tabWidth":
+                if option_name == 'tabWidth':
+                    has_additional_cli_for_tab_width = parsed_additional_cli_args.count('--tab-width') > 0
+                    if not has_additional_cli_for_tab_width and self.disable_tab_width_auto_detection is False:
+                        # set `tabWidth` from st "tab_size" setting (default behavior)
+                        prettier_options.append(cli_option_name)
+                        prettier_options.append(str(self.tab_size))
+                    else:
+                        if not has_additional_cli_for_tab_width:
+                            prettier_options.append(cli_option_name)
+                            prettier_options.append(option_value)
+                    continue
+                # handle bool types:
                 if is_bool_str(option_value):
                     option_value = option_value.lower()
+                # append the opt/val:
                 prettier_options.append(cli_option_name)
                 prettier_options.append(option_value)
-
-        # set the `tabWidth` option based on the current view:
-        prettier_options.append('--tab-width')
-        prettier_options.append(str(self.tab_size))
 
         # set the `useTabs` option based on the current view:
         prettier_options.append('--use-tabs')

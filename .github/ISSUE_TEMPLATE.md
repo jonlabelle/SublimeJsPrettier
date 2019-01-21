@@ -106,9 +106,11 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
         "allow_inline_formatting": false,
         "custom_file_extensions": [],
         "max_file_size_limit": -1,
+        "disable_tab_width_auto_detection": false,
         "additional_cli_args": {},
         "prettier_options": {
             "printWidth": 80,
+            "tabWidth": 2,
             "singleQuote": false,
             "trailingComma": "none",
             "bracketSpacing": true,
@@ -145,9 +147,11 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                 "allow_inline_formatting": false,
                 "custom_file_extensions": [],
                 "max_file_size_limit": -1,
+                "disable_tab_width_auto_detection": false,
                 "additional_cli_args": {},
                 "prettier_options": {
                     "printWidth": 80,
+                    "tabWidth": 2,
                     "singleQuote": false,
                     "trailingComma": "none",
                     "bracketSpacing": true,

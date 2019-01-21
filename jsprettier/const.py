@@ -29,6 +29,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': '80'
     },
     {
+        'option': 'tabWidth',
+        'cli': '--tab-width',
+        'default': '2'
+    },
+    {
         'option': 'singleQuote',
         'cli': '--single-quote',
         'default': 'false'
