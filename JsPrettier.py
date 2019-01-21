@@ -493,6 +493,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('typescript')
                     continue
 
+                if self.is_package_json(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('json-stringify')
+                    continue
+
                 if self.is_json(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('json')
@@ -646,6 +651,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('source.json') or filename.endswith('.json'):
+            return True
+        return False
+
+    @staticmethod
+    def is_package_json(view):
+        filename = os.path.basename(view.file_name())
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if scopename.startswith('source.json') and (filename == 'package.json'):
             return True
         return False
 
