@@ -1,0 +1,12 @@
+## 1.23.0
+
+Release Date: 2019-01-25
+
+- Renamed default `babylon` parser to `babel` (requires Prettier v1.16+).
+  Babel's parser, babylon, was renamed to @babel/parser in Babel 7.
+
+  For additional info. on this change, please see:
+  https://prettier.io/blog/2019/01/20/1.16.0.html#rename-babylon-parser-to-babel-5647-by-wuweiweiwu
+
+  To read more on the Prettier v1.16 release, see:
+  https://prettier.io/blog/2019/01/20/1.16.0.html
