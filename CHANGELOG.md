@@ -225,7 +225,7 @@
 **Release Date:** 2017-01-19
 
 - Incorporated new prettier option to specify which parser to use. Valid options
-  for `parser` are `flow` and `babylon`. The `useFlowParser` option has been
+  for `parser` are `flow` and `babel`. The `useFlowParser` option has been
   deprecated, in favor of the new `parser` option.
 
 ## 1.0.2

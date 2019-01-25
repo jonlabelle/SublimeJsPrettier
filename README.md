@@ -260,7 +260,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     When *true*, multi-line jsx elements with right-angle brackets ("&gt;") are
     placed at the end of the last line, instead of alone on the next line.
 
-- **parser** (default: "***babylon***")  
+- **parser** (default: "***babel***")  
     The [`parser`] is automatically set by the plug-in (JsPrettier), based
     on the contents of current file or selection.
   
@@ -359,7 +359,7 @@ section.
                 "trailingComma": "none",
                 "bracketSpacing": true,
                 "jsxBracketSameLine": false,
-                "parser": "babylon",
+                "parser": "babel",
                 "semi": true,
                 "requirePragma": false,
                 "proseWrap": "preserve",

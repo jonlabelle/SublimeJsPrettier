@@ -535,7 +535,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
                 if self.is_source_js(view) or self.is_es_module(view):
                     prettier_options.append(cli_option_name)
-                    prettier_options.append('babylon')
+                    prettier_options.append('babel')
                     continue
 
                 if self.is_html(view):

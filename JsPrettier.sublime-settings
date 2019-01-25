@@ -319,16 +319,16 @@
 		// --------------------------------------------------------------------
 		//
 		// @param {string} "prettier_options.parser"
-		// @default "babylon"
+		// @default "babel"
 		//
-		// Which parser to use. Valid options are "flow", "babylon",
+		// Which parser to use. Valid options are "flow", "babel",
 		// "typescript", "css", "json", "graphql", "markdown" and "yaml".
 		//
 		// NOTE: The `parser` option is automatically set by the plug-in
 		// (JsPrettier), based on the contents of current file or selection.
 		// --------------------------------------------------------------------
 
-		"parser": "babylon",
+		"parser": "babel",
 
 		// --------------------------------------------------------------------
 		// semi
