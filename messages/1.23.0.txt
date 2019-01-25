@@ -8,5 +8,5 @@ Release Date: 2019-01-25
   For additional info. on this change, please see:
   https://prettier.io/blog/2019/01/20/1.16.0.html#rename-babylon-parser-to-babel-5647-by-wuweiweiwu
 
-  To read more on the Prettier v1.16 release, see:
+  To read more on the Prettier v1.16 release, please see:
   https://prettier.io/blog/2019/01/20/1.16.0.html
