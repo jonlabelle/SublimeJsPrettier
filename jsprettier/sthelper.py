@@ -243,15 +243,14 @@ def debug_enabled(view):
 def _print_log(kind, msg, insert_leading_line_break=False):
     """Print a log message to the Sublime Text Console.
 
-    :param kind: The kind of message to log. e.g.: 'DEBUG', 'INFO', 'WARNING' or 'ERROR'.
+    :param kind: The kind of message to log. e.g.: 'DEBUG', 'INFO', 'WARN' or 'ERROR'.
     :param msg: The message to log.
     :param insert_leading_line_break: Whether or not to insert a leading line break before the log message.
-
     """
     leading_line_break = ''
     if insert_leading_line_break:
         leading_line_break = '\n'
-    print("{0}{1} [{2}]: {3}".format(leading_line_break, PLUGIN_NAME, kind, msg))
+    print("{0}[{1} {2}]: {3}".format(leading_line_break, PLUGIN_NAME, kind, msg))
 
 
 def log_debug(view, msg, insert_leading_line_break=False):
@@ -260,7 +259,7 @@ def log_debug(view, msg, insert_leading_line_break=False):
 
 
 def log_warn(msg, insert_leading_line_break=False):
-    _print_log('WARNING', msg, insert_leading_line_break)
+    _print_log('WARN', msg, insert_leading_line_break)
 
 
 def log_error(msg, insert_leading_line_break=False):
