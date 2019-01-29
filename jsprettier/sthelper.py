@@ -221,6 +221,7 @@ def parse_additional_cli_args(window, additional_cli_args_setting=None):
             arg_key = to_str(arg_key).strip()
             if len(arg_key) == 0:
                 # arg key cannot be empty
+                log_warn("Empty argument detected in 'additional_cli_args'. Did you forget to add something?", True)
                 continue
             listofargs.append(arg_key)
 
