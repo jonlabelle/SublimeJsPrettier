@@ -1,5 +1,27 @@
 [
 	{
+		"caption": "Selection",
+		"id": "selection",
+		"children": [
+			{
+				"id": "format",
+				"caption": "Format",
+				"children": [
+					{
+						"caption": "-"
+					},
+					{
+						"caption": "JsPrettier: Format Code",
+						"command": "js_prettier"
+					},
+					{
+						"caption": "-"
+					}
+				]
+			}
+		]
+	},
+	{
 		"caption": "Preferences",
 		"mnemonic": "n",
 		"id": "preferences",
