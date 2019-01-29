@@ -201,14 +201,14 @@ def resolve_node_path():
 
 
 def expand_var(window, var_to_expand):
-    expanded = None
     if isinstance(var_to_expand, str) and not is_str_none_or_empty(var_to_expand):
         expanded = os.path.expanduser(var_to_expand)
         expanded = os.path.expandvars(expanded)
         if IS_ST3 and window:
             window_variables = window.extract_variables()
             expanded = sublime.expand_variables(expanded, window_variables)
-    return expanded
+        return expanded
+    return var_to_expand
 
 
 def parse_additional_cli_args(window, additional_cli_args_setting=None):
