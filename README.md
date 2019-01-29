@@ -149,16 +149,43 @@ file, accessible from the **Preferences** > **Package Settings** >
     - The *JsPrettier* plug-in directory... `node_modules/.bin/prettier` and `node_modules/prettier/bin-prettier.js`.
     - The current user's home directory... `$HOME/node_modules/.bin/prettier`.
     - And finally a globally installed Prettier instance.
+  
+    **Examples:**
+  
+    ```
+    {
+        // macOS/Linux
+        "prettier_cli_path": "/path/to/node_modules/.bin/prettier"
+        "prettier_cli_path": "./node_modules/.bin/prettier"
+        "prettier_cli_path": "~/bin/prettier"
+        "prettier_cli_path": "${project_path}/bin/prettier"
+        "prettier_cli_path": "$ENV/bin/prettier"
 
-    > [nvm] users must set an appropriate absolute *prettier_cli_path* (and
-    > absolute *node_path*), according to the runtime environment.
+        // Windows
+        "prettier_cli_path": "C:/path/to/prettier.cmd"
+        "prettier_cli_path": "%USERPROFILE%\bin\prettier.cmd"
+    }
+    ```
 
 - **node_path** (default: ***empty***)  
     If Sublime Text has problems resolving the absolute path to node, you can
     set a custom path here.
+  
+    **Examples:**
+  
+    ```
+    {
+        // macOS/Linux
+        "node_path": "/absolute/path/to/node"
+        "node_path": "~/bin/node"
+        "node_path": "${project_path}/bin/node"
+        "node_path": "$ENV/bin/node"
 
-    > [nvm] users must set an appropriate absolute *node_path* (and
-    > absolute *prettier_cli_path*), according to the runtime environment.
+        // Windows
+        "node_path": "C:/path/to/node.exe"
+        "node_path": "%USERPROFILE%\bin\node.exe"
+    }
+    ```
 
 - **auto_format_on_save** (default: ***false***)  
     Automatically format the file on save.
@@ -221,8 +248,11 @@ file, accessible from the **Preferences** > **Package Settings** >
     {
         "additional_cli_args": {
             "--config": "path/to/my/custom/.prettierrc",
+            "--config": "~/.prettierrc",
+            "--config": "$HOME/.prettierrc",
+            "--config": "${project_path}/.prettierrc",
             "--config-precedence": "prefer-file",
-            "--ignore-path": "path/to/.prettierignore",
+            "--ignore-path": "${file_path}/.prettierignore",
             "--with-node-modules": ""
         }
     }

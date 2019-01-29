@@ -32,6 +32,7 @@ if IS_PY2:
     from jsprettier.const import SETTINGS_FILENAME
 
     from jsprettier.sthelper import debug_enabled
+    from jsprettier.sthelper import expand_var
     from jsprettier.sthelper import get_setting
     from jsprettier.sthelper import get_st_project_path
     from jsprettier.sthelper import get_sub_setting
@@ -40,6 +41,7 @@ if IS_PY2:
     from jsprettier.sthelper import log_debug
     from jsprettier.sthelper import log_error
     from jsprettier.sthelper import log_warn
+    from jsprettier.sthelper import parse_additional_cli_args
     from jsprettier.sthelper import resolve_node_path
     from jsprettier.sthelper import resolve_prettier_cli_path
     from jsprettier.sthelper import scroll_view_to
@@ -68,6 +70,7 @@ else:
     from .jsprettier.const import SETTINGS_FILENAME
 
     from .jsprettier.sthelper import debug_enabled
+    from .jsprettier.sthelper import expand_var
     from .jsprettier.sthelper import get_setting
     from .jsprettier.sthelper import get_st_project_path
     from .jsprettier.sthelper import get_sub_setting
@@ -76,6 +79,7 @@ else:
     from .jsprettier.sthelper import log_debug
     from .jsprettier.sthelper import log_error
     from .jsprettier.sthelper import log_warn
+    from .jsprettier.sthelper import parse_additional_cli_args
     from .jsprettier.sthelper import resolve_node_path
     from .jsprettier.sthelper import resolve_prettier_cli_path
     from .jsprettier.sthelper import scroll_view_to
@@ -95,7 +99,6 @@ else:
     from .jsprettier.util import is_windows
     from .jsprettier.util import list_to_str
 
-    from .jsprettier.util import parse_additional_cli_args
     from .jsprettier.util import resolve_prettier_ignore_path
     from .jsprettier.util import trim_trailing_ws_and_lines
 
@@ -119,7 +122,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def node_path(self):
-        return get_setting(self.view, 'node_path')
+        return expand_var(self.view.window(), get_setting(self.view, 'node_path'))
 
     @property
     def tab_size(self):
@@ -234,7 +237,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # if a `--config <path>` option is set in 'additional_cli_args',
         # no action is necessary. otherwise, try to sniff the config
         # file path:
-        parsed_additional_cli_args = parse_additional_cli_args(self.additional_cli_args)
+        parsed_additional_cli_args = parse_additional_cli_args(view.window(), self.additional_cli_args)
         has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
         has_config_precedence_defined = parsed_additional_cli_args.count('--config-precedence') > 0

@@ -375,29 +375,6 @@ def format_debug_message(label, message, debug_enabled=False):
         horizontal_rule, header, horizontal_rule, message))
 
 
-def parse_additional_cli_args(additional_cli_args_setting=None):
-    listofargs = []
-    if additional_cli_args_setting is None:
-        additional_cli_args_setting = {}
-    if additional_cli_args_setting and len(additional_cli_args_setting) > 0 \
-            and isinstance(additional_cli_args_setting, dict):
-        for arg_key, arg_value in additional_cli_args_setting.items():
-            arg_key = to_str(arg_key).strip()
-            if len(arg_key) == 0:
-                # arg key cannot be empty
-                continue
-            listofargs.append(arg_key)
-
-            arg_value = to_str(arg_value).strip()
-            if len(arg_value) == 0:
-                # arg value can be empty... just don't append it
-                continue
-            if is_bool_str(arg_value):
-                arg_value = arg_value.lower()
-            listofargs.append(arg_value)
-    return listofargs
-
-
 def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, default=None):
     if not additional_cli_args or not arg_key:
         return default

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.24.0
+
+**Release Date:** 2019-01-29
+
+- Added support for auto-expanding environment and Sublime Text (v3+ only)
+  variables in path-like settings. Including `prettier_cli_path`, `node_path`
+  and options defined in `additional_cli_args` (e.g. `--config` `<path>`).
+
+  Check-out the [default settings] \(comment section) for examples.
+  
 ## 1.23.0
 
 **Release Date:** 2019-01-25
@@ -282,3 +292,4 @@
 [Prettier v1.14+]: https://prettier.io/blog/2018/07/29/1.14.0.html#yaml
 [Prettier v1.16+]: https://prettier.io/blog/2019/01/20/1.16.0.html#rename-babylon-parser-to-babel-5647-by-wuweiweiwu
 [Prettier v1.16]: https://prettier.io/blog/2019/01/20/1.16.0.html
+[default settings]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings

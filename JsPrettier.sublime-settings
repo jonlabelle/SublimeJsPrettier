@@ -38,14 +38,15 @@
 	//   e.g.: `yarn global add prettier`
 	//     or: `npm install -g prettier`
 	//
-	// nvm users are required to set an appropriate absolute `prettier_cli_path`
-	// (and absolute `node_path`), according to the target runtime environment.
-	//
 	// Examples:
 	//
-	//     - macOS/Linux...: "/path/to/node_modules/.bin/prettier" (absolute)
-	//                   or  "./node_modules/.bin/prettier" (relative)
-	//     - Windows.......: "C:/path/to/npm/prettier" (absolute)
+	// macOS/Linux.......: "prettier_cli_path": "/path/to/node_modules/.bin/prettier"
+	// macOS/Linux.......: "prettier_cli_path": "./node_modules/.bin/prettier"
+	// macOS/Linux.......: "prettier_cli_path": "~/bin/prettier"
+	// macOS/Linux.......: "prettier_cli_path": "${project_path}/bin/prettier"
+	// macOS/Linux.......: "prettier_cli_path": "$ENV/bin/prettier"
+	// Windows...........: "prettier_cli_path": "C:/path/to/prettier.cmd"
+	// Windows...........: "prettier_cli_path": "%USERPROFILE%\bin\prettier.cmd"
 	// ----------------------------------------------------------------------
 
 	"prettier_cli_path": "",
@@ -61,14 +62,14 @@
 	// However, if Sublime Text has problems resolving the "absolute" path to
 	// `node`, you can explicitly specify the path here.
 	//
-	// nvm users will be required to set an appropriate absolute `node_path`
-	// (and absolute `prettier_cli_path`), according to the target runtime
-	// environment.
-	//
 	// Examples:
 	//
-	// macOS/Linux...: "node_path": "/path/to/node"
-	// Windows.......: "node_path": "C:/path/to/node.exe"
+	// macOS/Linux.......: "node_path": "/absolute/path/to/node"
+	// macOS/Linux.......: "node_path": "~/bin/node"
+	// macOS/Linux.......: "node_path": "${project_path}/bin/node"
+	// macOS/Linux.......: "node_path": "$ENV/bin/node"
+	// Windows...........: "node_path": "C:/path/to/node.exe"
+	// Windows...........: "node_path": "%USERPROFILE%\bin\node.exe"
 	// ----------------------------------------------------------------------
 
 	"node_path": "",
@@ -202,8 +203,11 @@
 	//
 	//     "additional_cli_args": {
 	//         "--config": "path/to/my/custom/.prettierrc",
+	//         "--config": "~/.prettierrc",
+	//         "--config": "$HOME/.prettierrc",
+	//         "--config": "${project_path}/.prettierrc",
 	//         "--config-precedence": "prefer-file",
-	//         "--ignore-path": "path/to/.prettierignore",
+	//         "--ignore-path": "${file_path}/.prettierignore",
 	//         "--with-node-modules": ""
 	//     }
 	//

@@ -2,8 +2,10 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from .util import ensure_file_has_ext
+from .util import is_bool_str
 from .util import is_str_none_or_empty
 from .util import is_windows
+from .util import to_str
 from .util import which
 
 from .const import AUTO_FORMAT_FILE_EXTENSIONS
@@ -14,6 +16,9 @@ from .const import SETTINGS_FILENAME
 
 import os
 import sublime
+
+
+IS_ST3 = int(sublime.version()) >= 3000
 
 
 def st_status_message(msg):
@@ -154,7 +159,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
 
     :return: The prettier cli path.
     """
-    custom_prettier_cli_path = get_setting(view, 'prettier_cli_path', '')
+    custom_prettier_cli_path = expand_var(view.window(), get_setting(view, 'prettier_cli_path', ''))
 
     if is_str_none_or_empty(custom_prettier_cli_path):
         #
@@ -193,6 +198,42 @@ def resolve_node_path():
     if is_windows():
         node_cmd = ensure_file_has_ext(node_cmd, ".exe")
     return which(node_cmd)
+
+
+def expand_var(window, var_to_expand):
+    expanded = None
+    if isinstance(var_to_expand, str) and not is_str_none_or_empty(var_to_expand):
+        expanded = os.path.expanduser(var_to_expand)
+        expanded = os.path.expandvars(expanded)
+        if IS_ST3 and window:
+            window_variables = window.extract_variables()
+            expanded = sublime.expand_variables(expanded, window_variables)
+    return expanded
+
+
+def parse_additional_cli_args(window, additional_cli_args_setting=None):
+    listofargs = []
+    if additional_cli_args_setting is None:
+        additional_cli_args_setting = {}
+    if additional_cli_args_setting and len(additional_cli_args_setting) > 0 \
+            and isinstance(additional_cli_args_setting, dict):
+        for arg_key, arg_value in additional_cli_args_setting.items():
+            arg_key = to_str(arg_key).strip()
+            if len(arg_key) == 0:
+                # arg key cannot be empty
+                continue
+            listofargs.append(arg_key)
+
+            arg_value = to_str(arg_value).strip()
+            if len(arg_value) == 0:
+                # arg value can be empty... just don't append it
+                continue
+            if is_bool_str(arg_value):
+                arg_value = arg_value.lower()
+            else:
+                arg_value = expand_var(window, arg_value)
+            listofargs.append(arg_value)
+    return listofargs
 
 
 def debug_enabled(view):
