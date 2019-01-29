@@ -6,6 +6,7 @@
   "whitespace": { "br_spaces": 2 },
   "ul": { "indent": 4 },
   "ol": { "style": "ordered" },
+  "fenced-code-language": false,
   "html": {
     "allowed_elements": [
       "a",
