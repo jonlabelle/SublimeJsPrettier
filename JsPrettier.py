@@ -60,7 +60,6 @@ if IS_PY2:
     from jsprettier.util import is_str_none_or_empty
     from jsprettier.util import is_windows
     from jsprettier.util import list_to_str
-    from jsprettier.util import parse_additional_cli_args
     from jsprettier.util import resolve_prettier_ignore_path
     from jsprettier.util import trim_trailing_ws_and_lines
 else:
