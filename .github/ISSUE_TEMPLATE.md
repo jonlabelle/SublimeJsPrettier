@@ -65,7 +65,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --trailing-comma none         \
         --bracket-spacing=true        \
         --jsx-bracket-same-line=false \
-        --parser babel              \
+        --parser babel                \
         --semi=true                   \
         --tab-width 4                 \
         --use-tabs=true
@@ -84,7 +84,7 @@ For example, the following command passes the contents of `messy_formatted_file.
         --trailing-comma none         \
         --bracket-spacing=true        \
         --jsx-bracket-same-line=false \
-        --parser babel              \
+        --parser babel                \
         --semi=true                   \
         --tab-width 4                 \
         --use-tabs=true               \
