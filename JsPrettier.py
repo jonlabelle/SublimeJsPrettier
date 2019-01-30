@@ -626,7 +626,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(view.sel()[0].b)
-        if scopename.startswith('source.css') or filename.endswith('.css') or contains('meta.selector.css', scopename):
+        if scopename.startswith('source.css') or filename.endswith('.css') \
+                or contains('meta.selector.css', scopename) or contains('source.css.embedded.html', scopename):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
             return True
