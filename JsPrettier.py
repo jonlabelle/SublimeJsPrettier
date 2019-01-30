@@ -540,14 +540,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append('babel')
                     continue
 
-                if self.is_html(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('html')
-                    continue
-
                 if self.is_css(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('css')
+                    continue
+
+                if self.is_html(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('html')
                     continue
 
             if not prettier_config_exists and not has_custom_config_defined:
