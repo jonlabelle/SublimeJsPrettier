@@ -201,7 +201,7 @@ def resolve_node_path():
 
 
 def expand_var(window, var_to_expand):
-    if isinstance(var_to_expand, str) and not is_str_none_or_empty(var_to_expand):
+    if not is_str_none_or_empty(var_to_expand):
         expanded = os.path.expanduser(var_to_expand)
         expanded = os.path.expandvars(expanded)
         if IS_ST3 and window:
