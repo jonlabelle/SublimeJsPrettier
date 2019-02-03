@@ -88,7 +88,9 @@ def is_file_auto_formattable(view):
     filename = view.file_name()
     if not filename:
         return False
-    file_ext = os.path.splitext(filename)[1][1:]
+    file_ext = filename.rpartition('.')[-1]
+    if file_ext == filename:
+        return False
     if file_ext in AUTO_FORMAT_FILE_EXTENSIONS:
         return True
     if file_ext in set(get_setting(view, 'custom_file_extensions', [])):
