@@ -49,7 +49,7 @@ Operating Systems.
 - [Sublime Text] - Text editor for code
 - [node.js] - JavaScript runtime
 - [yarn] or [npm] - Package manager for JavaScript
-- [Prettier] - Opinionated JavaScript formatter
+- [Prettier] - Opinionated JavaScript formatter - v1.16 or above
 
 ### Install Prettier
 
