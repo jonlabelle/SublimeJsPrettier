@@ -119,4 +119,4 @@
 
     The MIT License (MIT)
 
-    Copyright (c) 2018 Jon LaBelle
+    Copyright (c) 2019 Jon LaBelle
