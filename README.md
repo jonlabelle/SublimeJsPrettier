@@ -46,10 +46,10 @@ Operating Systems.
 
 ### Requirements
 
-- [Sublime Text] - Text editor for code
-- [node.js] - JavaScript runtime
-- [yarn] or [npm] - Package manager for JavaScript
-- [Prettier] - Opinionated code formatter (v1.16 or above)
+- [Sublime Text] – Text editor for code
+- [node.js] – JavaScript runtime
+    - [yarn] or [npm] – Package manager for JavaScript
+    - [Prettier] – Opinionated code formatter (v1.16 or above)
 
 ### Install Prettier
 
@@ -460,7 +460,7 @@ Jon LaBelle
 [MIT License]
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
-[Prettier]: https://github.com/jlongster/prettier
+[Prettier]: https://prettier.io
 [Prettier API section]: https://github.com/prettier/prettier#api
 [Prettier CLI]: https://github.com/prettier/prettier#cli
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
