@@ -153,18 +153,22 @@ file, accessible from the **Preferences** > **Package Settings** >
     **Examples:**
   
     ```
+    ...
     {
-        // macOS/Linux
-        "prettier_cli_path": "/path/to/node_modules/.bin/prettier"
+        // macOS/Linux:
+        "prettier_cli_path": "/usr/local/bin/prettier"
+        "prettier_cli_path": "/some/absolute/path/to/node_modules/.bin/prettier"
         "prettier_cli_path": "./node_modules/.bin/prettier"
         "prettier_cli_path": "~/bin/prettier"
+        "prettier_cli_path": "$HOME/bin/prettier"
         "prettier_cli_path": "${project_path}/bin/prettier"
         "prettier_cli_path": "$ENV/bin/prettier"
 
-        // Windows
+        // Windows:
         "prettier_cli_path": "C:/path/to/prettier.cmd"
-        "prettier_cli_path": "%USERPROFILE%\bin\prettier.cmd"
+        "prettier_cli_path": "%USERPROFILE%\\bin\\prettier.cmd"
     }
+    ...
     ```
 
 - **node_path** (default: ***empty***)  
@@ -174,17 +178,22 @@ file, accessible from the **Preferences** > **Package Settings** >
     **Examples:**
   
     ```
+    ...
     {
-        // macOS/Linux
-        "node_path": "/absolute/path/to/node"
+        // macOS/Linux:
+        "prettier_cli_path": "/usr/local/bin/node"
+        "node_path": "/some/absolute/path/to/node"
+        "node_path": "./node"
         "node_path": "~/bin/node"
+        "node_path": "$HOME/bin/node"
         "node_path": "${project_path}/bin/node"
         "node_path": "$ENV/bin/node"
 
-        // Windows
+        // Windows:
         "node_path": "C:/path/to/node.exe"
-        "node_path": "%USERPROFILE%\bin\node.exe"
+        "node_path": "%USERPROFILE%\\bin\\node.exe"
     }
+    ...
     ```
 
 - **auto_format_on_save** (default: ***false***)  
@@ -247,10 +256,11 @@ file, accessible from the **Preferences** > **Package Settings** >
     ```json
     {
         "additional_cli_args": {
-            "--config": "path/to/my/custom/.prettierrc",
             "--config": "~/.prettierrc",
             "--config": "$HOME/.prettierrc",
             "--config": "${project_path}/.prettierrc",
+            "--config": "/some/absolute/path/to/.prettierrc",
+
             "--config-precedence": "prefer-file",
             "--ignore-path": "${file_path}/.prettierignore",
             "--with-node-modules": ""
@@ -417,8 +427,9 @@ key-value item to `additional_cli_args`. Here's an example:
 {
     "additional_cli_args":
     {
-        "--config": "path/to/my/custom/.prettierrc",
-        "--config-precedence": "prefer-file"
+        "--config": "~/some/path/from/my/home/.prettierrc",
+        "--config-precedence": "prefer-file",
+        "--ignore-path": "${project_path}/.prettierignore"
     }
 }
 ```
