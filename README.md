@@ -181,7 +181,7 @@ file, accessible from the **Preferences** > **Package Settings** >
     ...
     {
         // macOS/Linux:
-        "prettier_cli_path": "/usr/local/bin/node"
+        "node_path": "/usr/local/bin/node"
         "node_path": "/some/absolute/path/to/node"
         "node_path": "./node"
         "node_path": "~/bin/node"
