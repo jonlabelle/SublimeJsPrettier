@@ -57,18 +57,30 @@ To view the generated prettier command line arguments you need to enable JsPrett
      JsPrettier DEBUG - Prettier CLI Command
     -----------------------------------------
 
-    /usr/local/bin/prettier           \
-        --stdin                       \
-        --color=false                 \
-        --print-width 80              \
-        --single-quote=true           \
-        --trailing-comma none         \
-        --bracket-spacing=true        \
-        --jsx-bracket-same-line=false \
-        --parser babel                \
-        --semi=true                   \
-        --tab-width 4                 \
-        --use-tabs=true
+    /usr/local/bin/prettier                 \
+        --stdin                             \
+        --no-config                         \
+        --print-width 80                    \
+        --tab-width 4                       \
+        --single-quote false                \
+        --trailing-comma none               \
+        --bracket-spacing true              \
+        --jsx-bracket-same-line false       \
+        --parser babel                      \
+        --semi true                         \
+        --require-pragma false              \
+        --prose-wrap preserve               \
+        --arrow-parens avoid                \
+        --html-whitespace-sensitivity css   \
+        --use-tabs false                    \
+        --stdin-filepath input.js           \
+        --loglevel debug
+
+    Prettier reported the following output:
+
+    [debug] normalized argv: {"_":[],"bracket-spacing":true,"color":true",...}
+    [debug] '--no-config' option found, skip loading config file.
+    [debug] applied config-precedence (cli-override): {"filepath":"input.js",...}
 
 > **NOTE:** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
