@@ -88,18 +88,24 @@ To view the generated prettier command line arguments you need to enable JsPrett
 
 For example, the following command passes the contents of `messy_formatted_file.js` to Prettier as stdin (`--stdin`) and prints the formatted code back to stdout.
 
-    /usr/local/bin/prettier           \
-        --stdin                       \
-        --color=false                 \
-        --print-width 80              \
-        --single-quote=true           \
-        --trailing-comma none         \
-        --bracket-spacing=true        \
-        --jsx-bracket-same-line=false \
-        --parser babel                \
-        --semi=true                   \
-        --tab-width 4                 \
-        --use-tabs=true               \
+    /usr/local/bin/prettier                 \
+        --stdin                             \
+        --no-config                         \
+        --print-width 80                    \
+        --tab-width 4                       \
+        --single-quote false                \
+        --trailing-comma none               \
+        --bracket-spacing true              \
+        --jsx-bracket-same-line false       \
+        --parser babel                      \
+        --semi true                         \
+        --require-pragma false              \
+        --prose-wrap preserve               \
+        --arrow-parens avoid                \
+        --html-whitespace-sensitivity css   \
+        --use-tabs false                    \
+        --stdin-filepath input.js           \
+        --loglevel debug                    \
         < messy_formatted_file.js
 
 ### The contents of your `User/JsPrettier.sublime-settings` file
