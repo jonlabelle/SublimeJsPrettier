@@ -360,9 +360,12 @@ def resolve_prettier_ignore_path(source_file_dir, st_project_path):
 
 
 def format_error_message(error_message, error_code):
+    # inject a line break between the error message, and debug output (legibility purposes):
+    error_message = error_message.replace('[error] stdin: ', '\n[error] stdin: ')
+
     return '\nPrettier reported the following output:\n\n' \
            '{0}\n' \
-           'Process finished with exit code {1}\n' \
+           '\nPrettier process finished with exit code {1}.\n' \
         .format(error_message, '{0}'.format(error_code))
 
 
