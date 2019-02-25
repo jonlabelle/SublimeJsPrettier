@@ -73,14 +73,14 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --arrow-parens avoid                \
         --html-whitespace-sensitivity css   \
         --use-tabs false                    \
-        --stdin-filepath input.js           \
+        --stdin-filepath messy.js           \
         --loglevel debug
 
     Prettier reported the following output:
 
     [debug] normalized argv: {"_":[],"bracket-spacing":true,"color":true",...}
     [debug] '--no-config' option found, skip loading config file.
-    [debug] applied config-precedence (cli-override): {"filepath":"input.js",...}
+    [debug] applied config-precedence (cli-override): {"filepath":"messy.js",...}
 
 > **NOTE:** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
@@ -104,9 +104,9 @@ For example, the following command passes the contents of `messy_formatted_file.
         --arrow-parens avoid                \
         --html-whitespace-sensitivity css   \
         --use-tabs false                    \
-        --stdin-filepath input.js           \
+        --stdin-filepath messy.js           \
         --loglevel debug                    \
-        < messy_formatted_file.js
+        < messy.js
 
 ### The contents of your `User/JsPrettier.sublime-settings` file
 
