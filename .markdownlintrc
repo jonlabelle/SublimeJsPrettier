@@ -7,6 +7,7 @@
   "ul": { "indent": 4 },
   "ol": { "style": "ordered" },
   "fenced-code-language": false,
+  "blanks-around-fences": false,
   "html": {
     "allowed_elements": [
       "a",
