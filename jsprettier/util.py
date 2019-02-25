@@ -360,7 +360,7 @@ def resolve_prettier_ignore_path(source_file_dir, st_project_path):
 
 
 def format_error_message(error_message, error_code):
-    return 'Prettier reported the following error(s):\n\n' \
+    return '\nPrettier reported the following output:\n\n' \
            '{0}\n' \
            'Process finished with exit code {1}\n' \
         .format(error_message, '{0}'.format(error_code))

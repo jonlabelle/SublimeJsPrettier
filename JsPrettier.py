@@ -598,13 +598,19 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options.append('--stdin-filepath')
         prettier_options.append(file_name)
 
+        if debug_enabled(view):
+            if not parsed_additional_cli_args.count('--loglevel') > 0:
+                # set prettier's log level to debug, when the plug-in's debug setting is enabled:
+                prettier_options.append('--loglevel')
+                prettier_options.append('debug')
+
         # Append any additional specified arguments:
         prettier_options.extend(parsed_additional_cli_args)
 
         return prettier_options
 
     def format_console_error(self):
-        print('\n------------------\n {0} ERROR \n------------------\n\n'
+        print('\n------------------\n {0} ERROR \n------------------\n'
               '{1}'.format(PLUGIN_NAME, self.error_message))
 
     @staticmethod
