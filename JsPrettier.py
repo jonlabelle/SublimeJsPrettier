@@ -322,13 +322,17 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if source_modified:
                 view.sel().clear()
                 view.sel().add(sublime.Region(new_cursor))
+                # re-run indention detection
+                view.run_command('detect_indentation')
                 st_status_message('File formatted.')
             else:
                 st_status_message('File already formatted.')
+
             return
 
         #
         # Format each selection:
+        atleast_one_selection_formatted = False
         for region in view.sel():
             if region.empty():
                 continue
@@ -354,8 +358,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if transformed and transformed == trim_trailing_ws_and_lines(source):
                 st_status_message('Selection(s) already formatted.')
             else:
+                atleast_one_selection_formatted = True
                 view.replace(edit, region, transformed)
-                st_status_message('Selection(s) formatted.')
+
+        # re-run indention detection
+        if atleast_one_selection_formatted:
+            view.run_command('detect_indentation')
+            st_status_message('Selection(s) formatted.')
 
     def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False):
         self._error_message = None
