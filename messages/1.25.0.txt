@@ -1,0 +1,10 @@
+## 1.25.0
+
+Release Date: 2019-02-27
+
+- Enabling debug mode now also sets Prettier's "--loglevel" option to "debug"
+  (when not overridden by "additional_cli_args"), for printing additional debug
+  information to the console.
+
+  For more information on Prettier's CLI log level option(s),
+  see <https://prettier.io/docs/en/cli.html#loglevel>.

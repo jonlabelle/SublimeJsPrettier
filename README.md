@@ -137,6 +137,9 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **debug** (default: ***false***)  
     When enabled (*true*), debug info will print to the console - useful for
     troubleshooting and inspecting generated commands passed to Prettier.
+    Enabling debug mode also sets Prettier's [`--loglevel`] option to `debug`
+    (when not overridden by `additional_cli_args`), for printing additional
+    debug information to the console.
 
 - **prettier_cli_path** (default: ***empty***)  
     If Sublime Text has problems automatically resolving a path to [Prettier],
@@ -499,3 +502,4 @@ Jon LaBelle
 [`--ignore-path`]: https://prettier.io/docs/en/cli.html#ignore-path
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 [`parser`]: https://prettier.io/docs/en/options.html#parser
+[`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel

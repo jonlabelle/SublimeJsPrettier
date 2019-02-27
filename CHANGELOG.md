@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.25.0
+
+**Release Date:** 2019-02-27
+
+- Enabling debug mode now also sets Prettier's [`--loglevel`] option to `debug`
+  (when not overridden by `additional_cli_args`), for printing additional debug
+  information to the console.
+
 ## 1.24.0
 
 **Release Date:** 2019-01-29
@@ -293,3 +301,4 @@
 [Prettier v1.16+]: https://prettier.io/blog/2019/01/20/1.16.0.html#rename-babylon-parser-to-babel-5647-by-wuweiweiwu
 [Prettier v1.16]: https://prettier.io/blog/2019/01/20/1.16.0.html
 [default settings]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings
+[`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
