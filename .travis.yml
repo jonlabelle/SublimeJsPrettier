@@ -34,6 +34,7 @@ cache:
     - $HOME/.sonar/cache
 
 install:
+  - pip install —upgrade setuptools
   - bash scripts/install.sh
 
 script:
