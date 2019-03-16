@@ -321,7 +321,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             if source_modified:
                 view.sel().clear()
-                view.sel().add(sublime.Region(new_cursor))
+                if new_cursor:
+                    view.sel().add(sublime.Region(new_cursor))
                 # re-run indention detection
                 view.run_command('detect_indentation')
                 st_status_message('File formatted.')
@@ -429,7 +430,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if provide_cursor:
                 if not new_cursor and cursor is not None:
                     new_cursor = cursor
-                return stdout.decode('utf-8'), int(new_cursor)
+                try:
+                    new_cursor = int(new_cursor)
+                except ValueError:
+                    log_warn('Adjusted cursor position could not be parsed (int).')
+                    return stdout.decode('utf-8'), None
+                return stdout.decode('utf-8'), new_cursor
 
             return stdout.decode('utf-8')
         except OSError as ex:
