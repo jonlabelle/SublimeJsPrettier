@@ -504,6 +504,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_option_name = mapping['cli']
+
             option_value = get_sub_setting(view, option_name)
 
             if option_name == 'parser':
@@ -577,21 +578,29 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if option_value is None or str(option_value) == '':
                     option_value = mapping['default']
                 option_value = str(option_value).strip()
+
                 # special handling for "tabWidth":
                 if option_name == 'tabWidth':
                     has_additional_cli_for_tab_width = parsed_additional_cli_args.count('--tab-width') > 0
-                    if not has_additional_cli_for_tab_width and self.disable_tab_width_auto_detection is False:
-                        # set `tabWidth` from st "tab_size" setting (default behavior)
-                        prettier_options.append(cli_option_name)
-                        prettier_options.append(str(self.tab_size))
+                    if not has_additional_cli_for_tab_width:
+                        if self.disable_tab_width_auto_detection is False:
+                            # set `tabWidth` from st "tab_size" setting (default behavior)
+                            prettier_options.append(cli_option_name)
+                            prettier_options.append(str(self.tab_size))
+                        else:
+                            if not has_additional_cli_for_tab_width:
+                                prettier_options.append(cli_option_name)
+                                prettier_options.append(option_value)
                     else:
                         if not has_additional_cli_for_tab_width:
                             prettier_options.append(cli_option_name)
                             prettier_options.append(option_value)
                     continue
+
                 # handle bool types:
                 if is_bool_str(option_value):
                     option_value = option_value.lower()
+
                 # append the opt/val:
                 prettier_options.append(cli_option_name)
                 prettier_options.append(option_value)
