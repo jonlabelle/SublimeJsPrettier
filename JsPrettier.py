@@ -433,7 +433,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 try:
                     new_cursor = int(new_cursor)
                 except ValueError:
-                    log_warn('Adjusted cursor position could not be parsed (int).')
+                    log_warn(view, 'Adjusted cursor position could not be parsed (int).')
                     return stdout.decode('utf-8'), None
                 return stdout.decode('utf-8'), new_cursor
 
