@@ -460,6 +460,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_html(view) is True:
             return True
+        if self.is_php(view) is True:
+            return True
         if is_file_auto_formattable(view) is True:
             return True
         return False
@@ -563,6 +565,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('html')
+                    continue
+
+                if self.is_php(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('php')
                     continue
 
             if not prettier_config_exists and not has_custom_config_defined:
@@ -764,6 +771,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         if filename.endswith('.component.html'):
+            return True
+        return False
+
+    @staticmethod
+    def is_php(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if contains('source.php', scopename) or filename.endswith('.php'):
             return True
         return False
 

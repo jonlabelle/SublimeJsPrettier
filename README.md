@@ -32,6 +32,7 @@
     - [Prettier Options](#prettier-options)
     - [Project-level Settings](#project-level-settings)
     - [Prettier Configuration Files](#prettier-configuration-files)
+- [Prettier PHP](#prettier-plug-in-support)
 - [Issues](#issues)
 - [Changes](#changes)
 - [Author](#author)
@@ -456,6 +457,10 @@ When the [`--ignore-path`] option is NOT specified in `additional_cli_args`, the
 plug-in will attempt to discover and set `--ignore-path <file>` when a
 `.prettierignore` config exists in the same directory of the source file
 (first), or the active Sublime Text project root directory (second).
+
+## Prettier Plugin Support
+
+- [Prettier PHP](https://github.com/prettier/plugin-php)
 
 ## Issues
 

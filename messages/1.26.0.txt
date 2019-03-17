@@ -1,0 +1,11 @@
+## 1.26.0
+
+Release Date: 2019-03-17
+
+- Added support for formatting PHP files; requires the Prettier PHP Plugin:
+
+      cd to/project/directory
+      npm install @prettier/plugin-php
+
+  More information on the Prettier PHP Plugin:
+  https://github.com/prettier/plugin-php

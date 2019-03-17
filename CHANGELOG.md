@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.26.0
+
+**Release Date:** 2019-03-17
+
+- Added support for formatting PHP files; requires the [Prettier PHP Plugin].
+
+    ```bash
+    cd to/project/directory
+    npm install @prettier/plugin-php
+    ```
+
 ## 1.25.0
 
 **Release Date:** 2019-02-27
@@ -302,3 +313,4 @@
 [Prettier v1.16]: https://prettier.io/blog/2019/01/20/1.16.0.html
 [default settings]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings
 [`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
+[Prettier PHP Plugin]: https://github.com/prettier/plugin-php
