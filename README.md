@@ -521,4 +521,4 @@ Jon LaBelle
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 [`parser`]: https://prettier.io/docs/en/options.html#parser
 [`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
-[Prettier PHP]: (https://github.com/prettier/plugin-php)
+[Prettier PHP]: https://github.com/prettier/plugin-php
