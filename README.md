@@ -465,10 +465,10 @@ plug-in will attempt to discover and set `--ignore-path <file>` when a
 In most cases, [Prettier PHP] works as drop-in replacement for Prettier.
 However, JsPrettier only detects if you're formatting a PHP file (or PHP selection),
 and sets the `--parser` to `php` accordingly. Aside from that, it's up to you ensure your
-config(s) conform to [Prettier PHP options](https://github.com/prettier/plugin-php#configuration).
+config(s) conform to Prettier PHP [options](https://github.com/prettier/plugin-php#configuration).
 
 To install [Prettier PHP] in your project root, and use it as a drop-in
-replacement:
+replacement for Prettier:
 
 ```bash
 cd to/project/directory
