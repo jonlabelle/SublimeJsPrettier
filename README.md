@@ -32,7 +32,8 @@
     - [Prettier Options](#prettier-options)
     - [Project-level Settings](#project-level-settings)
     - [Prettier Configuration Files](#prettier-configuration-files)
-- [Prettier PHP](#prettier-plug-in-support)
+- [Prettier Plug-in Support](#prettier-plug-in-support)
+    - [Prettier PHP](#prettier-php)
 - [Issues](#issues)
 - [Changes](#changes)
 - [Author](#author)
@@ -250,7 +251,7 @@ file, accessible from the **Preferences** > **Package Settings** >
 - **disable_tab_width_auto_detection** (default: ***false***)  
     Whether or not to disable the plug-in from automatically setting Prettier's
     "[tabWidth / \--tab-width](https://prettier.io/docs/en/options.html#tab-width)"
-    option, and always adhere to the Prettier configured setting.
+    option, and adhere to the Prettier configured setting.
 
 - **additional_cli_args** (default: {})  
     A key-value pair of arguments to append to the prettier command.
@@ -467,7 +468,7 @@ However, JsPrettier only detects if you're formatting a PHP file (or PHP selecti
 and sets the `--parser` to `php` accordingly. Aside from that, it's up to you ensure your
 config(s) conform to Prettier PHP [options](https://github.com/prettier/plugin-php#configuration).
 
-To install [Prettier PHP] in your project root, and use it as a drop-in
+To **install Prettier PHP** in your project root, and use it as a drop-in
 replacement for Prettier:
 
 ```bash
