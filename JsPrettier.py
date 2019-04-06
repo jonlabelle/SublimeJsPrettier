@@ -304,6 +304,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             source_modified = False
             transformed = trim_trailing_ws_and_lines(transformed)
+            previous_position = self.view.viewport_position()
+
             if transformed:
                 if transformed == trim_trailing_ws_and_lines(source):
                     if self.ensure_newline_at_eof(view, edit) is True:
@@ -318,6 +320,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 view.replace(edit, region, transformed)
                 self.ensure_newline_at_eof(view, edit)
                 source_modified = True
+
+            self.view.set_viewport_position((0, 0), False)
+            self.view.set_viewport_position(previous_position, False)
 
             if source_modified:
                 view.sel().clear()
