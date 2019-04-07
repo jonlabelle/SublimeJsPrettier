@@ -91,6 +91,7 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'json',
     'graphql',
     'gql',
+    'html',
     'ts',
     'tsx',
     'css',
