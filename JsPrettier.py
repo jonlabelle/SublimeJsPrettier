@@ -304,6 +304,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             source_modified = False
             transformed = trim_trailing_ws_and_lines(transformed)
+
+            # Store viewport position to prevent screen jumping (#171)...
             previous_position = self.view.viewport_position()
 
             if transformed:
@@ -321,6 +323,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.ensure_newline_at_eof(view, edit)
                 source_modified = True
 
+            # Restore viewport position to prevent screen jumping (#171)
             self.view.set_viewport_position((0, 0), False)
             self.view.set_viewport_position(previous_position, False)
 
