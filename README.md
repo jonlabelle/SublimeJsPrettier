@@ -253,6 +253,22 @@ file, accessible from the **Preferences** > **Package Settings** >
     "[tabWidth / \--tab-width](https://prettier.io/docs/en/options.html#tab-width)"
     option, and adhere to the Prettier configured setting.
 
+- **disable_prettier_cursor_offset** (default: ***false***)  
+    There's an apparent (and nasty) defect in Prettier that seems to occur
+    during Prettier's [cursor offset](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
+    calculation, and when attempting to format large or minimized files (but not limited to just these cases).
+    The issue effectively results in the CPU spiking to a constant 100%...
+    indefinitely, or until the node executable/process running Prettier is
+    forcefully terminated.
+
+    To avoid this problematic behavior, or until the defect is resolved, you can
+    disable the plug-in (JsPrettier) from ever passing the cursor offset
+    position to Prettier by setting the `disable_prettier_cursor_offset` value
+    to `true`.
+
+    - See related issues: [#147](https://github.com/jonlabelle/SublimeJsPrettier/issues/147), [#168](https://github.com/jonlabelle/SublimeJsPrettier/issues/168)
+    - [Prettier Cursor Offset Documentation](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
+
 - **additional_cli_args** (default: {})  
     A key-value pair of arguments to append to the prettier command.
 
@@ -396,6 +412,7 @@ section.
             "custom_file_extensions": [],
             "max_file_size_limit": -1,
             "disable_tab_width_auto_detection": false,
+            "disable_prettier_cursor_offset": false,
             "additional_cli_args": {},
             "prettier_options": {
                 "printWidth": 80,

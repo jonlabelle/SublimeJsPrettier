@@ -148,6 +148,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def max_file_size_limit(self):
         return int(get_setting(self.view, 'max_file_size_limit', -1))
 
+    @property
+    def disable_prettier_cursor_offset(self):
+        return get_setting(self.view, 'disable_prettier_cursor_offset', False)
+
     def exceeds_max_file_size_limit(self, source_file):
         if self.max_file_size_limit == -1:
             return False
@@ -288,12 +292,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             result = self.format_code(
                 source, node_path, prettier_cli_path, prettier_options, view,
-                provide_cursor=True)
+                provide_cursor=self.disable_prettier_cursor_offset is False)
             if self.has_error:
                 self.format_console_error()
                 return self.show_status_bar_error()
 
-            transformed, new_cursor = result
+            new_cursor = None
+            if self.disable_prettier_cursor_offset is True:
+                transformed = result
+            else:
+                transformed, new_cursor = result
 
             # sanity check to ensure textual content was returned from cmd
             # stdout, not necessarily caught in OSError try/catch
@@ -329,7 +337,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             if source_modified:
                 view.sel().clear()
-                if new_cursor:
+                if self.disable_prettier_cursor_offset is False and new_cursor:
                     view.sel().add(sublime.Region(new_cursor))
                 # re-run indention detection
                 view.run_command('detect_indentation')

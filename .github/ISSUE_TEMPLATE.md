@@ -125,6 +125,7 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
         "custom_file_extensions": [],
         "max_file_size_limit": -1,
         "disable_tab_width_auto_detection": false,
+        "disable_prettier_cursor_offset": false,
         "additional_cli_args": {},
         "prettier_options": {
             "printWidth": 80,
@@ -166,6 +167,7 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                 "custom_file_extensions": [],
                 "max_file_size_limit": -1,
                 "disable_tab_width_auto_detection": false,
+                "disable_prettier_cursor_offset": false,
                 "additional_cli_args": {},
                 "prettier_options": {
                     "printWidth": 80,
