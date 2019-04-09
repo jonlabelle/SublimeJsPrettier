@@ -2,12 +2,10 @@
 name: Bug report
 about: Create a bug report to help us improve
 title: ''
-labels: ''
+labels: 'investigating'
 assignees: jonlabelle
 
 ---
-
-## Reporting an Issue
 
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues), please include the following information in your post:
 
@@ -23,18 +21,18 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 
 ---
 
-### Explain the Issue and Expected Behavior
+## Explain the Issue and Expected Behavior
 
 Provide a story of the issue with as much detail as possible, including the expected behavior.
 
-### Prettier version
+## Prettier version
 
 To show the currently installed prettier version, run the following command:
 
     $ prettier --version
     <PRETTIER_VERSION>
 
-### JsPrettier Plug-in Version
+## JsPrettier Plug-in Version
 
 The JsPrettier Sublime Text Plug-in version is located in the `package.json` file.
 
@@ -43,7 +41,7 @@ The JsPrettier Sublime Text Plug-in version is located in the `package.json` fil
     "version": "<JS_PRETTIER_PLUGIN_VERSION>",
     ...
 
-### Platform Details
+## Platform Details
 
 Provide your Sublime Text version and Platform details.
 
@@ -56,7 +54,7 @@ Provide your Sublime Text version and Platform details.
     - Operating System Version: <OS_VERSION>
     - Operating System Architecture: <OS_ARCHITECTURE>
 
-### Generated Prettier command line arguments
+## Generated Prettier command line arguments
 
 To view the generated prettier command line arguments you need to enable JsPrettier's [debug setting] and open the Sublime Text Console after a file/section formatting attempt.
 
@@ -93,7 +91,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
 
 > **NOTE:** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
-### Is the same behavior observed when run against Prettier directly?
+## Is the same behavior observed when run against Prettier directly?
 
 For example, the following command passes the contents of `messy_formatted_file.js` to Prettier as stdin (`--stdin`) and prints the formatted code back to stdout.
 
@@ -117,7 +115,7 @@ For example, the following command passes the contents of `messy_formatted_file.
         --loglevel debug                    \
         < messy.js
 
-### The contents of your `User/JsPrettier.sublime-settings` file
+## The contents of your `User/JsPrettier.sublime-settings` file
 
 The entire contents of your ***User*** overridden JsPrettier Settings, excluding the comments.
 
@@ -152,7 +150,7 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
         }
     }
 
-### The contents of your `<project_name>.sublime-project` file (if applicable)
+## The contents of your `<project_name>.sublime-project` file (if applicable)
 
 The entire contents of your ***User*** overridden JsPretter Project-level Settings, excluding the comments.
 
@@ -196,7 +194,7 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
         }
     }
 
-### Steps to reproduce the behavior
+## Steps to reproduce the behavior
 
 The steps one would take to reproduce and observe the problem.
 

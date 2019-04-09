@@ -495,7 +495,10 @@ npm install @prettier/plugin-php
 
 ## Issues
 
-To [report an issue], please follow the steps outlined in the [Issue Template].
+To report a bug or a make suggestion, please [open a new issue] selecting the
+appropriate Issue Template (**Bug report** or **Feature request**). Be sure to
+follow the guidelines outlined in each template... otherwise your submission
+will be subject to immediate closure.
 
 ## Changes
 
@@ -530,8 +533,7 @@ Jon LaBelle
 [Sublime Text Console]: http://docs.sublimetext.info/en/latest/basic_concepts.html#sublime-text-is-programmable
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
 [Prettier Configuration files]: https://prettier.io/docs/en/configuration.html
-[issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE.md
-[report an issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues
+[issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE/bug_report.md
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
 [doc page]: https://prettier.io/docs/en/options.html
@@ -540,3 +542,4 @@ Jon LaBelle
 [`parser`]: https://prettier.io/docs/en/options.html#parser
 [`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
 [Prettier PHP]: https://github.com/prettier/plugin-php
+[open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
