@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.26.5
+
+**Release Date:** 2019-04-07
+
+- Added new setting (`disable_prettier_cursor_offset`) to disable Prettier's
+  (buggy) cursor offset calculation.
+
+  There's an apparent (and nasty) defect in Prettier that seems to occur
+  during Prettier's [cursor offset](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
+  calculation, and when attempting to format large or minimized files (but not limited to just these cases).
+  The issue effectively results in the CPU spiking to a constant 100%...
+  indefinitely, or until the node executable/process running Prettier is
+  forcefully terminated.
+  
+  To avoid this problematic behavior, or until the defect is resolved, you can
+  disable the plug-in (JsPrettier) from ever passing the cursor offset
+  position to Prettier by setting the `disable_prettier_cursor_offset` value
+  to `true`.
+  
+    - See related issues: [#147](https://github.com/jonlabelle/SublimeJsPrettier/issues/147), [#168](https://github.com/jonlabelle/SublimeJsPrettier/issues/168)
+    - [Prettier Cursor Offset Documentation](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
+
 ## 1.26.0
 
 **Release Date:** 2019-03-17
