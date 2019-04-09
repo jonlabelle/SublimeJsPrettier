@@ -336,8 +336,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             self.view.set_viewport_position(previous_position, False)
 
             if source_modified:
-                view.sel().clear()
-                if self.disable_prettier_cursor_offset is False and new_cursor:
+                if not self.disable_prettier_cursor_offset and new_cursor:
+                    view.sel().clear()
                     view.sel().add(sublime.Region(new_cursor))
                 # re-run indention detection
                 view.run_command('detect_indentation')
