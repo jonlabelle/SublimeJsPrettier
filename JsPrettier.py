@@ -286,12 +286,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # Format entire file:
         if not has_selection(view) or save_file is True:
             region = sublime.Region(0, view.size())
-            source = view.substr(region)
-            if is_str_empty_or_whitespace_only(source):
+            source_text = view.substr(region)
+            if is_str_empty_or_whitespace_only(source_text):
                 return st_status_message('Nothing to format in file.')
 
             result = self.format_code(
-                source, node_path, prettier_cli_path, prettier_options, view,
+                source_text, node_path, prettier_cli_path, prettier_options, view,
                 provide_cursor=self.disable_prettier_cursor_offset is False)
             if self.has_error:
                 self.format_console_error()
@@ -299,35 +299,35 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             new_cursor = None
             if self.disable_prettier_cursor_offset is True:
-                transformed = result
+                prettified_text = result
             else:
-                transformed, new_cursor = result
+                prettified_text, new_cursor = result
 
             # sanity check to ensure textual content was returned from cmd
             # stdout, not necessarily caught in OSError try/catch
             # exception handler
-            if is_str_empty_or_whitespace_only(transformed):
+            if is_str_empty_or_whitespace_only(prettified_text):
                 self.error_message = 'Empty content returned to stdout'
                 return self.show_status_bar_error()
 
             source_modified = False
-            transformed = trim_trailing_ws_and_lines(transformed)
+            prettified_text = trim_trailing_ws_and_lines(prettified_text)
 
             # Store viewport position to prevent screen jumping (#171)...
             previous_position = self.view.viewport_position()
 
-            if transformed:
-                if transformed == trim_trailing_ws_and_lines(source):
+            if prettified_text:
+                if prettified_text == trim_trailing_ws_and_lines(source_text):
                     if self.ensure_newline_at_eof(view, edit) is True:
                         # no formatting changes applied, however, a line
                         # break was needed/inserted at the end of the file:
                         source_modified = True
                 else:
-                    view.replace(edit, region, transformed)
+                    view.replace(edit, region, prettified_text)
                     self.ensure_newline_at_eof(view, edit)
                     source_modified = True
             else:
-                view.replace(edit, region, transformed)
+                view.replace(edit, region, prettified_text)
                 self.ensure_newline_at_eof(view, edit)
                 source_modified = True
 
@@ -354,12 +354,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if region.empty():
                 continue
 
-            source = view.substr(region)
-            if is_str_empty_or_whitespace_only(source):
+            source_text = view.substr(region)
+            if is_str_empty_or_whitespace_only(source_text):
                 st_status_message('Nothing to format in selection.')
                 continue
 
-            transformed = self.format_code(source, node_path, prettier_cli_path, prettier_options, view)
+            prettified_text = self.format_code(source_text, node_path, prettier_cli_path, prettier_options, view)
             if self.has_error:
                 self.format_console_error()
                 return self.show_status_bar_error()
@@ -367,16 +367,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # sanity check to ensure textual content was returned from cmd
             # stdout, not necessarily caught in OSError try/catch
             # exception handler
-            if is_str_empty_or_whitespace_only(transformed):
+            if is_str_empty_or_whitespace_only(prettified_text):
                 self.error_message = 'Empty content returned to stdout'
                 return self.show_status_bar_error()
 
-            transformed = trim_trailing_ws_and_lines(transformed)
-            if transformed and transformed == trim_trailing_ws_and_lines(source):
+            prettified_text = trim_trailing_ws_and_lines(prettified_text)
+            if prettified_text and prettified_text == trim_trailing_ws_and_lines(source_text):
                 st_status_message('Selection(s) already formatted.')
             else:
                 atleast_one_selection_formatted = True
-                view.replace(edit, region, transformed)
+                view.replace(edit, region, prettified_text)
 
         # re-run indention detection
         if atleast_one_selection_formatted:
