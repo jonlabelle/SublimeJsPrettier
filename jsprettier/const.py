@@ -82,6 +82,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'htmlWhitespaceSensitivity',
         'cli': '--html-whitespace-sensitivity',
         'default': 'css'
+    },
+    {
+        'option': 'quoteProps',
+        'cli': '--quote-props',
+        'default': 'as-needed'
     }
 ]
 

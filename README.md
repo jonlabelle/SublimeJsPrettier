@@ -51,7 +51,7 @@ Operating Systems.
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v1.16 or above)
+        - [Prettier] – Opinionated code formatter (v1.17 or above)
 
 ### Install Prettier
 
@@ -378,9 +378,18 @@ file, accessible from the **Preferences** > **Package Settings** >
 
     Valid Options:
 
-    - "***css***" - Respect the default value of CSS display property.
+    - "***css***" (default) - Respect the default value of CSS display property.
     - "***strict***" - Whitespaces are considered sensitive.
     - "***ignore***" - Whitespaces are considered insensitive.
+
+- **quoteProps** (default: "***as-needed***")  
+    Change when properties in objects are quoted. Requires [Prettier v1.17+].
+
+    Valid options:
+
+    - "***as-needed***" (default) - Only add quotes around object properties where required.
+    - "***consistent***" - If at least one property in an object requires quotes, quote all properties.
+    - "***preserve***" - Respect the input use of quotes in object properties.
 
 See the Prettier Options [doc page] for more details and examples.
 
@@ -426,7 +435,8 @@ section.
                 "requirePragma": false,
                 "proseWrap": "preserve",
                 "arrowParens": "avoid",
-                "htmlWhitespaceSensitivity": "css"
+                "htmlWhitespaceSensitivity": "css",
+                "quoteProps": "as-needed"
             }
         }
     }
@@ -543,3 +553,4 @@ Jon LaBelle
 [`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
 [Prettier PHP]: https://github.com/prettier/plugin-php
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
+[Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html

@@ -455,11 +455,29 @@
 		//
 		// Valid Options:
 		//
-		// - "css" - Respect the default value of CSS display property.
+		// - "css" (default) - Respect the default value of CSS display property.
 		// - "strict" - Whitespaces are considered sensitive.
 		// - "ignore" - Whitespaces are considered insensitive.
 		// --------------------------------------------------------------------
 
-		"htmlWhitespaceSensitivity": "css"
+		"htmlWhitespaceSensitivity": "css",
+
+		// --------------------------------------------------------------------
+		// Quote Props
+		// --------------------------------------------------------------------
+		//
+		// @param {string} "prettier_options.quoteProps"
+		// @default "as-needed"
+		//
+		// Change when properties in objects are quoted. Requires Prettier v1.17+.
+		//
+		// Valid options:
+		//
+		// - "as-needed" (default) - Only add quotes around object properties where required.
+		// - "consistent" - If at least one property in an object requires quotes, quote all properties.
+		// - "preserve" - Respect the input use of quotes in object properties.
+		// --------------------------------------------------------------------
+
+		"quoteProps": "as-needed"
 	}
 }

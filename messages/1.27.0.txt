@@ -1,0 +1,25 @@
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                     _     ____           _   _   _                           │
+│                    | |___|  _ \ _ __ ___| |_| |_(_) ___ _ __                 │
+│                 _  | / __| |_) | '__/ _ \ __| __| |/ _ \ '__|                │
+│                | |_| \__ \  __/| | |  __/ |_| |_| |  __/ |                   │
+│                 \___/|___/_|   |_|  \___|\__|\__|_|\___|_|                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+## 1.27.0
+
+Release Date: 2019-04-18
+
+- Added support for new Prettier "Quote Props" option; changes quotes around
+  object properties (requires Prettier v1.17+).
+
+  |   Default     | CLI Override                                    | API Override                                   |
+  |---------------|-------------------------------------------------|------------------------------------------------|
+  |  "as-needed"  |  --quote-props <as-needed|consistent|preserve>  |  quoteProps: "<as-needed|consistent|preserve>" |
+
+  Valid options:
+
+  - "as-needed" (default) - Only add quotes around object properties where required.
+  - "consistent" - If at least one property in an object requires quotes, quote all properties.
+  - "preserve" - Respect the input use of quotes in object properties.

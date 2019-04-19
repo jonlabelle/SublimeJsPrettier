@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.27.0
+
+**Release Date:** 2019-04-18
+
+- Added support for new Prettier [Quote Props] option; changes quotes around
+  object properties (requires [Prettier v1.17+]).
+  
+    - Default: `"as-needed"`
+    - CLI Override: `--quote-props <as-needed|consistent|preserve>`
+    - API Override: `quoteProps:` `"<as-needed|consistent|preserve>"`
+  
+  **Valid options:**
+
+    - `"as-needed"` (default) - Only add quotes around object properties where required.
+    - `"consistent"` - If at least one property in an object requires quotes, quote all properties.
+    - `"preserve"` - Respect the input use of quotes in object properties.
+
 ## 1.26.5
 
 **Release Date:** 2019-04-07
@@ -336,3 +353,5 @@
 [default settings]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings
 [`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
 [Prettier PHP Plugin]: https://github.com/prettier/plugin-php
+[Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
+[Quote Props]: https://prettier.io/docs/en/options.html#quote-props

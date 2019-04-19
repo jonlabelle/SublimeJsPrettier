@@ -105,7 +105,8 @@
                         "requirePragma": false,
                         "proseWrap": "preserve",
                         "arrowParens": "avoid",
-                        "htmlWhitespaceSensitivity": "css"
+                        "htmlWhitespaceSensitivity": "css",
+                        "quoteProps": "as-needed"
                     }
                 }
             }
