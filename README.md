@@ -101,7 +101,9 @@ cloning the repository directly into your [Sublime Text Packages directory].
 You can locate your Sublime Text Packages directory by using the menu item
 `Preferences` -> `Browse Packages...`
 
-    git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
+```bash
+git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
+```
 
 ## Usage
 
