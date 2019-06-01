@@ -44,7 +44,7 @@ show_usage() {
     echo "  (1) patch      auto-increment to the next patch version"
     echo "  (1) minor      auto-increment to the next minor version"
     echo "  (1) major      auto-increment to the next major version"
-    echo "  (1) semver     the specific version number (as semver) for the release"
+    echo "  (1) semver     a specific version number (as semver)"
     echo
     echo "Options:"
     echo
