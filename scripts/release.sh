@@ -48,8 +48,8 @@ show_usage() {
     echo
     echo "Options:"
     echo
-    echo "  -h, --help     show help/usage, and exit"
-    echo "  -v, --version  show the current version, and exit"
+    echo "  -h, --help     show help/usage and exit"
+    echo "  -v, --version  show the current version and exit"
     echo
     echo "Examples:"
     echo
