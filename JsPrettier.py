@@ -227,7 +227,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         #
         # Max file size check
         if self.exceeds_max_file_size_limit(source_file_path):
-            return st_status_message('Maximum file size reached.')
+            return st_status_message('Ignored - file too large to format (max_file_size_limit).')
 
         source_file_dir = get_file_abs_dir(source_file_path)
         st_project_path = str(get_st_project_path())
