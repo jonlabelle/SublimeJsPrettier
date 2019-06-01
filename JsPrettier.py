@@ -292,7 +292,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             result = self.format_code(
                 source_text, node_path, prettier_cli_path, prettier_options, view,
-                provide_cursor=self.disable_prettier_cursor_offset is False)
+                provide_cursor=self.disable_prettier_cursor_offset is False, is_selection=False)
+
             if self.has_error:
                 self.format_console_error()
                 return self.show_status_bar_error()
@@ -359,7 +360,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 st_status_message('Nothing to format in selection.')
                 continue
 
-            prettified_text = self.format_code(source_text, node_path, prettier_cli_path, prettier_options, view)
+            prettified_text = self.format_code(
+                source_text, node_path, prettier_cli_path, prettier_options, view,
+                provide_cursor=False, is_selection=True)
+
             if self.has_error:
                 self.format_console_error()
                 return self.show_status_bar_error()
@@ -383,7 +387,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             view.run_command('detect_indentation')
             st_status_message('Selection(s) formatted.')
 
-    def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False):
+    def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False,
+                    is_selection=False):
+
         self._error_message = None
 
         cursor = None
@@ -397,18 +403,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # automatically prepend the environment detected node[.exe|.cmd] path to
             # the generated command (see #146 --no-bin-links).
             cmd = [resolve_node_path()] \
-                + [prettier_cli_path] \
-                + ['--stdin'] \
-                + prettier_options
+                  + [prettier_cli_path] \
+                  + ['--stdin'] \
+                  + prettier_options
         elif is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
-                + ['--stdin'] \
-                + prettier_options
+                  + ['--stdin'] \
+                  + prettier_options
         else:
             cmd = [node_path] \
-                + [prettier_cli_path] \
-                + ['--stdin'] \
-                + prettier_options
+                  + [prettier_cli_path] \
+                  + ['--stdin'] \
+                  + prettier_options
 
         try:
             format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
@@ -425,10 +431,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 error_output = stderr.decode('utf-8')
                 self.error_message = format_error_message(error_output, str(proc.returncode))
 
-                # detect and scroll to 'Syntax Errors':
-                _, _, error_line, error_col = self.has_syntax_error(error_output)
-                if error_line != -1 and error_col != -1:
-                    scroll_view_to(view, error_line, error_col)
+                # detect and scroll to 'Syntax Errors' (if not formatting a selection):
+                if is_selection:
+                    _, _, error_line, error_col = self.has_syntax_error(error_output)
+                    if error_line != -1 and error_col != -1:
+                        scroll_view_to(view, error_line, error_col)
 
                 return None
 
