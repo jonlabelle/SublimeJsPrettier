@@ -37,39 +37,33 @@ show_error() {
 }
 
 show_usage() {
-    echo "release(.sh) tasks simplified."
-    echo
     echo "Usage: $SCRIPTNAME [options] <major|minor|patch|semver>"
     echo
-    echo "Positional Arguments:"
+    echo "Positional arguments:"
     echo
-    echo "  patch    auto-increment to the next patch version."
-    echo "  minor    auto-increment to the next minor version."
-    echo "  major    auto-increment to the next major version."
-    echo "  semver   the specific version number (as semver) for the release."
+    echo "  (1) patch      auto-increment to the next patch version"
+    echo "  (1) minor      auto-increment to the next minor version"
+    echo "  (1) major      auto-increment to the next major version"
+    echo "  (1) semver     the specific version number (as semver) for the release"
     echo
     echo "Options:"
     echo
-    echo "  -h, --help     show help/usage, and exit."
-    echo "  -v, --version  show the current version, and exit."
+    echo "  -h, --help     show help/usage, and exit"
+    echo "  -v, --version  show the current version, and exit"
     echo
     echo "Examples:"
     echo
-    echo "Bump to the next 'major' version:"
+    echo "To bump the release to the next 'major' version:"
+    echo "  $ $SCRIPTNAME major"
     echo
-    echo "  $SCRIPTNAME major"
+    echo "To bump the release to the next 'minor' version:"
+    echo "  $ $SCRIPTNAME minor"
     echo
-    echo "Bump to the next 'minor' version:"
+    echo "To bump the release to the next 'patch' version:"
+    echo "  $ $SCRIPTNAME patch"
     echo
-    echo "  $SCRIPTNAME minor"
-    echo
-    echo "Bump to the next 'patch' version:"
-    echo
-    echo "  $SCRIPTNAME patch"
-    echo
-    echo "Bump to the specified version:"
-    echo
-    echo "  $SCRIPTNAME 1.2.1"
+    echo "To bump the release to a specific semver version:"
+    echo "  $ $SCRIPTNAME 1.2.1"
     echo
 }
 
