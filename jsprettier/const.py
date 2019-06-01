@@ -1,6 +1,15 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import os
+import re
+
+from sys import version_info
+
+import sublime
+
+IS_PY2 = version_info[0] == 2
+IS_ST3 = int(sublime.version()) >= 3000
 
 PLUGIN_NAME = 'JsPrettier'
 PLUGIN_CMD_NAME = 'js_prettier'
@@ -8,7 +17,14 @@ PROJECT_SETTINGS_KEY = PLUGIN_CMD_NAME
 SETTINGS_FILENAME = '{0}.sublime-settings'.format(PLUGIN_NAME)
 PRETTIER_OPTIONS_KEY = 'prettier_options'
 
-# https://prettier.io/docs/en/configuration.html
+PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
+
+SYNTAX_ERROR_RE = re.compile(
+    r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)',
+    re.MULTILINE
+)
+
+# ref: https://prettier.io/docs/en/configuration.html
 PRETTIER_CONFIG_FILES = [
     '.prettierrc',
     '.prettierrc.yml',

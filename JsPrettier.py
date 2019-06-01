@@ -5,31 +5,24 @@ from __future__ import print_function
 
 import fnmatch
 import os
-import sys
 
-from re import match, compile as re_compile, M as RE_MULTILINE
+from sys import version_info
+from re import match
 from subprocess import PIPE
 from subprocess import Popen
 
 import sublime
 import sublime_plugin
 
-
-PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
-
-IS_ST3 = int(sublime.version()) >= 3000
-IS_PY2 = sys.version_info[0] == 2
-
-SYNTAX_ERROR_RE = re_compile(
-    r'^.+?:\s(?:(?P<error>SyntaxError)):\s(?P<message>.+) \((?P<line>\d+):(?P<col>\d+)\)',
-    RE_MULTILINE)
-
-if IS_PY2:
-    # st with python 2x
+if version_info[0] == 2:
+    # st-v2x with py-v2x
+    from jsprettier.const import IS_ST3
     from jsprettier.const import PLUGIN_CMD_NAME
     from jsprettier.const import PLUGIN_NAME
+    from jsprettier.const import PLUGIN_PATH
     from jsprettier.const import PRETTIER_OPTION_CLI_MAP
     from jsprettier.const import SETTINGS_FILENAME
+    from jsprettier.const import SYNTAX_ERROR_RE
 
     from jsprettier.sthelper import debug_enabled
     from jsprettier.sthelper import expand_var
@@ -63,10 +56,14 @@ if IS_PY2:
     from jsprettier.util import resolve_prettier_ignore_path
     from jsprettier.util import trim_trailing_ws_and_lines
 else:
+    # st3x with py-v3x
+    from .jsprettier.const import IS_ST3
     from .jsprettier.const import PLUGIN_CMD_NAME
     from .jsprettier.const import PLUGIN_NAME
+    from .jsprettier.const import PLUGIN_PATH
     from .jsprettier.const import PRETTIER_OPTION_CLI_MAP
     from .jsprettier.const import SETTINGS_FILENAME
+    from .jsprettier.const import SYNTAX_ERROR_RE
 
     from .jsprettier.sthelper import debug_enabled
     from .jsprettier.sthelper import expand_var
@@ -97,7 +94,6 @@ else:
     from .jsprettier.util import is_str_none_or_empty
     from .jsprettier.util import is_windows
     from .jsprettier.util import list_to_str
-
     from .jsprettier.util import resolve_prettier_ignore_path
     from .jsprettier.util import trim_trailing_ws_and_lines
 

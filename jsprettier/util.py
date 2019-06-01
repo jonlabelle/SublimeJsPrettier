@@ -8,16 +8,13 @@ import functools
 import json
 import os
 import platform
-import sys
 
 from re import sub
 
+from .const import IS_PY2
 from .const import PLUGIN_NAME
 from .const import PRETTIER_CONFIG_FILES
 from .const import PRETTIER_IGNORE_FILE
-
-
-IS_PY2 = sys.version_info[0] == 2
 
 if IS_PY2:
     text_type = unicode

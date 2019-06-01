@@ -1,24 +1,22 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import os
+import sublime
+
+from .const import AUTO_FORMAT_FILE_EXTENSIONS
+from .const import IS_ST3
+from .const import PLUGIN_NAME
+from .const import PRETTIER_OPTIONS_KEY
+from .const import PROJECT_SETTINGS_KEY
+from .const import SETTINGS_FILENAME
+
 from .util import ensure_file_has_ext
 from .util import is_bool_str
 from .util import is_str_none_or_empty
 from .util import is_windows
 from .util import to_str
 from .util import which
-
-from .const import AUTO_FORMAT_FILE_EXTENSIONS
-from .const import PLUGIN_NAME
-from .const import PRETTIER_OPTIONS_KEY
-from .const import PROJECT_SETTINGS_KEY
-from .const import SETTINGS_FILENAME
-
-import os
-import sublime
-
-
-IS_ST3 = int(sublime.version()) >= 3000
 
 
 def st_status_message(msg):
