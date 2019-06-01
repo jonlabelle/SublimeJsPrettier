@@ -399,18 +399,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # automatically prepend the environment detected node[.exe|.cmd] path to
             # the generated command (see #146 --no-bin-links).
             cmd = [resolve_node_path()] \
-                  + [prettier_cli_path] \
-                  + ['--stdin'] \
-                  + prettier_options
+                + [prettier_cli_path] \
+                + ['--stdin'] \
+                + prettier_options
         elif is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
-                  + ['--stdin'] \
-                  + prettier_options
+                + ['--stdin'] \
+                + prettier_options
         else:
             cmd = [node_path] \
-                  + [prettier_cli_path] \
-                  + ['--stdin'] \
-                  + prettier_options
+                + [prettier_cli_path] \
+                + ['--stdin'] \
+                + prettier_options
 
         try:
             format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
