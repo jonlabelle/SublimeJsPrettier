@@ -116,8 +116,8 @@ file. When `auto_format_on_save` is `true`, the **entire file** will be formatte
 
 ### Custom Key Binding
 
-To add a [custom key binding] for `JsPrettier`, please reference the following
-example which binds the `js_prettier` command to <kbd>ctrl + alt + f</kbd>:
+To add a [custom key binding], please reference the following example which
+binds the `js_prettier` command to <kbd>ctrl + alt + f</kbd>:
 
 ```json
 { "keys": ["ctrl+alt+f"], "command": "js_prettier" }
@@ -129,10 +129,10 @@ Plug-in settings and Prettier options can be configured by navigating the
 application menu to:
 
 - **Preferences**
-    - Package Settings
+    - **Package Settings**
         - **JsPrettier**
-        - Settings - Default (to view the defaults)
-        - Settings - User (to override the defaults)
+        - **Settings - Default** (to view the defaults)
+        - **Settings - User** (to override the defaults)
 
 ### Sublime Text Settings
 
