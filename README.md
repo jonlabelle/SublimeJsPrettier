@@ -107,7 +107,7 @@ There are three available options to format code:
 
 1. **Command Palette:** From the command palette (<kbd>ctrl/cmd + shift + p</kbd>), type **JsPrettier Format Code**.
 2. **Context Menu:** Right-click anywhere in the file to bring up the context menu and select **JsPrettier Format Code**.
-3. **Key Binding:** There is no default key binding to run Prettier, but [here's](#custom-key-binding) how to add your own.
+3. **Key Binding:** There is no default key binding to run Prettier, but here's how to [add your own].
 
 ### Command Scope
 
@@ -555,3 +555,4 @@ Jon LaBelle
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
 [seen below]: #example-sublime-text-project-file "See the Sublime Text project file example"
+[add your own]: #custom-key-binding "See how to add a custom key binding to run Prettier"
