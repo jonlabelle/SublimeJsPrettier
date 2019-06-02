@@ -11,8 +11,7 @@ JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code formatte
 
 ## Install Prettier
 
-If you installed Prettier globally (using the yarn or npm command below), there
-is nothing else you need to do.
+If you installed Prettier globally (using the yarn or npm command below), you're all set... otherwise:
 
     # using yarn:
     yarn global add prettier

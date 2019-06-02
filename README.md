@@ -55,8 +55,7 @@ Operating Systems.
 
 ### Install Prettier
 
-If you installed [Prettier] globally (using the [yarn] or [npm] command below),
-there's nothing else you need to do.
+If you've already installed [Prettier] globally (using the [yarn] or [npm] command below), you're all set... otherwise:
 
 ```bash
 # using yarn:
