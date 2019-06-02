@@ -7,8 +7,7 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code
-formatter.
+JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code formatter.
 
 ## Install Prettier
 
