@@ -106,7 +106,7 @@ git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
 There are three available options to format code:
 
 1. **Command Palette:** From the command palette (<kbd>ctrl/cmd + shift + p</kbd>), type **JsPrettier Format Code**.
-2. **Context Menu:** Right-click anywhere in the file then select **JsPrettier Format Code**.
+2. **Context Menu:** Right-click anywhere in the file to bring up the context menu and select **JsPrettier Format Code**.
 3. **Key Binding:** There is no default key binding to run Prettier, but [here's](#custom-key-binding) how to add your own.
 
 ### Command Scope
