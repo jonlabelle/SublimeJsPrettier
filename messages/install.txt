@@ -7,125 +7,40 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-    JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code
-    formatter.
-
+JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code
+formatter.
 
 ## Install Prettier
 
-    If you installed Prettier globally (using the yarn or npm command below),
-    there is nothing else you need to do.
+If you installed Prettier globally (using the yarn or npm command below), there
+is nothing else you need to do.
 
-        # using yarn:
-        yarn global add prettier
+    # using yarn:
+    yarn global add prettier
 
-        # using npm:
-        npm install -g prettier
-
-    You may be required to specify the path to the `prettier` executable, which
-    is configurable in the Package's settings file...
-
-        -> "Preferences"
-        -> "Package Settings"
-        -> "JsPrettier"
-            -> "Settings - Default" (To view the default settings)
-            -> "Settings - User"    (To override the default settings)
-
+    # using npm:
+    npm install -g prettier
 
 ## Usage
 
-    To run the JsPrettier command... open the Sublime Text Command Palette
-    (super + shift + p), and type "JsPrettier: Format Code".
+There are three available options to format code:
 
-    You can also right-click anywhere on the file to bring up the Context Menu
-    and select "JsPrettier Format Code".
-
-
-    ### Command Scope
-
-        `JsPrettier` will attempt to format selections of code first, otherwise
-        the entire file will be formatted.
-
-        > NOTE: When the `auto_format_on_save` setting is set to `true`, the
-        > entire file will always be formatted.
-
-    ### Custom Key Binding
-
-        To add a custom key binding to JsPrettier, please reference the
-        following example which binds `js_prettier` to "ctrl/cmd + alt + f".
-
-            { "keys": ["super+alt+f"], "command": "js_prettier" }
-
-
-## Settings
-
-    All Prettier options are configurable from the "JsPrettier.sublime-settings"
-    file, accessible from the Preferences > Package Settings > JsPrettier menu
-    shortcut.
-
-    ### Project-level Settings
-
-    JsPrettier supports Project-level settings, specified in
-    "<project_name>.sublime-project" files. In order for Project-level
-    settings to override the Defaults and User configured settings, a new
-    "js_prettier" section must be created under the project file's
-    "settings" section.
-
-    Example Sublime Project File:
-
-        {
-            "folders": [
-                {
-                    "path": "."
-                }
-            ],
-            "settings": {
-                "js_prettier": {
-                    "debug": false,
-                    "prettier_cli_path": "",
-                    "node_path": "",
-                    "auto_format_on_save": false,
-                    "auto_format_on_save_excludes": [],
-                    "auto_format_on_save_requires_prettier_config": false,
-                    "allow_inline_formatting": false,
-                    "custom_file_extensions": [],
-                    "max_file_size_limit": -1,
-                    "disable_tab_width_auto_detection": false,
-                    "disable_prettier_cursor_offset": false,
-                    "additional_cli_args": {},
-                    "prettier_options": {
-                        "printWidth": 80,
-                        "tabWidth": 2,
-                        "singleQuote": false,
-                        "trailingComma": "none",
-                        "bracketSpacing": true,
-                        "jsxBracketSameLine": false,
-                        "parser": "babel",
-                        "semi": true,
-                        "requirePragma": false,
-                        "proseWrap": "preserve",
-                        "arrowParens": "avoid",
-                        "htmlWhitespaceSensitivity": "css",
-                        "quoteProps": "as-needed"
-                    }
-                }
-            }
-        }
-
+1. Command Palette: From the command palette (ctrl/cmd + shift + p), type "JsPrettier Format Code".
+2. Context Menu: Right-click anywhere in the file to bring up the context menu then select "JsPrettier Format Code".
+3. Key Binding: There is no default key binding to run Prettier,
+   see https://github.com/jonlabelle/SublimeJsPrettier#custom-key-binding to add your own.
 
 ## Help
 
-    For additional help, including reporting issues, please visit the
-    JsPrettier homepage @ https://github.com/jonlabelle/SublimeJsPrettier.
-
+For additional help including reporting issues, please visit the JsPrettier
+home page at https://github.com/jonlabelle/SublimeJsPrettier.
 
 ## Author
 
-    Jon LaBelle
-
+Jon LaBelle
 
 ## License
 
-    The MIT License (MIT)
+The MIT License (MIT)
 
-    Copyright (c) 2019 Jon LaBelle
+Copyright (c) 2017-2019 Jon LaBelle

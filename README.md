@@ -68,23 +68,19 @@ npm install -g prettier
 
 ### Install JsPrettier via Package Control
 
-The easiest and recommended way to install Js​Prettier is
-using [Package Control].
+The easiest and recommended way to install Js​Prettier is using [Package Control].
 
-From the **main application menu**, navigate to:
+From the **application menu**, navigate to:
 
 - `Tools` -> `Command Palette...` -> `Package Control: Install Package`, type
   the word **JsPrettier**, then select it to complete the installation.
 
 ### Install JsPrettier Manually
 
-1. Download and extract Js​Prettier [zip file] to your
-   [Sublime Text Packages directory].
-2. Rename the extracted directory from `SublimeJsPrettier-master` to
-   `JsPrettier`.
+1. Download and extract Js​Prettier [zip file] to your [Sublime Text Packages directory].
+2. Rename the extracted directory from `SublimeJsPrettier-master` to `JsPrettier`.
 
-**Default Sublime Text Packages Paths:**
-<a name="default-st-paths"></a>
+**Default Sublime Text Packages Paths:** <a name="default-st-paths"></a>
 
 - **OS X:** `~/Library/Application Support/Sublime Text [2|3]/Packages`
 - **Linux:** `~/.Sublime Text [2|3]/Packages`
@@ -98,8 +94,8 @@ From the **main application menu**, navigate to:
 If you're a Git user, you can install [JsPrettier] and keep it up-to-date by
 cloning the repository directly into your [Sublime Text Packages directory].
 
-You can locate your Sublime Text Packages directory by using the menu item
-`Preferences` -> `Browse Packages...`
+> **TIP:** You can locate your Sublime Text Packages directory by using the
+> application menu `Preferences` -> `Browse Packages...`.
 
 ```bash
 git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
@@ -107,34 +103,36 @@ git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
 
 ## Usage
 
-To run the `JsPrettier` command... open the Sublime Text **Command Palette**
-(<kbd>super + shift + p</kbd>) and type ***JsPrettier: Format Code***.
+There are three available options to format code:
 
-You can also right-click anywhere in the file to bring up the **Context Menu**
-and select ***JsPrettier Format Code***.
+1. **Command Palette:** From the command palette (<kbd>ctrl/cmd + shift + p</kbd>), type **JsPrettier Format Code**.
+2. **Context Menu:** Right-click anywhere in the file then select **JsPrettier Format Code**.
+3. **Key Binding:** There is no default key binding to run Prettier, but [here's](#custom-key-binding) how to add your own.
 
 ### Command Scope
 
 `JsPrettier` will attempt to format selections of code first, then the entire
-file.
-
-> **NOTE:** When `auto_format_on_save` is `true`, the **entire file** will be
-> formatted.
+file. When `auto_format_on_save` is `true`, the **entire file** will be formatted.
 
 ### Custom Key Binding
 
-To add a [custom key binding] to `JsPrettier`, please reference the following
-example which binds `js_prettier` to <kbd>ctrl/cmd + alt + f</kbd>.
+To add a [custom key binding] for `JsPrettier`, please reference the following
+example which binds the `js_prettier` command to <kbd>ctrl + alt + f</kbd>:
 
 ```json
-{ "keys": ["super+alt+f"], "command": "js_prettier" }
+{ "keys": ["ctrl+alt+f"], "command": "js_prettier" }
 ```
 
 ## Settings
 
-All [Prettier] options are configurable from the `JsPrettier.sublime-settings`
-file, accessible from the **Preferences** > **Package Settings** >
-***JsPrettier*** menu shortcut.
+Plug-in settings and Prettier options can be configured by navigating the
+application menu to:
+
+- **Preferences**
+    - Package Settings
+        - **JsPrettier**
+        - Settings - Default (to view the defaults)
+        - Settings - User (to override the defaults)
 
 ### Sublime Text Settings
 
@@ -397,10 +395,10 @@ See the Prettier Options [doc page] for more details and examples.
 
 ### Project-level Settings
 
-JsPrettier supports [Project-level settings] set within `<project_name>.sublime-project` files.
-In order for Project-level settings to override the default and customized
-preferences, create a `js_prettier` section under the project file's `settings`
-section.
+JsPrettier supports [project-level settings], specified in `<project_name>.sublime-project` files.
+
+In order for your project-level settings to override [previous configurations](#settings),
+you'll need to add a new `js_prettier` key and section under `settings`, as [seen below].
 
 #### Example Sublime Text Project File
 
@@ -532,7 +530,7 @@ Jon LaBelle
 [Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
-[Project-level Settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
+[project-level settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
 [tab_size]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
 [installed globally]: #install-prettier
@@ -556,3 +554,4 @@ Jon LaBelle
 [Prettier PHP]: https://github.com/prettier/plugin-php
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
+[seen below]: #example-sublime-text-project-file "See the Sublime Text project file example"
