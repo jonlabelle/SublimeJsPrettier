@@ -251,7 +251,8 @@
 	//         "--config": "${project_path}/.prettierrc",
 	//         "--config-precedence": "prefer-file",
 	//         "--ignore-path": "${file_path}/.prettierignore",
-	//         "--with-node-modules": ""
+	//         "--with-node-modules": "",
+	//         "--plugin-search-dir": "$folder"
 	//     }
 	//
 	// NOTE: If choosing to specify additional cli args, it is assumed that each

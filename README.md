@@ -281,9 +281,10 @@ application menu to:
             "--config": "${project_path}/.prettierrc",
             "--config": "/some/absolute/path/to/.prettierrc",
 
-            "--config-precedence": "prefer-file",
+            "--config-precedence": "file-override",
             "--ignore-path": "${file_path}/.prettierignore",
-            "--with-node-modules": ""
+            "--with-node-modules": "",
+            "--plugin-search-dir": "$folder"
         }
     }
     ```
