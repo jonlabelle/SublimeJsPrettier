@@ -130,8 +130,8 @@ application menu to:
 - **Preferences**
     - **Package Settings**
         - **JsPrettier**
-        - **Settings - Default** (to view the defaults)
-        - **Settings - User** (to override the defaults)
+            - **Settings - Default** (to view the defaults)
+            - **Settings - User** (to override the defaults)
 
 ### Sublime Text Settings
 
