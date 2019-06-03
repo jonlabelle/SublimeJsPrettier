@@ -538,7 +538,6 @@ Jon LaBelle
 [nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
-[manual download instructions]: #manual-download
 [Sublime Text Console]: http://docs.sublimetext.info/en/latest/basic_concepts.html#sublime-text-is-programmable
 [custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
 [Prettier Configuration files]: https://prettier.io/docs/en/configuration.html
