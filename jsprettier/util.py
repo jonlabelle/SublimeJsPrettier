@@ -332,12 +332,12 @@ def get_proc_env():
 
 
 def in_source_file_path_or_project_root(source_file_dir, st_project_path, filename):
-    # check for .prettierignore in source file dir:
+    # check in source file dir:
     source_file_dir_ignore_path = os.path.join(source_file_dir, filename)
     if os.path.exists(source_file_dir_ignore_path):
         return source_file_dir_ignore_path
 
-    # check for .prettierignore in sublime text project root:
+    # check in sublime text project root dir:
     sublime_text_project_dir_path = os.path.join(st_project_path, filename)
     if os.path.exists(sublime_text_project_dir_path):
         return sublime_text_project_dir_path
