@@ -59,7 +59,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
         for config_file in PRETTIER_CONFIG_FILES:
             target = os.path.join(d, config_file)
             if os.path.exists(target):
-                if config_file == 'package.json' and not _prettier_opts_in_package_json(prettier_config):
+                if config_file == 'package.json' and not _prettier_opts_in_package_json(target):
                     continue
                 return target
 
@@ -73,7 +73,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
         for config_file in PRETTIER_CONFIG_FILES:
             target = os.path.join(d, config_file)
             if os.path.exists(target):
-                if config_file == 'package.json' and not _prettier_opts_in_package_json(prettier_config):
+                if config_file == 'package.json' and not _prettier_opts_in_package_json(target):
                     continue
                 return target
 
