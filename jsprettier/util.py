@@ -43,25 +43,41 @@ def contains(needle, haystack):
     return needle in haystack
 
 
+@memoize
 def find_prettier_config(start_dir, alt_dirs=None):
+    """
+    Find a prettier config file by searching up the file hierarchy.
+
+    Hat tip to SublimeLinter 3!
+
+    :param start_dir: The search start path.
+    :param alt_dirs: If aux_dirs is not empty and the file hierarchy search failed,
+        those directories are also checked.
+    """
+    dirs = _climb_dirs(start_dir, limit=500)
+    for d in dirs:
+        for config_file in PRETTIER_CONFIG_FILES:
+            target = os.path.join(d, config_file)
+            if os.path.exists(target):
+                if config_file == 'package.json' and not _prettier_opts_in_package_json(prettier_config):
+                    continue
+                return target
+
     if alt_dirs is None:
         alt_dirs = []
     if '~' not in alt_dirs:
         alt_dirs.append('~')
-    prettier_config = None
-    for config_file in PRETTIER_CONFIG_FILES:
-        prettier_config = _find_file(
-            start_dir=start_dir, filename=config_file, parent=False, limit=500, aux_dirs=alt_dirs)
-        if prettier_config and os.path.exists(prettier_config):
-            # check for prettier key defined package.json
-            if os.path.basename(prettier_config) == 'package.json' and not \
-                    _prettier_opts_in_package_json(prettier_config):
-                # no prettier key... reset found confile to None
-                prettier_config = None
-                continue
-            break
 
-    return prettier_config
+    for d in alt_dirs:
+        d = os.path.expanduser(d)
+        for config_file in PRETTIER_CONFIG_FILES:
+            target = os.path.join(d, config_file)
+            if os.path.exists(target):
+                if config_file == 'package.json' and not _prettier_opts_in_package_json(prettier_config):
+                    continue
+                return target
+
+    return None
 
 
 def _climb_dirs(start_dir, limit=None):
@@ -71,7 +87,8 @@ def _climb_dirs(start_dir, limit=None):
     Hat tip goes to SublimeLinter 3.
 
     :param start_dir: The search start path.
-    :param limit: If limit is None, stop at the root directory. Otherwise return a maximum of limit directories.
+    :param limit: If limit is None, the search will continue up to the root directory.
+        Otherwise a maximum of limit directories will be checked.
     """
     right = True
 
@@ -81,43 +98,6 @@ def _climb_dirs(start_dir, limit=None):
 
         if limit is not None:
             limit -= 1
-
-
-def _find_file(start_dir, filename, parent=False, limit=None, aux_dirs=None):
-    """
-    Find the given file by searching up the file hierarchy from start_dir.
-
-    Hat tip goes to SublimeLinter 3.
-
-    :param start_dir: The search start path.
-    :param filename: The file name to search for.
-    :param parent: If the file is found and parent is False, returns the path to the file.
-        If parent is True the path to the file's parent directory is returned.
-    :param limit: If limit is None, the search will continue up to the root directory.
-        Otherwise a maximum of limit directories will be checked.
-    :param aux_dirs: If aux_dirs is not empty and the file hierarchy search failed,
-        those directories are also checked.
-    """
-    if aux_dirs is None:
-        aux_dirs = []
-    for d in _climb_dirs(start_dir, limit=limit):
-        target = os.path.join(d, filename)
-
-        if os.path.exists(target):
-            if parent:
-                return d
-
-            return target
-
-    for d in aux_dirs:
-        d = os.path.expanduser(d)
-        target = os.path.join(d, filename)
-
-        if os.path.exists(target):
-            if parent:
-                return d
-
-            return target
 
 
 def _prettier_opts_in_package_json(package_json_file):
@@ -325,8 +305,7 @@ def get_proc_env():
     if not is_windows():
         env = os.environ.copy()
         usr_path = ':/usr/local/bin'
-        if not env_path_contains(usr_path) \
-                and env_path_exists(usr_path):
+        if not env_path_contains(usr_path) and env_path_exists(usr_path):
             env['PATH'] += usr_path
     return env
 
