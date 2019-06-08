@@ -324,6 +324,7 @@ def in_source_file_path_or_project_root(source_file_dir, st_project_path, filena
     return None
 
 
+@memoize
 def resolve_prettier_ignore_path(source_file_dir, st_project_path):
     """Look for a '.prettierignore'
 

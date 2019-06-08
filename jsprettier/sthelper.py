@@ -15,6 +15,7 @@ from .util import ensure_file_has_ext
 from .util import is_bool_str
 from .util import is_str_none_or_empty
 from .util import is_windows
+from .util import memoize
 from .util import to_str
 from .util import which
 
@@ -141,6 +142,7 @@ def has_selection(view):
     return False
 
 
+@memoize
 def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     """The prettier cli path.
 
@@ -193,7 +195,8 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     return os.path.normpath(custom_prettier_cli_path)
 
 
-def resolve_node_path():
+@memoize
+def resolve_node_path(source_file):
     node_cmd = 'node'
     if is_windows():
         node_cmd = ensure_file_has_ext(node_cmd, ".exe")
