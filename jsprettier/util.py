@@ -51,10 +51,10 @@ def find_prettier_config(start_dir, alt_dirs=None):
     Hat tip to SublimeLinter 3!
 
     :param start_dir: The search start path.
-    :param alt_dirs: If aux_dirs is not empty and the file hierarchy search failed,
+    :param alt_dirs: If alt_dirs is not empty and the file hierarchy search failed,
         those directories are also checked.
     """
-    dirs = _climb_dirs(start_dir, limit=500)
+    dirs = _generate_dirs(start_dir, limit=500)
     for d in dirs:
         for config_file in PRETTIER_CONFIG_FILES:
             target = os.path.join(d, config_file)
@@ -80,7 +80,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
     return None
 
 
-def _climb_dirs(start_dir, limit=None):
+def _generate_dirs(start_dir, limit=None):
     """
     Generate directories, starting from start_dir.
 
