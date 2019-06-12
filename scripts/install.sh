@@ -37,10 +37,8 @@ resolve_pip_cmd() {
     local py_major_ver="$1"
     local pip_cmd_ver="pip${py_major_ver}"
 
-    if [ -x "$(command -v pip)" ]; then
-        PIPCMD=$(which pip)
-    elif [ -x "$(command -v "$pip_cmd_ver")" ]; then
-        PIPCMD=$(which "$pip_cmd_ver")
+    if [ -x "$(command -v "$pip_cmd_ver")" ]; then
+        PIPCMD=$(command -v "$pip_cmd_ver")
     else
         echo "Error: Could not resolve path to pip." >&2
         exit 1
