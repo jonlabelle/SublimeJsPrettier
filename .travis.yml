@@ -1,7 +1,6 @@
 dist: trusty
 sudo: false
 
-#
 # required to run sonarqube/sonarcloud add-on:
 addons:
   sonarcloud:
@@ -23,12 +22,12 @@ python:
 node_js:
   - "node"
 
-#
-# limit clone depth to 3, to speed up build:
 git:
   depth: 3
 
 cache:
+  - npm
+  - pip
   directories:
     - $HOME/.pylint.d
     - $HOME/.sonar/cache
