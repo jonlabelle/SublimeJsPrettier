@@ -67,6 +67,11 @@ show_usage() {
     echo
 }
 
+run_tests() {
+    show_info "> Run tests"
+    bash scripts/run_tests.sh
+}
+
 bump_new_version() {
     local semver_part_to_bump oldIFS version_parts major minor patch
 
@@ -185,14 +190,14 @@ main() {
     ensure_git_branch_is_master
     ensure_git_branch_is_up_to_date
     ensure_git_repo_is_clean
+    run_tests
     bump_package_json_version
     ensure_only_one_file_changed
     confirm_git_commit_tag_release
     git_commit_tag_release
     npm_publish
     cd_previous_working_dir
-
-    echo && show_success "Finished." && echo
+    show_success "\nFinished.\n"
 }
 
 if [ $# -eq 0 ]; then
