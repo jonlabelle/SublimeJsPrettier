@@ -67,6 +67,11 @@ show_usage() {
     echo
 }
 
+run_install() {
+    show_info "> Run install"
+    bash scripts/install.sh
+}
+
 run_tests() {
     show_info "> Run tests"
     bash scripts/run_tests.sh
@@ -190,6 +195,7 @@ main() {
     ensure_git_branch_is_master
     ensure_git_branch_is_up_to_date
     ensure_git_repo_is_clean
+    run_install
     run_tests
     bump_package_json_version
     ensure_only_one_file_changed
