@@ -1,7 +1,7 @@
 dist: trusty
 sudo: false
 
-# required to run sonarqube/sonarcloud add-on:
+# required by sonarqube/sonarcloud add-on:
 addons:
   sonarcloud:
     organization: "jonlabelle-github"
@@ -26,9 +26,10 @@ git:
   depth: 3
 
 cache:
-  - npm
-  - pip
   directories:
+    - $HOME/.npm
+    - node_modules
+    - $HOME/.cache/pip
     - $HOME/.pylint.d
     - $HOME/.sonar/cache
 
