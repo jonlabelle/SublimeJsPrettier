@@ -160,10 +160,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         st_project_path = get_st_project_path()
 
         #
-        # 1. Attempt to use prettier config defined in the 'additional_cli_args' (if exist - ensure it's abs path)
-
-        # check if '--config <filename>' is defined in 'additional_cli_args'
-        # parsed_additional_cli_args = parse_additional_cli_args(self.get_additional_cli_args(view))
+        # 1. Check if defined in 'additional_cli_args':
         additional_cli_arg_config = get_cli_arg_value(self.additional_cli_args, '--config')
         if not is_str_none_or_empty(additional_cli_arg_config):
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
@@ -171,25 +168,21 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 additional_cli_arg_config = in_source_file_path_or_project_root(
                     source_file_dir, st_project_path, additional_cli_arg_config)
                 if additional_cli_arg_config and os.path.exists(additional_cli_arg_config):
-                    log_debug(view, "Using Prettier config file defined in 'additional_cli_args' config -> {0}'"
-                                    "".format(additional_cli_arg_config), True)
+                    log_debug(view, "Using Prettier config file defined in additional_cli_args '{0}'"
+                              .format(additional_cli_arg_config), True)
                     return additional_cli_arg_config
-
-                log_warn("Cannot find Prettier config file defined "
-                         "in 'additional_cli_args' -> '--config <path>'.", True)
-
+                log_warn("Could not find the Prettier config file defined in additional_cli_args '{0}'"
+                         .format(str(additional_cli_arg_config)), True)
                 return None
 
         #
-        # 2. Attempt to resolve a prettier config path:
+        # 2. Attempt to automatically resolve:
         resolved_prettier_config = find_prettier_config(source_file_dir)
         if resolved_prettier_config and os.path.exists(resolved_prettier_config):
-            log_debug(view, "Prettier config file discovered at '{0}'".format(resolved_prettier_config))
+            log_debug(view, "Found Prettier config file '{0}'".format(resolved_prettier_config))
             return resolved_prettier_config
 
-        log_debug(view, "Prettier config file not found. "
-                        "Will use Prettier options defined in Sublime Text '{0}' file."
-                  .format(SETTINGS_FILENAME), True)
+        log_debug(view, "Could not auto-resolve a Prettier config file. Using options defined in Sublime Text.", True)
 
         return None
 
@@ -262,7 +255,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 "Ensure 'prettier' is installed in your environment PATH, "
                 "or manually specify an absolute path in your '{0}' file "
                 "and the 'prettier_cli_path' setting.".format(SETTINGS_FILENAME))
-            return st_status_message('Prettier not found. Open console for more details.')
+            return st_status_message('Prettier not found. See console for more details.')
 
         # try to find a '.prettierignore' file path in the project root
         # if the '--ignore-path' option isn't specified in 'additional_cli_args':
@@ -284,7 +277,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             region = sublime.Region(0, view.size())
             source_text = view.substr(region)
             if is_str_empty_or_whitespace_only(source_text):
-                return st_status_message('Nothing to format in file.')
+                return st_status_message('Nothing to format.')
 
             result = self.format_code(
                 source_text, node_path, prettier_cli_path, prettier_options, view,
@@ -304,7 +297,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # stdout, not necessarily caught in OSError try/catch
             # exception handler
             if is_str_empty_or_whitespace_only(prettified_text):
-                self.error_message = 'Empty content returned to stdout'
+                self.error_message = 'No content returned by stdout'
                 return self.show_status_bar_error()
 
             source_modified = False
@@ -368,7 +361,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # stdout, not necessarily caught in OSError try/catch
             # exception handler
             if is_str_empty_or_whitespace_only(prettified_text):
-                self.error_message = 'Empty content returned to stdout'
+                self.error_message = 'No content returned by stdout'
                 return self.show_status_bar_error()
 
             prettified_text = trim_trailing_ws_and_lines(prettified_text)
@@ -850,7 +843,7 @@ class CommandOnSave(sublime_plugin.EventListener):
         st_project_path = get_st_project_path()
 
         #
-        # 1. Attempt to use prettier config defined in the 'additional_cli_args' (if exist - ensure it's abs path)
+        # 1. Check if defined in 'additional_cli_args':
         additional_cli_arg_config = get_cli_arg_value(self.get_additional_cli_args(view), '--config')
         if not is_str_none_or_empty(additional_cli_arg_config):
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
@@ -862,7 +855,7 @@ class CommandOnSave(sublime_plugin.EventListener):
                 return None
 
         #
-        # 2. Attempt to resolve a prettier config path:
+        # 2. Attempt to automatically resolve:
         resolved_prettier_config = find_prettier_config(source_file_dir)
         if resolved_prettier_config and os.path.exists(resolved_prettier_config):
             return resolved_prettier_config
