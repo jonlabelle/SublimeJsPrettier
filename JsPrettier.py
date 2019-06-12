@@ -463,6 +463,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     def should_show_plugin(self):
         view = self.view
+        if not view.window() or view.is_scratch() or view.is_read_only():
+            return False
         if self.allow_inline_formatting is True:
             return True
         if self.is_source_js(view) is True:
