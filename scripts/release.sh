@@ -109,18 +109,19 @@ bump_new_version() {
 }
 
 validate_version() {
-    local _version
-    _version=$1
-    if [[ ! ${_version} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-        show_error "'${_version}' is not a valid semver/version number (ex: 1.2.1)."
+    local ver
+    ver=$1
+    if [[ ! ${ver} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        show_error "'${ver}' is not a valid semver/version number (ex: 1.2.1)."
         return 1
     fi
     return 0
 }
 
 ensure_git_branch_is_master() {
+    local git_branch
     show_info "> Ensure current branch is 'master'"
-    local git_branch=$(git rev-parse --abbrev-ref HEAD)
+    git_branch=$(git rev-parse --abbrev-ref HEAD)
     if [ "$git_branch" != "master" ]; then
         show_error "'$SCRIPTNAME' must be run on the 'master' branch, and the current branch is '$git_branch'."
         exit 1
@@ -128,10 +129,11 @@ ensure_git_branch_is_master() {
 }
 
 ensure_git_branch_is_up_to_date() {
+    local git_local_hash git_remote_hash
     # compare local/remote hashes: https://stackoverflow.com/a/15119807
     show_info "> Ensure 'master' branch is up-to-date with remote"
-    local git_local_hash="$(git rev-parse --verify origin/master)"
-    local git_remote_hash="$(git ls-remote origin master | cut -d$'\t' -f 1)"
+    git_local_hash="$(git rev-parse --verify origin/master)"
+    git_remote_hash="$(git ls-remote origin master | cut -d$'\t' -f 1)"
     if [ "$git_local_hash" != "$git_remote_hash" ]; then
         show_error "git remote history differs. please pull remote changes first."
         exit 1
