@@ -55,14 +55,21 @@ Operating Systems.
 
 ### Install Prettier
 
-If you've already installed [Prettier] globally (using the [yarn] or [npm] command below), you're all set... otherwise:
+If you've already installed [Prettier] \(using one of the [yarn] or [npm]
+commands below\), you're all set... otherwise:
 
 ```bash
-# using yarn:
+# yarn (local):
+yarn add prettier --dev
+
+# yarn (global):
 yarn global add prettier
 
-# using npm:
-npm install -g prettier
+# npm (local):
+npm install --save-dev prettier
+
+# npm (global):
+npm install --global prettier
 ```
 
 ### Install JsPrettier via Package Control
