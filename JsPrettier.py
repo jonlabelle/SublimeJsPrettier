@@ -421,7 +421,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 self.error_message = format_error_message(error_output, str(proc.returncode))
 
                 # detect and scroll to 'Syntax Errors' (if not formatting a selection):
-                if is_selection:
+                if not is_selection:
                     _, _, error_line, error_col = self.has_syntax_error(error_output)
                     if error_line != -1 and error_col != -1:
                         scroll_view_to(view, error_line, error_col)
