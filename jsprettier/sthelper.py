@@ -195,6 +195,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     return os.path.normpath(custom_prettier_cli_path)
 
 
+# noinspection PyUnusedLocal
 @memoize
 def resolve_node_path(source_file):
     node_cmd = 'node'
