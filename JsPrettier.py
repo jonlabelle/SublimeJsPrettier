@@ -526,65 +526,56 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('typescript')
                     continue
-
-                if self.is_package_or_composer_json(view):
+                elif self.is_package_or_composer_json(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('json-stringify')
                     continue
-
-                if self.is_json(view):
+                elif self.is_json(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('json')
                     continue
-
-                if self.is_graphql(view):
+                elif self.is_graphql(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('graphql')
                     continue
-
-                if self.is_mdx(view):
+                elif self.is_mdx(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('mdx')
                     continue
-
-                if self.is_markdown(view):
+                elif self.is_markdown(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('markdown')
                     continue
-
-                if self.is_yaml(view):
+                elif self.is_yaml(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('yaml')
                     continue
-
-                if self.is_vue(view):
+                elif self.is_vue(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('vue')
                     continue
-
-                if self.is_angular_html(view):
+                elif self.is_angular_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('angular')
                     continue
-
-                if self.is_source_js(view) or self.is_es_module(view):
+                elif self.is_source_js(view) or self.is_es_module(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('babel')
                     continue
-
-                if self.is_css(view):
+                elif self.is_css(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('css')
                     continue
-
-                if self.is_html(view):
+                elif self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('html')
                     continue
-
-                if self.is_php(view):
+                elif self.is_php(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('php')
+                    continue
+                else:
+                    # parser couldn't be detected... let Prettier try to infer it via --stdin-filepath:
                     continue
 
             if not prettier_config_exists and not has_custom_config_defined:
