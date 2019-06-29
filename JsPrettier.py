@@ -303,8 +303,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             source_modified = False
             prettified_text = trim_trailing_ws_and_lines(prettified_text)
 
-            # Store viewport position to prevent screen jumping (#171)...
-            previous_position = self.view.viewport_position()
+            # Store viewport position to prevent screen jumping (#171):
+            previous_position = view.viewport_position()
 
             if prettified_text:
                 if prettified_text == trim_trailing_ws_and_lines(source_text):
@@ -322,8 +322,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 source_modified = True
 
             # Restore viewport position to prevent screen jumping (#171)
-            self.view.set_viewport_position((0, 0), False)
-            self.view.set_viewport_position(previous_position, False)
+            view.set_viewport_position((0, 0), False)
+            view.set_viewport_position(previous_position, False)
 
             if source_modified:
                 if not self.disable_prettier_cursor_offset and new_cursor:
