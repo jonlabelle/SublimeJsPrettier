@@ -3,8 +3,8 @@ setlocal
 
 set PYTHON=%~1
 if defined PYTHON set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-set SCRIPTSDIR=%~dp0
 
+set SCRIPTSDIR=%~dp0
 pushd "%SCRIPTSDIR%" && pushd ..
 
 echo. > Install pip requirements
@@ -14,7 +14,6 @@ echo. > Install npm packages
 npm install -g markdownlint-cli
 
 popd && popd
-
 echo.
 echo. Finished.
 endlocal
