@@ -41,7 +41,6 @@ main() {
     run_flake8
     run_pylint
     run_markdownlint
-    cd_previous_working_dir
 
     echo & echo 'Finished.'
 }
