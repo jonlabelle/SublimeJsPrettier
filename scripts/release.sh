@@ -2,39 +2,21 @@
 
 set -e
 set -o pipefail
+
 [ "$TRAVIS" == "true" ] && set -x
 
 NEW_VERSION=
 CURRENT_VERSION="$(git describe --abbrev=0 --tags)"
 
-readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
+cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 
-cd_project_root() {
-    cd "${SCRIPTSDIR}" && cd ..
-}
-
-cd_previous_working_dir() {
-    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
-}
-
-show_info() {
-    echo -e "\\e[36m${1}\\e[0m"
-}
-
-show_success() {
-    echo -e "\\e[32m${1}\\e[0m"
-}
-
-show_warning() {
-    echo -e "\\e[33m${1}\\e[0m"
-}
-
-show_error() {
-    echo -e "\\e[31mError:\\e[0m ${1}"
-}
+show_info()    { echo -e "\\e[36m${1}\\e[0m"; }
+show_success() { echo -e "\\e[32m${1}\\e[0m"; }
+show_warning() { echo -e "\\e[33m${1}\\e[0m"; }
+show_error()   { echo -e "\\e[31mError:\\e[0m ${1}"; }
 
 show_usage() {
     echo "Usage: $SCRIPTNAME [options] <major|minor|patch|semver>"
@@ -53,38 +35,37 @@ show_usage() {
     echo
     echo "Examples:"
     echo
-    echo "To bump the release to the next 'major' version:"
+    echo "  To bump the release to the next 'major' version:"
     echo "  $ $SCRIPTNAME major"
     echo
-    echo "To bump the release to the next 'minor' version:"
+    echo "  To bump the release to the next 'minor' version:"
     echo "  $ $SCRIPTNAME minor"
     echo
-    echo "To bump the release to the next 'patch' version:"
+    echo "  To bump the release to the next 'patch' version:"
     echo "  $ $SCRIPTNAME patch"
     echo
-    echo "To bump the release to a specific semver version:"
+    echo "  To bump the release to a specific semver version:"
     echo "  $ $SCRIPTNAME 1.2.1"
-    echo
 }
 
-run_install() {
-    show_info "> Run install"
+install_dependencies() {
+    show_info "> Installing dependencies..."
     bash scripts/install.sh
 }
 
 run_tests() {
-    show_info "> Run tests"
+    show_info "> Running tests..."
     bash scripts/run_tests.sh
 }
 
-bump_new_version() {
+bump_version() {
     local semver_part_to_bump oldIFS version_parts major minor patch
-
-    semver_part_to_bump=$1
 
     oldIFS="$IFS"
     IFS='.' read -a version_parts <<< "$CURRENT_VERSION"
     IFS="$oldIFS"
+
+    semver_part_to_bump=$1
 
     major=${version_parts[0]}
     minor=${version_parts[1]}
@@ -108,19 +89,25 @@ bump_new_version() {
     NEW_VERSION="$major.$minor.$patch"
 }
 
-validate_version() {
+is_valid_semver() {
+    show_info "> Validating semver..."
+
     local ver
     ver=$1
+
     if [[ ! ${ver} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         show_error "'${ver}' is not a valid semver/version number (ex: 1.2.1)."
         return 1
     fi
+
     return 0
 }
 
-ensure_git_branch_is_master() {
+git_ensure_master_branch() {
+    show_info "> Ensuring current branch is 'master'..."
+
     local git_branch
-    show_info "> Ensure current branch is 'master'"
+
     git_branch=$(git rev-parse --abbrev-ref HEAD)
     if [ "$git_branch" != "master" ]; then
         show_error "'$SCRIPTNAME' must be run on the 'master' branch, and the current branch is '$git_branch'."
@@ -128,43 +115,52 @@ ensure_git_branch_is_master() {
     fi
 }
 
-ensure_git_branch_is_up_to_date() {
-    local git_local_hash git_remote_hash
+git_ensure_latest_updates() {
     # compare local/remote hashes: https://stackoverflow.com/a/15119807
-    show_info "> Ensure 'master' branch is up-to-date with remote"
+    show_info "> Ensuring 'master' branch is up-to-date with remote..."
+
+    local git_local_hash git_remote_hash
+
     git_local_hash="$(git rev-parse --verify origin/master)"
     git_remote_hash="$(git ls-remote origin master | cut -d$'\t' -f 1)"
+
     if [ "$git_local_hash" != "$git_remote_hash" ]; then
-        show_error "git remote history differs. please pull remote changes first."
+        show_error "git remote history differs... pull remote changes first."
         exit 1
     fi
 }
 
-ensure_git_repo_is_clean() {
-    show_info "> Ensure repo is clean"
+git_ensure_clean() {
+    show_info "> Ensuring git repo is clean (no uncommitted changes)..."
+
     if ! git diff-index --quiet HEAD --; then
         show_error "git repo is dirty. commit all changes before using '$SCRIPTNAME'."
         exit 1
     fi
 }
 
-bump_package_json_version() {
-    show_info "> Bump version in 'package.json' file, 'v$CURRENT_VERSION' -> 'v$NEW_VERSION'"
-    local tmp_pkg_file="${TMPDIR:-/tmp}/package.json.$$"
+bump_package_version() {
+    show_info "> Bumping 'package.json' version from 'v$CURRENT_VERSION' to 'v$NEW_VERSION'..."
+
+    local tmp_pkg_file
+
+    tmp_pkg_file="${TMPDIR:-/tmp}/package.json.$$"
     sed -E s/'"version"\: "[0-9]+\.[0-9]+\.[0-9]+"'/'"version"\: "'"$NEW_VERSION"'"'/ package.json > "$tmp_pkg_file" && mv "$tmp_pkg_file" package.json
     grep "$NEW_VERSION" -C 1 package.json
 }
 
-ensure_only_one_file_changed() {
-    show_info "> Ensure only one file changed (package.json and version field)"
+git_ensure_one_change() {
+    show_info "> Ensuring only one change in 'package.json'..."
+
     if [[ ! $(git diff --stat) =~ "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
         show_error "expected '1 file changed, 1 insertion(+), 1 deletion(-)'. check git status and git diff."
         exit 1
     fi
 }
 
-confirm_git_commit_tag_release() {
-    show_info "> Acquire confirmation"
+confirm_release() {
+    show_info "> Acquiring confirmation for release..."
+
     while true; do
         read -r -p "Ready to commit, tag and release 'v$NEW_VERSION'? (y/n): " yn
         case ${yn} in
@@ -175,8 +171,8 @@ confirm_git_commit_tag_release() {
     done
 }
 
-git_commit_tag_release() {
-    show_info "> git commit/push/tag/push --tags"
+git_tag_release() {
+    show_info "> Tagging git release..."
     set -x
     git add package.json
     git commit -m "Bump to v$NEW_VERSION"
@@ -186,25 +182,25 @@ git_commit_tag_release() {
     set +x
 }
 
-npm_publish() {
-    show_info "> Publish npm package"
+publish_npm_package() {
+    show_info "> Publishing npm package..."
     npm publish
 }
 
 
 main() {
     cd_project_root
-    ensure_git_branch_is_master
-    ensure_git_branch_is_up_to_date
-    ensure_git_repo_is_clean
-    run_install
+    git_ensure_master_branch
+    git_ensure_latest_updates
+    git_ensure_clean
+    install_dependencies
     run_tests
-    bump_package_json_version
-    ensure_only_one_file_changed
-    confirm_git_commit_tag_release
-    git_commit_tag_release
-    npm_publish
-    cd_previous_working_dir
+    bump_package_version
+    git_ensure_one_change
+    confirm_release
+    git_tag_release
+    publish_npm_package
+
     show_success "\nFinished.\n"
 }
 
@@ -217,7 +213,7 @@ if [ $# -eq 0 ]; then
     exit 1
 else
     if [ "$1" = "patch" ] || [ "$1" = "minor" ] || [ "$1" = "major" ]; then
-        bump_new_version "$1"
+        bump_version "$1"
         main
     elif [ "$1" = "-v" ] || [ "$1" = "--version" ]; then
         echo "${CURRENT_VERSION}"
@@ -227,7 +223,7 @@ else
         exit 0
     else
         # check if the first arg is a valid semver... if so, use it.
-        validate_version $1
+        is_valid_semver $1
         if [ $? == 0 ]; then
             NEW_VERSION=$1
             main

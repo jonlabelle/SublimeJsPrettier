@@ -2,21 +2,14 @@
 
 set -e
 set -o pipefail
+
 [ "$TRAVIS" == "true" ] && set -x
 
-readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
 PIPCMD=
 
-
-cd_project_root() {
-    cd "${SCRIPTSDIR}" && cd ..
-}
-
-cd_previous_working_dir() {
-    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
-}
+cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 
 python_major_version() {
     echo -n "> Parse Python major version " >&2
@@ -57,13 +50,11 @@ install_npm_packages() {
     npm install -g markdownlint-cli
 }
 
-
 main() {
     cd_project_root
     resolve_pip_cmd "$(python_major_version)"
     install_pip_requirements
     install_npm_packages
-    cd_previous_working_dir
 
     echo && echo 'Finished.'
 }

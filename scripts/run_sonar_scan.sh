@@ -2,46 +2,21 @@
 
 set -e
 set -o pipefail
+
 [ "$TRAVIS" == "true" ] && set -x
 
-readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
 SONAR_LOGIN=$1
 SONAR_SCANNER_CMD=$2
 
+cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 
-cd_project_root() {
-    echo '> cd to project root'
-    cd "${SCRIPTSDIR}" && cd ..
-}
-
-cd_previous_working_dir() {
-    echo '> Restore previous working directory'
-    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
-}
-
-show_info() {
-    local msg="$1"
-    echo -e "\\e[36m${msg}\\e[0m"
-}
-
-show_success() {
-    local msg="$1"
-    echo -e "\\e[32m${msg}\\e[0m"
-}
-
-show_warning() {
-    local msg="$1"
-    echo -e "\\e[33mwarning\\e[0m : ${msg}"
-}
-
-show_error() {
-    local msg="$1"
-    echo -e "\\e[31mERROR\\e[0m : ${msg}"
-}
-
+show_info()    { echo -e "\\e[36m${1}\\e[0m"; }
+show_success() { echo -e "\\e[32m${1}\\e[0m"; }
+show_warning() { echo -e "\\e[33m${1}\\e[0m"; }
+show_error()   { echo -e "\\e[31mError:\\e[0m ${1}"; }
 
 show_usage() {
     echo "Usage:"
@@ -62,7 +37,6 @@ run_scan() {
     "${SONAR_SCANNER_CMD}" -Dsonar.login="${SONAR_LOGIN}"
     echo
 }
-
 
 cd_project_root
 
@@ -94,7 +68,7 @@ fi
 # Resolve sonar scanner command/executable var:
 if [ -z "$SONAR_SCANNER_CMD" ]; then
     if [ -x "$(command -v sonar-scanner)" ]; then
-        SONAR_SCANNER_CMD=$(which sonar-scanner)
+        SONAR_SCANNER_CMD=$(command -v sonar-scanner)
     else
         show_error "Missing positional arg(2) for 'SONAR_SCANNER_CMD'."
         show_usage
@@ -103,5 +77,4 @@ if [ -z "$SONAR_SCANNER_CMD" ]; then
 fi
 
 run_scan
-cd_previous_working_dir
 show_success 'Finished.'

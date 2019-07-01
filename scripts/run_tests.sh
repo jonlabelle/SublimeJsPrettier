@@ -2,21 +2,12 @@
 
 set -e
 set -o pipefail
+
 [ "$TRAVIS" == "true" ] && set -x
 
-readonly PREVIOUSWRKDIR="$(pwd)"
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
-
-cd_project_root() {
-    echo '> cd to project root'
-    cd "${SCRIPTSDIR}" && cd ..
-}
-
-cd_previous_working_dir() {
-    echo '> Restore previous working directory'
-    [ -d "${PREVIOUSWRKDIR}" ] && cd "${PREVIOUSWRKDIR}"
-}
+cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 
 run_pytest() {
     echo
