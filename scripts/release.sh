@@ -153,7 +153,7 @@ bump_package_version() {
 git_ensure_one_change() {
     show_info "> Ensuring only one change in 'package.json'..."
 
-    if [[ ! $(git diff --stat) =~ 1\ file\ changed,\ 1\ insertion(+),\ 1\ deletion(-) ]]; then
+    if [[ ! $(git diff --stat) =~ 1\ file\ changed,\ 1\ insertion\(+\),\ 1\ deletion\(-\) ]]; then
         show_error "expected '1 file changed, 1 insertion(+), 1 deletion(-)'. check git status and git diff."
         exit 1
     fi
