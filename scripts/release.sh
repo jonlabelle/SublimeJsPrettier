@@ -8,6 +8,7 @@ set -o pipefail
 NEW_VERSION=
 CURRENT_VERSION="$(git describe --abbrev=0 --tags)"
 
+# shellcheck disable=SC2005
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
@@ -62,7 +63,7 @@ bump_version() {
     local semver_part_to_bump oldIFS version_parts major minor patch
 
     oldIFS="$IFS"
-    IFS='.' read -a version_parts <<< "$CURRENT_VERSION"
+    IFS='.' read -r -a version_parts <<< "$CURRENT_VERSION"
     IFS="$oldIFS"
 
     semver_part_to_bump=$1
@@ -152,7 +153,7 @@ bump_package_version() {
 git_ensure_one_change() {
     show_info "> Ensuring only one change in 'package.json'..."
 
-    if [[ ! $(git diff --stat) =~ "1 file changed, 1 insertion(+), 1 deletion(-)" ]]; then
+    if [[ ! $(git diff --stat) =~ 1\ file\ changed,\ 1\ insertion(+),\ 1\ deletion(-) ]]; then
         show_error "expected '1 file changed, 1 insertion(+), 1 deletion(-)'. check git status and git diff."
         exit 1
     fi
@@ -223,8 +224,9 @@ else
         exit 0
     else
         # check if the first arg is a valid semver... if so, use it.
-        is_valid_semver $1
-        if [ $? == 0 ]; then
+        is_valid_semver "$1"
+        is_valid_semver_result=$?
+        if [ $is_valid_semver_result == 0 ]; then
             NEW_VERSION=$1
             main
         else
