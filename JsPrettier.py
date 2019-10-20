@@ -823,7 +823,6 @@ class CommandOnSave(sublime_plugin.EventListener):
                     'save_file': True,
                     'auto_format_prettier_config_path': resolved_prettier_config
                 })
-                return
             else:
                 view.run_command(PLUGIN_CMD_NAME, {
                     'save_file': True,
