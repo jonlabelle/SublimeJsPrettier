@@ -479,6 +479,26 @@
 		// - "preserve" - Respect the input use of quotes in object properties.
 		// --------------------------------------------------------------------
 
-		"quoteProps": "as-needed"
+		"quoteProps": "as-needed",
+
+		// --------------------------------------------------------------------
+		// vueIndentScriptAndStyle
+		// --------------------------------------------------------------------
+		//
+		// @param {string} "prettier_options.vueIndentScriptAndStyle"
+		// @default false
+		//
+		// Whether or not to indent the code inside <script> and <style> tags
+		// in Vue files. Some people (like the creator of Vue) don't indent to
+		// save an indentation level, but this might break code folding
+		// in Sublime Text.
+		//
+		// Valid Options:
+		//
+		// - false (default) - Do not indent script and style tags in Vue files.
+		// - true - Indent script and style tags in Vue files.
+		// --------------------------------------------------------------------
+
+		"vueIndentScriptAndStyle": false
 	}
 }

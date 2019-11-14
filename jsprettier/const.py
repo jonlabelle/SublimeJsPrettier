@@ -103,6 +103,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'quoteProps',
         'cli': '--quote-props',
         'default': 'as-needed'
+    },
+    {
+        'option': 'vueIndentScriptAndStyle',
+        'cli': '--vue-indent-script-and-style',
+        'default': 'false'
     }
 ]
 

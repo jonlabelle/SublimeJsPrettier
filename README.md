@@ -51,7 +51,7 @@ Operating Systems.
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v1.17 or above)
+        - [Prettier] – Opinionated code formatter (v1.19 or above)
 
 ### Install Prettier
 
@@ -398,6 +398,17 @@ application menu to:
     - "***consistent***" - If at least one property in an object requires quotes, quote all properties.
     - "***preserve***" - Respect the input use of quotes in object properties.
 
+- **vueIndentScriptAndStyle** (default: ***false***)  
+    (*Vue files Only*) Whether or not to indent the code inside `<script>`
+    and `<style>` tags in Vue files. Some people (like [the creator of Vue](https://github.com/prettier/prettier/issues/3888#issuecomment-459521863))
+    don't indent to save an indentation level, but this might break code
+    folding in Sublime Text.
+
+    Valid Options:
+
+    - ***false*** (default) - Do not indent script and style tags in Vue files.
+    - ***true*** - Indent script and style tags in Vue files.
+
 See the Prettier Options [doc page] for more details and examples.
 
 ### Project-level Settings
@@ -443,7 +454,8 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "proseWrap": "preserve",
                 "arrowParens": "avoid",
                 "htmlWhitespaceSensitivity": "css",
-                "quoteProps": "as-needed"
+                "quoteProps": "as-needed",
+                "vueIndentScriptAndStyle": false
             }
         }
     }

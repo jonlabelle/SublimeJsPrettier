@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.28.0
+
+**Release Date:** 2019-11-14
+
+- Added support for new Prettier [Vue files script and style tags indentation]
+  option; determines whether or not to indent the code inside `<script>` and
+  `<style>` tags in Vue files (requires [Prettier v1.19+]).
+
+  | Default |               CLI Override             |            API Override           |
+  |---------|----------------------------------------|-----------------------------------|
+  | false   | `--vue-indent-script-and-style <bool>` | `vueIndentScriptAndStyle: <bool>` |
+
+  **Valid options:**
+
+    - `false` (default) - Do not indent script and style tags in Vue files.
+    - `true` - Indent script and style tags in Vue files.
+
 ## 1.27.0
 
 **Release Date:** 2019-04-18
@@ -355,3 +372,5 @@
 [Prettier PHP Plugin]: https://github.com/prettier/plugin-php
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
 [Quote Props]: https://prettier.io/docs/en/options.html#quote-props
+[Vue files script and style tags indentation]: https://prettier.io/docs/en/options.html#vue-files-script-and-style-tags-indentation
+[Prettier v1.19+]: https://prettier.io/blog/2019/11/09/1.19.0.html
