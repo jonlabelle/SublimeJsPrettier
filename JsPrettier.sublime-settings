@@ -488,10 +488,10 @@
 		// @param {string} "prettier_options.vueIndentScriptAndStyle"
 		// @default false
 		//
-		// Whether or not to indent the code inside <script> and <style> tags
-		// in Vue files. Some people (like the creator of Vue) don't indent to
-		// save an indentation level, but this might break code folding
-		// in Sublime Text.
+		// (Vue files Only) Whether or not to indent the code inside <script>
+		// and <style> tags in Vue files. Some people (like the creator of Vue)
+		// don't indent to save an indentation level, but this might break code
+		// folding in Sublime Text.
 		//
 		// Valid Options:
 		//
