@@ -2,7 +2,7 @@
   "default": true,
   "headings": { "style": "atx" },
   "first-heading-h1": false,
-  "line_length": { "line_length": 120 },
+  "line_length": { "line_length": 120, "tables": false },
   "whitespace": { "br_spaces": 2 },
   "ul": { "indent": 4 },
   "ol": { "style": "ordered" },
