@@ -485,7 +485,7 @@
 		// vueIndentScriptAndStyle
 		// --------------------------------------------------------------------
 		//
-		// @param {string} "prettier_options.vueIndentScriptAndStyle"
+		// @param {bool} "prettier_options.vueIndentScriptAndStyle"
 		// @default false
 		//
 		// (Vue files Only) Whether or not to indent the code inside <script>
