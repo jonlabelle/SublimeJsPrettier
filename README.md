@@ -549,17 +549,17 @@ Jon LaBelle
 [Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
 [node.js]: https://nodejs.org
-[project-level settings]: http://docs.sublimetext.info/en/latest/reference/projects.html
-[tab_size]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
-[***translate_tabs_to_spaces***]: http://docs.sublimetext.info/en/latest/reference/settings.html#whitespace-and-indentation
+[project-level settings]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/projects.html
+[tab_size]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation
+[***translate_tabs_to_spaces***]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation
 [installed globally]: #install-prettier
 [yarn]: https://yarnpkg.com
 [npm]: https://www.npmjs.com
 [nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
-[Sublime Text Console]: http://docs.sublimetext.info/en/latest/basic_concepts.html#sublime-text-is-programmable
-[custom key binding]: http://docs.sublimetext.info/en/latest/customization/key_bindings.html
+[Sublime Text Console]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/basic_concepts.html#sublime-text-is-programmable
+[custom key binding]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/customization/key_bindings.html
 [Prettier Configuration files]: https://prettier.io/docs/en/configuration.html
 [issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE/bug_report.md
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
