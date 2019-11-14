@@ -8,9 +8,9 @@
   option; determines whether or not to indent the code inside `<script>` and
   `<style>` tags in Vue files (requires [Prettier v1.19+]).
 
-  | Default |               CLI Override             |            API Override           |
-  |---------|----------------------------------------|-----------------------------------|
-  | false   | `--vue-indent-script-and-style <bool>` | `vueIndentScriptAndStyle: <bool>` |
+  | Default |              CLI Override              |            API Override           |              Sublime Text             |
+  |---------|----------------------------------------|-----------------------------------|---------------------------------------|
+  | `false` | `--vue-indent-script-and-style <bool>` | `vueIndentScriptAndStyle: <bool>` | [`"vueIndentScriptAndStyle": <bool>`] |
 
   **Valid options:**
 
@@ -374,3 +374,4 @@
 [Quote Props]: https://prettier.io/docs/en/options.html#quote-props
 [Vue files script and style tags indentation]: https://prettier.io/docs/en/options.html#vue-files-script-and-style-tags-indentation
 [Prettier v1.19+]: https://prettier.io/blog/2019/11/09/1.19.0.html
+[`"vueIndentScriptAndStyle": <bool>`]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L502
