@@ -329,8 +329,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 if not self.disable_prettier_cursor_offset and new_cursor:
                     view.sel().clear()
                     view.sel().add(sublime.Region(new_cursor))
-                # re-run indention detection
-                view.run_command('detect_indentation')
                 st_status_message('File formatted.')
             else:
                 st_status_message('File already formatted.')
@@ -371,9 +369,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 atleast_one_selection_formatted = True
                 view.replace(edit, region, prettified_text)
 
-        # re-run indention detection
         if atleast_one_selection_formatted:
-            view.run_command('detect_indentation')
             st_status_message('Selection(s) formatted.')
 
     def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False,
