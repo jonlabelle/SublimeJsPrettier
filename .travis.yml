@@ -1,3 +1,4 @@
+os: linux
 dist: xenial
 
 # required by sonarqube/sonarcloud add-on:
