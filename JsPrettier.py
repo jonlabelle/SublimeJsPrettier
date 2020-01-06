@@ -520,7 +520,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if option_name == 'parser':
                 if self.is_typescript(view):
                     prettier_options.append(cli_option_name)
-                    prettier_options.append('typescript')
+                    if is_typescript_babel_parser(view):
+                        prettier_options.append('babel')
+                    else 
+                        prettier_options.append('typescript')
                     continue
                 elif self.is_package_or_composer_json(view):
                     prettier_options.append(cli_option_name)
@@ -864,6 +867,10 @@ class CommandOnSave(sublime_plugin.EventListener):
     @staticmethod
     def get_auto_format_on_save_requires_prettier_config(view):
         return bool(get_setting(view, 'auto_format_on_save_requires_prettier_config', False))
+
+    @staticmethod
+    def is_typescript_babel_parser(view):
+        return bool(get_setting(view, 'typescript_babel_parser', False))
 
     @staticmethod
     def is_allowed(view):
