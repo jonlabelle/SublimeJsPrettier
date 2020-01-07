@@ -271,7 +271,7 @@
 	// typescript_babel_parser
 	// --------------------------------------------------------------------
 	//
-	// @param {bool} "prettier_options.typescript_babel_parser"
+	// @param {bool} "typescript_babel_parser"
 	// @default false
 	//
 	// Use babel to parse typescript. This can be helpful when working with 
