@@ -522,7 +522,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append(cli_option_name)
                     if self.is_typescript_babel_parser(view):
                         prettier_options.append('babel')
-                    else 
+                    else:
                         prettier_options.append('typescript')
                     continue
                 elif self.is_package_or_composer_json(view):
