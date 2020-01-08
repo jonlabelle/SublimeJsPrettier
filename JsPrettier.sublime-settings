@@ -273,8 +273,8 @@
 	// @param {bool} "typescript_babel_parser"
 	// @default false
 	//
-	// Use babel to parse typescript. This can be helpful when working with 
-	// experimental javascript features and typescript together. 
+	// Use babel to parse typescript. This can be helpful when working with
+	// experimental javascript features and typescript together.
 	// --------------------------------------------------------------------
 
 	"typescript_babel_parser": false,
