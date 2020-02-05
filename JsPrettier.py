@@ -481,7 +481,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.should_show_plugin()
 
     def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path, has_custom_config_defined,
-                               has_no_config_defined, prettier_ignore_filepath, file_name):
+                               has_no_config_defined, prettier_ignore_filepath, source_file_path):
         prettier_options = []
 
         #
@@ -610,7 +610,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # detect and format css/js selection(s) within html files:
         # if not self.is_html(view):
         prettier_options.append('--stdin-filepath')
-        prettier_options.append(file_name)
+        prettier_options.append(source_file_path)
 
         if debug_enabled(view):
             if not parsed_additional_cli_args.count('--loglevel') > 0:
