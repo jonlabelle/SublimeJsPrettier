@@ -232,7 +232,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         parsed_additional_cli_args = parse_additional_cli_args(view.window(), self.additional_cli_args)
         has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
-        has_config_precedence_defined = parsed_additional_cli_args.count('--config-precedence') > 0
 
         prettier_config_path = None
         # only try to resolve prettier config if '--no-config' or '--config' are NOT in 'additional_cli_args'
@@ -268,8 +267,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options = self.parse_prettier_options(
             view, parsed_additional_cli_args, prettier_config_path,
             has_custom_config_defined, has_no_config_defined,
-            has_config_precedence_defined, prettier_ignore_filepath,
-            source_file_path)
+            prettier_ignore_filepath, source_file_path)
 
         #
         # Format entire file:
@@ -482,10 +480,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_enabled(self):
         return self.should_show_plugin()
 
-    def parse_prettier_options(self, view, parsed_additional_cli_args,
-                               prettier_config_path, has_custom_config_defined,
-                               has_no_config_defined, has_config_precedence_defined,
-                               prettier_ignore_filepath, file_name):
+    def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path, has_custom_config_defined,
+                               has_no_config_defined, prettier_ignore_filepath, file_name):
         prettier_options = []
 
         #
@@ -498,11 +494,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 prettier_options.append('--config')
                 prettier_options.append(prettier_config_path)
 
-                # set config-precedence to 'cli-override' if
-                # the key wasn't defined in additional_cli_args:
-                if not has_config_precedence_defined:
-                    prettier_options.append('--config-precedence')
-                    prettier_options.append('cli-override')
         else:
             if not has_no_config_defined and not has_custom_config_defined:
                 # only add the '--no-config' option if it's not
