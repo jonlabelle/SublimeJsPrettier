@@ -57,7 +57,7 @@ PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'trailingComma',
         'cli': '--trailing-comma',
-        'default': 'none'
+        'default': 'es5'
     },
     {
         'option': 'bracketSpacing',
@@ -92,7 +92,7 @@ PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'arrowParens',
         'cli': '--arrow-parens',
-        'default': 'avoid'
+        'default': 'always'
     },
     {
         'option': 'htmlWhitespaceSensitivity',

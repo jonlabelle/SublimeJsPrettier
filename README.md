@@ -315,7 +315,7 @@ application menu to:
 - **singleQuote** (default: ***false***)  
     Format code using single or double-quotes.
 
-- **trailingComma** (default: "***none***")  
+- **trailingComma** (default: "***es5***")  
    Controls the printing of trailing commas wherever possible. Valid options:
     - "***none***" - No trailing commas
     - "***es5***" - Trailing commas where valid in ES5 (objects, arrays, etc)
@@ -371,13 +371,13 @@ application menu to:
     - "***never***" - Do not wrap prose.
     - "***preserve***" (default) - Wrap prose as-is. available in v1.9.0+
 
-- **arrowParens** (default: "***avoid***")  
+- **arrowParens** (default: "***always***")  
     Include parentheses around a sole arrow function parameter.
 
     Valid Options:
 
-    - "***avoid***" (default) - Omit parentheses when possible. Example: `x => x`
-    - "***always***" - Always include parentheses. Example: `(x) => x`
+    - "***avoid***" - Omit parentheses when possible. Example: `x => x`
+    - "***always***" (always) - Always include parentheses. Example: `(x) => x`
 
 - **htmlWhitespaceSensitivity** (default: "***css***")  
     (*HTML Only*) Specify the global whitespace sensitivity for HTML files,
@@ -445,14 +445,14 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "printWidth": 80,
                 "tabWidth": 2,
                 "singleQuote": false,
-                "trailingComma": "none",
+                "trailingComma": "es5",
                 "bracketSpacing": true,
                 "jsxBracketSameLine": false,
                 "parser": "babel",
                 "semi": true,
                 "requirePragma": false,
                 "proseWrap": "preserve",
-                "arrowParens": "avoid",
+                "arrowParens": "always",
                 "htmlWhitespaceSensitivity": "css",
                 "quoteProps": "as-needed",
                 "vueIndentScriptAndStyle": false
