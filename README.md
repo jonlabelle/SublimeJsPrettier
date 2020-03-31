@@ -199,7 +199,6 @@ application menu to:
         "node_path": "$HOME/bin/node"
         "node_path": "${project_path}/bin/node"
         "node_path": "$ENV/bin/node"
-
         // Windows:
         "node_path": "C:/path/to/node.exe"
         "node_path": "%USERPROFILE%\\bin\\node.exe"
