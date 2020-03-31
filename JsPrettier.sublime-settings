@@ -324,7 +324,7 @@
 		// --------------------------------------------------------------------
 		//
 		// @param {string} "prettier_options.trailingComma"
-		// @default "none"
+		// @default "es5"
 		//
 		// Controls the printing of trailing commas wherever possible.
 		//
@@ -335,7 +335,7 @@
 		// "all"  - Trailing commas wherever possible (function arguments)
 		// --------------------------------------------------------------------
 
-		"trailingComma": "none",
+		"trailingComma": "es5",
 
 		// --------------------------------------------------------------------
 		// bracketSpacing
@@ -433,17 +433,17 @@
 		// --------------------------------------------------------------------
 		//
 		// @param {string} "prettier_options.arrowParens"
-		// @default "avoid"
+		// @default "always"
 		//
 		// Include parentheses around a sole arrow function parameter.
 		//
 		// Valid Options:
 		//
-		// - "avoid" (default) - Omit parentheses when possible. Example: `x => x`
-		// - "always" - Always include parentheses. Example: `(x) => x`
+		// - "avoid" - Omit parentheses when possible. Example: `x => x`
+		// - "always" (default) - Always include parentheses. Example: `(x) => x`
 		// --------------------------------------------------------------------
 
-		"arrowParens": "avoid",
+		"arrowParens": "always",
 
 		// --------------------------------------------------------------------
 		// htmlWhitespaceSensitivity
