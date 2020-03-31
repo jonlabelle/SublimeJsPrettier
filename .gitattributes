@@ -8,3 +8,5 @@
 appveyor.yml  text  eol=crlf
 
 *.gif         binary
+
+screenshots/         export-ignore
