@@ -387,16 +387,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # the generated command (see #146 --no-bin-links).
             cmd = [resolve_node_path(view.file_name())] \
                 + [prettier_cli_path] \
-                + ['--stdin'] \
                 + prettier_options
         elif is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
-                + ['--stdin'] \
                 + prettier_options
         else:
             cmd = [node_path] \
                 + [prettier_cli_path] \
-                + ['--stdin'] \
                 + prettier_options
 
         try:
