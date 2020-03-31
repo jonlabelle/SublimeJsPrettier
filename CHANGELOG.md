@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.29.0
+
+**Release Date:** 2020-03-31
+
+- Update default settings to align with [Prettier 2.0](https://prettier.io/blog/2020/03/21/2.0.0.html).
+
 ## 1.28.0
 
 **Release Date:** 2019-11-14

@@ -51,7 +51,7 @@ Operating Systems.
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v1.19 or above)
+        - [Prettier] – Opinionated code formatter (v2.x or above)
 
 ### Install Prettier
 
@@ -188,7 +188,7 @@ application menu to:
   
     **Examples:**
   
-    ```
+    ``
     ...
     {
         // macOS/Linux:
