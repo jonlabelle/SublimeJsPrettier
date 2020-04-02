@@ -141,6 +141,16 @@ def has_selection(view):
             return True
     return False
 
+def escalate(path):
+    if not os.path.exists(path):
+        return
+    parent = os.path.dirname(os.path.abspath(path))
+    while parent is not '/':
+        yield parent
+        parent = os.path.abspath(os.path.join(parent, '..'))
+    yield parent
+    return
+
 
 @memoize
 def resolve_prettier_cli_path(view, plugin_path, st_project_path):
@@ -150,6 +160,9 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     the path is resolved by searching locations in the following order,
     returning the first match of the prettier cli path...
 
+    - prettier installed relative to the view's active file: i.e.
+      walk up the hierarchy from the current view's file and look for
+      'node_modules/.bin/prettier'
     - Locally installed prettier, relative to a Sublime Text Project
       file's root directory, e.g.: `node_modules/.bin/prettier' and 'node_modules/prettier/bin-prettier.js';
     - User's $HOME/node_modules directory.
@@ -163,11 +176,22 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     """
     custom_prettier_cli_path = expand_var(view.window(), get_setting(view, 'prettier_cli_path', ''))
 
+    def prettify(somepath):
+        return os.path.join(somepath, 'node_modules', '.bin', 'prettier')
+
     if is_str_none_or_empty(custom_prettier_cli_path):
         #
+        # 0. check for prettier installed relative to active view
+        active_file_parents = escalate(view.file_name())
+        maybe_local_prettier = [p for p in active_file_parents if os.path.exists(prettify(p))]
+        if maybe_local_prettier:
+            npm_prettier = prettify(maybe_local_prettier[0])
+            if os.path.exists(npm_prettier):
+                return npm_prettier
+        #
         # 1. check locally installed prettier
-        project_prettier_path = os.path.join(st_project_path, 'node_modules', '.bin', 'prettier')
-        plugin_prettier_path = os.path.join(plugin_path, 'node_modules', '.bin', 'prettier')
+        project_prettier_path = prettify(st_project_path)
+        plugin_prettier_path = prettify(plugin_path)
         if os.path.exists(project_prettier_path):
             return project_prettier_path
         if os.path.exists(plugin_prettier_path):
