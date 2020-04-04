@@ -658,8 +658,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(view.sel()[0].b)
-        if scopename.startswith('source.less') or filename.endswith('.less') \
-                or contains('meta.selector.less', scopename) or contains('source.less.embedded.html', scopename):
+        if scopename.startswith('source.less') or filename.endswith('.less'):
             return True
         return False
 
@@ -673,9 +672,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 or contains('meta.selector.css', scopename) or contains('source.css.embedded.html', scopename):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
-            return True
-        if scopename.startswith('source.less') or filename.endswith('.less'):
-            return True
+            return Tr
         return False
 
     @staticmethod
