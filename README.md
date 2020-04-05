@@ -189,7 +189,7 @@ application menu to:
   
     **Examples:**
   
-    ``
+    ```
     ...
     {
         // macOS/Linux:
