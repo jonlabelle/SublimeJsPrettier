@@ -672,7 +672,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 or contains('meta.selector.css', scopename) or contains('source.css.embedded.html', scopename):
             return True
         if scopename.startswith('source.scss') or filename.endswith('.scss'):
-            return Tr
+            return True
         return False
 
     @staticmethod
