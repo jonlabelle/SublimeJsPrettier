@@ -162,17 +162,16 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
 
     :return: The prettier cli path.
     """
-    custom_prettier_cli_path = expand_var(view.window(), get_setting(view, 'prettier_cli_path', ''))
-
     def make_local_prettier_path(somepath):
         return os.path.join(somepath, 'node_modules', '.bin', 'prettier')
 
+    custom_prettier_cli_path = expand_var(view.window(), get_setting(view, 'prettier_cli_path', ''))
     if is_str_none_or_empty(custom_prettier_cli_path):
         #
         # 1. check for prettier installed relative to active view
-        active_file_parents = generate_dirs(os.path.dirname(view.file_name()), limit=500)
-        for p in active_file_parents:
-            closest_to_view_prettier = make_local_prettier_path(p)
+        active_view_parents = generate_dirs(os.path.dirname(view.file_name()), limit=500)
+        for parent in active_view_parents:
+            closest_to_view_prettier = make_local_prettier_path(parent)
             if os.path.exists(closest_to_view_prettier):
                 return closest_to_view_prettier
 

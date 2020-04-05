@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.30.0
+
+**Release Date:** 2020-04-05
+
+- Try to resolve Prettier closest to the current view first; and when a
+  custom path isn't specified.
+  
+  Thanks [nfmc](https://github.com/jonlabelle/SublimeJsPrettier/pull/207)!
+
 ## 1.29.0
 
 **Release Date:** 2020-03-31
