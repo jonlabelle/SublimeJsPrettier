@@ -32,17 +32,13 @@
 	// resolved by searching locations in the following order, returning the
 	// first matched path:
 	//
-	// - Locally installed prettier, relative to the Sublime Text Project file's
-	//   root directory.
-	//   e.g.: `node_modules/.bin/prettier' and `node_modules/prettier/bin-prettier.js`.
-	// - The user's home directory, e.g.: `$HOME/node_modules/.bin/prettier`.
-	// - Look in the JsPrettier Sublime Text plug-in directory for
-	//   `node_modules/.bin/prettier`.
-	// - Finally, check if prettier is installed globally,
-	//   e.g.: `yarn global add prettier`
-	//     or: `npm install -g prettier`
+	// 1. Locally installed prettier relative to active view.
+	// 2. Locally installed prettier relative to the Sublime Text Project file's root directory. e.g.: `node_modules/.bin/prettier' and `node_modules/prettier/bin-prettier.js`.
+	// 3. The current user home directory. e.g.: `$HOME/node_modules/.bin/prettier`.
+	// 4. JsPrettier Sublime Text plug-in directory.
+	// 5. Globally installed prettier.
 	//
-	// macOS/Linux Examples:
+	// macOS and Linux examples:
 	//
 	//     "prettier_cli_path": "/usr/local/bin/prettier"
 	//     "prettier_cli_path": "/some/absolute/path/to/node_modules/.bin/prettier"
@@ -52,7 +48,7 @@
 	//     "prettier_cli_path": "${project_path}/bin/prettier"
 	//     "prettier_cli_path": "$ENV/bin/prettier"
 	//
-	// Windows Examples:
+	// Windows examples:
 	//
 	//     "prettier_cli_path": "C:/path/to/prettier.cmd"
 	//     "prettier_cli_path": "%USERPROFILE%\\bin\\prettier.cmd"

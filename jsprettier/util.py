@@ -54,7 +54,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
     :param alt_dirs: If alt_dirs is not empty and the file hierarchy search failed,
         those directories are also checked.
     """
-    dirs = _generate_dirs(start_dir, limit=500)
+    dirs = generate_dirs(start_dir, limit=500)
     for d in dirs:
         for config_file in PRETTIER_CONFIG_FILES:
             target = os.path.join(d, config_file)
@@ -80,7 +80,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
     return None
 
 
-def _generate_dirs(start_dir, limit=None):
+def generate_dirs(start_dir, limit=None):
     """
     Generate directories, starting from start_dir.
 
