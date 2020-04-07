@@ -152,19 +152,17 @@ application menu to:
 - **prettier_cli_path** (default: ***empty***)  
     If Sublime Text has problems automatically resolving a path to [Prettier],
     you can set a custom path here. When the setting is empty, the plug-in will
-    attempt to find Prettier by:  
+    attempt to find Prettier by:
 
-  1. Locally installed prettier relative to active view.
-  2. Locally installed prettier relative to the Sublime Text Project file's root directory.
-     e.g.: `node_modules/.bin/prettier` and `node_modules/prettier/bin-prettier.js`.
-  3. The current user home directory. e.g.: `$HOME/node_modules/.bin/prettier`.
-  4. JsPrettier Sublime Text plug-in directory.
-  5. Globally installed prettier.
+    1. Locally installed prettier relative to active view.
+    2. Locally installed prettier relative to the Sublime Text Project file's root directory.
+    3. The current user home directory.
+    4. JsPrettier Sublime Text plug-in directory.
+    5. Globally installed prettier.
   
-  **Examples:**
+    **Examples:**
   
     ```
-    ...
     {
         // macOS and Linux examples:
         "prettier_cli_path": "/usr/local/bin/prettier"
@@ -179,7 +177,6 @@ application menu to:
         "prettier_cli_path": "C:/path/to/prettier.cmd"
         "prettier_cli_path": "%USERPROFILE%\\bin\\prettier.cmd"
     }
-    ...
     ```
 
 - **node_path** (default: ***empty***)  
@@ -189,7 +186,6 @@ application menu to:
     **Examples:**
   
     ```
-    ...
     {
         // macOS/Linux:
         "node_path": "/usr/local/bin/node"
@@ -204,7 +200,6 @@ application menu to:
         "node_path": "C:/path/to/node.exe"
         "node_path": "%USERPROFILE%\\bin\\node.exe"
     }
-    ...
     ```
 
 - **auto_format_on_save** (default: ***false***)  

@@ -67,16 +67,16 @@ To view the generated prettier command line arguments you need to enable JsPrett
     /usr/local/bin/prettier                 \
         --no-config                         \
         --print-width 80                    \
-        --tab-width 4                       \
+        --tab-width 2                       \
         --single-quote false                \
-        --trailing-comma none               \
+        --trailing-comma es5                \
         --bracket-spacing true              \
         --jsx-bracket-same-line false       \
         --parser babel                      \
         --semi true                         \
         --require-pragma false              \
         --prose-wrap preserve               \
-        --arrow-parens avoid                \
+        --arrow-parens always               \
         --html-whitespace-sensitivity css   \
         --quote-props as-needed             \
         --vue-indent-script-and-style false \
@@ -99,16 +99,16 @@ For example, the following command passes the contents of `messy_formatted_file.
     /usr/local/bin/prettier                 \
         --no-config                         \
         --print-width 80                    \
-        --tab-width 4                       \
+        --tab-width 2                       \
         --single-quote false                \
-        --trailing-comma none               \
+        --trailing-comma es5                \
         --bracket-spacing true              \
         --jsx-bracket-same-line false       \
         --parser babel                      \
         --semi true                         \
         --require-pragma false              \
         --prose-wrap preserve               \
-        --arrow-parens avoid                \
+        --arrow-parens always               \
         --html-whitespace-sensitivity css   \
         --quote-props as-needed             \
         --vue-indent-script-and-style false \
