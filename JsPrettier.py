@@ -186,7 +186,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         return None
 
-    def run(self, edit, save_file=False, auto_format_prettier_config_path=None):
+    def run(self, edit, save_file=False, auto_format_prettier_config_path=None, ignore_ignore_file=False):
         view = self.view
         source_file_path = view.file_name()
 
@@ -261,6 +261,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_ignore_filepath = None
         if not parsed_additional_cli_args.count('--ignore-path') > 0:
             prettier_ignore_filepath = resolve_prettier_ignore_path(source_file_dir, st_project_path)
+
+        if ignore_ignore_file:
+            prettier_ignore_filepath = ""
 
         #
         # Parse prettier options:

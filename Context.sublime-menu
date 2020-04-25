@@ -4,7 +4,8 @@
 	},
 	{
 		"caption": "JsPrettier Format Code",
-		"command": "js_prettier"
+		"command": "js_prettier",
+		"args": { "ignore_ignore_file": "True" }
 	},
 	{
 		"caption": "-"
