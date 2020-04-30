@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.30.4
+
+**Release Date:** 2020-04-30
+
+- Fixed format not running for newlines at end of file. Previously, if your
+  file was properly formatted except for newlines/whitespace at the end of the
+  file, JsPrettier would not actually apply the format despite it not actually
+  being fully formatted by the underlying prettier. This causes formatting
+  inconsistencies and can result in CI checks to fail if you're enforcing
+  prettier formats across your codebase.
+  
+  Thanks [rkoval](https://github.com/jonlabelle/SublimeJsPrettier/pull/213)!
+
 ## 1.30.0
 
 **Release Date:** 2020-04-05
