@@ -299,13 +299,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 return self.show_status_bar_error()
 
             source_modified = False
+            prettified_text_with_ws_and_lines = prettified_text
             prettified_text = trim_trailing_ws_and_lines(prettified_text)
 
             # Store viewport position to prevent screen jumping (#171):
             previous_position = view.viewport_position()
 
             if prettified_text:
-                if prettified_text == trim_trailing_ws_and_lines(source_text):
+                if prettified_text_with_ws_and_lines == source_text:
                     if self.ensure_newline_at_eof(view, edit) is True:
                         # no formatting changes applied, however, a line
                         # break was needed/inserted at the end of the file:
