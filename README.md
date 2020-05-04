@@ -5,6 +5,7 @@
 [![SonarQube Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.jonlabelle-github%3ASublimeJsPrettier&metric=alert_status)](https://sonarcloud.io/dashboard/index/org.jonlabelle-github:SublimeJsPrettier)
 [![Package Control Installs](https://img.shields.io/packagecontrol/dt/JsPrettier.svg?label=installs)](https://packagecontrol.io/packages/JsPrettier)
 [![Latest Release](https://img.shields.io/github/tag/jonlabelle/SublimeJsPrettier.svg?label=version)](https://github.com/jonlabelle/SublimeJsPrettier/releases)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt)
 
 > [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
 > formatter.
