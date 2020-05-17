@@ -173,6 +173,7 @@ application menu to:
         "prettier_cli_path": "$HOME/bin/prettier"
         "prettier_cli_path": "${project_path}/bin/prettier"
         "prettier_cli_path": "$ENV/bin/prettier"
+        "prettier_cli_path": "$NVM_BIN/prettier"
 
         // Windows examples:
         "prettier_cli_path": "C:/path/to/prettier.cmd"
@@ -196,6 +197,7 @@ application menu to:
         "node_path": "$HOME/bin/node"
         "node_path": "${project_path}/bin/node"
         "node_path": "$ENV/bin/node"
+        "node_path": "$NVM_BIN/node"
 
         // Windows:
         "node_path": "C:/path/to/node.exe"
