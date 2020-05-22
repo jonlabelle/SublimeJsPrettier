@@ -19,7 +19,8 @@ python:
   - "2.7"
   - "3.4"
 
-node_js: "node"
+node_js:
+  - 14
 
 cache:
   directories:
