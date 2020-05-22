@@ -48,7 +48,12 @@ install_pip_requirements() {
 
 install_npm_packages() {
     echo && echo '> Install npm packages'
-    npm install -g markdownlint-cli
+    if [ "$TRAVIS" == "true" ]; then
+        # work-around: markdownlint v0.23.1+ is broken in travis ci builds, needs further investigation (or just move to GitHub actions)
+        npm install -g markdownlint-cli@0.22.0
+    else
+        npm install -g markdownlint-cli
+    fi
 }
 
 main() {
