@@ -8,6 +8,7 @@ import functools
 import json
 import os
 import platform
+import locale
 
 from re import sub
 
@@ -377,3 +378,23 @@ def ensure_file_has_ext(file_name, file_ext):
     if not file_name.endswith(file_ext):
         return '{0}{1}'.format(file_name, file_ext)
     return file_name
+
+
+def decode_bytes(bytes_to_decode):
+    """
+    Decode and return a byte string using utf8, falling back to system's encoding if that fails.
+
+    So far we only have to do this because javac is so utterly hopeless it uses CP1252
+    for its output on Windows instead of UTF8, even if the input encoding is specified as UTF8.
+    Brilliant! But then what else would you expect from Oracle?
+
+    Source: Sublime Linter
+    https://github.com/SublimeLinter/SublimeLinter/blob/master/lint/util.py#L272
+    """
+    if not bytes_to_decode:
+        return ''
+
+    try:
+        return bytes_to_decode.decode('utf8')
+    except (UnicodeDecodeError, UnicodeError):
+        return bytes_to_decode.decode(locale.getpreferredencoding(), errors='replace')
