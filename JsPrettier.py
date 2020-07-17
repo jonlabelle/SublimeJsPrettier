@@ -55,6 +55,7 @@ if version_info[0] == 2:
     from jsprettier.util import list_to_str
     from jsprettier.util import resolve_prettier_ignore_path
     from jsprettier.util import trim_trailing_ws_and_lines
+    from jsprettier.util import decode_bytes
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
@@ -96,6 +97,7 @@ else:
     from .jsprettier.util import list_to_str
     from .jsprettier.util import resolve_prettier_ignore_path
     from .jsprettier.util import trim_trailing_ws_and_lines
+    from .jsprettier.util import decode_bytes
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -409,7 +411,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if proc.returncode != 0:
-                error_output = stderr.decode('utf-8')
+                error_output = decode_bytes(stderr)
                 self.error_message = format_error_message(error_output, str(proc.returncode))
 
                 # detect and scroll to 'Syntax Errors' (if not formatting a selection):
@@ -422,7 +424,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
             new_cursor = None
             if stderr:
-                stderr_output = stderr.decode('utf-8')
+                stderr_output = decode_bytes(stderr)
                 if provide_cursor:
                     stderr_lines = stderr_output.splitlines()
                     stderr_output, new_cursor = '\n'.join(stderr_lines[:-1]), stderr_lines[-1]
@@ -438,10 +440,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     new_cursor = int(new_cursor)
                 except ValueError:
                     log_warn(view, 'Adjusted cursor position could not be parsed (int).')
-                    return stdout.decode('utf-8'), None
-                return stdout.decode('utf-8'), new_cursor
+                    return decode_bytes(stdout), None
+                return decode_bytes(stdout), new_cursor
 
-            return stdout.decode('utf-8')
+            return decode_bytes(stdout)
         except OSError as ex:
             sublime.error_message('{0} - {1}'.format(PLUGIN_NAME, ex))
             raise
