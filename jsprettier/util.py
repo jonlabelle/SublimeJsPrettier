@@ -380,6 +380,12 @@ def ensure_file_has_ext(file_name, file_ext):
     return file_name
 
 
+def normalize_line_endings(lines):
+    if not lines:
+        return lines
+    return lines.replace('\r\n', '\n').replace('\r', '\n')
+
+
 def decode_bytes(bytes_to_decode):
     """
     Decode and return a byte string using utf8, falling back to system's encoding if that fails.
@@ -395,6 +401,6 @@ def decode_bytes(bytes_to_decode):
         return ''
 
     try:
-        return bytes_to_decode.decode('utf8')
+        return bytes_to_decode.decode('utf-8')
     except (UnicodeDecodeError, UnicodeError):
         return bytes_to_decode.decode(locale.getpreferredencoding(), errors='replace')
