@@ -388,11 +388,7 @@ def normalize_line_endings(lines):
 
 def decode_bytes(bytes_to_decode):
     """
-    Decode and return a byte string using utf8, falling back to system's encoding if that fails.
-
-    So far we only have to do this because javac is so utterly hopeless it uses CP1252
-    for its output on Windows instead of UTF8, even if the input encoding is specified as UTF8.
-    Brilliant! But then what else would you expect from Oracle?
+    Decode and return a byte string using utf-8, falling back to system's encoding if that fails.
 
     Source: Sublime Linter
     https://github.com/SublimeLinter/SublimeLinter/blob/master/lint/util.py#L272
@@ -402,5 +398,5 @@ def decode_bytes(bytes_to_decode):
 
     try:
         return bytes_to_decode.decode('utf-8')
-    except (UnicodeDecodeError, UnicodeError):
+    except UnicodeError:
         return bytes_to_decode.decode(locale.getpreferredencoding(), errors='replace')
