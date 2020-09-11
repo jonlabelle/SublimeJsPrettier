@@ -420,6 +420,8 @@ application menu to:
     allows you to switch between the default behavior (`auto`) and disabling
     this feature entirely (`off`).
 
+    See [example](https://prettier.io/blog/2020/08/24/2.1.0.html#add---embedded-language-formattingautooff-option-7875httpsgithubcomprettierprettierpull7875-by-bakkothttpsgithubcombakkot-8825httpsgithubcomprettierprettierpull8825-by-fiskerhttpsgithubcomfiskers).
+
     Valid Options:
 
     - "***auto***" (default) - Format embedded code if Prettier can automatically identify it.
