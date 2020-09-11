@@ -80,6 +80,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --html-whitespace-sensitivity css   \
         --quote-props as-needed             \
         --vue-indent-script-and-style false \
+        --embedded-language-formatting auto \
         --use-tabs false                    \
         --stdin-filepath messy.js           \
         --loglevel debug
@@ -112,6 +113,7 @@ For example, the following command passes the contents of `messy_formatted_file.
         --html-whitespace-sensitivity css   \
         --quote-props as-needed             \
         --vue-indent-script-and-style false \
+        --embedded-language-formatting auto \
         --use-tabs false                    \
         --stdin-filepath messy.js           \
         --loglevel debug                    \
@@ -150,7 +152,8 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
             "arrowParens": "always",
             "htmlWhitespaceSensitivity": "css",
             "quoteProps": "as-needed",
-            "vueIndentScriptAndStyle": false
+            "vueIndentScriptAndStyle": false,
+            "embeddedLanguageFormatting": "auto"
         }
     }
 
@@ -194,7 +197,8 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                     "arrowParens": "always",
                     "htmlWhitespaceSensitivity": "css",
                     "quoteProps": "as-needed",
-                    "vueIndentScriptAndStyle": false
+                    "vueIndentScriptAndStyle": false,
+                    "embeddedLanguageFormatting": "auto"
                 }
             }
         }

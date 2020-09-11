@@ -471,7 +471,8 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "arrowParens": "always",
                 "htmlWhitespaceSensitivity": "css",
                 "quoteProps": "as-needed",
-                "vueIndentScriptAndStyle": false
+                "vueIndentScriptAndStyle": false,
+                "embeddedLanguageFormatting": "auto"
             }
         }
     }
