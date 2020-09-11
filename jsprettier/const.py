@@ -108,6 +108,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'vueIndentScriptAndStyle',
         'cli': '--vue-indent-script-and-style',
         'default': 'false'
+    },
+    {
+        'option': 'embeddedLanguageFormatting',
+        'cli': '--embedded-language-formatting',
+        'default': 'auto'
     }
 ]
 

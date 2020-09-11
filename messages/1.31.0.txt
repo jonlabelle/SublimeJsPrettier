@@ -1,0 +1,19 @@
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                     _     ____           _   _   _                           │
+│                    | |___|  _ \ _ __ ___| |_| |_(_) ___ _ __                 │
+│                 _  | / __| |_) | '__/ _ \ __| __| |/ _ \ '__|                │
+│                | |_| \__ \  __/| | |  __/ |_| |_| |  __/ |                   │
+│                 \___/|___/_|   |_|  \___|\__|\__|_|\___|_|                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+## 1.31.0
+
+Release Date: 2020-09-11
+
+- Added support for configuring new Prettier "Embedded Language Formatting" option (requires Prettier v2.1+).
+
+  More info:
+
+    - [Prettier 2.1 Blog article](https://prettier.io/blog/2020/08/24/2.1.0.html#add---embedded-language-formattingautooff-option-7875httpsgithubcomprettierprettierpull7875-by-bakkothttpsgithubcombakkot-8825httpsgithubcomprettierprettierpull8825-by-fiskerhttpsgithubcomfiskers)
+    - [Embedded Language Formatting Documentation](https://prettier.io/docs/en/options.html#embedded-language-formatting)

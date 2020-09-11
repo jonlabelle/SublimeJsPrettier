@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.31.0
+
+**Release Date:** 2020-09-11
+
+- Added support for configuring new Prettier "Embedded Language Formatting" option (requires [Prettier v2.1+]).
+
+  More info:
+
+    - [Prettier 2.1 Blog article](https://prettier.io/blog/2020/08/24/2.1.0.html#add---embedded-language-formattingautooff-option-7875httpsgithubcomprettierprettierpull7875-by-bakkothttpsgithubcombakkot-8825httpsgithubcomprettierprettierpull8825-by-fiskerhttpsgithubcomfiskers)
+    - [Embedded Language Formatting Documentation](https://prettier.io/docs/en/options.html#embedded-language-formatting)
+
 ## 1.30.4
 
 **Release Date:** 2020-04-30
@@ -403,3 +414,4 @@
 [Vue files script and style tags indentation]: https://prettier.io/docs/en/options.html#vue-files-script-and-style-tags-indentation
 [Prettier v1.19+]: https://prettier.io/blog/2019/11/09/1.19.0.html
 [`"vueIndentScriptAndStyle": <bool>`]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L502
+[Prettier v2.1+]: https://prettier.io/blog/2020/08/24/2.1.0.html

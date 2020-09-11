@@ -52,7 +52,7 @@ Operating Systems.
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v2.x or above)
+        - [Prettier] – Opinionated code formatter (v2.1 or above)
 
 ### Install Prettier
 
@@ -406,6 +406,24 @@ application menu to:
 
     - ***false*** (default) - Do not indent script and style tags in Vue files.
     - ***true*** - Indent script and style tags in Vue files.
+
+- **embeddedLanguageFormatting** (default: "***auto***")  
+    Control whether Prettier formats quoted code embedded in the file.
+
+    When Prettier identifies cases where it looks like you've placed some code
+    it knows how to format within a string in another file, like in a tagged
+    template in JavaScript with a tag named `html` or in code blocks in
+    Markdown, it will by default try to format that code.
+
+    Sometimes this behavior is undesirable, particularly in cases where you
+    might not have intended the string to be interpreted as code. This option
+    allows you to switch between the default behavior (`auto`) and disabling
+    this feature entirely (`off`).
+
+    Valid Options:
+
+    - "***auto***" (default) - Format embedded code if Prettier can automatically identify it.
+    - "***off***" - Never automatically format embedded code.
 
 See the Prettier Options [doc page] for more details and examples.
 
