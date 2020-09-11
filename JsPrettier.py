@@ -209,7 +209,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 # sublime text 2x: limited dialog support, just show error:
                 return sublime.error_message(
                     '{0} Error\n\n'
-                    'File must first be saved.'.format(PLUGIN_NAME))
+                    'File must first be Saved.'.format(PLUGIN_NAME))
 
         #
         # set paths
@@ -220,7 +220,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         #
         # Max file size check
         if self.exceeds_max_file_size_limit(source_file_path):
-            return st_status_message('Ignored - file too large to format (max_file_size_limit).')
+            return st_status_message('File too large (see: max_file_size_limit).')
 
         source_file_dir = get_file_abs_dir(source_file_path)
         st_project_path = str(get_st_project_path())
@@ -255,10 +255,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_cli_path = resolve_prettier_cli_path(view, PLUGIN_PATH, st_project_path)
         if not prettier_cli_path:
             log_error(
-                "Ensure 'prettier' is installed in your environment PATH, "
-                "or manually specify an absolute path in your '{0}' file "
-                "and the 'prettier_cli_path' setting.".format(SETTINGS_FILENAME))
-            return st_status_message('Prettier not found. See console for more details.')
+                "Ensure Prettier is installed and defined in your environment PATH variable. "
+                "You can optionally specify a custom path in '{0}' "
+                "using the 'prettier_cli_path' setting.".format(SETTINGS_FILENAME))
+            return st_status_message('Prettier not found. Open the Console for more information.')
 
         # try to find a '.prettierignore' file path in the project root
         # if the '--ignore-path' option isn't specified in 'additional_cli_args':
@@ -299,7 +299,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # stdout, not necessarily caught in OSError try/catch
             # exception handler
             if is_str_empty_or_whitespace_only(prettified_text):
-                self.error_message = 'No content returned by stdout'
+                self.error_message = 'No content returned in process output'
                 return self.show_status_bar_error()
 
             source_modified = False
@@ -362,7 +362,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # stdout, not necessarily caught in OSError try/catch
             # exception handler
             if is_str_empty_or_whitespace_only(prettified_text):
-                self.error_message = 'No content returned by stdout'
+                self.error_message = 'No content returned in process output'
                 return self.show_status_bar_error()
 
             prettified_text = trim_trailing_ws_and_lines(prettified_text)
@@ -441,7 +441,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 try:
                     new_cursor = int(new_cursor)
                 except ValueError:
-                    log_warn(view, 'Adjusted cursor position could not be parsed (int).')
+                    log_warn(view, 'Adjusted cursor position could not be parsed.')
                     return normalize_line_endings(decode_bytes(stdout)), None
                 return normalize_line_endings(decode_bytes(stdout)), new_cursor
 

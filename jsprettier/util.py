@@ -107,7 +107,7 @@ def _prettier_opts_in_package_json(package_json_file):
             json_data = json.load(package_file)
     except Exception:
         from .sthelper import log_warn
-        log_warn("Cannot parse '{0}' file. Prettier options "
+        log_warn("Could not parse package.json file: '{0}'. Any Prettier options "
                  "defined in this file will be ignored.".format(package_json_file), True)
         return False
 
