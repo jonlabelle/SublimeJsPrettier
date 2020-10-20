@@ -326,6 +326,9 @@ application menu to:
     When *true*, multi-line jsx elements with right-angle brackets ("&gt;") are
     placed at the end of the last line, instead of alone on the next line.
 
+- **jsxSingleQuote** (default: ***false***)  
+    Use single quotes instead of double quotes in JSX.
+
 - **parser** (default: "***babel***")  
     The [`parser`] is automatically set by the plug-in (JsPrettier), based
     on the contents of current file or selection.
@@ -466,6 +469,7 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "trailingComma": "es5",
                 "bracketSpacing": true,
                 "jsxBracketSameLine": false,
+                "jsxSingleQuote": false,
                 "parser": "babel",
                 "semi": true,
                 "requirePragma": false,

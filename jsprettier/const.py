@@ -113,6 +113,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'embeddedLanguageFormatting',
         'cli': '--embedded-language-formatting',
         'default': 'auto'
+    },
+    {
+        'option': 'jsxSingleQuote',
+        'cli': '--jsx-single-quote',
+        'default': 'false'
     }
 ]
 

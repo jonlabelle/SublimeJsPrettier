@@ -72,6 +72,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --trailing-comma es5                \
         --bracket-spacing true              \
         --jsx-bracket-same-line false       \
+        --jsx-single-quote false            \
         --parser babel                      \
         --semi true                         \
         --require-pragma false              \
@@ -105,6 +106,7 @@ For example, the following command passes the contents of `messy_formatted_file.
         --trailing-comma es5                \
         --bracket-spacing true              \
         --jsx-bracket-same-line false       \
+        --jsx-single-quote false            \
         --parser babel                      \
         --semi true                         \
         --require-pragma false              \
@@ -145,6 +147,7 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
             "trailingComma": "es5",
             "bracketSpacing": true,
             "jsxBracketSameLine": false,
+            "jsxSingleQuote": false,
             "parser": "babel",
             "semi": true,
             "requirePragma": false,
@@ -190,6 +193,7 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                     "trailingComma": "es5",
                     "bracketSpacing": true,
                     "jsxBracketSameLine": false,
+                    "jsxSingleQuote": false,
                     "parser": "babel",
                     "semi": true,
                     "requirePragma": false,
