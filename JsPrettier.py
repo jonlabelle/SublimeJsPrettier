@@ -470,9 +470,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_yaml(view) is True:
             return True
-        if self.is_html(view) is True:
-            return True
         if self.is_php(view) is True:
+            return True
+        if self.is_html(view) is True:
             return True
         if is_file_auto_formattable(view) is True:
             return True
