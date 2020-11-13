@@ -39,8 +39,8 @@
 								"command": "edit_settings",
 								"args": {
 									"base_file": "${packages}/JsPrettier/JsPrettier.sublime-settings",
-									"default": "// Settings in here override those in \"${packages}/User/JsPrettier.sublime-settings\",\n\n{\n\t$0\n}\n",
-								},
+									"default": "// Settings in here override those in \"${packages}/User/JsPrettier.sublime-settings\",\n\n{\n\t$0\n}\n"
+								}
 							},
 							{
 								"caption": "-"
