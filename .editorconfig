@@ -11,7 +11,7 @@ insert_final_newline = true
 [*.py]
 max_line_length = 120
 
-[{Context.sublime-menu,JsPrettier.sublime-commands,JsPrettier.sublime-settings}]
+[{*.sublime-menu,JsPrettier.sublime-commands,JsPrettier.sublime-settings}]
 indent_style = tab
 
 [*.{json,yml}]
