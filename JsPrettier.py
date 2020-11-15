@@ -899,4 +899,8 @@ class CommandOnSave(sublime_plugin.EventListener):
 class JsPrettierOpenSiteCommand(sublime_plugin.ApplicationCommand):
 
     def run(self, url):
-        webbrowser.open_new_tab(url)
+        if url.startswith('https://github.com/jonlabelle/SublimeJsPrettier', 0, 47):
+            st_status_message('Opening web browser to {0} ...'.format(url))
+            webbrowser.open_new_tab(url)
+        else:
+            st_status_message('Cannot open untrusted addresses in web browser : {0}'.format(url))

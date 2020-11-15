@@ -46,24 +46,24 @@
 								"caption": "-"
 							},
 							{
+								"caption": "Settings – Default",
 								"command": "open_file",
 								"args": {
 									"file": "${packages}/JsPrettier/JsPrettier.sublime-settings"
-								},
-								"caption": "Settings – Default"
+								}
 							},
 							{
+								"caption": "Settings – User",
 								"command": "open_file",
 								"args": {
 									"file": "${packages}/User/JsPrettier.sublime-settings"
-								},
-								"caption": "Settings – User"
+								}
 							},
 							{
 								"caption": "-"
 							},
 							{
-								"caption": "Quickstart guide",
+								"caption": "Quickstart",
 								"command": "open_file",
 								"args": {
 									"file": "${packages}/JsPrettier/messages/install.txt"
