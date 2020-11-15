@@ -87,7 +87,7 @@
 								"caption": "Issues",
 								"command": "js_prettier_open_site",
 								"args": {
-									"file": "https://github.com/jonlabelle/SublimeJsPrettier/issues"
+									"url": "https://github.com/jonlabelle/SublimeJsPrettier/issues"
 								}
 							},
 							{
