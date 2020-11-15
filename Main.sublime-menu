@@ -35,12 +35,29 @@
 						"caption": "JsPrettier",
 						"children": [
 							{
-								"caption": "Settings",
+								"caption": "Settings (side-by-side)",
 								"command": "edit_settings",
 								"args": {
 									"base_file": "${packages}/JsPrettier/JsPrettier.sublime-settings",
 									"default": "// Settings in here override those in \"${packages}/User/JsPrettier.sublime-settings\",\n\n{\n\t$0\n}\n"
 								}
+							},
+							{
+								"caption": "-"
+							},
+							{
+								"command": "open_file",
+								"args": {
+									"file": "${packages}/JsPrettier/JsPrettier.sublime-settings"
+								},
+								"caption": "Settings – Default"
+							},
+							{
+								"command": "open_file",
+								"args": {
+									"file": "${packages}/User/JsPrettier.sublime-settings"
+								},
+								"caption": "Settings – User"
 							},
 							{
 								"caption": "-"
