@@ -63,10 +63,10 @@
 								"caption": "-"
 							},
 							{
-								"caption": "README",
+								"caption": "Quickstart guide",
 								"command": "open_file",
 								"args": {
-									"file": "${packages}/JsPrettier/README.md"
+									"file": "${packages}/JsPrettier/messages/install.txt"
 								}
 							},
 							{
