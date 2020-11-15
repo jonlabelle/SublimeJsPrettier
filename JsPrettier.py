@@ -5,6 +5,7 @@ from __future__ import print_function
 
 import fnmatch
 import os
+import webbrowser
 
 from sys import version_info
 from re import match
@@ -893,3 +894,9 @@ class CommandOnSave(sublime_plugin.EventListener):
             if match(regmatch, filename):
                 return False
         return True
+
+
+class JsPrettierOpenSiteCommand(sublime_plugin.ApplicationCommand):
+
+    def run(self, url):
+        webbrowser.open_new_tab(url)

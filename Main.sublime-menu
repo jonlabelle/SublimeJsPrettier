@@ -63,11 +63,32 @@
 								"caption": "-"
 							},
 							{
+								"caption": "Quickstart guide",
+								"command": "open_file",
+								"args": {
+									"file": "${packages}/JsPrettier/messages/install.txt"
+								}
+							},
+							{
+								"caption": "Changelog",
 								"command": "open_file",
 								"args": {
 									"file": "${packages}/JsPrettier/CHANGELOG.md"
-								},
-								"caption": "Changelog..."
+								}
+							},
+							{
+								"caption": "Homepage",
+								"command": "js_prettier_open_site",
+								"args": {
+									"url": "https://github.com/jonlabelle/SublimeJsPrettier"
+								}
+							},
+							{
+								"caption": "Issues",
+								"command": "js_prettier_open_site",
+								"args": {
+									"url": "https://github.com/jonlabelle/SublimeJsPrettier/issues"
+								}
 							},
 							{
 								"caption": "-"
