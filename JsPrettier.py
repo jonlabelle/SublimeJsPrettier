@@ -911,4 +911,3 @@ class JsPrettierClearCacheCommand(sublime_plugin.ApplicationCommand):
     def run(self):
         clear_cache()
         st_status_message('Cached paths cleared.')
-
