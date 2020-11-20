@@ -25,15 +25,23 @@ else:
     string_types = (str,)
 
 
+jspcache = {}
+
+
+def clear_cache():
+    global jspcache
+    jspcache.clear()
+
+
 def memoize(obj):
-    cache = obj.cache = {}
 
     @functools.wraps(obj)
     def memoizer(*args, **kwargs):
+        global jspcache
         key = str(args) + str(kwargs)
-        if key not in cache:
-            cache[key] = obj(*args, **kwargs)
-        return cache[key]
+        if key not in jspcache:
+            jspcache[key] = obj(*args, **kwargs)
+        return jspcache[key]
 
     return memoizer
 

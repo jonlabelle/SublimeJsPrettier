@@ -63,6 +63,13 @@
 								"caption": "-"
 							},
 							{
+								"caption": "Clear Cache",
+								"command": "js_prettier_clear_cache"
+							},
+							{
+								"caption": "-"
+							},
+							{
 								"caption": "Quickstart",
 								"command": "open_file",
 								"args": {

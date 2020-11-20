@@ -58,6 +58,7 @@ if version_info[0] == 2:
     from jsprettier.util import trim_trailing_ws_and_lines
     from jsprettier.util import normalize_line_endings
     from jsprettier.util import decode_bytes
+    from jsprettier.util import clear_cache
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
@@ -101,6 +102,7 @@ else:
     from .jsprettier.util import trim_trailing_ws_and_lines
     from .jsprettier.util import normalize_line_endings
     from .jsprettier.util import decode_bytes
+    from .jsprettier.util import clear_cache
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -897,10 +899,16 @@ class CommandOnSave(sublime_plugin.EventListener):
 
 
 class JsPrettierOpenSiteCommand(sublime_plugin.ApplicationCommand):
-
     def run(self, url):
         if url.startswith('https://github.com/jonlabelle/SublimeJsPrettier', 0, 47):
             st_status_message('Opening web browser to {0} ...'.format(url))
             webbrowser.open_new_tab(url)
         else:
             st_status_message('Cannot open untrusted addresses in web browser : {0}'.format(url))
+
+
+class JsPrettierClearCacheCommand(sublime_plugin.ApplicationCommand):
+    def run(self):
+        clear_cache()
+        st_status_message('Cached paths cleared.')
+
