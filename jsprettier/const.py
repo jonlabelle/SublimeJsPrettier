@@ -27,13 +27,16 @@ SYNTAX_ERROR_RE = re.compile(
 # ref: https://prettier.io/docs/en/configuration.html
 PRETTIER_CONFIG_FILES = [
     '.prettierrc',
+    'package.json',
     '.prettierrc.json',
     '.prettierrc.js',
-    'prettier.config.js',
-    'package.json',
-    '.prettierrc.yml',
     '.prettierrc.yaml',
-    '.prettierrc.toml'
+    '.prettierrc.yml',
+    '.prettierrc.toml',
+    '.prettierrc.cjs',
+    'prettier.config.cjs',
+    'prettier.config.js',
+    '.prettierrc.json5'
 ]
 
 PRETTIER_IGNORE_FILE = '.prettierignore'
