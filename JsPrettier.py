@@ -24,6 +24,7 @@ if version_info[0] == 2:
     from jsprettier.const import PRETTIER_OPTION_CLI_MAP
     from jsprettier.const import SETTINGS_FILENAME
     from jsprettier.const import SYNTAX_ERROR_RE
+    from jsprettier.const import GIT_FILE_CREATED_BY
 
     from jsprettier.sthelper import debug_enabled
     from jsprettier.sthelper import expand_var
@@ -68,6 +69,7 @@ else:
     from .jsprettier.const import PRETTIER_OPTION_CLI_MAP
     from .jsprettier.const import SETTINGS_FILENAME
     from .jsprettier.const import SYNTAX_ERROR_RE
+    from .jsprettier.const import GIT_FILE_CREATED_BY
 
     from .jsprettier.sthelper import debug_enabled
     from .jsprettier.sthelper import expand_var
@@ -821,6 +823,23 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 class CommandOnSave(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         if self.is_allowed(view) and self.is_enabled(view) and self.is_excluded(view):
+            if self.auto_format_on_save_if_git_file_created_by(view):
+                cmd = GIT_FILE_CREATED_BY +\
+                    ['--author', self.auto_format_on_save_if_git_file_created_by(view)] +\
+                    [view.file_name()]
+
+                proc = Popen(
+                    cmd,
+                    stderr=PIPE,
+                    stdout=PIPE,
+                    env=get_proc_env(),
+                    shell=is_windows())
+
+                stdout, stderr = proc.communicate()
+                result = decode_bytes(stdout)
+                if not result:
+                    return
+
             if self.get_auto_format_on_save_requires_prettier_config(view) is True:
                 resolved_prettier_config = self.try_find_prettier_config(view)
                 if not resolved_prettier_config:
@@ -859,6 +878,8 @@ class CommandOnSave(sublime_plugin.EventListener):
 
         return None
 
+
+
     @staticmethod
     def get_auto_format_on_save(view):
         return bool(get_setting(view, 'auto_format_on_save', False))
@@ -874,6 +895,10 @@ class CommandOnSave(sublime_plugin.EventListener):
     @staticmethod
     def get_auto_format_on_save_requires_prettier_config(view):
         return bool(get_setting(view, 'auto_format_on_save_requires_prettier_config', False))
+
+    @staticmethod
+    def auto_format_on_save_if_git_file_created_by(view):
+        return get_setting(view, 'auto_format_on_save_if_git_file_created_by', None)
 
     @staticmethod
     def is_allowed(view):

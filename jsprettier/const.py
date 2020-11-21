@@ -16,6 +16,7 @@ PLUGIN_CMD_NAME = 'js_prettier'
 PROJECT_SETTINGS_KEY = PLUGIN_CMD_NAME
 SETTINGS_FILENAME = '{0}.sublime-settings'.format(PLUGIN_NAME)
 PRETTIER_OPTIONS_KEY = 'prettier_options'
+GIT_FILE_CREATED_BY = ['git', 'log', '-1', '--diff-filter', 'A']
 
 PLUGIN_PATH = os.path.join(sublime.packages_path(), os.path.dirname(os.path.realpath(__file__)))
 

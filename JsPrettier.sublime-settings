@@ -96,7 +96,7 @@
 	// Whether or not to automatically format the file on save.
 	// ----------------------------------------------------------------------
 
-	"auto_format_on_save": false,
+	"auto_format_on_save": true,
 
 	// ----------------------------------------------------------------------
 	// Auto Format on Save Excludes
@@ -135,6 +135,8 @@
 	// ----------------------------------------------------------------------
 
 	"auto_format_on_save_requires_prettier_config": false,
+
+	"auto_format_on_save_if_git_file_created_by": "i18u",
 
 	// ----------------------------------------------------------------------
 	// Allow Inline Formatting
