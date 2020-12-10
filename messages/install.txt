@@ -5,15 +5,14 @@
 │                | |_| \__ \  __/| | |  __/ |_| |_| |  __/ |                 │
 │                 \___/|___/_|   |_|  \___|\__|\__|_|\___|_|                 │
 │                                                                            │
+│     Sublime Text Plug-in for Prettier, the opinionated code formatter.     │
 └────────────────────────────────────────────────────────────────────────────┘
 
-JsPrettier is a Sublime Text Plug-in for Prettier, the opinionated code formatter.
+## Getting started
 
-## Install Prettier
+### Install Prettier
 
-If you installed Prettier (using the yarn or npm command below), you're all set... otherwise:
-
-If you've already installed Prettier (using a command below), you're all set... otherwise:
+If you've already installed Prettier, you're all set... otherwise:
 
     # yarn (local):
     yarn add prettier --dev
@@ -27,26 +26,35 @@ If you've already installed Prettier (using a command below), you're all set... 
     # npm (global):
     npm install --global prettier
 
-## Usage
+### Usage
 
-There are three available options to format code:
+There are three ways to format code...
 
-1. Command Palette: From the command palette (ctrl/cmd + shift + p), type "JsPrettier Format Code".
-2. Context Menu: Right-click anywhere in the file to bring up the context menu and select "JsPrettier Format Code".
-3. Key Binding: There is no default key binding to run Prettier,
-   see https://github.com/jonlabelle/SublimeJsPrettier#custom-key-binding to add your own.
+1. Command Palette
 
-## Help
+    "Ctrl/Cmd + Shift + P", then type "JsPrettier Format Code".
 
-For additional help including reporting issues, please visit the JsPrettier
+2. Context Menu
+
+    Right-click the file view and select "JsPrettier Format Code".
+
+3. Key Binding
+
+    There is no default key binding for this plug-in.
+
+    To add a key binding, navigate to "Preferences" -> "Key Bindings...", and
+    add an entry for "js_prettier". For example...
+
+        { "keys": ["shift+alt+f"], "command": "js_prettier" }
+
+    Change "shift+alt+f" with your preferred key combination.
+
+## Issues
+
+For additional help, including reporting issues, please visit the JsPrettier
 home page at https://github.com/jonlabelle/SublimeJsPrettier.
-
-## Author
-
-Jon LaBelle
 
 ## License
 
 The MIT License (MIT)
-
-Copyright (c) 2017-2019 Jon LaBelle
+Copyright (c) Jon LaBelle
