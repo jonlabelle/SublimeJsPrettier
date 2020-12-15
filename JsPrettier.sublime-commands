@@ -4,6 +4,18 @@
 		"command": "js_prettier"
 	},
 	{
+		"caption": "JsPrettier: Clear Cache",
+		"command": "js_prettier_clear_cache"
+	},
+	{
+		"caption": "Preferences: JsPrettier Settings - Side-by-Side",
+		"command": "edit_settings",
+		"args": {
+			"base_file": "${packages}/JsPrettier/JsPrettier.sublime-settings",
+			"default": "// Settings in here override those in \"${packages}/JsPrettier/JsPrettier.sublime-settings\",\n\n{\n\t$0\n}\n"
+		}
+	},
+	{
 		"caption": "Preferences: JsPrettier Settings - Default",
 		"command": "open_file",
 		"args": {
