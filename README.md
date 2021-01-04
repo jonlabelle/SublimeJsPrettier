@@ -627,4 +627,4 @@ Jon LaBelle
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
 [seen below]: #example-sublime-text-project-file "See the Sublime Text project file example"
 [add your own]: #custom-key-binding "See how to add a custom key binding to run Prettier"
-[.editorconfig]: https://editorconfig.org/
+[\.editorconfig]: https://editorconfig.org/
