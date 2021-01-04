@@ -121,6 +121,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'jsxSingleQuote',
         'cli': '--jsx-single-quote',
         'default': 'false'
+    },
+    {
+        'option': 'editorconfig',
+        'cli': '--editorconfig',
+        'default': 'true'
     }
 ]
 

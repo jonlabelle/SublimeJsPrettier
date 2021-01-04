@@ -83,6 +83,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --vue-indent-script-and-style false \
         --embedded-language-formatting auto \
         --use-tabs false                    \
+        --editorconfig true                 \
         --stdin-filepath messy.js           \
         --loglevel debug
 
@@ -117,6 +118,7 @@ For example, the following command passes the contents of `messy_formatted_file.
         --vue-indent-script-and-style false \
         --embedded-language-formatting auto \
         --use-tabs false                    \
+        --editorconfig true                 \
         --stdin-filepath messy.js           \
         --loglevel debug                    \
         < messy.js
@@ -156,7 +158,8 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
             "htmlWhitespaceSensitivity": "css",
             "quoteProps": "as-needed",
             "vueIndentScriptAndStyle": false,
-            "embeddedLanguageFormatting": "auto"
+            "embeddedLanguageFormatting": "auto",
+            "editorconfig": true
         }
     }
 
@@ -202,7 +205,8 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                     "htmlWhitespaceSensitivity": "css",
                     "quoteProps": "as-needed",
                     "vueIndentScriptAndStyle": false,
-                    "embeddedLanguageFormatting": "auto"
+                    "embeddedLanguageFormatting": "auto",
+                    "editorconfig": true
                 }
             }
         }

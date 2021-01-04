@@ -535,6 +535,30 @@
 		// - "off" - Never automatically format embedded code.
 		// --------------------------------------------------------------------
 
-		"embeddedLanguageFormatting": "auto"
+		"embeddedLanguageFormatting": "auto",
+
+		// --------------------------------------------------------------------
+		// editorconfig
+		// --------------------------------------------------------------------
+		//
+		// @param {bool} "prettier_options.editorconfig"
+		// @default true
+		//
+		// Whether to take into account .editorconfig files when parsing
+		// configuration.
+		//
+		// If editorconfig is true and an .editorconfig file is in your
+		// project, Prettier will parse it and convert its properties to the
+		// corresponding Prettier configuration. This configuration will be
+		// overridden by .prettierrc, etc. Currently, the following
+		// EditorConfig properties are supported:
+		//
+		// - end_of_line
+		// - indent_style
+		// - indent_size/tab_width
+		// - max_line_length
+		// --------------------------------------------------------------------
+
+		"editorconfig": true
 	}
 }

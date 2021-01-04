@@ -430,6 +430,20 @@ application menu to:
     - "***auto***" (default) - Format embedded code if Prettier can automatically identify it.
     - "***off***" - Never automatically format embedded code.
 
+- **editorconfig** (default: ***true***)  
+    Whether to take into account [\.editorconfig] files when parsing configuration.
+
+    If `editorconfig` is `true` and an .editorconfig file is in your project,
+    Prettier will parse it and convert its properties to the corresponding
+    Prettier configuration. This configuration will be overridden by
+    .prettierrc, etc. Currently, the following EditorConfig properties
+    are supported:
+
+    - `end_of_line`
+    - `indent_style`
+    - `indent_size/tab_width`
+    - `max_line_length`
+
 See the Prettier Options [doc page] for more details and examples.
 
 ### Project-level Settings
@@ -478,7 +492,8 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "htmlWhitespaceSensitivity": "css",
                 "quoteProps": "as-needed",
                 "vueIndentScriptAndStyle": false,
-                "embeddedLanguageFormatting": "auto"
+                "embeddedLanguageFormatting": "auto",
+                "editorconfig": true
             }
         }
     }
@@ -612,3 +627,4 @@ Jon LaBelle
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
 [seen below]: #example-sublime-text-project-file "See the Sublime Text project file example"
 [add your own]: #custom-key-binding "See how to add a custom key binding to run Prettier"
+[.editorconfig]: https://editorconfig.org/
