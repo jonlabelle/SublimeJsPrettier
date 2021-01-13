@@ -576,6 +576,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     # parser couldn't be detected... let Prettier try to infer it via --stdin-filepath:
                     continue
 
+            if option_name == 'editorconfig':
+                if str(option_value).lower() == 'false':
+                    # only include negated editorconfig option, since default is already true
+                    # and can otherwise break prettier-eslint plug-in, see #235
+                    prettier_options.append("--no-editorconfig")
+                continue
+
             if not prettier_config_exists and not has_custom_config_defined:
                 # add the cli args or the respective defaults:
                 if option_value is None or str(option_value) == '':
