@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.38.0
+
+**Release Date:** 2021-01-27
+
+Added [Prettier Ignore](https://prettier.io/docs/en/ignore.html) snippets for:
+
+- CSS
+- GraphQL
+- HTML
+- Handlebars
+- JSX
+- JavaScript
+- Markdown
+- YAML
+
+Tab trigger is `pi`.
+
 ## 1.31.0
 
 **Release Date:** 2020-09-11
