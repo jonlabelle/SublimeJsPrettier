@@ -598,11 +598,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                             prettier_options.append(cli_option_name)
                             prettier_options.append(str(self.tab_size))
                         else:
-                            if not has_additional_cli_for_tab_width:
-                                prettier_options.append(cli_option_name)
-                                prettier_options.append(option_value)
-                    else:
-                        if not has_additional_cli_for_tab_width:
                             prettier_options.append(cli_option_name)
                             prettier_options.append(option_value)
                     continue
