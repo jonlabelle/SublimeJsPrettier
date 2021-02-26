@@ -1,6 +1,8 @@
 <snippet>
-  <content><![CDATA[{{! prettier-ignore }}]]></content>
+  <content>
+    <![CDATA[# prettier-ignore]]>
+  </content>
   <tabTrigger>pi</tabTrigger>
-  <scope>text.html.handlebars</scope>
+  <scope>source.yaml</scope>
   <description>Prettier Ignore: exclude next node from formatting (JsPrettier)</description>
 </snippet>
