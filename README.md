@@ -578,7 +578,10 @@ npm install @prettier/plugin-php
 
 ### Prettier Community Plugins
 
-Here's an [example SublimeText project](https://github.com/jonlabelle/SublimeJsPrettier/files/6498394/jsprettier-and-prettier-community-plugin-example.zip) \(posted in [Issue #239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)\) that uses the Prettier Community Plugin [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template) to format `*.gohtml` files.
+Here's an [example SublimeText project](https://github.com/jonlabelle/SublimeJsPrettier/files/6498394/jsprettier-and-prettier-community-plugin-example.zip)
+\(posted in [Issue #239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)\)
+that uses the Prettier Community Plugin [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template)
+to format `*.gohtml` files.
 
 ## Issues
 
