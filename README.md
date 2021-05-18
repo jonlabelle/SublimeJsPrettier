@@ -559,7 +559,7 @@ Thus, in order for these settings to be re-detected, you will need to restart
 Sublime Text after updating their values, or select the `Clear Cache` option
 from the main menu under <kbd>Preferences</kbd> -> <kbd>Package Settings</kbd> -> <kbd>JsPrettier</kbd> -> <kbd>Clear Cache</kbd>.
 
-## Prettier Plug-in Support
+## Prettier Plugin Support
 
 ### Prettier PHP
 
@@ -575,6 +575,10 @@ replacement for Prettier:
 cd to/project/directory
 npm install @prettier/plugin-php
 ```
+
+### Prettier Community Plugins
+
+Here's an [example SublimeText project](https://github.com/jonlabelle/SublimeJsPrettier/files/6498394/jsprettier-and-prettier-community-plugin-example.zip) \(posted in [Issue #239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)\) that uses the Prettier Community Plugin [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template) to format `*.gohtml` files.
 
 ## Issues
 
