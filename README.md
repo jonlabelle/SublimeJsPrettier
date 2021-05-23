@@ -580,8 +580,12 @@ npm install @prettier/plugin-php
 
 Here's an [example SublimeText project](https://github.com/jonlabelle/SublimeJsPrettier/files/6498394/jsprettier-and-prettier-community-plugin-example.zip)
 \(posted in [Issue #239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)\)
-that uses the Prettier Community Plugin [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template)
+that uses the Prettier Community Plugin [NiklasPor/prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template)
 to format `*.gohtml` files.
+
+And another [example project](https://github.com/jonlabelle/SublimeJsPrettier/files/6527323/jsprettier-and-prettier-plugin-sort-imports.zip)
+that uses [@trivago/prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)
+to sort imports (posted in [Issue #240](https://github.com/jonlabelle/SublimeJsPrettier/issues/240)\).
 
 ## Issues
 
