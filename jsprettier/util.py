@@ -169,7 +169,7 @@ def list_to_str(list_to_convert):
     :param list_to_convert: The list to convert to a string.
     :return: The list converted into a string.
     """
-    return ' '.join(to_str(l) for l in list_to_convert)
+    return ' '.join(to_str(item) for item in list_to_convert)
 
 
 def is_str_empty_or_whitespace_only(txt):
