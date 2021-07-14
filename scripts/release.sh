@@ -3,8 +3,6 @@
 set -e
 set -o pipefail
 
-[ "$TRAVIS" == "true" ] && set -x
-
 NEW_VERSION=
 CURRENT_VERSION="$(git describe --abbrev=0 --tags)"
 
