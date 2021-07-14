@@ -18,7 +18,7 @@ run_flake8() {
     echo
     echo '> Run flake8'
     echo -n 'Total errors: '
-    flake8 . --count
+    flake8 . --count --show-source --statistics
 }
 
 run_pylint() {

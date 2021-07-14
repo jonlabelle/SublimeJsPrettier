@@ -13,7 +13,7 @@ py.test .
 
 echo.
 echo. > Run flake8
-flake8 .
+flake8 . --count --show-source --statistics
 
 echo.
 echo. > Run pylint
