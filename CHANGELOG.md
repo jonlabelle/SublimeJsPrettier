@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.40.0
+
+**Release Date:** 2021-07-14
+
+Config and executable paths are no longer cached by the plug-in.
+Path resolution/discovery caching now differed to Prettier when applicable.
+
 ## 1.38.0
 
 **Release Date:** 2021-01-27

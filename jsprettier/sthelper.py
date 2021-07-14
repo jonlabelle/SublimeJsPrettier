@@ -16,7 +16,6 @@ from .util import generate_dirs
 from .util import is_bool_str
 from .util import is_str_none_or_empty
 from .util import is_windows
-from .util import memoize
 from .util import to_str
 from .util import which
 
@@ -143,7 +142,6 @@ def has_selection(view):
     return False
 
 
-@memoize
 def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     """The prettier cli path.
 
@@ -162,6 +160,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
 
     :return: The prettier cli path.
     """
+
     def make_local_prettier_path(somepath):
         return os.path.join(somepath, 'node_modules', '.bin', 'prettier')
 
@@ -209,7 +208,6 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
 
 
 # noinspection PyUnusedLocal
-@memoize
 def resolve_node_path(source_file):
     node_cmd = 'node'
     if is_windows():

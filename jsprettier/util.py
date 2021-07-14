@@ -25,34 +25,12 @@ else:
     string_types = (str,)
 
 
-jspcache = {}
-
-
-def clear_cache():
-    global jspcache
-    jspcache.clear()
-
-
-def memoize(obj):
-
-    @functools.wraps(obj)
-    def memoizer(*args, **kwargs):
-        global jspcache
-        key = str(args) + str(kwargs)
-        if key not in jspcache:
-            jspcache[key] = obj(*args, **kwargs)
-        return jspcache[key]
-
-    return memoizer
-
-
 def contains(needle, haystack):
     if not needle or not haystack:
         return False
     return needle in haystack
 
 
-@memoize
 def find_prettier_config(start_dir, alt_dirs=None):
     """
     Find a prettier config file by searching up the file hierarchy.
@@ -333,7 +311,6 @@ def in_source_file_path_or_project_root(source_file_dir, st_project_path, filena
     return None
 
 
-@memoize
 def resolve_prettier_ignore_path(source_file_dir, st_project_path):
     """Look for a '.prettierignore'
 

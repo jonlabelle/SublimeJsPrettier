@@ -4,10 +4,6 @@
 		"command": "js_prettier"
 	},
 	{
-		"caption": "JsPrettier: Clear Cache",
-		"command": "js_prettier_clear_cache"
-	},
-	{
 		"caption": "Preferences: JsPrettier Settings - Side-by-Side",
 		"command": "edit_settings",
 		"args": {

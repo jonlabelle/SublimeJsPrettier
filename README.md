@@ -544,21 +544,6 @@ plug-in will attempt to discover and set `--ignore-path <file>` when a
 `.prettierignore` config exists in the same directory of the source file
 (first), or the active Sublime Text project root directory (second).
 
-### Path Settings are Cached
-
-Paths to Prettier configuration files and executables that are not specified in
-settings, or files discovered by searching up the file tree or common
-executable location(s), will be cached throughout the application lifetime
-(for performance reasons). Including...
-
-- Prettier config files
-- Prettier CLI/Executable Path
-- Prettier ignore path
-
-Thus, in order for these settings to be re-detected, you will need to restart
-Sublime Text after updating their values, or select the `Clear Cache` option
-from the main menu under <kbd>Preferences</kbd> -> <kbd>Package Settings</kbd> -> <kbd>JsPrettier</kbd> -> <kbd>Clear Cache</kbd>.
-
 ## Prettier Plugin Support
 
 ### Prettier PHP
