@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # pip install flake8 pytest
+          pip install -r requirements.txt
+
+      - name: Install Node.js NPM global dependencies
+        run: npm install -g markdownlint-cli
+
+      - name: Run flake8
+        run: flake8 . --count --show-source --statistics
+
+      - name: Run pylint
+        run: pylint JsPrettier.py
+
+      - name: Run markdownlint
+        run: markdownlint .
+
+      - name: Run pytest
+        run: pytest
