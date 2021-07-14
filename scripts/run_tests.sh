@@ -3,8 +3,6 @@
 set -e
 set -o pipefail
 
-[ "$TRAVIS" == "true" ] && set -x
-
 # shellcheck disable=SC2005
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
