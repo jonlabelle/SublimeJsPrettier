@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-# shellcheck disable=SC2005
+# shellcheck disable=SC2005,SC2155
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 
 cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }

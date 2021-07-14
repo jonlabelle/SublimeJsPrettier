@@ -6,8 +6,9 @@ set -o pipefail
 NEW_VERSION=
 CURRENT_VERSION="$(git describe --abbrev=0 --tags)"
 
-# shellcheck disable=SC2005
+# shellcheck disable=SC2005,SC2155
 readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
+# shellcheck disable=SC2005,SC2155
 readonly SCRIPTNAME="$(basename "${BASH_SOURCE[0]}")"
 
 cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
