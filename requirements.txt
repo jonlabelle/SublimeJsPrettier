@@ -1,5 +1,5 @@
 # pip dev/test dependencies
-flake8==3.4.1
+flake8
 pep8-naming==0.7.0
 pytest==3.6.4
 pylint==1.9.1
