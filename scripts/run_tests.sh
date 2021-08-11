@@ -24,7 +24,7 @@ run_flake8() {
 run_pylint() {
     echo
     echo '> Run pylint'
-    pylint JsPrettier.py
+    pylint --rcfile .pylintrc .
 }
 
 run_markdownlint() {
