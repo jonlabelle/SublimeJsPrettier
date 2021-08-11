@@ -23,8 +23,5 @@ indent_size = 2
 [*.cmd]
 end_of_line = crlf
 
-[appveyor.yml]
-end_of_line = crlf
-
 [*.{md,txt}]
 trim_trailing_whitespace = false

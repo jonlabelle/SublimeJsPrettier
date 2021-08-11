@@ -1,7 +1,6 @@
 # JsPrettier
 
 [![ci](https://github.com/jonlabelle/SublimeJsPrettier/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jonlabelle/SublimeJsPrettier/actions/workflows/ci.yml)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/ta7379jk57cdwu76/branch/master?svg=true)](https://ci.appveyor.com/project/jonlabelle/sublimejsprettier/branch/master)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/jonlabelle/SublimeJsPrettier.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jonlabelle/SublimeJsPrettier/context:python)
 [![Package Control Installs](https://img.shields.io/packagecontrol/dt/JsPrettier.svg?label=installs)](https://packagecontrol.io/packages/JsPrettier)
 [![Latest Release](https://img.shields.io/github/tag/jonlabelle/SublimeJsPrettier.svg?label=version)](https://github.com/jonlabelle/SublimeJsPrettier/releases)

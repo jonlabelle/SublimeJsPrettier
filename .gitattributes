@@ -5,7 +5,6 @@
 .env.example  text
 
 *.cmd         text  eol=crlf
-appveyor.yml  text  eol=crlf
 
 *.gif         binary
 
