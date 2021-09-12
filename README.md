@@ -51,7 +51,7 @@ Operating Systems.
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v2.1 or above)
+        - [Prettier] – Opinionated code formatter (v2.4 or above)
 
 ### Install Prettier
 
@@ -321,9 +321,10 @@ application menu to:
 - **bracketSpacing** (default: ***true***)  
     Controls the printing of spaces inside object literals.
 
-- **jsxBracketSameLine** (default: ***false***)  
-    When *true*, multi-line jsx elements with right-angle brackets ("&gt;") are
-    placed at the end of the last line, instead of alone on the next line.
+- **bracketSameLine** (default: ***false***)  
+    Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the
+    end of the last line instead of being alone on the next line
+    (does not apply to self closing elements).
 
 - **jsxSingleQuote** (default: ***false***)  
     Use single quotes instead of double quotes in JSX.
@@ -481,7 +482,7 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "singleQuote": false,
                 "trailingComma": "es5",
                 "bracketSpacing": true,
-                "jsxBracketSameLine": false,
+                "bracketSameLine": false,
                 "jsxSingleQuote": false,
                 "parser": "babel",
                 "semi": true,

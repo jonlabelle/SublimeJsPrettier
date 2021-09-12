@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.50.0
+
+**Release Date:** 2021-09-12
+
+This release renames the `jsxBracketSameLine` option to `bracketSameLine`, which
+supports HTML, Vue, and Angular in addition to JSX.
+
+Checkout what's new in [Prettier v2.4](https://prettier.io/blog/2021/09/09/2.4.0.html).
+
 ## 1.40.0
 
 **Release Date:** 2021-07-14

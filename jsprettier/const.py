@@ -68,8 +68,8 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': 'true'
     },
     {
-        'option': 'jsxBracketSameLine',
-        'cli': '--jsx-bracket-same-line',
+        'option': 'bracketSameLine',
+        'cli': '--bracket-same-line',
         'default': 'false'
     },
     {
