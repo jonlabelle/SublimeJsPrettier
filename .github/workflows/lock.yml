@@ -1,0 +1,28 @@
+name: "Lock Threads"
+
+on:
+  schedule:
+    - cron: "37 2 * * *" # Every day at 2:37 AM UTC
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: lock
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/lock-threads@v3
+        with:
+          github-token: ${{ github.token }}
+          issue-inactive-days: "120"
+          process-only: "issues"
+          exclude-any-issue-labels: "wip, help-wanted"
+          log-output: false
+          issue-comment: >
+            This issue has been automatically locked due to inactivity.
+            Please open a new issue for related bugs.
