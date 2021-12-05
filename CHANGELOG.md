@@ -1,11 +1,5 @@
 # Changelog
 
-## 1.51.0
-
-**Release Date:** 2021-12-5
-
-Add default parser support (`html`) for [Svelte](https://svelte.dev) files.
-
 ## 1.50.0
 
 **Release Date:** 2021-09-12

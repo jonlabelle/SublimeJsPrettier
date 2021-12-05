@@ -240,7 +240,7 @@ application menu to:
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `mjs`, `json`, `html`,
     `graphql/gql`, `ts`, `tsx`, `css`, `scss`, `less`, `md`, `mdx`, `yml`,
-    `vue`, `component.html` (angular html), and `svelte` files.
+    `vue` and `component.html` (angular html) files.
 
     Put additional file extensions here, and be sure not to include the
     leading dot in the file extension.
@@ -252,7 +252,7 @@ application menu to:
     file size checking (default).
 
 - **disable_tab_width_auto_detection** (default: ***false***)  
-    Whether to disable the plug-in from automatically setting Prettier's
+    Whether or not to disable the plug-in from automatically setting Prettier's
     "[tabWidth / \--tab-width](https://prettier.io/docs/en/options.html#tab-width)"
     option, and adhere to the Prettier configured setting.
 
@@ -324,7 +324,7 @@ application menu to:
 - **bracketSameLine** (default: ***false***)  
     Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the
     end of the last line instead of being alone on the next line
-    (does not apply to self-closing elements).
+    (does not apply to self closing elements).
 
 - **jsxSingleQuote** (default: ***false***)  
     Use single quotes instead of double quotes in JSX.
@@ -503,7 +503,7 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
 ### Prettier Configuration Files
 
 When [Prettier configuration files] are detected, options defined in *Sublime
-Text* are ignored except `parser`, `tabWidth` and `useTabs`.
+Text* are ignored, with the exception of `parser`, `tabWidth` and `useTabs`.
 These options are automatically set based on syntax settings of the current file
 or selection(s) defined in Sublime Text.
 

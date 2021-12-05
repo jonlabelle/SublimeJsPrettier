@@ -63,7 +63,7 @@
 	// @param {bool} "node_path"
 	// @default ""
 	//
-	// It's strongly recommended leaving the "node_path" value empty.
+	// It's strongly recommended to leave the "node_path" value empty "".
 	// However, if Sublime Text has problems resolving the "absolute" path to
 	// `node`, you can explicitly specify the path here.
 	//
@@ -93,7 +93,7 @@
 	// @param {bool} "auto_format_on_save"
 	// @default false
 	//
-	// Whether to automatically format the file on save.
+	// Whether or not to automatically format the file on save.
 	// ----------------------------------------------------------------------
 
 	"auto_format_on_save": false,
@@ -162,7 +162,7 @@
 	//
 	// There's built-in support already for "js", "jsx", "mjs", "json", "html",
 	// "graphql/gql", "ts", "tsx", "css", "scss", "less", "md", "mdx", "yml"
-	// and "vue", "component.html" (angular html), and "svelte" files.
+	// and "vue" and "component.html" (angular html) files.
 	//
 	// Additional file extensions MUST be specified here, and without the leading dot.
 	// ----------------------------------------------------------------------
@@ -355,7 +355,7 @@
 		//
 		// Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element
 		// at the end of the last line instead of being alone on the next line
-		// (does not apply to self-closing elements).
+		// (does not apply to self closing elements).
 		// --------------------------------------------------------------------
 
 		"bracketSameLine": false,
@@ -423,7 +423,7 @@
 		// @param {string} "prettier_options.proseWrap"
 		// @default "preserve"
 		//
-		// (Markdown and YAML Only) By default, Prettier will wrap Markdown text
+		// (Markdown and YAML Only) By default, Prettier will wrap markdown text
 		// as-is since some services use a linebreak-sensitive renderer, e.g.
 		// GitHub comment and BitBucket. In some cases you may want to rely on
 		// SublimeText soft wrapping instead, so this option allows you to opt
@@ -498,7 +498,7 @@
 		// @param {bool} "prettier_options.vueIndentScriptAndStyle"
 		// @default false
 		//
-		// (Vue files Only) Whether to indent the code inside <script>
+		// (Vue files Only) Whether or not to indent the code inside <script>
 		// and <style> tags in Vue files. Some people (like the creator of Vue)
 		// don't indent to save an indentation level, but this might break code
 		// folding in Sublime Text.
