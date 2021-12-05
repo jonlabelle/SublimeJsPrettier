@@ -562,6 +562,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('css')
                     continue
+                elif self.is_svelte(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('html')
+                    continue
                 elif self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('html')
@@ -783,6 +787,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.vue') or filename.endswith('.vue'):
+            return True
+        return False
+
+    @staticmethod
+    def is_svelte(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(0)
+        if filename.endswith('.svelte') or scopename.startswith('text.html.svelte'):
             return True
         return False
 
