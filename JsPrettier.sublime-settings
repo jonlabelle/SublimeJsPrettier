@@ -224,7 +224,7 @@
 	// - https://github.com/jonlabelle/SublimeJsPrettier/issues/168
 	//
 	// Prettier Cursor Offset Documentation:
-	// - https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options
+	// - https://prettier.io/docs/en/api.html#prettierformatwithcursorsource--options
 	// ----------------------------------------------------------------------
 
 	"disable_prettier_cursor_offset": false,
