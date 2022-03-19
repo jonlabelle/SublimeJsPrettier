@@ -443,7 +443,7 @@ application menu to:
     - `indent_style`
     - `indent_size/tab_width`
     - `max_line_length`
-    
+
 - **singleAttributePerLine** (default: ***false***)  
     Enforce single attribute per line in HTML, Vue and JSX.
 
@@ -456,7 +456,8 @@ See the Prettier Options [doc page] for more details and examples.
 
 ### Project-level Settings
 
-JsPrettier supports [project-level settings], specified in `<project_name>.sublime-project` files.
+JsPrettier supports [project-level settings], specified in
+`project_name.sublime-project` files.
 
 In order for your project-level settings to override [previous configurations](#settings),
 you'll need to add a new `js_prettier` key and section under `settings`, as [seen below].
