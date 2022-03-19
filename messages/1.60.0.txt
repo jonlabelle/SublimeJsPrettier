@@ -1,0 +1,16 @@
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                     _     ____           _   _   _                           │
+│                    | |___|  _ \ _ __ ___| |_| |_(_) ___ _ __                 │
+│                 _  | / __| |_) | '__/ _ \ __| __| |/ _ \ '__|                │
+│                | |_| \__ \  __/| | |  __/ |_| |_| |  __/ |                   │
+│                 \___/|___/_|   |_|  \___|\__|\__|_|\___|_|                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+## 1.60.0
+
+Added setting to support new singleAttributePerLine option, which can force each
+attribute to be placed on a single line in HTML, Vue and JSX.
+
+- [Single Line Attribute](https://prettier.io/docs/en/options.html#single-attribute-per-line)
+- [Prettier 2.6: new singleAttributePerLine option and new JavaScript features!](https://prettier.io/blog/2022/03/16/2.6.0.html#enforce-single-attribute-per-line-6644httpsgithubcomprettierprettierpull6644-by-kankjehttpsgithubcomkankje)

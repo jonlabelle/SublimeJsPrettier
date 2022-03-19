@@ -126,6 +126,11 @@ PRETTIER_OPTION_CLI_MAP = [
         'option': 'editorconfig',
         'cli': '--editorconfig',
         'default': 'true'
+    },
+    {
+        'option': 'singleAttributePerLine',
+        'cli': '--single-attribute-per-line',
+        'default': 'false'
     }
 ]
 

@@ -84,6 +84,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --embedded-language-formatting auto \
         --use-tabs false                    \
         --editorconfig true                 \
+        --single-attribute-per-line false   \
         --stdin-filepath messy.js           \
         --loglevel debug
 
@@ -97,7 +98,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
 
 ## Is the same behavior observed when run against Prettier directly?
 
-For example, the following command passes the contents of `messy_formatted_file.js` to Prettier and prints the formatted to stdout:
+For example, the following command passes the contents of `messy.js` to Prettier and prints the formatted to stdout:
 
     /usr/local/bin/prettier                 \
         --no-config                         \
@@ -119,6 +120,7 @@ For example, the following command passes the contents of `messy_formatted_file.
         --embedded-language-formatting auto \
         --use-tabs false                    \
         --editorconfig true                 \
+        --single-attribute-per-line false   \
         --stdin-filepath messy.js           \
         --loglevel debug                    \
         < messy.js
@@ -159,7 +161,8 @@ The entire contents of your ***User*** overridden JsPrettier Settings, excluding
             "quoteProps": "as-needed",
             "vueIndentScriptAndStyle": false,
             "embeddedLanguageFormatting": "auto",
-            "editorconfig": true
+            "editorconfig": true,
+            "singleAttributePerLine": false
         }
     }
 
@@ -206,7 +209,8 @@ The entire contents of your ***User*** overridden JsPretter Project-level Settin
                     "quoteProps": "as-needed",
                     "vueIndentScriptAndStyle": false,
                     "embeddedLanguageFormatting": "auto",
-                    "editorconfig": true
+                    "editorconfig": true,
+                    "singleAttributePerLine": false
                 }
             }
         }

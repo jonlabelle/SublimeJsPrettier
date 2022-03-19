@@ -51,7 +51,7 @@ Operating Systems.
 - [Sublime Text] – Text editor for code
 - [node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v2.4 or above)
+        - [Prettier] – Opinionated code formatter (v2.6 or above)
 
 ### Install Prettier
 
@@ -443,6 +443,14 @@ application menu to:
     - `indent_style`
     - `indent_size/tab_width`
     - `max_line_length`
+    
+- **singleAttributePerLine** (default: ***false***)  
+    Enforce single attribute per line in HTML, Vue and JSX.
+
+    Valid Options:
+
+    - ***false*** (default) Do not enforce single attribute per line.
+    - ***true*** Enforce single attribute per line.
 
 See the Prettier Options [doc page] for more details and examples.
 
@@ -493,7 +501,8 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
                 "quoteProps": "as-needed",
                 "vueIndentScriptAndStyle": false,
                 "embeddedLanguageFormatting": "auto",
-                "editorconfig": true
+                "editorconfig": true,
+                "singleAttributePerLine": false
             }
         }
     }

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.60.0
+
+**Release Date:** 2022-03-18
+
+Added setting to support new `singleAttributePerLine` option, which can force
+each attribute to be placed on a single line in HTML, Vue and JSX.
+
+- [Single Line Attribute](https://prettier.io/docs/en/options.html#single-attribute-per-line)
+- [Prettier 2.6: new singleAttributePerLine option and new JavaScript features!](https://prettier.io/blog/2022/03/16/2.6.0.html#enforce-single-attribute-per-line-6644httpsgithubcomprettierprettierpull6644-by-kankjehttpsgithubcomkankje)
+
 ## 1.50.0
 
 **Release Date:** 2021-09-12
@@ -54,7 +64,7 @@ Tab trigger is `pi`.
   being fully formatted by the underlying prettier. This causes formatting
   inconsistencies and can result in CI checks to fail if you're enforcing
   prettier formats across your codebase.
-  
+
   Thanks [rkoval](https://github.com/jonlabelle/SublimeJsPrettier/pull/213)!
 
 ## 1.30.0
@@ -63,7 +73,7 @@ Tab trigger is `pi`.
 
 - Try to resolve Prettier closest to the current view first; and when a
   custom path isn't specified.
-  
+
   Thanks [nfmc](https://github.com/jonlabelle/SublimeJsPrettier/pull/207)!
 
 ## 1.29.0
@@ -95,11 +105,11 @@ Tab trigger is `pi`.
 
 - Added support for new Prettier [Quote Props] option; changes quotes around
   object properties (requires [Prettier v1.17+]).
-  
+
     - Default: `"as-needed"`
     - CLI Override: `--quote-props <as-needed|consistent|preserve>`
     - API Override: `quoteProps:` `"<as-needed|consistent|preserve>"`
-  
+
   **Valid options:**
 
     - `"as-needed"` (default) - Only add quotes around object properties where required.
@@ -119,12 +129,12 @@ Tab trigger is `pi`.
   The issue effectively results in the CPU spiking to a constant 100%...
   indefinitely, or until the node executable/process running Prettier is
   forcefully terminated.
-  
+
   To avoid this problematic behavior, or until the defect is resolved, you can
   disable the plug-in (JsPrettier) from ever passing the cursor offset
   position to Prettier by setting the `disable_prettier_cursor_offset` value
   to `true`.
-  
+
     - See related issues: [#147](https://github.com/jonlabelle/SublimeJsPrettier/issues/147), [#168](https://github.com/jonlabelle/SublimeJsPrettier/issues/168)
     - [Prettier Cursor Offset Documentation](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
 
@@ -156,7 +166,7 @@ Tab trigger is `pi`.
   and options defined in `additional_cli_args` (e.g. `--config` `<path>`).
 
   Check-out the [default settings] \(comment section) for examples.
-  
+
 ## 1.23.0
 
 **Release Date:** 2019-01-25
@@ -166,7 +176,7 @@ Tab trigger is `pi`.
 
   See the [Prettier v1.16] release notes page for additional information on the
   parser change, including new features and bug fixes.
-  
+
 ## 1.22.0
 
 **Release Date:** 2019-01-21
@@ -188,8 +198,8 @@ Tab trigger is `pi`.
 
 - Added new `auto_format_on_save_requires_prettier_config` setting that will
   enable/disable auto format on save *only* if a Prettier config file is (or isn't) found.
-  
-  The Prettier config file is resolved by first checking if a `--config </path/to/prettier/config>`  
+
+  The Prettier config file is resolved by first checking if a `--config </path/to/prettier/config>`
   is specified in the `additional_cli_args` setting, then by searching the
   location of the file being formatted, and finally navigating up the file tree
   until a config file is (or isn't) found.
