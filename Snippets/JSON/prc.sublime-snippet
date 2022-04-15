@@ -1,0 +1,41 @@
+<snippet>
+  <content><![CDATA[{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": false,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "requirePragma": false,
+  "insertPragma": false,
+  "proseWrap": "preserve",
+  "useTabs": false,
+  "htmlWhitespaceSensitivity": "css",
+  "vueIndentScriptAndStyle": false,
+  "endOfLine": "lf",
+  "singleAttributePerLine": false,
+  "overrides": [
+    {
+      "files": "*.example.js",
+      "options": {
+        "semi": true
+      }
+    },
+    {
+      "files": ["*.html", "legacy/**/*.js"],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}
+
+]]></content>
+  <tabTrigger>prc</tabTrigger>
+  <scope>source.json</scope>
+  <description>Prettier Configuration: .prettierrc file (JsPrettier)</description>
+</snippet>
