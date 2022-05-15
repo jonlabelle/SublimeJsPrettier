@@ -6,7 +6,7 @@
   // The number of spaces per indentation-level
   "tabWidth": 2,
 
-  // Indent lines with tabs instead of spaces.
+  // Indent lines with tabs instead of spaces
   "useTabs": false,
 
   // Print semicolons at the ends of statements
