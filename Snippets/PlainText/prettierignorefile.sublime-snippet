@@ -21,9 +21,6 @@ coverage
 # Ignore all HTML files:
 *.html
 
-# Ignore all HTML files:
-*.html
-
 ]]>
   </content>
   <tabTrigger>prettierignorefile</tabTrigger>
