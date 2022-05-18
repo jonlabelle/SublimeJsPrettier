@@ -84,7 +84,7 @@
 }
 
 ]]></content>
-  <tabTrigger>prc</tabTrigger>
-  <scope>source.json</scope>
-  <description>Prettier Configuration: .prettierrc file (JsPrettier)</description>
+  <tabTrigger>prettierconfig</tabTrigger>
+  <scope>source.json,text.plain</scope>
+  <description>Prettier Configuration: create .prettierrc file (JsPrettier)</description>
 </snippet>

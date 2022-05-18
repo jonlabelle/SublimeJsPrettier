@@ -1,0 +1,12 @@
+<snippet>
+  <content>
+    <![CDATA[/**
+ * @prettier
+ */
+
+]]>
+  </content>
+  <tabTrigger>prettierrequirepragma</tabTrigger>
+  <scope>source.js - source.js.jsx</scope>
+  <description>Prettier Require Pragma: --require-pragma must be supplied (JsPrettier)</description>
+</snippet>

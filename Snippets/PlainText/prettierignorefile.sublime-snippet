@@ -1,0 +1,32 @@
+<snippet>
+  <content>
+    <![CDATA[##
+# Prettier ignore file rules (.prettierignore)
+#
+# To exclude files from formatting, save this file as .prettierignore in the root of your project.
+# Rule format pattern follows the '.gitignore' syntax, see: https://git-scm.com/docs/gitignore#_pattern_format
+# More information at https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore
+##
+
+# These paths are ignored by default:
+# **/.git
+# **/.svn
+# **/.hg
+# **/node_modules
+
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+
+# Ignore all HTML files:
+*.html
+
+]]>
+  </content>
+  <tabTrigger>prettierignorefile</tabTrigger>
+  <scope>text.plain</scope>
+  <description>Prettier Ignore File: create .prettierignore file (JsPrettier)</description>
+</snippet>
