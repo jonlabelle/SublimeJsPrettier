@@ -8,5 +8,5 @@
   </content>
   <tabTrigger>prettierrequirepragma</tabTrigger>
   <scope>source.js - source.js.jsx</scope>
-  <description>Prettier Require Pragma: --require-pragma must be supplied (JsPrettier)</description>
+  <description>Prettier require pragma (JsPrettier)</description>
 </snippet>

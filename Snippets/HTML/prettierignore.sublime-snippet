@@ -4,5 +4,5 @@
   </content>
   <tabTrigger>prettierignore</tabTrigger>
   <scope>text.html.basic</scope>
-  <description>Prettier Ignore: exclude next node from formatting (JsPrettier)</description>
+  <description>Prettier ignore next node (JsPrettier)</description>
 </snippet>

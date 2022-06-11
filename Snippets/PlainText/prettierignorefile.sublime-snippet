@@ -25,5 +25,5 @@ coverage
   </content>
   <tabTrigger>prettierignorefile</tabTrigger>
   <scope>text.plain</scope>
-  <description>Prettier Ignore File: create .prettierignore file (JsPrettier)</description>
+  <description>Prettier ignore file (JsPrettier)</description>
 </snippet>
