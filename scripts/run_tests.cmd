@@ -9,7 +9,7 @@ pushd "%SCRIPTSDIR%" && pushd ..
 
 echo.
 echo. > Run pytest
-py.test .
+pytest .
 
 echo.
 echo. > Run flake8
@@ -17,14 +17,13 @@ flake8 . --count --show-source --statistics
 
 echo.
 echo. > Run pylint
-pylint JsPrettier.py
+pylint .
 
 echo.
 echo. > Run markdownlint
 markdownlint .
 
 popd && popd
-
 echo.
 echo. Finished.
 endlocal

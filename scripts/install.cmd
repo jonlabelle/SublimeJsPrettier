@@ -8,6 +8,7 @@ set SCRIPTSDIR=%~dp0
 pushd "%SCRIPTSDIR%" && pushd ..
 
 echo. > Install pip requirements
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 echo. > Install npm packages
