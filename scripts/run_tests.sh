@@ -11,7 +11,7 @@ cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 run_pytest() {
     echo
     echo '> Run pytest'
-    py.test .
+    pytest .
 }
 
 run_flake8() {
@@ -24,7 +24,7 @@ run_flake8() {
 run_pylint() {
     echo
     echo '> Run pylint'
-    pylint --rcfile .pylintrc .
+    pylint .
 }
 
 run_markdownlint() {
