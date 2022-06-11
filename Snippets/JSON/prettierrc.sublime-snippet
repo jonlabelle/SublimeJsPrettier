@@ -4,7 +4,7 @@
   // The line length that the printer will wrap on
   // ---------------------------------------------------------------------------
 
-  "printWidth": 80,
+  //"printWidth": 80,
 
   // ---------------------------------------------------------------------------
   // The number of spaces per indentation-level
