@@ -138,6 +138,8 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'js',
     'jsx',
     'json',
+    'jsonc',
+    'json5',
     'graphql',
     'gql',
     'html',
@@ -149,6 +151,10 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'md',
     'vue',
     'yml',
+    'yaml',
+    'cjs',
     'mjs',
-    'mdx'
+    'mdx',
+    'cts',
+    'mts'
 ]

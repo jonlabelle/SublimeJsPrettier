@@ -238,9 +238,10 @@ application menu to:
     Text syntaxes.
 
 - **custom_file_extensions** (default: [])  
-    There's built-in support already for `js`, `jsx`, `mjs`, `json`, `html`,
-    `graphql/gql`, `ts`, `tsx`, `css`, `scss`, `less`, `md`, `mdx`, `yml`,
-    `vue` and `component.html` (angular html) files.
+    There's built-in support already for `js`, `jsx`, `cjs`, `mjs`, `json`,
+    `jsonc`, `json5`, `html`, `graphql/gql`, `ts`, `tsx`, `cts`, `mts`, `css`,
+    `scss`, `less`, `md`, `mdx`, `yml`, `yaml`, `vue` and `component.html`
+    (angular html) files.
 
     Put additional file extensions here, and be sure not to include the
     leading dot in the file extension.
