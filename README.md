@@ -31,7 +31,7 @@
     - [Prettier Options](#prettier-options)
     - [Project-level Settings](#project-level-settings)
     - [Prettier Configuration Files](#prettier-configuration-files)
-- [Prettier Plug-in Support](#prettier-plug-in-support)
+- [Prettier Plug-in Support](#prettier-plugin-support)
     - [Prettier PHP](#prettier-php)
 - [Issues](#issues)
 - [Changes](#changes)
@@ -600,8 +600,6 @@ Jon LaBelle
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://prettier.io
-[Prettier API section]: https://github.com/prettier/prettier#api
-[Prettier CLI]: https://github.com/prettier/prettier#cli
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
@@ -609,16 +607,12 @@ Jon LaBelle
 [project-level settings]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/projects.html
 [tab_size]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation
 [***translate_tabs_to_spaces***]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation
-[installed globally]: #install-prettier
 [yarn]: https://yarnpkg.com
 [npm]: https://www.npmjs.com
-[nvm]: https://github.com/creationix/nvm
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
-[Sublime Text Console]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/basic_concepts.html#sublime-text-is-programmable
 [custom key binding]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/customization/key_bindings.html
 [Prettier Configuration files]: https://prettier.io/docs/en/configuration.html
-[issue template]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/.github/ISSUE_TEMPLATE/bug_report.md
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
 [MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
 [doc page]: https://prettier.io/docs/en/options.html
