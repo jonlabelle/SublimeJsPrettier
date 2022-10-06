@@ -689,9 +689,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(0)
-        if scopename.startswith('source.ts') or filename.endswith('.ts'):
-            return True
-        if scopename.startswith('source.tsx') or filename.endswith('.tsx'):
+        if (
+            scopename.startswith("source.ts")
+            or scopename.startswith("source.tsx")
+            or filename.endswith(".ts")
+            or filename.endswith(".tsx")
+            or filename.endswith(".cts")
+            or filename.endswith(".mts")
+        ):
             return True
         return False
 
@@ -701,7 +706,12 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(0)
-        if scopename.startswith('source.json') or filename.endswith('.json'):
+        if (
+            scopename.startswith("source.json")
+            or filename.endswith(".json")
+            or filename.endswith(".jsonc")
+            or filename.endswith(".json5")
+        ):
             return True
         return False
 
@@ -772,7 +782,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         if not filename:
             return False
         scopename = view.scope_name(0)
-        if scopename.startswith('source.yaml') or filename.endswith('.yml'):
+        if (
+            scopename.startswith("source.yaml")
+            or filename.endswith(".yml")
+            or filename.endswith(".yaml")
+        ):
             return True
         return False
 

@@ -160,9 +160,10 @@
 	//
 	// Additional custom file extensions to format.
 	//
-	// There's built-in support already for "js", "jsx", "mjs", "json", "html",
-	// "graphql/gql", "ts", "tsx", "css", "scss", "less", "md", "mdx", "yml"
-	// and "vue" and "component.html" (angular html) files.
+	// There's built-in support already for "js", "jsx", "cjs", "mjs", "json",
+	// "jsonc", "json5", "html", "graphql/gql", "ts", "tsx", "cts", "mts", "css",
+	// "scss", "less", "md", "mdx", "yml", "yaml" and "vue" and "component.html"
+	// (angular html) files.
 	//
 	// Additional file extensions MUST be specified here, and without the leading dot.
 	// ----------------------------------------------------------------------
