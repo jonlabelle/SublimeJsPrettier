@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.61.0
+
+**Release Date:** 2022-10-06
+
+Auto-format on save support for **cjs**, **cts**, **mts**, **jsonc**, **json5**, and **yaml** file types.
+
+Thanks [@alecmev](https://github.com/jonlabelle/SublimeJsPrettier/pull/260)!
+
 ## 1.60.0
 
 **Release Date:** 2022-03-18
