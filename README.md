@@ -512,7 +512,7 @@ you'll need to add a new `js_prettier` key and section under `settings`, as [see
 ### Prettier Configuration Files
 
 When [Prettier configuration files] are detected, options defined in *Sublime
-Text* are ignored, with the exception of `parser`, `tabWidth` and `useTabs`.
+Text* are ignored, except for `parser`, `tabWidth`, and `useTabs`.
 These options are automatically set based on syntax settings of the current file
 or selection(s) defined in Sublime Text.
 
@@ -547,10 +547,11 @@ and tell Prettier not to attempt to find config files.
 
 #### Prettier Ignore Config File Discovery (`.prettierignore`)
 
-When the [`--ignore-path`] option is NOT specified in `additional_cli_args`, the
-plug-in will attempt to discover and set `--ignore-path <file>` when a
-`.prettierignore` config exists in the same directory of the source file
-(first), or the active Sublime Text project root directory (second).
+When the [`--ignore-path`] option is NOT specified in `additional_cli_args`,
+the plug-in will search for a `.prettierignore` file in the same directory of
+the source file, then the active Sublime Text project's root directory. If
+neither path can be resolved, search up the directory tree, and finally look
+in the user's home directory.
 
 ## Prettier Plugin Support
 

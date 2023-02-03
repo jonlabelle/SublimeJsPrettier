@@ -311,14 +311,32 @@ def in_source_file_path_or_project_root(source_file_dir, st_project_path, filena
 
 
 def resolve_prettier_ignore_path(source_file_dir, st_project_path):
-    """Look for a '.prettierignore'
+    """Looks for a '.prettierignore' file
 
     Try to resolve a '.prettieringore' file in source file dir, or ST project root (#97).
+    If neither can be resolved, search up the directory tree, and finally the user's home
+    directory.
 
     :return: The path (str) to a '.prettierignore' file (if one exists) in the active Sublime Text Project Window.
     """
+    ignore_file_path = in_source_file_path_or_project_root(source_file_dir, st_project_path, PRETTIER_IGNORE_FILE)
+    if ignore_file_path is not None:
+        return ignore_file_path
 
-    return in_source_file_path_or_project_root(source_file_dir, st_project_path, PRETTIER_IGNORE_FILE)
+    dirs = generate_dirs(source_file_dir, limit=500)
+    for d in dirs:
+        target = os.path.join(d, PRETTIER_IGNORE_FILE)
+        if os.path.exists(target):
+            return target
+
+    alt_dirs = ['~']
+    for d in alt_dirs:
+        d = os.path.expanduser(d)
+        target = os.path.join(d, PRETTIER_IGNORE_FILE)
+        if os.path.exists(target):
+            return target
+
+    return None
 
 
 def format_error_message(error_message, error_code):
