@@ -18,7 +18,7 @@ jobs:
       - uses: dessant/lock-threads@v3
         with:
           github-token: ${{ github.token }}
-          issue-inactive-days: "120"
+          issue-inactive-days: "60"
           process-only: "issues"
           exclude-any-issue-labels: "wip, help-wanted"
           log-output: false
