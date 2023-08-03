@@ -461,6 +461,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         if self.is_less(view) is True:
             return True
+        if self.is_scss(view) is True:
+            return True
         if self.is_css(view) is True:
             return True
         if self.is_angular_html(view) is True:
@@ -557,6 +559,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 elif self.is_less(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('less')
+                    continue
+                elif self.is_scss(view):
+                    prettier_options.append(cli_option_name)
+                    prettier_options.append('scss')
                     continue
                 elif self.is_css(view):
                     prettier_options.append(cli_option_name)
@@ -671,6 +677,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return False
 
     @staticmethod
+    def is_scss(view):
+        filename = view.file_name()
+        if not filename:
+            return False
+        scopename = view.scope_name(view.sel()[0].b)
+        if scopename.startswith('source.scss') or filename.endswith('.scss'):
+            return True
+        return False
+
+    @staticmethod
     def is_css(view):
         filename = view.file_name()
         if not filename:
@@ -678,8 +694,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         scopename = view.scope_name(view.sel()[0].b)
         if scopename.startswith('source.css') or filename.endswith('.css') \
                 or contains('meta.selector.css', scopename) or contains('source.css.embedded.html', scopename):
-            return True
-        if scopename.startswith('source.scss') or filename.endswith('.scss'):
             return True
         return False
 
