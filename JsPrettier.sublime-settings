@@ -322,7 +322,7 @@
 		// --------------------------------------------------------------------
 		//
 		// @param {string} "prettier_options.trailingComma"
-		// @default "es5"
+		// @default "all"
 		//
 		// Controls the printing of trailing commas wherever possible.
 		//
@@ -333,7 +333,7 @@
 		// - "all"           Trailing commas wherever possible (function arguments)
 		// --------------------------------------------------------------------
 
-		"trailingComma": "es5",
+		"trailingComma": "all",
 
 		// --------------------------------------------------------------------
 		// bracketSpacing

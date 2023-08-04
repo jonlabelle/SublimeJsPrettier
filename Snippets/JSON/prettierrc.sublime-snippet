@@ -47,7 +47,7 @@
   // syntactic structures (es5|none|all)
   // ---------------------------------------------------------------------------
 
-  //"trailingComma": "es5",
+  //"trailingComma": "all",
 
   // ---------------------------------------------------------------------------
   // Print spaces between brackets in object literals

@@ -60,7 +60,7 @@ PRETTIER_OPTION_CLI_MAP = [
     {
         'option': 'trailingComma',
         'cli': '--trailing-comma',
-        'default': 'es5'
+        'default': 'all'
     },
     {
         'option': 'bracketSpacing',
