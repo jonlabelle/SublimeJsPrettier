@@ -3,6 +3,6 @@
     <![CDATA[/* prettier-ignore */]]>
   </content>
   <tabTrigger>prettierignore</tabTrigger>
-  <scope>source.css</scope>
+  <scope>source.css,source.scss</scope>
   <description>Prettier ignore next node (JsPrettier)</description>
 </snippet>
