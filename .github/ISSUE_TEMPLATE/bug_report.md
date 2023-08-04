@@ -69,7 +69,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --print-width 80                    \
         --tab-width 2                       \
         --single-quote false                \
-        --trailing-comma es5                \
+        --trailing-comma all                \
         --bracket-spacing true              \
         --bracket-same-line false           \
         --jsx-single-quote false            \
@@ -105,7 +105,7 @@ For example, the following command passes the contents of `messy.js` to Prettier
         --print-width 80                    \
         --tab-width 2                       \
         --single-quote false                \
-        --trailing-comma es5                \
+        --trailing-comma all                \
         --bracket-spacing true              \
         --bracket-same-line false           \
         --jsx-single-quote false            \
