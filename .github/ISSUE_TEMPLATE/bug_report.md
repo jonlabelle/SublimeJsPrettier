@@ -86,7 +86,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --editorconfig true                 \
         --single-attribute-per-line false   \
         --stdin-filepath messy.js           \
-        --loglevel debug
+        --log-level debug
 
     Prettier reported the following output:
 
@@ -122,7 +122,7 @@ For example, the following command passes the contents of `messy.js` to Prettier
         --editorconfig true                 \
         --single-attribute-per-line false   \
         --stdin-filepath messy.js           \
-        --loglevel debug                    \
+        --log-level debug                   \
         < messy.js
 
 ## The contents of your `User/JsPrettier.sublime-settings` file

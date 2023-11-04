@@ -10,7 +10,7 @@
 	// and configured settings will be printed to the Sublime Text Console;
 	// useful for troubleshooting purposes.
 	//
-	// Enabling debug mode also sets Prettier's "--loglevel" option to "debug"
+	// Enabling debug mode also sets Prettier's "--log-level" option to "debug"
 	// (when not overridden by "additional_cli_args"), for printing additional
 	// debug information to the console.
 	// ----------------------------------------------------------------------

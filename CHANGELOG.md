@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.64.0
+
+**Release Date:** 2023-11-04
+
+In Prettier v3, `--loglevel` CLI option was [changed](https://github.com/prettier/prettier/pull/13204) to `--log-level`.
+
 ## 1.61.0
 
 **Release Date:** 2022-10-06

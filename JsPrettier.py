@@ -630,9 +630,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_options.append(source_file_path)
 
         if debug_enabled(view):
-            if not parsed_additional_cli_args.count('--loglevel') > 0:
+            if not parsed_additional_cli_args.count('--log-level') > 0:
                 # set prettier's log level to debug, when the plug-in's debug setting is enabled:
-                prettier_options.append('--loglevel')
+                prettier_options.append('--log-level')
                 prettier_options.append('debug')
 
         # Append any additional specified arguments:
