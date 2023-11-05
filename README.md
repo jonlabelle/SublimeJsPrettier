@@ -144,7 +144,7 @@ application menu to:
 - **debug** (default: ***false***)  
     When enabled (*true*), debug info will print to the console - useful for
     troubleshooting and inspecting generated commands passed to Prettier.
-    Enabling debug mode also sets Prettier's [`--loglevel`] option to `debug`
+    Enabling debug mode also sets Prettier's [`--log-level`] option to `debug`
     (when not overridden by `additional_cli_args`), for printing additional
     debug information to the console.
 
@@ -621,7 +621,7 @@ Jon LaBelle
 [`--ignore-path`]: https://prettier.io/docs/en/cli.html#ignore-path
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 [`parser`]: https://prettier.io/docs/en/options.html#parser
-[`--loglevel`]: https://prettier.io/docs/en/cli.html#loglevel
+[`--log-level`]: https://prettier.io/docs/en/cli.html#loglevel
 [Prettier PHP]: https://github.com/prettier/plugin-php
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
