@@ -251,6 +251,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             prettier_config_path = ''
 
         #
+        # cd to dir with Prettier config:
+        if os.path.exists(os.path.dirname(prettier_config_path)):
+            os.chdir(os.path.dirname(prettier_config_path))
+
+        #
         # Get node and prettier command paths:
         node_path = self.node_path
         prettier_cli_path = resolve_prettier_cli_path(view, PLUGIN_PATH, st_project_path)
