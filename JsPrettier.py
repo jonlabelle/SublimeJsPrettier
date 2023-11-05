@@ -275,6 +275,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             prettier_ignore_filepath, source_file_path)
 
         #
+        # change to appropriate directory
+        if prettier_cli_path in st_project_path and 'node_modules' in prettier_cli_path:
+            os.chdir(os.path.dirname(prettier_cli_path[:prettier_cli_path.index('node_modules')]))
+
+        #
         # Format entire file:
         if not has_selection(view) or save_file is True:
             region = sublime.Region(0, view.size())
