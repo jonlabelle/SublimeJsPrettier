@@ -621,7 +621,7 @@ Jon LaBelle
 [`--ignore-path`]: https://prettier.io/docs/en/cli.html#ignore-path
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 [`parser`]: https://prettier.io/docs/en/options.html#parser
-[`--log-level`]: https://prettier.io/docs/en/cli.html#loglevel
+[`--log-level`]: https://prettier.io/docs/en/cli.html#--log-level
 [Prettier PHP]: https://github.com/prettier/plugin-php
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
