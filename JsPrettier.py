@@ -275,6 +275,13 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             prettier_ignore_filepath, source_file_path)
 
         #
+        # change to appropriate working directory
+        if st_project_path in prettier_cli_path and 'node_modules' in prettier_cli_path:
+            working_directory_path = os.path.dirname(prettier_cli_path[:prettier_cli_path.index('node_modules')])
+            log_debug(view, "Setting working directory to {0}".format(working_directory_path))
+            os.chdir(working_directory_path)
+
+        #
         # Format entire file:
         if not has_selection(view) or save_file is True:
             region = sublime.Region(0, view.size())
