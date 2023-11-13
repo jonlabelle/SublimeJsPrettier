@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.65.0
+
+**Release Date:** 2023-11-13
+
+Better compatibility/detection of Prettier community plugins.
+
 ## 1.64.0
 
 **Release Date:** 2023-11-04
