@@ -7,8 +7,8 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-## 1.64.0
+## 1.65.0
 
-Release Date: 2023-11-04
+Release Date: 2023-11-13
 
-In Prettier v3, --loglevel CLI option was changed to --log-level.
+Better compatibility/detection of Prettier community plugins.
