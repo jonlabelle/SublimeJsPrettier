@@ -88,7 +88,7 @@ To view the generated prettier command line arguments you need to enable JsPrett
         --stdin-filepath messy.js           \
         --log-level debug
 
-    Prettier reported the following output:
+    Prettier produced the following output:
 
     [debug] normalized argv: {"_":[],"bracket-spacing":true,"color":true",...}
     [debug] '--no-config' option found, skip loading config file.
