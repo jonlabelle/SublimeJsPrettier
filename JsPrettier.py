@@ -279,8 +279,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # change to appropriate working directory so plugins can be detected (#278)
         if st_project_path in prettier_cli_path and 'node_modules' in prettier_cli_path:
             working_directory_path = os.path.dirname(prettier_cli_path[:prettier_cli_path.index('node_modules')])
-            log_debug(view, "Changing working directory to Prettier config path '{0}'".format(working_directory_path))
-            os.chdir(working_directory_path)
+            if working_directory_path != st_project_path:
+                log_debug(view, "Changing working directory to '{0}'".format(working_directory_path))
+                os.chdir(working_directory_path)
 
         #
         # Format entire file:
