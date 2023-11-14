@@ -174,10 +174,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     source_file_dir, st_project_path, additional_cli_arg_config)
                 if additional_cli_arg_config and os.path.exists(additional_cli_arg_config):
                     log_debug(view, "Using Prettier config file defined in additional_cli_args '{0}'"
-                              .format(additional_cli_arg_config), True)
+                              .format(additional_cli_arg_config))
                     return additional_cli_arg_config
                 log_warn("Could not find Prettier config file defined in additional_cli_args '{0}'"
-                         .format(str(additional_cli_arg_config)), True)
+                         .format(str(additional_cli_arg_config)))
                 return None
 
         #
@@ -187,7 +187,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             log_debug(view, "Found Prettier config file '{0}'".format(resolved_prettier_config))
             return resolved_prettier_config
 
-        log_debug(view, "Could not resolve Prettier config file, will use options defined in Sublime Text.", True)
+        log_debug(view, "Could not resolve Prettier config file, will use options defined in Sublime Text.")
 
         return None
 
