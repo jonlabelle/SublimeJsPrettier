@@ -201,6 +201,12 @@ def is_str_none_or_empty(val):
 def get_file_abs_dir(filepath):
     return os.path.abspath(os.path.dirname(filepath))
 
+def find_root(file_dir):  
+    while file_dir != os.path.dirname(file_dir): 
+        if "package.json" in os.listdir(file_dir):
+            return file_dir
+        file_dir = os.path.dirname(file_dir) 
+    return None
 
 def env_path_contains(path_to_look_for, env_path=None):
     """Check if the specified path is listed in OS environment path.

@@ -58,6 +58,7 @@ if version_info[0] == 2:
     from jsprettier.util import trim_trailing_ws_and_lines
     from jsprettier.util import normalize_line_endings
     from jsprettier.util import decode_bytes
+    from .jsprettier.util import find_root
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
@@ -101,6 +102,7 @@ else:
     from .jsprettier.util import trim_trailing_ws_and_lines
     from .jsprettier.util import normalize_line_endings
     from .jsprettier.util import decode_bytes
+    from .jsprettier.util import find_root
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -224,7 +226,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return st_status_message('File too large (see: max_file_size_limit).')
 
         source_file_dir = get_file_abs_dir(source_file_path)
-        st_project_path = str(get_st_project_path())
+        st_project_path = str(find_root(source_file_dir))
 
         #
         # cd to the active sublime text project dir:
