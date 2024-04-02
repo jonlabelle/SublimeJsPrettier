@@ -206,7 +206,7 @@ def find_root(file_dir):
         if "package.json" in os.listdir(file_dir):
             return file_dir
         file_dir = os.path.dirname(file_dir) 
-    return None
+    return os.path.expanduser('~')
 
 def env_path_contains(path_to_look_for, env_path=None):
     """Check if the specified path is listed in OS environment path.
