@@ -36,7 +36,9 @@ PRETTIER_CONFIG_FILES = [
     '.prettierrc.cjs',
     'prettier.config.cjs',
     'prettier.config.js',
-    '.prettierrc.json5'
+    '.prettierrc.json5',
+    '.prettierrc.mjs',
+    'prettier.config.mjs'
 ]
 
 PRETTIER_IGNORE_FILE = '.prettierignore'
