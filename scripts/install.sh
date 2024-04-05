@@ -10,7 +10,7 @@ cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 
 install_pip_requirements() {
     echo && echo '> Install pip requirements'
-    python3 -m pip install --upgrade pip
+    #python3 -m pip install --upgrade pip
     pip install -r requirements.txt
 }
 
