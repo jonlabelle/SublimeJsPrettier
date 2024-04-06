@@ -9,7 +9,14 @@ readonly SCRIPTSDIR="$(cd "$(dirname "${0}")"; echo "$(pwd)")"
 cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 
 install_pip_requirements() {
-    echo && echo '> Activate python virtual environment (venv)'
+    echo && echo '> Initializing python virtual environment'
+    python3 -m venv venv
+
+    echo
+    pyversion="$(python --version)"
+    echo "$pyversion virtual environment initialized"
+
+    echo && echo "> Activate $pyversion virtual environment (venv)"
     source venv/bin/activate
 
     echo && echo '> Ensure pip upgrade'
