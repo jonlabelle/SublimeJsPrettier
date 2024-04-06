@@ -17,6 +17,7 @@ install_pip_requirements() {
     echo "$pyversion virtual environment initialized"
 
     echo && echo "> Activate $pyversion virtual environment (venv)"
+    # shellcheck disable=SC1091
     source venv/bin/activate
 
     echo && echo '> Ensure pip upgrade'
