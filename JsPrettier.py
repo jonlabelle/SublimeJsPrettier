@@ -58,7 +58,7 @@ if version_info[0] == 2:
     from jsprettier.util import trim_trailing_ws_and_lines
     from jsprettier.util import normalize_line_endings
     from jsprettier.util import decode_bytes
-    from .jsprettier.util import find_root
+    from jsprettier.util import find_root
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
