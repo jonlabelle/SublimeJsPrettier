@@ -9,3 +9,4 @@ tmp/
 .scannerwork/
 .env
 .pytest_cache/
+/venv
