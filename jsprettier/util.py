@@ -21,7 +21,7 @@ if IS_PY2:
     string_types = (str, unicode)
 else:
     text_type = str
-    string_types = (str, )
+    string_types = (str,)
 
 
 def contains(needle, haystack):
@@ -45,8 +45,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
         for config_file in PRETTIER_CONFIG_FILES:
             target = os.path.join(d, config_file)
             if os.path.exists(target):
-                if config_file == 'package.json' and not _prettier_opts_in_package_json(
-                        target):
+                if config_file == 'package.json' and not _prettier_opts_in_package_json(target):
                     continue
                 return target
 
@@ -60,8 +59,7 @@ def find_prettier_config(start_dir, alt_dirs=None):
         for config_file in PRETTIER_CONFIG_FILES:
             target = os.path.join(d, config_file)
             if os.path.exists(target):
-                if config_file == 'package.json' and not _prettier_opts_in_package_json(
-                        target):
+                if config_file == 'package.json' and not _prettier_opts_in_package_json(target):
                     continue
                 return target
 
@@ -94,10 +92,8 @@ def _prettier_opts_in_package_json(package_json_file):
             json_data = json.load(package_file)
     except Exception:
         from .sthelper import log_warn
-        log_warn(
-            "Could not parse package.json file: '{0}'. Any Prettier options "
-            "defined in this file will be ignored.".format(package_json_file),
-            True)
+        log_warn("Could not parse package.json file: '{0}'. Any Prettier options "
+                 "defined in this file will be ignored.".format(package_json_file), True)
         return False
 
     try:
@@ -291,10 +287,8 @@ def which(executable, path=None):
         if dir_normalized not in dirs_seen:
             dirs_seen.add(dir_normalized)
             for exec_file in executable_files:
-                exec_file_path = os.path.normpath(
-                    os.path.join(directory, exec_file))
-                if os.path.isfile(exec_file_path) and os.access(
-                        exec_file_path, os.X_OK):
+                exec_file_path = os.path.normpath(os.path.join(directory, exec_file))
+                if os.path.isfile(exec_file_path) and os.access(exec_file_path, os.X_OK):
                     return exec_file_path
 
     return None
@@ -310,8 +304,7 @@ def get_proc_env():
     return env
 
 
-def in_source_file_path_or_project_root(source_file_dir, st_project_path,
-                                        filename):
+def in_source_file_path_or_project_root(source_file_dir, st_project_path, filename):
     # check in source file dir:
     source_file_dir_ignore_path = os.path.join(source_file_dir, filename)
     if os.path.exists(source_file_dir_ignore_path):
@@ -334,8 +327,7 @@ def resolve_prettier_ignore_path(source_file_dir, st_project_path):
 
     :return: The path (str) to a '.prettierignore' file (if one exists) in the active Sublime Text Project Window.
     """
-    ignore_file_path = in_source_file_path_or_project_root(
-        source_file_dir, st_project_path, PRETTIER_IGNORE_FILE)
+    ignore_file_path = in_source_file_path_or_project_root(source_file_dir, st_project_path, PRETTIER_IGNORE_FILE)
     if ignore_file_path is not None:
         return ignore_file_path
 
@@ -357,8 +349,7 @@ def resolve_prettier_ignore_path(source_file_dir, st_project_path):
 
 def format_error_message(error_message, error_code):
     # inject a line break between the error message, and debug output (legibility purposes):
-    error_message = error_message.replace('[error] stdin: ',
-                                          '\n[error] stdin: ')
+    error_message = error_message.replace('[error] stdin: ', '\n[error] stdin: ')
 
     return '\nPrettier produced the following output:\n\n' \
            '{0}\n' \
@@ -371,14 +362,11 @@ def format_debug_message(label, message, debug_enabled=False):
         return
     header = ' {0} DEBUG - {1} '.format(PLUGIN_NAME, label)
     horizontal_rule = repeat_str('-', len(header))
-    print('\n{0}\n{1}\n{2}\n\n'
-          '{3}'.format(horizontal_rule, header, horizontal_rule, message))
+    print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
+        horizontal_rule, header, horizontal_rule, message))
 
 
-def get_cli_arg_value(additional_cli_args,
-                      arg_key,
-                      arg_val_can_be_empty=False,
-                      default=None):
+def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, default=None):
     if not additional_cli_args or not arg_key:
         return default
     if not isinstance(additional_cli_args, dict):
@@ -421,5 +409,4 @@ def decode_bytes(bytes_to_decode):
     try:
         return bytes_to_decode.decode('utf-8')
     except UnicodeError:
-        return bytes_to_decode.decode(locale.getpreferredencoding(),
-                                      errors='replace')
+        return bytes_to_decode.decode(locale.getpreferredencoding(), errors='replace')
