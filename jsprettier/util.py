@@ -402,3 +402,16 @@ def decode_bytes(bytes_to_decode):
         return bytes_to_decode.decode('utf-8')
     except UnicodeError:
         return bytes_to_decode.decode(locale.getpreferredencoding(), errors='replace')
+
+
+def wrap_in_double_quotes(val):
+    """
+    Fixes a corner case when attempting to format a file on
+    Windows and default shell is fish.
+
+    NOTE: Only use with '--stdin-filepath', otherwise
+    breaks command when using with other path options (e.g. '--config').
+
+    See #285: https://github.com/jonlabelle/SublimeJsPrettier/issues/285
+    """
+    return '"{0}"'.format(val)
