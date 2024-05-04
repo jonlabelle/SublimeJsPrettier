@@ -7,8 +7,12 @@ assignees: jonlabelle
 
 ---
 
+---
+
 > [!WARNING]  
 > Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time.
+
+---
 
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues), please include the following information in your post:
 
