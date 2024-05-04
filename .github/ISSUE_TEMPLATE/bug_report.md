@@ -42,7 +42,7 @@ prettier --version
 
 ## JsPrettier Plug-in Version
 
-The JsPrettier Sublime Text Plug-in version is located in the `package.json` file.
+The JsPrettier Sublime Text Plug-in version is located in the [`package.json`](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file.
 
 ```json
 "name": "sublime-js-prettier",
