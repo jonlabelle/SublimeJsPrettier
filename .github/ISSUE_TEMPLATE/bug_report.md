@@ -28,7 +28,7 @@ When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues
 
 ---
 
-## Explain the Issue and Expected Behavior
+## Explain the issue and expected behavior
 
 Provide a story of the issue with as much detail as possible, including the expected behavior.
 
@@ -40,7 +40,7 @@ To show the currently installed prettier version, run the following command:
 prettier --version
 ```
 
-## JsPrettier Plug-in Version
+## JsPrettier plug-in version
 
 The JsPrettier Sublime Text Plug-in version is located in the [`package.json`](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file.
 
@@ -49,7 +49,7 @@ The JsPrettier Sublime Text Plug-in version is located in the [`package.json`](h
 "version": "<JS_PRETTIER_PLUGIN_VERSION>",
 ```
 
-## Platform Details
+## Platform details
 
 Provide your Sublime Text version and Platform details.
 
@@ -64,7 +64,7 @@ Provide your Sublime Text version and Platform details.
 - Operating System Architecture: <OS_ARCHITECTURE>
 ```
 
-## Generated Prettier command line arguments
+## Generated prettier command line arguments
 
 To view the generated prettier command line arguments you need to enable JsPrettier's [debug setting] and open the Sublime Text Console after a file/section formatting attempt.
 
@@ -108,7 +108,7 @@ Prettier produced the following output:
 
 > **NOTE:** The back-slashes (`\`) in the example above will not be printed to the Console... and only provided here for legibility purposes. The full prettier command will be output to the Console with no line-breaks.
 
-## Is the same behavior observed when run against Prettier directly?
+## Is the same behavior observed when run against prettier directly?
 
 For example, the following command passes the contents of `messy.js` to Prettier and prints the formatted to stdout:
 
