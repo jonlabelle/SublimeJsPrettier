@@ -16,15 +16,16 @@ assignees: jonlabelle
 
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues), please include the following information in your post:
 
-- [ ] **Explain the Issue and Expected Behavior**
-- [ ] **Prettier version**
-- [ ] **JsPrettier Plug-in Version**
-- [ ] **Platform Details**
-- [ ] **Generated Prettier command line arguments**
-- [ ] **Is the same behavior observed when run against Prettier directly?**
-- [ ] **The contents of your** `User/JsPrettier.sublime-settings` **file**
-- [ ] **The contents of your** `<project_name>.sublime-project` **file (if applicable)**
-- [ ] **Steps to reproduce the behavior**
+- [ ] [Explain the issue and expected behavior](#explain-the-issue-and-expected-behavior)
+- [ ] [Prettier version](#prettier-version)
+- [ ] [JsPrettier plug-in version](#jsprettier-plug-in-version)
+- [ ] [Platform details](#platform-details)
+- [ ] [Generated prettier command line arguments](#generated-prettier-command-line-arguments)
+- [ ] [Is the same behavior observed when run against prettier directly?](#is-the-same-behavior-observed-when-run-against-prettier-directly)
+- [ ] [The contents of your `User/JsPrettier.sublime-settings` file](#the-contents-of-your-userjsprettiersublime-settings-file)
+- [ ] [The contents of your `<project_name>.sublime-project` file (if applicable)](#the-contents-of-your-project_namesublime-project-file-if-applicable)
+- [ ] [Steps to reproduce](#steps-to-reproduce)
+- [ ] [Attach a minimal project](#attach-a-minimal-project)
 
 ---
 
