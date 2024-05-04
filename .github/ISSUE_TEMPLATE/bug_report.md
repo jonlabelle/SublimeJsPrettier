@@ -238,7 +238,7 @@ The steps one would take to reproduce and observe the problem.
 > reported. This might include the lines of code that you have identified as
 > causing the bug, and potential solutions (and your opinions on their merits).
 
-## Attach a minimal project to the issue
+## Attach minimal project
 
 Attach a minimal project required to reproduce the issue.
 
