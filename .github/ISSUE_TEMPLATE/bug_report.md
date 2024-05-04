@@ -4,7 +4,11 @@ about: Create a bug report to help us improve
 title: ''
 labels: 'investigating'
 assignees: jonlabelle
+
 ---
+
+> [!WARNING]  
+> Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time.
 
 When [reporting an issue](https://github.com/jonlabelle/SublimeJsPrettier/issues), please include the following information in your post:
 
@@ -226,9 +230,9 @@ The entire contents of your **_User_** overridden JsPretter Project-level Settin
 }
 ```
 
-## Steps to reproduce the behavior
+## Steps to reproduce
 
-The steps one would take to reproduce and observe the problem.
+The steps one would take to reproduce the behavior and observe the problem.
 
 1. This is the first step
 2. This is the second step
@@ -242,7 +246,7 @@ The steps one would take to reproduce and observe the problem.
 
 Attach a minimal project required to reproduce the issue.
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > Please attach it in **zip format** and DO NOT include your `node_modules` directory.
 
 [debug setting]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L14
