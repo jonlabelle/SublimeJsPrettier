@@ -248,7 +248,7 @@ The steps one would take to reproduce the behavior and observe the problem.
 
 Attach a _minimal_ project required to reproduce the issue.
 
-> [!IMPORTANT]
-> Please attach it in **zip format** and DO NOT include your `node_modules` directory.
+> [!IMPORTANT]  
+> Please [attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory.
 
 [debug setting]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L14
