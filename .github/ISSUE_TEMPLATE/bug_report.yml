@@ -44,8 +44,8 @@ body:
     attributes:
       label: Platform
       description: Your operating system
+      multiple: false
       options:
-        - 'Choose'
         - 'Windows'
         - 'Linux'
         - 'macOS'
@@ -58,11 +58,11 @@ body:
     attributes:
       label: SublimeText version
       description: Your SublimeText version
+      multiple: false
       options:
-        - 'Choose'
-        - '2'
-        - '3'
         - '4'
+        - '3'
+        - '2'
       default: 0
     validations:
       required: true
