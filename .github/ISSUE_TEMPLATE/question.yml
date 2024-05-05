@@ -1,0 +1,13 @@
+name: Ask a question
+title: '[Question] '
+labels:
+  - question
+
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: "What's your question?"
+      description: "If you're not exactly sure what to say, [here are some suggestions](https://stackoverflow.com/help/how-to-ask)"
+    validations:
+      required: true
