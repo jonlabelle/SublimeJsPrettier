@@ -39,12 +39,29 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: os_st_version
+  - type: dropdown
+    id: platform
     attributes:
-      label: Platform and SublimeText version
-      description: Your operating system and SublimeText version
-      placeholder: Windows 11 and SublimeText Build 4169
+      label: Platform
+      description: Your operating system
+      options:
+        - 'Windows'
+        - 'Linux'
+        - 'macOS'
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: st_version
+    attributes:
+      label: SublimeText version
+      description: Your SublimeText version
+      options:
+        - '2'
+        - '3'
+        - '4'
+      default: 0
     validations:
       required: true
 
