@@ -26,7 +26,16 @@ body:
     id: pretter_version
     attributes:
       label: Prettier version
-      description: Run **prettier --version** to get the version
+      description: Run `prettier --version` to get the version
+      placeholder: 'x.x.x'
+    validations:
+      required: true
+
+  - type: input
+    id: jsprettier_version
+    attributes:
+      label: JsPrettier plug-in version
+      description: Located in the [package.json](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file.
       placeholder: 'x.x.x'
     validations:
       required: true
