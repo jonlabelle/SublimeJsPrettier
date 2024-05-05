@@ -17,8 +17,8 @@ body:
     id: explain
     attributes:
       label: Explain the issue
-      description: 'Explain the issue and expected behavior'
-      placeholder: 'Provide a story of the issue with as much detail as possible, including the expected behavior...'
+      description: Explain the issue and expected behavior
+      placeholder: Provide a story of the issue with as much detail as possible, including the expected behavior...
     validations:
       required: true
 
@@ -35,7 +35,63 @@ body:
     id: jsprettier_version
     attributes:
       label: JsPrettier plug-in version
-      description: Located in the [package.json](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file.
+      description: Located in the [package.json](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file
       placeholder: 'x.x.x'
     validations:
       required: true
+
+  - type: input
+    id: os_st_version
+    attributes:
+      label: Platform and SubimeText version
+      description: Your operating system and SublimeText version
+      placeholder: Windows 11 and SublimeText Build 4169
+    validations:
+      required: true
+
+  - type: textarea
+    id: prettier_cli
+    attributes:
+      label: Prettier command
+      description: Generated prettier command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the console to view.
+      placeholder: prettier --config ./prettierrc --stdin-filepath messy.js
+    validations:
+      required: false
+
+  - type: dropdown
+    id: prettier_directly
+    attributes:
+      label: Reproducable outside of SublimeText?
+      description: Is the same behavior observed when run against prettier directly, or outside of SublimeText?
+      options:
+        - No
+        - Yes
+        - Unknown
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproduce_steps
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the behavior and observe the problem
+      placeholder: |
+        1. This is the first step
+        2. This is the second step
+        3. This is the third step
+    validations:
+      required: true
+
+  - type: markdown
+    id: attach_project_heading
+    attributes:
+      value: '### Attach a minimal project'
+
+  - type: markdown
+    id: attach_project_body
+    attributes:
+      value: |
+        Attach a _minimal_ project required to reproduce the issue.
+
+        > [!IMPORTANT]
+        > Please [attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
