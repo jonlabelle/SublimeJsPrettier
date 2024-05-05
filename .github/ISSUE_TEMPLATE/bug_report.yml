@@ -64,9 +64,9 @@ body:
       label: Reproducable outside of SublimeText?
       description: Is the same behavior observed when run against prettier directly, or outside of SublimeText?
       options:
-        - No
-        - Yes
-        - Unknown
+        - 'No'
+        - 'Yes'
+        - 'Unknown'
     validations:
       required: false
 
