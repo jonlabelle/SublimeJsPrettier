@@ -1,4 +1,5 @@
-name: Ask a question
+name: Question
+description: Ask us a question.
 title: '[Question] '
 labels:
   - question
