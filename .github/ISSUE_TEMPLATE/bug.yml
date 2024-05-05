@@ -95,6 +95,18 @@ body:
     validations:
       required: false
 
+  - type: textarea
+    id: reproduce_steps
+    attributes:
+      label: Steps to reproduce
+      description: Steps to reproduce the behavior and observe the problem
+      placeholder: |
+        1. This is the first step
+        2. This is the second step
+        3. This is the third step
+    validations:
+      required: true
+
   - type: dropdown
     id: prettier_directly
     attributes:
@@ -108,18 +120,6 @@ body:
       default: 0
     validations:
       required: false
-
-  - type: textarea
-    id: reproduce_steps
-    attributes:
-      label: Steps to reproduce
-      description: Steps to reproduce the behavior and observe the problem
-      placeholder: |
-        1. This is the first step
-        2. This is the second step
-        3. This is the third step
-    validations:
-      required: true
 
   - type: textarea
     id: attach_project
