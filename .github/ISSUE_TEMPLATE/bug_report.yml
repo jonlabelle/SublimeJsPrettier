@@ -1,0 +1,23 @@
+name: Bug report
+description: Create a bug report to help us improve.
+title: ''
+labels:
+  - investigating
+assignees:
+  - jonlabelle
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > [!WARNING]  
+        > Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time, or yours.
+
+  - type: input
+    id: explain
+    attributes:
+      label: Explain the issue
+      description: 'Explain the issue and expected behavior'
+      placeholder: 'Provide a story of the issue with as much detail as possible, including the expected behavior.'
+    validations:
+      required: true
