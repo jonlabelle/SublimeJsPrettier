@@ -22,7 +22,7 @@ body:
       required: true
 
   - type: input
-    id: pretter_version
+    id: prettier_version
     attributes:
       label: Prettier version
       description: Run `prettier --version` to get the version
@@ -31,7 +31,7 @@ body:
       required: true
 
   - type: input
-    id: jsprettier_version
+    id: js_prettier_version
     attributes:
       label: JsPrettier plug-in version
       description: Located in the [package.json](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file
@@ -42,7 +42,7 @@ body:
   - type: input
     id: os_st_version
     attributes:
-      label: Platform and SubimeText version
+      label: Platform and SublimeText version
       description: Your operating system and SublimeText version
       placeholder: Windows 11 and SublimeText Build 4169
     validations:
@@ -52,7 +52,7 @@ body:
     id: prettier_cli
     attributes:
       label: Prettier command
-      description: Generated prettier command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the console to view.
+      description: Generated `prettier` command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the console to view.
       placeholder: prettier --config ./prettierrc --stdin-filepath messy.js
       render: console
     validations:
@@ -86,7 +86,7 @@ body:
     id: prettier_directly
     attributes:
       label: Reproducible outside of SublimeText?
-      description: Is the same behavior observed when run against prettier directly, or outside of SublimeText? Optionally, use the [Playground](https://prettier.io/playground/) to determine the differences between formatted output.
+      description: Is the same behavior observed when run against `prettier` directly, or outside of SublimeText? Optionally, use the [Playground](https://prettier.io/playground/) to determine the differences between formatted output.
       options:
         - 'Unknown'
         - 'Yes'
