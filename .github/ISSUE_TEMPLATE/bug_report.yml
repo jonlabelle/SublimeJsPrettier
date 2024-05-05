@@ -7,16 +7,26 @@ assignees:
 
 body:
   - type: markdown
+    id: warning
     attributes:
       value: |
         > [!WARNING]  
         > Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time, or yours.
 
-  - type: input
+  - type: textarea
     id: explain
     attributes:
       label: Explain the issue
       description: 'Explain the issue and expected behavior'
-      placeholder: 'Provide a story of the issue with as much detail as possible, including the expected behavior.'
+      placeholder: 'Provide a story of the issue with as much detail as possible, including the expected behavior...'
+    validations:
+      required: true
+
+  - type: input
+    id: pretter_version
+    attributes:
+      label: Prettier version
+      description: Run **prettier --version** to get the version
+      placeholder: 'x.x.x'
     validations:
       required: true
