@@ -1,5 +1,6 @@
 name: Request a feature
 description: Suggest an idea for this project.
+title: '[Enhancement] '
 labels:
   - enhancement
 assignees: jonlabelle
