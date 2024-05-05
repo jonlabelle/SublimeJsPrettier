@@ -88,9 +88,9 @@ body:
     attributes:
       label: Attach a minimal project
       description: |
-        Attach a _minimal_ project required to reproduce the issue.
+        [Attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) a _minimal_ project required to reproduce the issue.
 
         > [!IMPORTANT]
-        > Please [attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
+        > Please attach the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
     validations:
       required: false
