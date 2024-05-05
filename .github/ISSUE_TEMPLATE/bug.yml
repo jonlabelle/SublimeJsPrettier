@@ -71,7 +71,7 @@ body:
     id: prettier_cli
     attributes:
       label: Prettier command
-      description: Generated `prettier` command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the console to view.
+      description: Generated `prettier` command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the [console](https://docs.sublimetext.io/guide/getting-started/basic-concepts.html#the-console) to view.
       placeholder: prettier --config ./prettierrc --stdin-filepath messy.js
       render: console
     validations:
