@@ -82,16 +82,14 @@ body:
     validations:
       required: true
 
-  - type: markdown
-    id: attach_project_heading
+  - type: textarea
+    id: attach_project
     attributes:
-      value: '### Attach a minimal project'
-
-  - type: markdown
-    id: attach_project_body
-    attributes:
-      value: |
+      label: Attach a minimal project
+      description: |
         Attach a _minimal_ project required to reproduce the issue.
 
-        > [!IMPORTANT]
+        > [!IMPORTANT]  
         > Please [attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
+    validations:
+      required: false
