@@ -106,6 +106,7 @@ body:
     attributes:
       label: Reproducible outside of SublimeText?
       description: Is the same behavior observed when run against `prettier` directly, or outside of SublimeText? Optionally, use the [Playground](https://prettier.io/playground/) to determine the differences between formatted output.
+      multiple: false
       options:
         - 'Unknown'
         - 'Yes'
