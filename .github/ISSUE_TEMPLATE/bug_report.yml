@@ -10,7 +10,7 @@ body:
     id: warning
     attributes:
       value: |
-        > [!WARNING]  
+        > [!WARNING]
         > Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time, or yours.
 
   - type: textarea
@@ -64,9 +64,10 @@ body:
       label: Reproducable outside of SublimeText?
       description: Is the same behavior observed when run against prettier directly, or outside of SublimeText?
       options:
-        - 'No'
-        - 'Yes'
         - 'Unknown'
+        - 'Yes'
+        - 'No'
+      default: 0
     validations:
       required: false
 
@@ -89,7 +90,7 @@ body:
       description: |
         Attach a _minimal_ project required to reproduce the issue.
 
-        > [!IMPORTANT]  
+        > [!IMPORTANT]
         > Please [attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
     validations:
       required: false
