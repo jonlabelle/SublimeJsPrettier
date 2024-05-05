@@ -45,6 +45,7 @@ body:
       label: Platform
       description: Your operating system
       options:
+        - 'Choose'
         - 'Windows'
         - 'Linux'
         - 'macOS'
@@ -58,6 +59,7 @@ body:
       label: SublimeText version
       description: Your SublimeText version
       options:
+        - 'Choose'
         - '2'
         - '3'
         - '4'
