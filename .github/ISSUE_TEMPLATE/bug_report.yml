@@ -62,7 +62,7 @@ body:
     id: config
     attributes:
       label: Prettier config
-      description: The contents of your prettier config file or SublimeText JsPrettier settings
+      description: The contents of your [prettier config](https://prettier.io/docs/en/configuration.html) file or SublimeText [JsPrettier settings](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings)
       placeholder: |
         {
           "printWidth": 80,
