@@ -6,12 +6,6 @@ assignees:
   - jonlabelle
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        > [!WARNING]
-        > Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time, or yours.
-
   - type: textarea
     id: explain
     attributes:
@@ -138,3 +132,13 @@ body:
         > Please attach the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
     validations:
       required: false
+
+  - type: markdown
+    attributes:
+      value: ---
+
+  - type: markdown
+    attributes:
+      value: |
+        > [!WARNING]
+        > Failure to provide adequate details of your problem, as demonstrated in this document, will result in automatic closure of your issue. Please don't waste our time, or yours.
