@@ -7,7 +7,6 @@ assignees:
 
 body:
   - type: markdown
-    id: warning
     attributes:
       value: |
         > [!WARNING]
@@ -55,13 +54,40 @@ body:
       label: Prettier command
       description: Generated prettier command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the console to view.
       placeholder: prettier --config ./prettierrc --stdin-filepath messy.js
+      render: console
+    validations:
+      required: false
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Prettier config
+      description: The contents of your prettier config file or SublimeText JsPrettier settings
+      placeholder: |
+        ```json
+        {
+          "printWidth": 80,
+          "singleQuote": false,
+          "semi": true,
+          "requirePragma": false,
+          "overrides": [
+            {
+              "files": ["*.html", "*.php"],
+              "options": {
+                "parser": "html"
+              }
+            }
+          ]
+        }
+        ```
+      render: json
     validations:
       required: false
 
   - type: dropdown
     id: prettier_directly
     attributes:
-      label: Reproducable outside of SublimeText?
+      label: Reproducible outside of SublimeText?
       description: Is the same behavior observed when run against prettier directly, or outside of SublimeText?
       options:
         - 'Unknown'
