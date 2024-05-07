@@ -58,7 +58,6 @@ if version_info[0] == 2:
     from jsprettier.util import trim_trailing_ws_and_lines
     from jsprettier.util import normalize_line_endings
     from jsprettier.util import decode_bytes
-    from jsprettier.util import wrap_in_double_quotes
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
@@ -102,7 +101,6 @@ else:
     from .jsprettier.util import trim_trailing_ws_and_lines
     from .jsprettier.util import normalize_line_endings
     from .jsprettier.util import decode_bytes
-    from .jsprettier.util import wrap_in_double_quotes
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -388,7 +386,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             st_status_message('Selection(s) formatted.')
 
     def format_code(self, source, node_path, prettier_cli_path, prettier_options, view, provide_cursor=False,
-                    is_selection=False):
+        is_selection=False):
 
         self._error_message = None
 
@@ -403,15 +401,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # automatically prepend the environment detected node[.exe|.cmd] path to
             # the generated command (see #146 --no-bin-links).
             cmd = [resolve_node_path(view.file_name())] \
-                + [prettier_cli_path] \
-                + prettier_options
+                  + [prettier_cli_path] \
+                  + prettier_options
         elif is_str_none_or_empty(node_path):
             cmd = [prettier_cli_path] \
-                + prettier_options
+                  + prettier_options
         else:
             cmd = [node_path] \
-                + [prettier_cli_path] \
-                + prettier_options
+                  + [prettier_cli_path] \
+                  + prettier_options
 
         try:
             format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
@@ -499,7 +497,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         return self.should_show_plugin()
 
     def parse_prettier_options(self, view, parsed_additional_cli_args, prettier_config_path, has_custom_config_defined,
-                               has_no_config_defined, prettier_ignore_filepath, source_file_path):
+        has_no_config_defined, prettier_ignore_filepath, source_file_path):
         prettier_options = []
 
         #
@@ -638,7 +636,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         # detect and format css/js selection(s) within html files:
         # if not self.is_html(view):
         prettier_options.append('--stdin-filepath')
-        prettier_options.append(wrap_in_double_quotes(source_file_path))
+        prettier_options.append(source_file_path)
 
         if debug_enabled(view):
             if not parsed_additional_cli_args.count('--log-level') > 0:
@@ -673,7 +671,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
     def is_source_js(view):
         scopename = view.scope_name(view.sel()[0].b)
         if scopename.startswith('source.js') or contains('source.js.embedded.html', scopename) \
-                or contains('source.css.embedded.js', scopename):
+            or contains('source.css.embedded.js', scopename):
             return True
         return False
 
@@ -704,7 +702,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         scopename = view.scope_name(view.sel()[0].b)
         if scopename.startswith('source.css') or filename.endswith('.css') \
-                or contains('meta.selector.css', scopename) or contains('source.css.embedded.html', scopename):
+            or contains('meta.selector.css', scopename) or contains('source.css.embedded.html', scopename):
             return True
         return False
 
@@ -776,7 +774,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         scopename = view.scope_name(0)
         if scopename.startswith('text.html.markdown') \
             or scopename.startswith('text.html.vue') \
-                or filename.endswith('component.html'):
+            or filename.endswith('component.html'):
             return False
         if scopename.startswith('text.html') or filename.endswith('.html') or filename.endswith('.htm'):
             return True
