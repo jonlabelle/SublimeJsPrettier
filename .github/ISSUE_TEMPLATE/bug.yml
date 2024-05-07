@@ -29,7 +29,7 @@ body:
     id: js_prettier_version
     attributes:
       label: JsPrettier plug-in version
-      description: Located in the [package.json](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3) file
+      description: Located in the [package.json](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/package.json#L3 "Go to version in package.json") file
       placeholder: 'x.x.x'
     validations:
       required: true
@@ -66,7 +66,7 @@ body:
     id: prettier_cli
     attributes:
       label: Prettier command
-      description: Generated `prettier` command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18) and open the [console](https://docs.sublimetext.io/guide/getting-started/basic-concepts.html#the-console) to view.
+      description: Generated `prettier` command line arguments. [Enable debug mode](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings#L18 "Go to debug mode in JsPrettier.sublime-settings file") and open the [console](https://docs.sublimetext.io/guide/getting-started/basic-concepts.html#the-console "Go to about the SublimeText console page") to view.
       placeholder: prettier --config ./prettierrc --stdin-filepath messy.js
       render: console
     validations:
@@ -76,7 +76,7 @@ body:
     id: config
     attributes:
       label: Prettier config
-      description: The contents of your [prettier config](https://prettier.io/docs/en/configuration.html) file or SublimeText [JsPrettier settings](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings)
+      description: The contents of your [prettier config](https://prettier.io/docs/en/configuration.html "Go to Prettier configuration page") file or SublimeText [JsPrettier settings](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/JsPrettier.sublime-settings "Go to JsPrettier.sublime-settings file")
       placeholder: |
         {
           "printWidth": 80,
@@ -112,7 +112,7 @@ body:
     id: prettier_directly
     attributes:
       label: Reproducible outside of SublimeText?
-      description: Is the same behavior observed when run against `prettier` directly, or outside of SublimeText? Optionally, use the [Playground](https://prettier.io/playground/) to determine the differences between formatted output.
+      description: Is the same behavior observed when run against `prettier` directly, or outside of SublimeText? Optionally, use the [Playground](https://prettier.io/playground/ "Go to Prettier Playgroud page") to determine the differences between formatted output.
       multiple: false
       options:
         - 'No'
@@ -126,7 +126,7 @@ body:
     attributes:
       label: Attach a minimal project
       description: |
-        [Attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) a _minimal_ project required to reproduce the issue.
+        [Attach](https://docs.github.com/get-started/writing-on-github/working-with-advanced-formatting/attaching-files "Go to how to attach files page") a _minimal_ project required to reproduce the issue.
 
         > [!IMPORTANT]
         > Please attach the contents of your project into a single **zip** archive. DO NOT include your `node_modules` directory, or anything else deemed private, personal, or sensitive (e.g. phone numbers, or secrets in `.env` files).
