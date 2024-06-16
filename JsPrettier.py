@@ -400,7 +400,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             # presumably a .js script (e.g: 'bin-prettier.js')...
             # automatically prepend the environment detected node[.exe|.cmd] path to
             # the generated command (see #146 --no-bin-links).
-            cmd = [resolve_node_path(view.file_name())] \
+            cmd = [resolve_node_path()] \
                 + [prettier_cli_path] \
                 + prettier_options
         elif is_str_none_or_empty(node_path):

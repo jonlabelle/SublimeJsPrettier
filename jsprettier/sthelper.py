@@ -207,8 +207,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     return os.path.normpath(custom_prettier_cli_path)
 
 
-# noinspection PyUnusedLocal
-def resolve_node_path(source_file):
+def resolve_node_path():
     node_cmd = 'node'
     if is_windows():
         node_cmd = ensure_file_has_ext(node_cmd, ".exe")
