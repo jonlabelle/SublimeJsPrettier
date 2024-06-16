@@ -27,7 +27,7 @@ install_pip_requirements() {
 
 install_npm_packages() {
     echo && echo '> Install npm packages'
-    npm install -g markdownlint-cli
+    npm install -g markdownlint-cli2
 }
 
 main() {

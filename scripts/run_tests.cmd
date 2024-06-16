@@ -21,7 +21,7 @@ pylint .
 
 echo.
 echo. > Run markdownlint
-markdownlint .
+markdownlint-cli2 .
 
 popd && popd
 echo.

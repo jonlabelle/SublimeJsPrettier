@@ -12,7 +12,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 echo. > Install npm packages
-npm install -g markdownlint-cli
+npm install -g markdownlint-cli2
 
 popd && popd
 echo.

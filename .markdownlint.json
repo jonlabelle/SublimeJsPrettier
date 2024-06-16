@@ -1,0 +1,76 @@
+{
+  "code-block-style": {
+    "style": "fenced"
+  },
+  "code-fence-style": {
+    "style": "backtick"
+  },
+  "emphasis-style": {
+    "style": "consistent"
+  },
+  "MD007": {
+    "indent": 4
+  },
+  "no-inline-html": false,
+  "fenced-code-language": {
+    "allowed_languages": [
+      "bash",
+      "console",
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "powershell",
+      "text",
+      "xml",
+      "yaml"
+    ],
+    "language_only": true
+  },
+  "heading-style": {
+    "style": "atx"
+  },
+  "hr-style": {
+    "style": "---"
+  },
+  "line-length": {
+    "strict": false,
+    "code_blocks": false,
+    "line_length": 1000
+  },
+  "link-image-style": {
+    "autolink": true,
+    "inline": true,
+    "collapsed": true,
+    "shortcut": true,
+    "full": true,
+    "url_inline": true
+  },
+  "no-duplicate-heading": {
+    "siblings_only": true
+  },
+  "ol-prefix": {
+    "style": "ordered"
+  },
+  "proper-names": {
+    "code_blocks": false,
+    "names": [
+      "CommonMark",
+      "JavaScript",
+      "Markdown",
+      "markdown-it",
+      "markdownlint",
+      "markdownlint-cli2",
+      "Node.js"
+    ]
+  },
+  "strong-style": {
+    "style": "asterisk"
+  },
+  "table-pipe-style": {
+    "style": "leading_and_trailing"
+  },
+  "ul-style": {
+    "style": "dash"
+  }
+}

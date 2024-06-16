@@ -48,7 +48,7 @@ Operating Systems.
 ### Requirements
 
 - [Sublime Text] – Text editor for code
-- [node.js] – JavaScript runtime
+- [Node.js] – JavaScript runtime
     - [yarn] or [npm] – Package manager for JavaScript
         - [Prettier] – Opinionated code formatter (v3 or above)
 
@@ -161,20 +161,20 @@ application menu to:
   
     **Examples:**
   
-    ```
+    ```json
     {
         // macOS and Linux examples:
-        "prettier_cli_path": "/usr/local/bin/prettier"
-        "prettier_cli_path": "/some/absolute/path/to/node_modules/.bin/prettier"
-        "prettier_cli_path": "./node_modules/.bin/prettier"
-        "prettier_cli_path": "~/bin/prettier"
-        "prettier_cli_path": "$HOME/bin/prettier"
-        "prettier_cli_path": "${project_path}/bin/prettier"
-        "prettier_cli_path": "$ENV/bin/prettier"
-        "prettier_cli_path": "$NVM_BIN/prettier"
+        "prettier_cli_path": "/usr/local/bin/prettier",
+        "prettier_cli_path": "/some/absolute/path/to/node_modules/.bin/prettier",
+        "prettier_cli_path": "./node_modules/.bin/prettier",
+        "prettier_cli_path": "~/bin/prettier",
+        "prettier_cli_path": "$HOME/bin/prettier",
+        "prettier_cli_path": "${project_path}/bin/prettier",
+        "prettier_cli_path": "$ENV/bin/prettier",
+        "prettier_cli_path": "$NVM_BIN/prettier",
 
         // Windows examples:
-        "prettier_cli_path": "C:/path/to/prettier.cmd"
+        "prettier_cli_path": "C:/path/to/prettier.cmd",
         "prettier_cli_path": "%USERPROFILE%\\bin\\prettier.cmd"
     }
     ```
@@ -185,20 +185,20 @@ application menu to:
   
     **Examples:**
   
-    ```
+    ```json
     {
         // macOS/Linux:
-        "node_path": "/usr/local/bin/node"
-        "node_path": "/some/absolute/path/to/node"
-        "node_path": "./node"
-        "node_path": "~/bin/node"
-        "node_path": "$HOME/bin/node"
-        "node_path": "${project_path}/bin/node"
-        "node_path": "$ENV/bin/node"
-        "node_path": "$NVM_BIN/node"
+        "node_path": "/usr/local/bin/node",
+        "node_path": "/some/absolute/path/to/node",
+        "node_path": "./node",
+        "node_path": "~/bin/node",
+        "node_path": "$HOME/bin/node",
+        "node_path": "${project_path}/bin/node",
+        "node_path": "$ENV/bin/node",
+        "node_path": "$NVM_BIN/node",
 
         // Windows:
-        "node_path": "C:/path/to/node.exe"
+        "node_path": "C:/path/to/node.exe",
         "node_path": "%USERPROFILE%\\bin\\node.exe"
     }
     ```
@@ -345,7 +345,7 @@ application menu to:
     For example, a file with its first comment specified below, and the
     `--require-pragma` option:
 
-    ```js
+    ```javascript
     /**
      * @prettier
      */
@@ -353,7 +353,7 @@ application menu to:
 
     or
 
-    ```js
+    ```javascript
     /**
      * @format
      */
@@ -605,7 +605,7 @@ Jon LaBelle
 [Package Control]: https://packagecontrol.io/packages/JsPrettier
 [Sublime Text]: https://www.sublimetext.com
 [JsPrettier]: https://github.com/jonlabelle/SublimeJsPrettier
-[node.js]: https://nodejs.org
+[Node.js]: https://nodejs.org
 [project-level settings]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/projects.html
 [tab_size]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation
 [***translate_tabs_to_spaces***]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation

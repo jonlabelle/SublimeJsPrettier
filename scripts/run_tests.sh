@@ -29,7 +29,7 @@ run_pylint() {
 
 run_markdownlint() {
     echo '> Run markdownlint'
-    markdownlint .
+    markdownlint-cli2 .
     echo 'Markdown looks good.' && echo
 }
 

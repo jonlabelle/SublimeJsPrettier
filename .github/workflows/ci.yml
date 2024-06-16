@@ -2,27 +2,32 @@ name: ci
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
   pull_request:
-    branches: [master]
+    types:
+      - opened
+      - edited
+      - synchronize
+    branches:
+      - master
 
 jobs:
   ci:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@main
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@main
         with:
           python-version: 3.8
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@main
         with:
-          node-version: 16.x
+          node-version: 'lts/*'
 
       - name: Install Python dependencies
         run: |
@@ -30,7 +35,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Install Node.js NPM global dependencies
-        run: npm install -g markdownlint-cli
+        run: npm install -g markdownlint-cli2
 
       - name: Run flake8
         run: flake8 . --count --show-source --statistics
@@ -39,7 +44,7 @@ jobs:
         run: pylint .
 
       - name: Run markdownlint
-        run: markdownlint .
+        run: markdownlint-cli2 .
 
       - name: Run pytest
         run: pytest .
