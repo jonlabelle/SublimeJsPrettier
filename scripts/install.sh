@@ -12,13 +12,11 @@ install_pip_requirements() {
     echo && echo '> Initializing python virtual environment'
     python3 -m venv venv
 
-    echo
-    pyversion="$(python --version)"
-    echo "$pyversion virtual environment initialized"
-
-    echo && echo "> Activate $pyversion virtual environment (venv)"
+    echo && echo "> Activate virtual environment (venv)"
     # shellcheck disable=SC1091
     source venv/bin/activate
+    pyversion="$(python --version)"
+    echo "$pyversion virtual environment activated"
 
     echo && echo '> Ensure pip upgrade'
     python -m ensurepip --upgrade
