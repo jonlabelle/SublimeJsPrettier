@@ -8,7 +8,6 @@ import json
 import os
 import platform
 import locale
-import shlex
 import sys
 import re
 
