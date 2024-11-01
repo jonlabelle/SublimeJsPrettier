@@ -58,6 +58,7 @@ if version_info[0] == 2:
     from jsprettier.util import trim_trailing_ws_and_lines
     from jsprettier.util import normalize_line_endings
     from jsprettier.util import decode_bytes
+    from jsprettier.util import maybe_quote_windows_path
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
@@ -101,6 +102,7 @@ else:
     from .jsprettier.util import trim_trailing_ws_and_lines
     from .jsprettier.util import normalize_line_endings
     from .jsprettier.util import decode_bytes
+    from .jsprettier.util import maybe_quote_windows_path
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -415,7 +417,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
 
             proc = Popen(
-                cmd, stdin=PIPE,
+                cmd,
+                stdin=PIPE,
                 stderr=PIPE,
                 stdout=PIPE,
                 env=get_proc_env(),
@@ -508,7 +511,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 # only add the '--config <path>' option if it's not
                 # already specified as an additional cli arg:
                 prettier_options.append('--config')
-                prettier_options.append(prettier_config_path)
+                prettier_options.append(maybe_quote_windows_path(prettier_config_path))
 
         else:
             if not has_no_config_defined and not has_custom_config_defined:
@@ -629,14 +632,14 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if prettier_ignore_filepath is not None:
             prettier_options.append('--ignore-path')
-            prettier_options.append(prettier_ignore_filepath)
+            prettier_options.append(maybe_quote_windows_path(prettier_ignore_filepath))
 
         # add the current file name to `--stdin-filepath`, only when
         # the current file being edited is NOT html, and in order
         # detect and format css/js selection(s) within html files:
         # if not self.is_html(view):
         prettier_options.append('--stdin-filepath')
-        prettier_options.append(source_file_path)
+        prettier_options.append(maybe_quote_windows_path(source_file_path))
 
         if debug_enabled(view):
             if not parsed_additional_cli_args.count('--log-level') > 0:

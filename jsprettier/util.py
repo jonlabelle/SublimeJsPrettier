@@ -8,6 +8,7 @@ import json
 import os
 import platform
 import locale
+import shlex
 
 from re import sub
 
@@ -110,6 +111,14 @@ def is_mac_os():
 
 def is_windows():
     return platform.system() == 'Windows' or os.name == 'nt'
+
+
+def maybe_quote_windows_path(path):
+    if is_str_none_or_empty(path) or is_str_empty_or_whitespace_only(path):
+        return path
+    if is_windows():
+        return shlex.quote(path)
+    return path
 
 
 def to_str(value):
