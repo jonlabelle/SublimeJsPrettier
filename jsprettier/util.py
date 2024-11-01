@@ -8,7 +8,6 @@ import json
 import os
 import platform
 import locale
-import sys
 import re
 
 from re import sub
