@@ -41,6 +41,10 @@ else:
     from shlex import quote as shlex_quote
 
 
+def is_windows():
+    return platform.system() == 'Windows' or os.name == 'nt'
+
+
 def maybe_quote_windows_path(path):
     if is_str_none_or_empty(path) or is_str_empty_or_whitespace_only(path):
         return path
@@ -51,10 +55,6 @@ def maybe_quote_windows_path(path):
 
 def is_mac_os():
     return platform.system() == 'Darwin'
-
-
-def is_windows():
-    return platform.system() == 'Windows' or os.name == 'nt'
 
 
 def contains(needle, haystack):
