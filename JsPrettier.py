@@ -511,7 +511,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 # only add the '--config <path>' option if it's not
                 # already specified as an additional cli arg:
                 prettier_options.append('--config')
-                prettier_options.append(maybe_quote_windows_path(prettier_config_path))
+                prettier_options.append(prettier_config_path)
 
         else:
             if not has_no_config_defined and not has_custom_config_defined:
@@ -632,7 +632,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if prettier_ignore_filepath is not None:
             prettier_options.append('--ignore-path')
-            prettier_options.append(maybe_quote_windows_path(prettier_ignore_filepath))
+            prettier_options.append(prettier_ignore_filepath)
 
         # add the current file name to `--stdin-filepath`, only when
         # the current file being edited is NOT html, and in order
