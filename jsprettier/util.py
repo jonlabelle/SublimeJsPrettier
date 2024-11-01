@@ -45,7 +45,7 @@ def is_windows():
 
 
 def maybe_quote_windows_path(path):
-    if is_str_none_or_empty(path) or is_str_empty_or_whitespace_only(path):
+    if is_str_none_or_empty(path):
         return path
     if is_windows():
         return shlex_quote(path)
