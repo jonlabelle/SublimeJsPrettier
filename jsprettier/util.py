@@ -27,7 +27,7 @@ else:
 
 
 # shlex.quote compatibility for Python 2
-if sys.version_info[0] < 3:
+if IS_PY2:
     _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search
 
     def shlex_quote(s):
