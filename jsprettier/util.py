@@ -9,6 +9,8 @@ import os
 import platform
 import locale
 import shlex
+import sys
+import re
 
 from re import sub
 
@@ -23,6 +25,37 @@ if IS_PY2:
 else:
     text_type = str
     string_types = (str,)
+
+
+# shlex.quote compatibility for Python 2
+if sys.version_info[0] < 3:
+    _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search
+
+    def shlex_quote(s):
+        if not s:
+            return "''"
+        if _find_unsafe(s) is None:
+            return s
+        # Double up any single quotes in the string
+        return "'" + s.replace("'", "'\"'\"'") + "'"
+else:
+    from shlex import quote as shlex_quote
+
+
+def maybe_quote_windows_path(path):
+    if is_str_none_or_empty(path) or is_str_empty_or_whitespace_only(path):
+        return path
+    if is_windows():
+        return shlex_quote(path)
+    return path
+
+
+def is_mac_os():
+    return platform.system() == 'Darwin'
+
+
+def is_windows():
+    return platform.system() == 'Windows' or os.name == 'nt'
 
 
 def contains(needle, haystack):
@@ -103,22 +136,6 @@ def _prettier_opts_in_package_json(package_json_file):
         return False
     except KeyError:
         return False
-
-
-def is_mac_os():
-    return platform.system() == 'Darwin'
-
-
-def is_windows():
-    return platform.system() == 'Windows' or os.name == 'nt'
-
-
-def maybe_quote_windows_path(path):
-    if is_str_none_or_empty(path) or is_str_empty_or_whitespace_only(path):
-        return path
-    if is_windows():
-        return shlex.quote(path)
-    return path
 
 
 def to_str(value):
