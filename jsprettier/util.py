@@ -25,31 +25,8 @@ else:
     string_types = (str,)
 
 
-# shlex.quote compatibility for Python 2
-if IS_PY2:
-    _find_unsafe = re.compile(r'[^\w@%+=:,./-]').search
-
-    def shlex_quote(s):
-        if not s:
-            return "''"
-        if _find_unsafe(s) is None:
-            return s
-        # Double up any single quotes in the string
-        return "'" + s.replace("'", "'\"'\"'") + "'"
-else:
-    from shlex import quote as shlex_quote
-
-
 def is_windows():
     return platform.system() == 'Windows' or os.name == 'nt'
-
-
-def maybe_quote_windows_path(path):
-    if is_str_none_or_empty(path):
-        return path
-    if is_windows():
-        return shlex_quote(path)
-    return path
 
 
 def is_mac_os():
@@ -61,6 +38,39 @@ def get_file_ext(filename):
     Gets the file extension from a filename.
     """
     return os.path.splitext(filename)[1]
+
+
+_re_unsafe_path_chars = re.compile(r'[^\w@%+=:,./-]').search
+
+
+def maybe_sanitize_windows_stdin_filepath(path):
+    """
+    Sanitizes the given --stdin-filepath option for Windows.
+
+    This function checks if the provided path is empty or None, and if so, returns it as is.
+    If the path is not empty and the operating system is Windows, it checks for unsafe characters
+    in the path. If no unsafe characters are found, it returns the path as is. If unsafe characters
+    are found, it returns a sanitized version of the path by renaming the file to 'sanitized' and
+    appending the file extension.
+
+    This works because the --std-filepath option is only a hint for Prettier to determine the file
+    type, and is not used to read the file. The file content is passed to Prettier via stdin.
+
+    Related issue: https://github.com/jonlabelle/SublimeJsPrettier/issues/301
+
+    Args:
+        path (str): The file path to be sanitized.
+
+    Returns:
+        str: The sanitized file path if necessary, otherwise the original path.
+    """
+    if is_str_none_or_empty(path):
+        return path
+    if is_windows():
+        if _re_unsafe_path_chars(path) is None:
+            return path
+        return 'sanitized' + get_file_ext(path)
+    return path
 
 
 def contains(needle, haystack):

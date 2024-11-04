@@ -58,8 +58,7 @@ if version_info[0] == 2:
     from jsprettier.util import trim_trailing_ws_and_lines
     from jsprettier.util import normalize_line_endings
     from jsprettier.util import decode_bytes
-    from jsprettier.util import maybe_quote_windows_path
-    from jsprettier.util import get_file_ext
+    from jsprettier.util import maybe_sanitize_windows_stdin_filepath
 else:
     # st3x with py-v3x
     from .jsprettier.const import IS_ST3
@@ -103,8 +102,7 @@ else:
     from .jsprettier.util import trim_trailing_ws_and_lines
     from .jsprettier.util import normalize_line_endings
     from .jsprettier.util import decode_bytes
-    from .jsprettier.util import maybe_quote_windows_path
-    from .jsprettier.util import get_file_ext
+    from .jsprettier.util import maybe_sanitize_windows_stdin_filepath
 
 
 class JsPrettierCommand(sublime_plugin.TextCommand):
@@ -638,8 +636,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             prettier_options.append(prettier_ignore_filepath)
 
         log_debug(view, "Source file path: '{0}'".format(source_file_path))
+
         prettier_options.append('--stdin-filepath')
-        prettier_options.append('jsprettier' + get_file_ext(source_file_path))
+        prettier_options.append(maybe_sanitize_windows_stdin_filepath(source_file_path))
 
         if debug_enabled(view):
             if not parsed_additional_cli_args.count('--log-level') > 0:
