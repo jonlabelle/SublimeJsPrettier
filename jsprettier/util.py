@@ -56,6 +56,13 @@ def is_mac_os():
     return platform.system() == 'Darwin'
 
 
+def get_file_ext(filename):
+    """
+    Gets the file extension from a filename.
+    """
+    return os.path.splitext(filename)[1]
+
+
 def contains(needle, haystack):
     if not needle or not haystack:
         return False
