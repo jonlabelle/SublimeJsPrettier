@@ -422,8 +422,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 stderr=PIPE,
                 stdout=PIPE,
                 env=get_proc_env(),
-                shell=is_windows(),
-                executable='C:\\Windows\\System32\\cmd.exe' if is_windows() else None)
+                shell=is_windows()
+            )
 
             stdout, stderr = proc.communicate(input=source.encode('utf-8'))
             if proc.returncode != 0:
