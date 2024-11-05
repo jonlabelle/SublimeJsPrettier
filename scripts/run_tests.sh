@@ -11,7 +11,7 @@ cd_project_root() { cd "${SCRIPTSDIR}" && cd ..; }
 run_pytest() {
     echo
     echo '> Run pytest'
-    pytest .
+    python -m pytest
 }
 
 run_flake8() {
