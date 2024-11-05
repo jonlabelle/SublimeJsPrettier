@@ -8,6 +8,7 @@ import json
 import os
 import platform
 import locale
+import re
 
 from re import sub
 
@@ -22,6 +23,54 @@ if IS_PY2:
 else:
     text_type = str
     string_types = (str,)
+
+
+def is_windows():
+    return platform.system() == 'Windows' or os.name == 'nt'
+
+
+def is_mac_os():
+    return platform.system() == 'Darwin'
+
+
+def get_file_ext(filename):
+    """
+    Gets the file extension from a filename.
+    """
+    return os.path.splitext(filename)[1]
+
+
+_re_unsafe_path_chars = re.compile(r'[^\w@%+=:,./-]').search
+
+
+def maybe_sanitize_windows_stdin_filepath(path):
+    """
+    Sanitizes the given --stdin-filepath option for Windows.
+
+    This function checks if the provided path is empty or None, and if so, returns it as is.
+    If the path is not empty and the operating system is Windows, it checks for unsafe characters
+    in the path. If no unsafe characters are found, it returns the path as is. If unsafe characters
+    are found, it returns a sanitized version of the path by renaming the file to 'sanitized' and
+    appending the file extension.
+
+    This works because the --std-filepath option is only a hint for Prettier to determine the file
+    type, and is not used to read the file. The file content is passed to Prettier via stdin.
+
+    Related issue: https://github.com/jonlabelle/SublimeJsPrettier/issues/301
+
+    Args:
+        path (str): The file path to be sanitized.
+
+    Returns:
+        str: The sanitized file path if necessary, otherwise the original path.
+    """
+    if is_str_none_or_empty(path):
+        return path
+    if is_windows():
+        if _re_unsafe_path_chars(path) is None:
+            return path
+        return 'sanitized' + get_file_ext(path)
+    return path
 
 
 def contains(needle, haystack):
@@ -102,14 +151,6 @@ def _prettier_opts_in_package_json(package_json_file):
         return False
     except KeyError:
         return False
-
-
-def is_mac_os():
-    return platform.system() == 'Darwin'
-
-
-def is_windows():
-    return platform.system() == 'Windows' or os.name == 'nt'
 
 
 def to_str(value):
