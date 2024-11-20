@@ -3,7 +3,7 @@
 [![ci](https://github.com/jonlabelle/SublimeJsPrettier/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jonlabelle/SublimeJsPrettier/actions/workflows/ci.yml)
 [![Package Control Installs](https://img.shields.io/packagecontrol/dt/JsPrettier.svg?label=installs)](https://packagecontrol.io/packages/JsPrettier)
 [![Latest Release](https://img.shields.io/github/v/tag/jonlabelle/SublimeJsPrettier.svg?label=version&sort=semver)](https://github.com/jonlabelle/SublimeJsPrettier/tags)
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE)
 
 > [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
 > formatter.
@@ -25,18 +25,18 @@
     - [Install JsPrettier Using Git](#install-jsprettier-using-git)
 - [Usage](#usage)
     - [Command Scope](#command-scope)
-    - [Custom Key Binding](#custom-key-binding)
-- [Settings](#settings)
-    - [Sublime Text Settings](#sublime-text-settings)
+- [Plug-in Settings and Prettier Options](#plug-in-settings-and-prettier-options)
+    - [Plug-in Settings](#plug-in-settings)
     - [Prettier Options](#prettier-options)
     - [Project-level Settings](#project-level-settings)
     - [Prettier Configuration Files](#prettier-configuration-files)
 - [Prettier Plug-in Support](#prettier-plugin-support)
     - [Prettier PHP](#prettier-php)
+    - [Prettier Community Plugins](#prettier-community-plugins)
 - [Issues](#issues)
 - [Changes](#changes)
-- [Author](#author)
 - [License](#license)
+- [Author](#author)
 
 </details>
 
@@ -47,43 +47,56 @@ Operating Systems.
 
 ### Requirements
 
-- [Sublime Text] – Text editor for code
-- [Node.js] – JavaScript runtime
-    - [yarn] or [npm] – Package manager for JavaScript
-        - [Prettier] – Opinionated code formatter (v3 or above)
+- [Sublime Text]
+- [Node.js]
+    - [npm], [pnpm], or [yarn]
+        - [Prettier]
 
 ### Install Prettier
 
-If you've already installed [Prettier] \(using one of the [yarn] or [npm]
-commands below\), you're all set... otherwise:
+If you've already installed [Prettier], you're all set... otherwise:
 
 ```bash
-# yarn (local):
-yarn add prettier --dev
-
-# yarn (global):
-yarn global add prettier
-
-# npm (local):
+# npm (local)
 npm install --save-dev prettier
 
-# npm (global):
+# npm (globally)
 npm install --global prettier
+
+# or
+
+# pnpm (local)
+pnpm add -D prettier
+
+# pnpm (globally)
+pnpm add -g prettier
+
+# or
+
+# yarn (local)
+yarn add prettier --dev
+
+# yarn (globally)
+yarn global add prettier
 ```
 
 ### Install JsPrettier via Package Control
 
-The easiest and recommended way to install JsPrettier is using [Package Control].
+The recommended way to install JsPrettier is via [Package Control].
 
-From the **application menu**, navigate to:
+From the main application menu:
 
-- `Tools` -> `Command Palette...` -> `Package Control: Install Package`, type
-  the word **JsPrettier**, then select it to complete the installation.
+1. Open the **Tools** Menu
+2. Select **Command Palette...**
+3. Choose **Package Control: Install Package**
+4. Type **JsPrettier** and select it to complete the installation
 
 ### Install JsPrettier Manually
 
-1. Download and extract JsPrettier [zip file] to your [Sublime Text Packages directory].
-2. Rename the extracted directory from `SublimeJsPrettier-master` to `JsPrettier`.
+1. Download the JsPrettier [zip file] from the GitHub repository.
+2. Extract the downloaded zip file.
+3. Move the extracted directory to your [Sublime Text Packages directory].
+4. Rename the extracted directory from `SublimeJsPrettier-master` to `JsPrettier`.
 
 **Default Sublime Text Packages Paths:** <a name="default-st-paths"></a>
 
@@ -91,8 +104,9 @@ From the **application menu**, navigate to:
 - **Linux:** `~/.Sublime Text [2|3]/Packages`
 - **Windows:** `%APPDATA%/Sublime Text [2|3]/Packages`
 
-> **NOTE** Replace the `[2|3]` part with the appropriate Sublime Text
-> version for your installation.
+> [!NOTE]  
+> Replace the `[2|3]` part with the appropriate Sublime Text version for your
+> installation.
 
 ### Install JsPrettier Using Git
 
@@ -108,30 +122,30 @@ git clone https://github.com/jonlabelle/SublimeJsPrettier.git "JsPrettier"
 
 ## Usage
 
+JsPrettier allows you to format your code using Prettier directly within Sublime Text.
+
 There are three available options to format code:
 
 1. **Command Palette:** From the command palette (<kbd>ctrl/cmd + shift + p</kbd>), type **JsPrettier Format Code**.
 2. **Context Menu:** Right-click anywhere in the file to bring up the context menu and select **JsPrettier Format Code**.
 3. **Key Binding:** There is no default key binding to run Prettier, but here's how to [add your own].
 
-### Command Scope
+## Command Scope
 
-`JsPrettier` will attempt to format selections of code first, then the entire
-file. When `auto_format_on_save` is `true`, the **entire file** will be formatted.
+JsPrettier formats selected code first; if no selection is made, it formats the
+entire file. When `auto_format_on_save` is enabled, the entire file will be
+formatted on save.
 
-### Custom Key Binding
-
-To add a [custom key binding], please reference the following example which
-binds the `js_prettier` command to <kbd>ctrl + alt + f</kbd>:
+To add a [custom key binding], open the Sublime Text key bindings file by
+navigating to `Preferences -> Key Bindings` and add the following configuration:
 
 ```json
 { "keys": ["ctrl+alt+f"], "command": "js_prettier" }
 ```
 
-## Settings
+## Plug-in Settings and Prettier Options
 
-Plug-in settings and Prettier options can be configured by navigating the
-application menu to:
+Configure plug-in settings and Prettier options via the application menu:
 
 - **Preferences**
     - **Package Settings**
@@ -139,7 +153,7 @@ application menu to:
             - **Settings - Default** (to view the defaults)
             - **Settings - User** (to override the defaults)
 
-### Sublime Text Settings
+### Plug-in Settings
 
 - **debug** (default: ***false***)  
     When enabled (*true*), debug info will print to the console - useful for
@@ -161,7 +175,7 @@ application menu to:
   
     **Examples:**
   
-    ```json
+    ```jsonc
     {
         // macOS and Linux examples:
         "prettier_cli_path": "/usr/local/bin/prettier",
@@ -185,7 +199,7 @@ application menu to:
   
     **Examples:**
   
-    ```json
+    ```jsonc
     {
         // macOS/Linux:
         "node_path": "/usr/local/bin/node",
@@ -253,12 +267,12 @@ application menu to:
 
 - **disable_tab_width_auto_detection** (default: ***false***)  
     Whether or not to disable the plug-in from automatically setting Prettier's
-    "[tabWidth / \--tab-width](https://prettier.io/docs/en/options.html#tab-width)"
+    [--tab-width](https://prettier.io/docs/en/options.html#tab-width)
     option, and adhere to the Prettier configured setting.
 
 - **disable_prettier_cursor_offset** (default: ***false***)  
     There's an apparent (and nasty) defect in Prettier that seems to occur
-    during Prettier's [cursor offset](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
+    during Prettier's [cursor offset](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource--options)
     calculation, and when attempting to format large or minimized files (but not limited to just these cases).
     The issue effectively results in the CPU spiking to a constant 100%...
     indefinitely, or until the node executable/process running Prettier is
@@ -270,19 +284,22 @@ application menu to:
     to `true`.
 
     - See related issues: [#147](https://github.com/jonlabelle/SublimeJsPrettier/issues/147), [#168](https://github.com/jonlabelle/SublimeJsPrettier/issues/168)
-    - [Prettier Cursor Offset Documentation](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource-options)
+    - [Prettier Cursor Offset Documentation](https://prettier.io/docs/en/api.html#prettierformatwithcursorsource--options)
 
 - **additional_cli_args** (default: {})  
     A key-value pair of arguments to append to the prettier command.
 
     **Examples:**
 
-    ```json
+    ```jsonc
     {
         "additional_cli_args": {
             "--config": "~/.prettierrc",
+            // or
             "--config": "$HOME/.prettierrc",
+            // or
             "--config": "${project_path}/.prettierrc",
+            // or
             "--config": "/some/absolute/path/to/.prettierrc",
 
             "--config-precedence": "file-override",
@@ -458,8 +475,8 @@ See the Prettier Options [doc page] for more details and examples.
 
 JsPrettier supports [project-level settings], specified in `<project_name>.sublime-project` files.
 
-In order for your project-level settings to override [previous configurations](#settings),
-you'll need to add a new `js_prettier` key and section under `settings`, as [seen below].
+To override [previous configurations](#plug-in-settings-and-prettier-options) with your project-level settings,
+add a new `js_prettier` key and section under `settings` as shown in the [example below](#example-sublime-text-project-file).
 
 #### Example Sublime Text Project File
 
@@ -523,8 +540,7 @@ key-value item to `additional_cli_args`. Here's an example:
 
 ```json
 {
-    "additional_cli_args":
-    {
+    "additional_cli_args": {
         "--config": "~/some/path/from/my/home/.prettierrc",
         "--config-precedence": "prefer-file",
         "--ignore-path": "${project_path}/.prettierignore"
@@ -557,12 +573,12 @@ in the user's home directory.
 
 ### Prettier PHP
 
-In most cases, [Prettier PHP] works as drop-in replacement for Prettier.
+In most cases, [Prettier PHP] works as a drop-in replacement for Prettier.
 However, JsPrettier only detects if you're formatting a PHP file (or PHP selection),
-and sets the `--parser` to `php` accordingly. Aside from that, it's up to you ensure your
+and sets the `--parser` option to `php` accordingly. Aside from that, it's up to you ensure your
 config(s) conform to Prettier PHP [options](https://github.com/prettier/plugin-php#configuration).
 
-To **install Prettier PHP** in your project root, and use it as a drop-in
+To **install Prettier PHP** in your project root and use it as a drop-in
 replacement for Prettier:
 
 ```bash
@@ -573,32 +589,34 @@ npm install @prettier/plugin-php
 ### Prettier Community Plugins
 
 Here's an [example SublimeText project](https://github.com/jonlabelle/SublimeJsPrettier/files/6498394/jsprettier-and-prettier-community-plugin-example.zip)
-\(posted in [Issue #239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)\)
-that uses the Prettier Community Plugin [NiklasPor/prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template)
+from [#239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)
+that uses the Prettier Community Plugin [prettier-plugin-go-template](https://github.com/NiklasPor/prettier-plugin-go-template)
 to format `*.gohtml` files.
 
 And another [example project](https://github.com/jonlabelle/SublimeJsPrettier/files/6527323/jsprettier-and-prettier-plugin-sort-imports.zip)
-that uses [@trivago/prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)
-to sort imports (posted in [Issue #240](https://github.com/jonlabelle/SublimeJsPrettier/issues/240)\).
+from [#240](https://github.com/jonlabelle/SublimeJsPrettier/issues/240) that
+uses [prettier-plugin-sort-imports](https://github.com/trivago/prettier-plugin-sort-imports)
+to sort imports.
 
 ## Issues
 
-To report a bug or a make suggestion, please [open a new issue] selecting the
-appropriate Issue Template (**Bug report** or **Feature request**). Be sure to
-follow the guidelines outlined in each template... otherwise your submission
-will be subject to immediate closure.
+To report a bug or make a suggestion, please [open a new issue] selecting the
+appropriate issue template: [Bug], [Feature], or [Question].
+
+Be sure to follow the guidelines outlined in each template; otherwise, your
+submission may be closed.
 
 ## Changes
 
 Please visit the [Changelog] page for a complete list of changes.
 
-## Author
-
-Jon LaBelle
-
 ## License
 
-[MIT License]
+[MIT]
+
+## Author
+
+[Jon LaBelle](https://github.com/jonlabelle)
 
 [Watch a Quick Demo]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif
 [Prettier]: https://prettier.io
@@ -611,20 +629,22 @@ Jon LaBelle
 [***translate_tabs_to_spaces***]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/reference/settings.html#whitespace-and-indentation
 [yarn]: https://yarnpkg.com
 [npm]: https://www.npmjs.com
+[pnpm]: https://pnpm.io
 [zip file]: https://github.com/jonlabelle/SublimeJsPrettier/archive/master.zip
 [Sublime Text Packages directory]: #default-st-paths
 [custom key binding]: https://sublime-text-unofficial-documentation.readthedocs.io/en/latest/customization/key_bindings.html
 [Prettier Configuration files]: https://prettier.io/docs/en/configuration.html
 [Changelog]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/CHANGELOG.md
-[MIT License]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE.txt
+[MIT]: https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE
 [doc page]: https://prettier.io/docs/en/options.html
-[`--ignore-path`]: https://prettier.io/docs/en/cli.html#ignore-path
+[`--ignore-path`]: https://prettier.io/docs/en/cli.html#--ignore-path
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 [`parser`]: https://prettier.io/docs/en/options.html#parser
 [`--log-level`]: https://prettier.io/docs/en/cli.html#--log-level
 [Prettier PHP]: https://github.com/prettier/plugin-php
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
-[seen below]: #example-sublime-text-project-file "See the Sublime Text project file example"
-[add your own]: #custom-key-binding "See how to add a custom key binding to run Prettier"
 [\.editorconfig]: https://editorconfig.org/
+[Bug]: https://github.com/jonlabelle/SublimeJsPrettier/issues/new?assignees=jonlabelle&labels=investigating&projects=&template=bug.yml&title=%5BBug%5D+
+[Feature]: https://github.com/jonlabelle/SublimeJsPrettier/issues/new?assignees=jonlabelle&labels=enhancement&projects=&template=feature.yml&title=%5BEnhancement%5D+
+[Question]: https://github.com/jonlabelle/SublimeJsPrettier/issues/new?assignees=&labels=question&projects=&template=question.yml&title=%5BQuestion%5D+

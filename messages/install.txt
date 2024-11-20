@@ -14,17 +14,27 @@
 
 If you've already installed Prettier, you're all set... otherwise:
 
-    # yarn (local):
-    yarn add prettier --dev
-
-    # yarn (global):
-    yarn global add prettier
-
-    # npm (local):
+    # npm (local)
     npm install --save-dev prettier
 
-    # npm (global):
+    # npm (globally)
     npm install --global prettier
+
+    # or
+
+    # pnpm (local)
+    pnpm add -D prettier
+
+    # pnpm (globally)
+    pnpm add -g prettier
+
+    # or
+
+    # yarn (local)
+    yarn add prettier --dev
+
+    # yarn (globally)
+    yarn global add prettier
 
 ### Usage
 
