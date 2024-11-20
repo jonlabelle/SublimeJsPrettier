@@ -155,7 +155,7 @@ def resolve_prettier_cli_path(view, plugin_path, st_project_path):
     2. Locally installed prettier, relative to a Sublime Text Project
       file's root directory, e.g.: `node_modules/.bin/prettier' and 'node_modules/prettier/bin-prettier.js';
     3. User's $HOME/node_modules directory.
-    4. Look in the JsPrettier Sublime Text plug-in directory for `node_modules/.bin/prettier`.
+    4. Look in the JsPrettier Sublime Text plugin directory for `node_modules/.bin/prettier`.
     5. Finally, check if prettier is installed globally.
 
     :return: The prettier cli path.

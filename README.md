@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/tag/jonlabelle/SublimeJsPrettier.svg?label=version&sort=semver)](https://github.com/jonlabelle/SublimeJsPrettier/tags)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/LICENSE)
 
-> [JsPrettier] is a Sublime Text Plug-in for [Prettier], the opinionated code
+> [JsPrettier] is a Sublime Text Plugin for [Prettier], the opinionated code
 > formatter.
 
 [![Before and After JsPrettier](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/before_and_after.gif?raw=true)](https://github.com/jonlabelle/SublimeJsPrettier/blob/master/screenshots/demo.gif)
@@ -25,12 +25,12 @@
     - [Install JsPrettier Using Git](#install-jsprettier-using-git)
 - [Usage](#usage)
     - [Command Scope](#command-scope)
-- [Plug-in Settings and Prettier Options](#plug-in-settings-and-prettier-options)
-    - [Plug-in Settings](#plug-in-settings)
+- [Plugin Settings and Prettier Options](#plugin-settings-and-prettier-options)
+    - [Plugin Settings](#plugin-settings)
     - [Prettier Options](#prettier-options)
     - [Project-level Settings](#project-level-settings)
     - [Prettier Configuration Files](#prettier-configuration-files)
-- [Prettier Plug-in Support](#prettier-plugin-support)
+- [Prettier Plugin Support](#prettier-plugin-support)
     - [Prettier PHP](#prettier-php)
     - [Prettier Community Plugins](#prettier-community-plugins)
 - [Issues](#issues)
@@ -143,9 +143,9 @@ navigating to `Preferences -> Key Bindings` and add the following configuration:
 { "keys": ["ctrl+alt+f"], "command": "js_prettier" }
 ```
 
-## Plug-in Settings and Prettier Options
+## Plugin Settings and Prettier Options
 
-Configure plug-in settings and Prettier options via the application menu:
+Configure plugin settings and Prettier options via the application menu:
 
 - **Preferences**
     - **Package Settings**
@@ -153,7 +153,7 @@ Configure plug-in settings and Prettier options via the application menu:
             - **Settings - Default** (to view the defaults)
             - **Settings - User** (to override the defaults)
 
-### Plug-in Settings
+### Plugin Settings
 
 - **debug** (default: ***false***)  
     When enabled (*true*), debug info will print to the console - useful for
@@ -164,13 +164,13 @@ Configure plug-in settings and Prettier options via the application menu:
 
 - **prettier_cli_path** (default: ***empty***)  
     If Sublime Text has problems automatically resolving a path to [Prettier],
-    you can set a custom path here. When the setting is empty, the plug-in will
+    you can set a custom path here. When the setting is empty, the plugin will
     attempt to find Prettier by:
 
     1. Locally installed prettier relative to active view.
     2. Locally installed prettier relative to the Sublime Text Project file's root directory.
     3. The current user home directory.
-    4. JsPrettier Sublime Text plug-in directory.
+    4. JsPrettier Sublime Text plugin directory.
     5. Globally installed prettier.
   
     **Examples:**
@@ -266,7 +266,7 @@ Configure plug-in settings and Prettier options via the application menu:
     file size checking (default).
 
 - **disable_tab_width_auto_detection** (default: ***false***)  
-    Whether or not to disable the plug-in from automatically setting Prettier's
+    Whether or not to disable the plugin from automatically setting Prettier's
     [--tab-width](https://prettier.io/docs/en/options.html#tab-width)
     option, and adhere to the Prettier configured setting.
 
@@ -279,7 +279,7 @@ Configure plug-in settings and Prettier options via the application menu:
     forcefully terminated.
 
     To avoid this problematic behavior, or until the defect is resolved, you can
-    disable the plug-in (JsPrettier) from ever passing the cursor offset
+    disable the plugin (JsPrettier) from ever passing the cursor offset
     position to Prettier by setting the `disable_prettier_cursor_offset` value
     to `true`.
 
@@ -347,7 +347,7 @@ Configure plug-in settings and Prettier options via the application menu:
     Use single quotes instead of double quotes in JSX.
 
 - **parser** (default: "***babel***")  
-    The [`parser`] is automatically set by the plug-in (JsPrettier), based
+    The [`parser`] is automatically set by the plugin (JsPrettier), based
     on the contents of current file or selection.
   
 - **semi** (default: ***true***)  
@@ -475,7 +475,7 @@ See the Prettier Options [doc page] for more details and examples.
 
 JsPrettier supports [project-level settings], specified in `<project_name>.sublime-project` files.
 
-To override [previous configurations](#plug-in-settings-and-prettier-options) with your project-level settings,
+To override [previous configurations](#plugin-settings-and-prettier-options) with your project-level settings,
 add a new `js_prettier` key and section under `settings` as shown in the [example below](#example-sublime-text-project-file).
 
 #### Example Sublime Text Project File
@@ -564,7 +564,7 @@ and tell Prettier not to attempt to find config files.
 #### Prettier Ignore Config File Discovery (`.prettierignore`)
 
 When the [`--ignore-path`] option is NOT specified in `additional_cli_args`,
-the plug-in will search for a `.prettierignore` file in the same directory of
+the plugin will search for a `.prettierignore` file in the same directory of
 the source file, then the active Sublime Text project's root directory. If
 neither path can be resolved, search up the directory tree, and finally look
 in the user's home directory.

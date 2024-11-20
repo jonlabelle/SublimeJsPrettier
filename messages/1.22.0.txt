@@ -3,6 +3,6 @@
 Release Date: 2019-01-21
 
 - Added setting to `disable_tab_width_auto_detection` (default is `false`);
-  which disables the default behavior of the plug-in automatically setting
+  which disables the default behavior of the plugin automatically setting
   Prettier's "tabWidth" option (at runtime) with the SublimeText configured
   value for "tab_size".

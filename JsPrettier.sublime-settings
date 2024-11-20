@@ -35,7 +35,7 @@
 	// 1. Locally installed prettier relative to active view.
 	// 2. Locally installed prettier relative to the Sublime Text Project file's root directory. e.g.: `node_modules/.bin/prettier` and `node_modules/prettier/bin-prettier.js`.
 	// 3. The current user home directory. e.g.: `$HOME/node_modules/.bin/prettier`.
-	// 4. JsPrettier Sublime Text plug-in directory.
+	// 4. JsPrettier Sublime Text plugin directory.
 	// 5. Globally installed prettier.
 	//
 	// macOS and Linux examples:
@@ -217,7 +217,7 @@
 	// forcefully terminated.
 	//
 	// To avoid this problematic behavior, or until the defect is resolved, you
-	// can disable the plug-in (JsPrettier) from ever passing the cursor offset
+	// can disable the plugin (JsPrettier) from ever passing the cursor offset
 	// position to Prettier by setting the `disable_prettier_cursor_offset` value to `true`.
 	//
 	// Related Issues:
@@ -383,7 +383,7 @@
 		// Which parser to use. Valid options are "flow", "babel",
 		// "typescript", "css", "json", "graphql", "markdown" and "yaml".
 		//
-		// NOTE: The `parser` option is automatically set by the plug-in
+		// NOTE: The `parser` option is automatically set by the plugin
 		// (JsPrettier), based on the contents of current file or selection.
 		// --------------------------------------------------------------------
 

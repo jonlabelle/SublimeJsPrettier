@@ -43,7 +43,7 @@ Checkout what's new in [Prettier v2.4](https://prettier.io/blog/2021/09/09/2.4.0
 
 **Release Date:** 2021-07-14
 
-Config and executable paths are no longer cached by the plug-in.
+Config and executable paths are no longer cached by the plugin.
 Path resolution/discovery caching now differed to Prettier when applicable.
 
 ## 1.38.0
@@ -151,7 +151,7 @@ Tab trigger is `pi`.
   forcefully terminated.
 
   To avoid this problematic behavior, or until the defect is resolved, you can
-  disable the plug-in (JsPrettier) from ever passing the cursor offset
+  disable the plugin (JsPrettier) from ever passing the cursor offset
   position to Prettier by setting the `disable_prettier_cursor_offset` value
   to `true`.
 
@@ -202,7 +202,7 @@ Tab trigger is `pi`.
 **Release Date:** 2019-01-21
 
 - Added setting to `disable_tab_width_auto_detection` (default is `false`);
-  which disables the default behavior of the plug-in automatically setting
+  which disables the default behavior of the plugin automatically setting
   Prettier's "tabWidth" option (at runtime) with the SublimeText configured
   value for "tab_size".
 

@@ -596,7 +596,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             if option_name == 'editorconfig':
                 if str(option_value).lower() == 'false':
                     # only include negated editorconfig option, since default is already true
-                    # and can otherwise break prettier-eslint plug-in, see #235
+                    # and can otherwise break prettier-eslint plugin, see #235
                     prettier_options.append("--no-editorconfig")
                 continue
 
@@ -642,7 +642,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         if debug_enabled(view):
             if not parsed_additional_cli_args.count('--log-level') > 0:
-                # set prettier's log level to debug, when the plug-in's debug setting is enabled:
+                # set prettier's log level to debug, when the plugin's debug setting is enabled:
                 prettier_options.append('--log-level')
                 prettier_options.append('debug')
 
