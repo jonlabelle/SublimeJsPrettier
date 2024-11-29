@@ -176,7 +176,7 @@ git_tag_release() {
     show_info "> Tagging git release..."
     set -x
     git add package.json
-    git commit -m "Bump to v$NEW_VERSION"
+    git commit -m "build: bump to v$NEW_VERSION"
     git push origin master
     git tag -a "$NEW_VERSION" -m "Tag v$NEW_VERSION"
     git push --tags
