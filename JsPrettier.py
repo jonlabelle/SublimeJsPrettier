@@ -565,10 +565,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('angular')
                     continue
-                elif self.is_source_js(view) or self.is_es_module(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('babel')
-                    continue
                 elif self.is_less(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('less')
@@ -747,15 +743,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         filename = os.path.basename(filename)
         if filename == 'package.json' or filename == 'composer.json':
-            return True
-        return False
-
-    @staticmethod
-    def is_es_module(view):
-        filename = view.file_name()
-        if not filename:
-            return False
-        if filename.endswith('.mjs'):
             return True
         return False
 
