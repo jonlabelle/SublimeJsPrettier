@@ -573,10 +573,6 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('scss')
                     continue
-                elif self.is_css(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('css')
-                    continue
                 elif self.is_html(view):
                     prettier_options.append(cli_option_name)
                     prettier_options.append('html')
