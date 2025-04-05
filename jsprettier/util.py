@@ -305,7 +305,7 @@ def which(executable, path=None):
         # "python.exe". If it does match, only test that one, otherwise we
         # have to try others.
         # hat tip: https://github.com/pydanny/whichcraft/blob/master/whichcraft.py
-        pathext.append(".bunx") # add bunx extension for bun package manager
+        pathext.append(".bunx")  # add bunx extension for bun package manager
         if any(executable.lower().endswith(ext.lower()) for ext in pathext):
             executable_files = [executable]
         else:
