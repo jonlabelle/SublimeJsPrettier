@@ -30,9 +30,7 @@
     - [Prettier Options](#prettier-options)
     - [Project-level Settings](#project-level-settings)
     - [Prettier Configuration Files](#prettier-configuration-files)
-- [Prettier Plugin Support](#prettier-plugin-support)
-    - [Prettier PHP](#prettier-php)
-    - [Prettier Community Plugins](#prettier-community-plugins)
+- [Prettier Community Plugins](#prettier-community-plugins)
 - [Issues](#issues)
 - [Changes](#changes)
 - [License](#license)
@@ -345,10 +343,6 @@ Configure plugin settings and Prettier options via the application menu:
 
 - **jsxSingleQuote** (default: ***false***)  
     Use single quotes instead of double quotes in JSX.
-
-- **parser** (default: "***babel***")  
-    The [`parser`] is automatically set by the plugin (JsPrettier), based
-    on the contents of current file or selection.
   
 - **semi** (default: ***true***)  
     ***true*** to add a semicolon at the end of every line, or ***false*** to
@@ -509,7 +503,6 @@ add a new `js_prettier` key and section under `settings` as shown in the [exampl
                 "bracketSpacing": true,
                 "bracketSameLine": false,
                 "jsxSingleQuote": false,
-                "parser": "babel",
                 "semi": true,
                 "requirePragma": false,
                 "proseWrap": "preserve",
@@ -569,24 +562,7 @@ the source file, then the active Sublime Text project's root directory. If
 neither path can be resolved, search up the directory tree, and finally look
 in the user's home directory.
 
-## Prettier Plugin Support
-
-### Prettier PHP
-
-In most cases, [Prettier PHP] works as a drop-in replacement for Prettier.
-However, JsPrettier only detects if you're formatting a PHP file (or PHP selection),
-and sets the `--parser` option to `php` accordingly. Aside from that, it's up to you ensure your
-config(s) conform to Prettier PHP [options](https://github.com/prettier/plugin-php#configuration).
-
-To **install Prettier PHP** in your project root and use it as a drop-in
-replacement for Prettier:
-
-```bash
-cd to/project/directory
-npm install @prettier/plugin-php
-```
-
-### Prettier Community Plugins
+## Prettier Community Plugins
 
 Here's an [example SublimeText project](https://github.com/jonlabelle/SublimeJsPrettier/files/6498394/jsprettier-and-prettier-community-plugin-example.zip)
 from [#239](https://github.com/jonlabelle/SublimeJsPrettier/issues/239)
@@ -639,9 +615,7 @@ Please visit the [Changelog] page for a complete list of changes.
 [doc page]: https://prettier.io/docs/en/options.html
 [`--ignore-path`]: https://prettier.io/docs/en/cli.html#--ignore-path
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
-[`parser`]: https://prettier.io/docs/en/options.html#parser
 [`--log-level`]: https://prettier.io/docs/en/cli.html#--log-level
-[Prettier PHP]: https://github.com/prettier/plugin-php
 [open a new issue]: https://github.com/jonlabelle/SublimeJsPrettier/issues/
 [Prettier v1.17+]: https://prettier.io/blog/2019/04/12/1.17.0.html
 [\.editorconfig]: https://editorconfig.org/

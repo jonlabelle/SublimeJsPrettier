@@ -525,65 +525,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         for mapping in PRETTIER_OPTION_CLI_MAP:
             option_name = mapping['option']
             cli_option_name = mapping['cli']
-
             option_value = get_sub_setting(view, option_name)
-
-            if option_name == 'parser':
-                if self.is_typescript(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('typescript')
-                    continue
-                elif self.is_package_or_composer_json(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('json-stringify')
-                    continue
-                elif self.is_json(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('json')
-                    continue
-                elif self.is_graphql(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('graphql')
-                    continue
-                elif self.is_mdx(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('mdx')
-                    continue
-                elif self.is_markdown(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('markdown')
-                    continue
-                elif self.is_yaml(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('yaml')
-                    continue
-                elif self.is_vue(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('vue')
-                    continue
-                elif self.is_angular_html(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('angular')
-                    continue
-                elif self.is_less(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('less')
-                    continue
-                elif self.is_scss(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('scss')
-                    continue
-                elif self.is_html(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('html')
-                    continue
-                elif self.is_php(view):
-                    prettier_options.append(cli_option_name)
-                    prettier_options.append('php')
-                    continue
-                else:
-                    # parser couldn't be detected... let Prettier try to infer it via --stdin-filepath:
-                    continue
 
             if option_name == 'editorconfig':
                 if str(option_value).lower() == 'false':

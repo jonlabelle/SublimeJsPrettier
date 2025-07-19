@@ -1,0 +1,16 @@
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                     _     ____           _   _   _                           │
+│                    | |___|  _ \ _ __ ___| |_| |_(_) ___ _ __                 │
+│                 _  | / __| |_) | '__/ _ \ __| __| |/ _ \ '__|                │
+│                | |_| \__ \  __/| | |  __/ |_| |_| |  __/ |                   │
+│                 \___/|___/_|   |_|  \___|\__|\__|_|\___|_|                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+## 1.70.0
+
+Release Date: 2025-07-19
+
+SublimeJsPrettier no longer attempts to detect and set the appropriate parser
+option before formatting files. Prettier (and its plugins) already handle this
+internally based on the file being formatted.

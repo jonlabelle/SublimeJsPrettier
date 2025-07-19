@@ -75,11 +75,6 @@ PRETTIER_OPTION_CLI_MAP = [
         'default': 'false'
     },
     {
-        'option': 'parser',
-        'cli': '--parser',
-        'default': 'babel'
-    },
-    {
         'option': 'semi',
         'cli': '--semi',
         'default': 'true'

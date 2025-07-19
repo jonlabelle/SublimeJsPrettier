@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.70.0
+
+**Release Date:** 2025-07-19
+
+SublimeJsPrettier no longer attempts to detect and set the appropriate parser
+option before formatting files. Prettier (and its plugins) already handle this
+internally based on the file being formatted.
+
 ## 1.65.0
 
 **Release Date:** 2023-11-13
