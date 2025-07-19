@@ -6,7 +6,7 @@ import re
 
 from sys import version_info
 
-import sublime
+import sublime # type: ignore
 
 IS_PY2 = version_info[0] == 2
 IS_ST3 = int(sublime.version()) >= 3000

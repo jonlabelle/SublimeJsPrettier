@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import sublime
+import sublime # type: ignore
 
 from .const import AUTO_FORMAT_FILE_EXTENSIONS
 from .const import IS_ST3
