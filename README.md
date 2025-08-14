@@ -250,7 +250,7 @@ Configure plugin settings and Prettier options via the application menu:
 
 - **custom_file_extensions** (default: [])  
     There's built-in support already for `js`, `jsx`, `cjs`, `mjs`, `json`,
-    `jsonc`, `json5`, `html`, `graphql/gql`, `ts`, `tsx`, `cts`, `mts`, `css`,
+    `jsonc`, `json5`, `html`, `hbs`, `graphql/gql`, `ts`, `tsx`, `cts`, `mts`, `css`,
     `scss`, `less`, `md`, `mdx`, `yml`, `yaml`, `vue` and `component.html`
     (angular html) files.
 
