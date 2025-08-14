@@ -140,6 +140,7 @@ AUTO_FORMAT_FILE_EXTENSIONS = [
     'graphql',
     'gql',
     'html',
+    'hbs',
     'ts',
     'tsx',
     'css',
