@@ -161,7 +161,7 @@
 	// Additional custom file extensions to format.
 	//
 	// There's built-in support already for "js", "jsx", "cjs", "mjs", "json",
-	// "jsonc", "json5", "html", "graphql/gql", "ts", "tsx", "cts", "mts", "css",
+	// "jsonc", "json5", "html", "hbs", "graphql/gql", "ts", "tsx", "cts", "mts", "css",
 	// "scss", "less", "md", "mdx", "yml", "yaml" and "vue" and "component.html"
 	// (angular html) files.
 	//
