@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.80.0
+
+**Release Date:** 2025-08-16
+
+Add file extension support for .hbs (Handlebars) files.
+
 ## 1.70.0
 
 **Release Date:** 2025-07-19
