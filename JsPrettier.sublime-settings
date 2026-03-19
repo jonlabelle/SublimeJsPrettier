@@ -128,7 +128,7 @@
 	//
 	// Enable auto format on save ONLY when a Prettier config file is found.
 	//
-	// The Prettier config file is resolved by first checking if a `--config </path/to/prettier/config>`
+	// The Prettier config file is resolved by first checking if a `--config-path </path/to/prettier/config>`
 	// is specified in the `additional_cli_args` setting, then by searching the
 	// location of the file being formatted, and finally navigating up the file
 	// tree until a config file is (or isn't) found.
@@ -243,10 +243,10 @@
 	// Examples:
 	//
 	//     "additional_cli_args": {
-	//         "--config": "path/to/my/custom/.prettierrc",
-	//         "--config": "~/.prettierrc",
-	//         "--config": "$HOME/.prettierrc",
-	//         "--config": "${project_path}/.prettierrc",
+	//         "--config-path": "path/to/my/custom/.prettierrc",
+	//         "--config-path": "~/.prettierrc",
+	//         "--config-path": "$HOME/.prettierrc",
+	//         "--config-path": "${project_path}/.prettierrc",
 	//         "--config-precedence": "prefer-file",
 	//         "--ignore-path": "${file_path}/.prettierignore",
 	//         "--with-node-modules": "",

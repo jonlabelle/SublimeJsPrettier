@@ -168,7 +168,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # 1. Check if defined in 'additional_cli_args':
-        additional_cli_arg_config = get_cli_arg_value(self.additional_cli_args, '--config')
+        additional_cli_arg_config = get_cli_arg_value(self.additional_cli_args, '--config-path')
         if not is_str_none_or_empty(additional_cli_arg_config):
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
             if not os.path.isabs(additional_cli_arg_config):
@@ -234,15 +234,15 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         os.chdir(st_project_path)
 
         #
-        # if a `--config <path>` option is set in 'additional_cli_args',
+        # if a `--config-path <path>` option is set in 'additional_cli_args',
         # no action is necessary. otherwise, try to sniff the config
         # file path:
         parsed_additional_cli_args = parse_additional_cli_args(view.window(), self.additional_cli_args)
-        has_custom_config_defined = parsed_additional_cli_args.count('--config') > 0
+        has_custom_config_defined = parsed_additional_cli_args.count('--config-path') > 0
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
 
         prettier_config_path = None
-        # only try to resolve prettier config if '--no-config' or '--config' are NOT in 'additional_cli_args'
+        # only try to resolve prettier config if '--no-config' or '--config-path' are NOT in 'additional_cli_args'
         if not has_no_config_defined and not has_custom_config_defined:
             if save_file and auto_format_prettier_config_path and os.path.exists(auto_format_prettier_config_path):
                 prettier_config_path = auto_format_prettier_config_path
@@ -509,9 +509,9 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_config_exists = not is_str_none_or_empty(prettier_config_path)
         if prettier_config_exists:
             if not has_custom_config_defined:
-                # only add the '--config <path>' option if it's not
+                # only add the '--config-path <path>' option if it's not
                 # already specified as an additional cli arg:
-                prettier_options.append('--config')
+                prettier_options.append('--config-path')
                 prettier_options.append(prettier_config_path)
 
         else:
@@ -805,7 +805,7 @@ class CommandOnSave(sublime_plugin.EventListener):
 
         #
         # 1. Check if defined in 'additional_cli_args':
-        additional_cli_arg_config = get_cli_arg_value(self.get_additional_cli_args(view), '--config')
+        additional_cli_arg_config = get_cli_arg_value(self.get_additional_cli_args(view), '--config-path')
         if not is_str_none_or_empty(additional_cli_arg_config):
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
             if not os.path.isabs(additional_cli_arg_config):

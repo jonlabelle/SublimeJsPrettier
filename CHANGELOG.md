@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.91.0
+
+**Release Date:** 2026-03-19
+
+This release updates the plugin to match Prettier's CLI rename of `--config` to `--config-path`.
+
+You will need to update your plugin setting for `additional_cli_args` (JsPrettier.sublime-settings)
+if you were previously specifying `--config` to point to a custom Prettier configuration file.
+
+For example, if you had:
+
+```json
+"additional_cli_args": ["--config", "path/to/prettier/.prettierrc"]
+```
+
+You should update it to:
+
+```json
+"additional_cli_args": ["--config-path", "path/to/prettier/.prettierrc"]
+```
+
 ## 1.90.0
 
 **Release Date:** 2025-10-10
