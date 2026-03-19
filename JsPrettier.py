@@ -45,7 +45,6 @@ if version_info[0] == 2:
     from jsprettier.util import find_prettier_config
     from jsprettier.util import format_debug_message
     from jsprettier.util import format_error_message
-    from jsprettier.util import get_cli_arg_value
     from jsprettier.util import get_file_abs_dir
     from jsprettier.util import get_proc_env
     from jsprettier.util import in_source_file_path_or_project_root
@@ -89,7 +88,6 @@ else:
     from .jsprettier.util import find_prettier_config
     from .jsprettier.util import format_debug_message
     from .jsprettier.util import format_error_message
-    from .jsprettier.util import get_cli_arg_value
     from .jsprettier.util import get_file_abs_dir
     from .jsprettier.util import get_proc_env
     from .jsprettier.util import in_source_file_path_or_project_root
@@ -145,7 +143,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
     @property
     def additional_cli_args(self):
-        return get_setting(self.view, 'additional_cli_args', {})
+        additional_cli_args = get_setting(self.view, 'additional_cli_args', {})
+        if isinstance(additional_cli_args, dict):
+            return additional_cli_args
+        return {}
 
     @property
     def max_file_size_limit(self):
@@ -162,14 +163,43 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return True
         return False
 
+    @staticmethod
+    def get_additional_cli_arg_config(additional_cli_args):
+        if not isinstance(additional_cli_args, dict):
+            return None
+        arg_value = additional_cli_args.get('--config-path') or additional_cli_args.get('--config')
+        if not is_str_none_or_empty(arg_value):
+            return arg_value
+        return None
+
+    @staticmethod
+    def has_config_cli_arg(parsed_additional_cli_args):
+        return parsed_additional_cli_args.count('--config-path') > 0 or parsed_additional_cli_args.count('--config') > 0
+
+    def run_prettier_process(self, cmd, source, view):
+        format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
+
+        proc = Popen(
+            cmd,
+            stdin=PIPE,
+            stderr=PIPE,
+            stdout=PIPE,
+            env=get_proc_env(),
+            shell=is_windows()
+        )
+
+        stdout, stderr = proc.communicate(input=source.encode('utf-8'))
+        return proc.returncode, stdout, stderr
+
     def try_find_prettier_config(self, view):
         source_file_dir = get_file_abs_dir(view.file_name())
         st_project_path = get_st_project_path()
 
         #
         # 1. Check if defined in 'additional_cli_args':
-        additional_cli_arg_config = self.additional_cli_args.get('--config-path')
+        additional_cli_arg_config = self.get_additional_cli_arg_config(self.additional_cli_args)
         if not is_str_none_or_empty(additional_cli_arg_config):
+            additional_cli_arg_config = str(additional_cli_arg_config)
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
             if not os.path.isabs(additional_cli_arg_config):
                 additional_cli_arg_config = in_source_file_path_or_project_root(
@@ -234,15 +264,16 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         os.chdir(st_project_path)
 
         #
-        # if a `--config-path <path>` option is set in 'additional_cli_args',
-        # no action is necessary. otherwise, try to sniff the config
-        # file path:
+        # if a `--config-path <path>` or `--config <path>` option is set in
+        # 'additional_cli_args', no action is necessary. otherwise, try to
+        # sniff the config file path:
         parsed_additional_cli_args = parse_additional_cli_args(view.window(), self.additional_cli_args)
-        has_custom_config_defined = parsed_additional_cli_args.count('--config-path') > 0
+        has_custom_config_defined = self.has_config_cli_arg(parsed_additional_cli_args)
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
 
         prettier_config_path = None
-        # only try to resolve prettier config if '--no-config' or '--config-path' are NOT in 'additional_cli_args'
+        # only try to resolve prettier config if '--no-config', '--config-path',
+        # or '--config' are NOT in 'additional_cli_args'
         if not has_no_config_defined and not has_custom_config_defined:
             if save_file and auto_format_prettier_config_path and os.path.exists(auto_format_prettier_config_path):
                 prettier_config_path = auto_format_prettier_config_path
@@ -414,21 +445,10 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
                 + prettier_options
 
         try:
-            format_debug_message('Prettier CLI Command', list_to_str(cmd), debug_enabled(view))
-
-            proc = Popen(
-                cmd,
-                stdin=PIPE,
-                stderr=PIPE,
-                stdout=PIPE,
-                env=get_proc_env(),
-                shell=is_windows()
-            )
-
-            stdout, stderr = proc.communicate(input=source.encode('utf-8'))
-            if proc.returncode != 0:
+            return_code, stdout, stderr = self.run_prettier_process(cmd, source, view)
+            if return_code != 0:
                 error_output = normalize_line_endings(decode_bytes(stderr))
-                self.error_message = format_error_message(error_output, str(proc.returncode))
+                self.error_message = format_error_message(error_output, str(return_code))
 
                 # detect and scroll to 'Syntax Errors' (if not formatting a selection):
                 if not is_selection:
@@ -447,15 +467,18 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
                 # allow warnings to pass-through
                 if stderr_output:
-                    print(format_error_message(stderr_output, str(proc.returncode)))
+                    print(format_error_message(stderr_output, str(return_code)))
 
             if provide_cursor:
                 if not new_cursor and cursor is not None:
                     new_cursor = cursor
+                if new_cursor is None:
+                    log_warn('Adjusted cursor position could not be parsed.')
+                    return normalize_line_endings(decode_bytes(stdout)), None
                 try:
                     new_cursor = int(new_cursor)
-                except ValueError:
-                    log_warn(view, 'Adjusted cursor position could not be parsed.')
+                except (TypeError, ValueError):
+                    log_warn('Adjusted cursor position could not be parsed.')
                     return normalize_line_endings(decode_bytes(stdout)), None
                 return normalize_line_endings(decode_bytes(stdout)), new_cursor
 
@@ -509,9 +532,11 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         prettier_config_exists = not is_str_none_or_empty(prettier_config_path)
         if prettier_config_exists:
             if not has_custom_config_defined:
-                # only add the '--config-path <path>' option if it's not
-                # already specified as an additional cli arg:
-                prettier_options.append('--config-path')
+                # use '--config-path' only when '--experimental-cli' is active (Prettier 3+),
+                # otherwise fall back to '--config':
+                use_experimental_cli = parsed_additional_cli_args.count('--experimental-cli') > 0
+                config_flag = '--config-path' if use_experimental_cli else '--config'
+                prettier_options.append(config_flag)
                 prettier_options.append(prettier_config_path)
 
         else:
@@ -805,8 +830,10 @@ class CommandOnSave(sublime_plugin.EventListener):
 
         #
         # 1. Check if defined in 'additional_cli_args':
-        additional_cli_arg_config = self.get_additional_cli_args(view).get('--config-path')
+        additional_cli_arg_config = JsPrettierCommand.get_additional_cli_arg_config(
+            self.get_additional_cli_args(view))
         if not is_str_none_or_empty(additional_cli_arg_config):
+            additional_cli_arg_config = str(additional_cli_arg_config)
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
             if not os.path.isabs(additional_cli_arg_config):
                 additional_cli_arg_config = in_source_file_path_or_project_root(
@@ -845,7 +872,10 @@ class CommandOnSave(sublime_plugin.EventListener):
 
     @staticmethod
     def get_additional_cli_args(view):
-        return dict(get_setting(view, 'additional_cli_args', {}))
+        additional_cli_args = get_setting(view, 'additional_cli_args', {})
+        if isinstance(additional_cli_args, dict):
+            return additional_cli_args
+        return {}
 
     def is_enabled(self, view):
         return self.get_auto_format_on_save(view)

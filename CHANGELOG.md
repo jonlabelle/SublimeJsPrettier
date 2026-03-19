@@ -4,26 +4,14 @@
 
 **Release Date:** 2026-03-19
 
-This release updates the plugin to match Prettier's CLI rename of `--config` to `--config-path`.
+This release adds support for Prettier's `--config-path` CLI option, introduced in Prettier's
+experimental CLI (`--experimental-cli`).
 
-You will need to update your plugin setting for `additional_cli_args` (JsPrettier.sublime-settings)
-if you were previously specifying `--config` to point to a custom Prettier configuration file.
+When `--experimental-cli` is present in `additional_cli_args`, the plugin automatically uses
+`--config-path` to pass the resolved config file path to Prettier. Otherwise, the classic `--config`
+flag is used. **No changes to your settings are required.**
 
-For example, if you had:
-
-```json
-"additional_cli_args": {
-  "--config": "path/to/prettier/.prettierrc"
-}
-```
-
-You should update it to:
-
-```json
-"additional_cli_args": {
-  "--config-path": "path/to/prettier/.prettierrc"
-}
-```
+Both `--config` and `--config-path` are accepted as keys in the `additional_cli_args` setting.
 
 ## 1.90.0
 

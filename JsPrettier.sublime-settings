@@ -128,10 +128,11 @@
 	//
 	// Enable auto format on save ONLY when a Prettier config file is found.
 	//
-	// The Prettier config file is resolved by first checking if a `--config-path </path/to/prettier/config>`
-	// is specified in the `additional_cli_args` setting, then by searching the
-	// location of the file being formatted, and finally navigating up the file
-	// tree until a config file is (or isn't) found.
+	// The Prettier config file is resolved by first checking if a `--config-path <path>` or
+	// `--config <path>` is specified in the `additional_cli_args` setting, then by searching
+	// the location of the file being formatted, and finally navigating up the file
+	// tree until a config file is (or isn't) found. When `--experimental-cli` is present
+	// in `additional_cli_args`, `--config-path` is used; otherwise `--config` is used.
 	// ----------------------------------------------------------------------
 
 	"auto_format_on_save_requires_prettier_config": false,
@@ -243,7 +244,8 @@
 	// Examples:
 	//
 	//     "additional_cli_args": {
-	//         "--config-path": "path/to/my/custom/.prettierrc",
+	//         "--config-path": "path/to/my/custom/.prettierrc",  // use with --experimental-cli
+	//         "--config": "path/to/my/custom/.prettierrc",       // classic Prettier (no --experimental-cli)
 	//         "--config-path": "~/.prettierrc",
 	//         "--config-path": "$HOME/.prettierrc",
 	//         "--config-path": "${project_path}/.prettierrc",
