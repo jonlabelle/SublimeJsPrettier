@@ -168,7 +168,7 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
 
         #
         # 1. Check if defined in 'additional_cli_args':
-        additional_cli_arg_config = get_cli_arg_value(self.additional_cli_args, '--config-path')
+        additional_cli_arg_config = self.additional_cli_args.get('--config-path')
         if not is_str_none_or_empty(additional_cli_arg_config):
             additional_cli_arg_config = os.path.normpath(additional_cli_arg_config)
             if not os.path.isabs(additional_cli_arg_config):
