@@ -12,13 +12,17 @@ if you were previously specifying `--config` to point to a custom Prettier confi
 For example, if you had:
 
 ```json
-"additional_cli_args": ["--config", "path/to/prettier/.prettierrc"]
+"additional_cli_args": {
+  "--config": "path/to/prettier/.prettierrc"
+}
 ```
 
 You should update it to:
 
 ```json
-"additional_cli_args": ["--config-path", "path/to/prettier/.prettierrc"]
+"additional_cli_args": {
+  "--config-path": "path/to/prettier/.prettierrc"
+}
 ```
 
 ## 1.90.0
