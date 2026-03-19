@@ -245,7 +245,8 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
         has_no_config_defined = parsed_additional_cli_args.count('--no-config') > 0
 
         prettier_config_path = None
-        # only try to resolve prettier config if '--no-config', '--config-path', or '--config' are NOT in 'additional_cli_args'
+        # only try to resolve prettier config if '--no-config', '--config-path',
+        # or '--config' are NOT in 'additional_cli_args'
         if not has_no_config_defined and not has_custom_config_defined:
             if save_file and auto_format_prettier_config_path and os.path.exists(auto_format_prettier_config_path):
                 prettier_config_path = auto_format_prettier_config_path
