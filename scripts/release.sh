@@ -183,11 +183,6 @@ git_tag_release() {
     set +x
 }
 
-publish_npm_package() {
-    show_info "> Publishing npm package..."
-    npm publish
-}
-
 
 main() {
     cd_project_root
@@ -200,7 +195,6 @@ main() {
     git_ensure_one_change
     confirm_release
     git_tag_release
-    publish_npm_package
 
     show_success "\nFinished.\n"
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.92.0
+
+**Release Date:** 2026-04-06
+
+Removed unnecessary publish of npm package during release process, as the plugin is only distributed via Package Control. Avoids [potential attacks](https://www.wiz.io/blog/axios-npm-compromised-in-supply-chain-attack) on npm registry and simplifies release process.
+
 ## 1.91.0
 
 **Release Date:** 2026-03-19
