@@ -22,7 +22,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@main
         with:
-          python-version: 3.8
+          python-version: 3
 
       - name: Setup Node.js
         uses: actions/setup-node@main
