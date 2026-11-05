@@ -12,17 +12,12 @@ import re
 
 from re import sub
 
-from .const import IS_PY2
 from .const import PLUGIN_NAME
 from .const import PRETTIER_CONFIG_FILES
 from .const import PRETTIER_IGNORE_FILE
 
-if IS_PY2:
-    text_type = unicode
-    string_types = (str, unicode)
-else:
-    text_type = str
-    string_types = (str,)
+text_type = type(u'')
+string_types = (str, text_type)
 
 
 def is_windows():
@@ -139,7 +134,7 @@ def _prettier_opts_in_package_json(package_json_file):
     try:
         with open(package_json_file) as package_file:
             json_data = json.load(package_file)
-    except Exception:
+    except (IOError, ValueError):
         from .sthelper import log_warn
         log_warn("Could not parse package.json file: '{0}'. Any Prettier options "
                  "defined in this file will be ignored.".format(package_json_file), True)
@@ -387,7 +382,7 @@ def format_error_message(error_message, error_code):
     return '\nPrettier produced the following output:\n\n' \
            '{0}\n' \
            '\nPrettier process finished with exit code {1}.\n' \
-        .format(error_message, '{0}'.format(error_code))
+        .format(error_message, error_code)
 
 
 def format_debug_message(label, message, debug_enabled=False):
@@ -395,8 +390,7 @@ def format_debug_message(label, message, debug_enabled=False):
         return
     header = ' {0} DEBUG - {1} '.format(PLUGIN_NAME, label)
     horizontal_rule = repeat_str('-', len(header))
-    print('\n{0}\n{1}\n{2}\n\n''{3}'.format(
-        horizontal_rule, header, horizontal_rule, message))
+    print('\n{0}\n{1}\n{0}\n\n{2}'.format(horizontal_rule, header, message))
 
 
 def get_cli_arg_value(additional_cli_args, arg_key, arg_val_can_be_empty=False, default=None):

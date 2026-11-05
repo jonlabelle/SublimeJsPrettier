@@ -474,29 +474,20 @@ class JsPrettierCommand(sublime_plugin.TextCommand):
             return False
         if self.allow_inline_formatting is True:
             return True
-        if self.is_source_js(view) is True:
-            return True
-        if self.is_less(view) is True:
-            return True
-        if self.is_scss(view) is True:
-            return True
-        if self.is_css(view) is True:
-            return True
-        if self.is_angular_html(view) is True:
-            return True
-        if self.is_mdx(view) is True:
-            return True
-        if self.is_markdown(view) is True:
-            return True
-        if self.is_yaml(view) is True:
-            return True
-        if self.is_php(view) is True:
-            return True
-        if self.is_html(view) is True:
-            return True
-        if is_file_auto_formattable(view) is True:
-            return True
-        return False
+        is_supported_syntax = (
+            self.is_source_js,
+            self.is_less,
+            self.is_scss,
+            self.is_css,
+            self.is_angular_html,
+            self.is_mdx,
+            self.is_markdown,
+            self.is_yaml,
+            self.is_php,
+            self.is_html,
+            is_file_auto_formattable,
+        )
+        return any(check(view) for check in is_supported_syntax)
 
     def is_visible(self):
         return self.should_show_plugin()

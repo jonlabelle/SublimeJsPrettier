@@ -109,18 +109,17 @@ def get_st_project_path():
     folders = window.folders()
     if len(folders) == 1:
         return folders[0]
+    active_view = window.active_view()
+    if active_view:
+        active_file_name = active_view.file_name()
     else:
-        active_view = window.active_view()
-        if active_view:
-            active_file_name = active_view.file_name()
-        else:
-            active_file_name = None
-        if not active_file_name:
-            return folders[0] if len(folders) else os.path.expanduser('~')
-        for folder in folders:
-            if active_file_name.startswith(folder):
-                return folder
-        return os.path.dirname(active_file_name)
+        active_file_name = None
+    if not active_file_name:
+        return folders[0] if len(folders) else os.path.expanduser('~')
+    for folder in folders:
+        if active_file_name.startswith(folder):
+            return folder
+    return os.path.dirname(active_file_name)
 
 
 def scroll_view_to(view, row_no, col_no):
