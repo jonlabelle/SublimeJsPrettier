@@ -1,4 +1,4 @@
-import codecs
+import io
 import json
 import re
 
@@ -117,8 +117,7 @@ class CheckJsonFormat(object):
                 txt = g["code"]
             return txt
 
-        content = ''.join(
-            map(lambda m: evaluate(m), RE_COMMENT.finditer(text)))
+        content = ''.join(evaluate(m) for m in RE_COMMENT.finditer(text))
         return content
 
     def check_dangling_commas(self, text):
@@ -131,16 +130,14 @@ class CheckJsonFormat(object):
             self.log_failure(E_COMMA, line)
             if g["square_comma"] is not None:
                 return g["square_ws"] + g["square_bracket"]
-            else:
-                return g["curly_ws"] + g["curly_bracket"]
+            return g["curly_ws"] + g["curly_bracket"]
 
         def evaluate(m):
             g = m.groupdict()
             return check_comma(g, self.get_line(m.start(0))) \
                 if g["code"] is None else g["code"]
 
-        return ''.join(
-            map(lambda m: evaluate(m), RE_TRAILING_COMMA.finditer(text)))
+        return ''.join(evaluate(m) for m in RE_TRAILING_COMMA.finditer(text))
 
     def log_failure(self, code, line=None):
         """Log failure.
@@ -156,7 +153,7 @@ class CheckJsonFormat(object):
     def check_format(self, file_name):
         """Initiate the check."""
         self.fail = False
-        with codecs.open(file_name, encoding='utf-8') as f:
+        with io.open(file_name, encoding='utf-8') as f:
             count = 1
             for line in f:
                 if count == 1 and line.strip() == '':
@@ -179,7 +176,7 @@ class CheckJsonFormat(object):
         text = self.check_dangling_commas(text)
         try:
             json.loads(text)
-        except Exception as e:
+        except ValueError as e:
             self.log_failure(E_MALFORMED)
             print(e)
         return self.fail
